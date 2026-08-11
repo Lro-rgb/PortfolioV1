@@ -21,7 +21,14 @@ const DATA = {
   lebenslauf: {
     ausbildung: [],
     erfahrung: [],
-    nebenjobs: [],
+    nebenjobs: [
+      {
+        zeitraum: 'wiederkehrend in den Schulferien',
+        titel: 'Aushilfe / Ferienvertretung',
+        ort: 'Bahnhof Apotheke Achillea, Burgdorf',
+        notiz: 'Auslieferung von Medikamenten an Kundinnen und Kunden, Reinigung der Apothekenraeume sowie Entsorgung und Aktenvernichtung. Einsatz als Vertretung fuer Mitarbeitende, die in den Ferien sind.'
+      }
+    ],
     zertifikate: [],
     sprachen: []
   }

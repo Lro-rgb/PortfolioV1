@@ -284,6 +284,9 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
 .proj-meta dt{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;
   color:var(--dim);margin-bottom:.15rem}
 .proj-meta dd{font-family:var(--sans);font-size:.82rem;color:var(--muted);line-height:1.6}
+.proj-ul{list-style:none;margin:.35rem 0 0;padding:0;display:flex;flex-direction:column;gap:.3rem}
+.proj-ul li{position:relative;padding-left:1rem}
+.proj-ul li::before{content:"›";position:absolute;left:0;color:var(--blue)}
 
 .proj-links{display:flex;flex-wrap:wrap;gap:.9rem;margin-bottom:.7rem}
 .proj-link{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--mono);font-size:.72rem;color:var(--blue);text-decoration:none}
