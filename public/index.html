@@ -107,8 +107,12 @@
 
   <!-- TITLEBAR -->
   <div class="titlebar">
+    <button type="button" class="sb-toggle" id="sbToggle" aria-expanded="false" aria-controls="sidebar">
+      <span aria-hidden="true">☰</span><span class="vh">Explorer öffnen</span>
+    </button>
     <div class="tb-dots" aria-hidden="true"><div class="tb-dot r"></div><div class="tb-dot y"></div><div class="tb-dot g"></div></div>
     <div class="tb-title">luis-rosado — Visual Studio Code</div>
+    <div class="tb-auth" id="sbAuth">🔒 Nicht eingeloggt</div>
     <div class="tb-icons" aria-hidden="true"><span title="Search">⌕</span><span title="Settings">⚙</span></div>
   </div>
 
@@ -149,8 +153,11 @@
   <!-- PANE -->
   <div class="pane">
 
+    <!-- Abdunklung hinter dem Explorer, wenn er auf dem Handy ausgefahren ist -->
+    <div class="sb-backdrop" id="sbBackdrop" hidden></div>
+
     <!-- SIDEBAR -->
-    <nav class="sidebar" aria-label="Datei-Explorer">
+    <nav class="sidebar" id="sidebar" aria-label="Datei-Explorer">
       <div class="sb-title">
         Explorer
         <div class="sb-title-icons" aria-hidden="true"><span>⊞</span><span>↺</span></div>
@@ -496,20 +503,6 @@
         </div>
 
       </div>
-    </div>
-  </div>
-
-  <!-- STATUSBAR -->
-  <div class="statusbar">
-    <div class="sb-left">
-      <span>⎇&nbsp;main</span>
-      <span>✓ 0 Errors</span>
-      <span id="sb-lang">JSON</span>
-    </div>
-    <div class="sb-right">
-      <div class="sb-auth" id="sbAuth">🔒 Nicht eingeloggt</div>
-      <span>UTF-8</span>
-      <span>Ln <span id="sb-ln">1</span></span>
     </div>
   </div>
 

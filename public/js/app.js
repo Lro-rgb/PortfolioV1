@@ -1,9 +1,11 @@
 /* ═══════════════════════════════════
    KONSTANTEN
 ═══════════════════════════════════ */
+// Dient nur noch als Liste der gültigen Panel-Namen (Deep-Linking).
 const LANG={home:'JSON',skills:'Python',techstack:'TypeScript',projekte:'HTML',interessen:'JSON',kontakt:'SQL',noten:'CSV',cv:'Markdown'};
 const LOCKED=['noten','cv'];
 const LINE_H=31;
+const MOBILE=window.matchMedia('(max-width: 820px)');
 
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -12,7 +14,16 @@ let pendingPanel=null;
 let lastFocusedBeforeLogin=null;
 
 const $=id=>document.getElementById(id);
+
+// Diese Verweise stehen bewusst ganz oben: bei einem Wiederbesuch wird der
+// Splash übersprungen und startApp() läuft noch während des ersten
+// Skriptdurchlaufs. Alles, was openTab() anfasst, muss vorher deklariert
+// sein — sonst greift die temporale Todzone von const.
 const editorScroll=$('editorScroll');
+const sidebar=$('sidebar');
+const backdrop=$('sbBackdrop');
+const sbToggle=$('sbToggle');
+const overlay=$('loginOverlay');
 
 /* ═══════════════════════════════════
    SPLASH SCREEN
@@ -126,13 +137,12 @@ function openTab(name,opts){
 
   document.querySelectorAll('.tree-file').forEach(f=>f.classList.toggle('active',f.dataset.open===name));
 
-  $('sb-lang').textContent=LANG[name]||'Text';
   setEmptyState(false);
   buildLn(name);
   editorScroll.scrollTop=0;
-  $('sb-ln').textContent='1';
   initReveals();
   setHash(name);
+  closeDrawer(); // auf dem Handy die Schublade nach der Auswahl schliessen
 
   if(opts.focusTab!==false&&opts.fromKeyboard)tab.focus();
   if(isLocked(name))loadProtected(name);
@@ -172,7 +182,6 @@ function setEmptyState(on){
   if(on){
     document.querySelectorAll('.editor-panel').forEach(p=>p.classList.remove('active'));
     document.querySelectorAll('.tree-file').forEach(f=>f.classList.remove('active'));
-    $('sb-lang').textContent='—';
     setHash('home'); // kein Verweis auf einen Tab, der gerade nicht offen ist
   }
 }
@@ -257,6 +266,51 @@ window.addEventListener('hashchange',()=>{
 });
 
 /* ═══════════════════════════════════
+   EXPLORER-SCHUBLADE (nur schmale Bildschirme)
+
+   Auf dem Handy hat die Sidebar keinen Platz neben dem Editor. Statt sie
+   ersatzlos auszublenden — dort stehen die Ordnerstruktur und die
+   gesperrten Dateien — fährt sie über einen Schalter in der Titelleiste
+   als Schublade aus.
+═══════════════════════════════════ */
+let focusBeforeDrawer=null;
+
+function drawerOpen(){return sidebar.classList.contains('open');}
+
+function openDrawer(){
+  if(!MOBILE.matches||drawerOpen())return;
+  focusBeforeDrawer=document.activeElement;
+  sidebar.classList.add('open');
+  backdrop.hidden=false;
+  sbToggle.setAttribute('aria-expanded','true');
+  sbToggle.querySelector('.vh').textContent='Explorer schliessen';
+  const first=sidebar.querySelector('.tree-folder, .tree-file');
+  if(first)setTimeout(()=>first.focus(),reduceMotion?0:220);
+}
+
+function closeDrawer(){
+  if(!drawerOpen())return;
+  sidebar.classList.remove('open');
+  backdrop.hidden=true;
+  sbToggle.setAttribute('aria-expanded','false');
+  sbToggle.querySelector('.vh').textContent='Explorer öffnen';
+  // Fokus nur zurückholen, wenn er noch in der Schublade steckt —
+  // sonst würde ein Klick auf eine Datei den Fokus wieder wegreissen.
+  if(sidebar.contains(document.activeElement)){
+    (focusBeforeDrawer&&document.contains(focusBeforeDrawer)?focusBeforeDrawer:sbToggle).focus();
+  }
+  focusBeforeDrawer=null;
+}
+
+sbToggle.addEventListener('click',()=>{drawerOpen()?closeDrawer():openDrawer();});
+backdrop.addEventListener('click',closeDrawer);
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&drawerOpen()&&!overlay.classList.contains('show'))closeDrawer();
+});
+// Beim Wechsel zurück auf ein breites Fenster darf kein halber Zustand bleiben
+MOBILE.addEventListener('change',e=>{if(!e.matches)closeDrawer();});
+
+/* ═══════════════════════════════════
    ORDNER AUF/ZU
 ═══════════════════════════════════ */
 document.querySelectorAll('.tree-folder').forEach(btn=>{
@@ -279,10 +333,6 @@ function buildLn(name){
   if(el.childElementCount===lines)return;
   el.innerHTML=Array.from({length:lines},(_,i)=>'<div>'+(i+1)+'</div>').join('');
 }
-
-editorScroll.addEventListener('scroll',()=>{
-  $('sb-ln').textContent=Math.floor(editorScroll.scrollTop/LINE_H)+1;
-});
 
 // Beim Umbruch ändert sich die Höhe des Inhalts — Nummern neu aufbauen.
 let resizeTimer=null;
@@ -311,7 +361,6 @@ editorScroll.addEventListener('scroll',initReveals);
 /* ═══════════════════════════════════
    LOGIN
 ═══════════════════════════════════ */
-const overlay=$('loginOverlay');
 const loginBox=overlay.querySelector('.login-box');
 
 function showLogin(){
@@ -416,7 +465,7 @@ function verifyToken(){
 
 function updateAuth(ok){
   const el=$('sbAuth');
-  el.className='sb-auth'+(ok?' authed':'');
+  el.className='tb-auth'+(ok?' authed':'');
   el.textContent=ok?'🔓 Eingeloggt':'🔒 Nicht eingeloggt';
 }
 
