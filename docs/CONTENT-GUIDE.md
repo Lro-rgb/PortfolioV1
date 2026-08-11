@@ -90,8 +90,9 @@ const MEDIA = {
 };
 ```
 
-Die Schlüssel (`askel`, `kobui`, `website`, `arch`, `modding`) entsprechen
-dem `data-media`-Attribut der jeweiligen Projektkarte im HTML.
+Die Schlüssel (`askel`, `kobui`, `portfolio`, `wallpaper`, `arch`,
+`modding`) entsprechen dem `data-media`-Attribut der jeweiligen
+Projektkarte im HTML.
 
 Screenshots lassen sich anklicken und öffnen sich in einer Vollansicht mit
 Pfeiltasten-Navigation. Der `alt`-Text ist dabei Pflicht — er ist zugleich
