@@ -538,6 +538,25 @@ function buildOutline(panel){
   // Vor dem ersten Inhalt einhängen
   content.insertBefore(nav, content.firstChild);
   content.insertBefore(bar, nav);
+
+  // Ohne Luft am Ende koennen die letzten Abschnitte nicht nach oben
+  // gescrollt werden — der Sprung dorthin liefe sonst ins Leere.
+  content.classList.add('has-outline');
+}
+
+/**
+ * Abstand eines Titels zum Anfang des Scrollbereichs.
+ *
+ * Nicht offsetTop verwenden: das misst bis zum naechsten positionierten
+ * Vorfahren, nicht bis zum Scrollbereich, und liegt hier um die Hoehe von
+ * Titel-, Tab- und Pfadleiste daneben. Bei den letzten Abschnitten reichte
+ * dieser Versatz aus, damit das Ziel hinter das Scrollende rutschte — die
+ * Knoepfe wirkten dann wirkungslos.
+ */
+function offsetInScroller(elm){
+  return editorScroll.scrollTop
+    + elm.getBoundingClientRect().top
+    - editorScroll.getBoundingClientRect().top;
 }
 
 // Der Hash gehört der Tab-Navigation — deshalb selbst scrollen statt
@@ -548,10 +567,16 @@ document.addEventListener('click',e=>{
   e.preventDefault();
   const target = $(a.dataset.target);
   if(!target)return;
-  const top = target.offsetTop - 70;
+  const top = Math.max(0, offsetInScroller(target) - 64);
   editorScroll.scrollTo({top, behavior: reduceMotion ? 'auto' : 'smooth'});
   target.setAttribute('tabindex','-1');
   target.focus({preventScroll:true});
+
+  // Sofort hervorheben statt auf das Scroll-Ereignis zu warten: nach einem
+  // programmatischen Sprung kommt es nicht verlaesslich, und schon gar nicht,
+  // wenn das Ziel den oberen Rand nicht mehr erreichen kann.
+  const group = a.closest('.outline').querySelectorAll('a');
+  group.forEach(x=>x.classList.toggle('current', x === a));
 });
 
 function updateOutlineState(){
@@ -566,11 +591,21 @@ function updateOutlineState(){
 
   const links = panel.querySelectorAll('.outline a');
   if(!links.length)return;
-  let currentId = null;
-  links.forEach(a=>{
-    const h = $(a.dataset.target);
-    if(h && h.offsetTop - 110 <= editorScroll.scrollTop) currentId = a.dataset.target;
-  });
+
+  const atBottom = editorScroll.scrollTop + editorScroll.clientHeight
+                   >= editorScroll.scrollHeight - 4;
+
+  let currentId = links[0].dataset.target;
+  if(atBottom){
+    // Am Ende der Seite gilt der letzte Abschnitt — sonst bliebe er nie
+    // hervorgehoben, weil er den oberen Rand nicht mehr erreichen kann.
+    currentId = links[links.length-1].dataset.target;
+  }else{
+    links.forEach(a=>{
+      const h = $(a.dataset.target);
+      if(h && offsetInScroller(h) - 96 <= editorScroll.scrollTop) currentId = a.dataset.target;
+    });
+  }
   links.forEach(a=>a.classList.toggle('current', a.dataset.target === currentId));
 }
 editorScroll.addEventListener('scroll',updateOutlineState);

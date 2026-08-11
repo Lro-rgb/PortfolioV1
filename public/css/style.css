@@ -193,6 +193,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
 
 /* Zieltitel nicht unter der Gliederung verstecken */
 .code-content h3.ed-h2{scroll-margin-top:4.2rem}
+/* Freiraum am Ende, damit auch der letzte Abschnitt nach oben gescrollt
+   werden kann. Ohne ihn bleibt der Sprung dorthin wirkungslos. */
+.code-content.has-outline{padding-bottom:42vh}
 
 /* ═══ FALTBARE DETAILS (Code-Folding-Metapher) ═══ */
 .fold{margin:0 0 .9rem}
