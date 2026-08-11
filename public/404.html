@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="robots" content="noindex"/>
+<meta name="theme-color" content="#0D1117"/>
+<title>404 — Datei nicht gefunden · Luis Rosado</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body{overflow:auto}
+  .nf{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:1.4rem;padding:2rem;text-align:center}
+  .nf-code{font-family:var(--mono);font-size:clamp(3.5rem,12vw,7rem);font-weight:700;
+      line-height:1;color:var(--text);letter-spacing:-.03em}
+  .nf-code span{color:var(--red)}
+  .nf-box{background:var(--sb);border:1px solid var(--border);padding:1.1rem 1.4rem;
+      font-family:var(--mono);font-size:.8rem;line-height:2;text-align:left;
+      max-width:min(520px,92vw);overflow-x:auto}
+  .nf-txt{font-family:var(--mono);font-size:.85rem;color:var(--muted);max-width:46ch}
+</style>
+</head>
+<body>
+  <main class="nf">
+    <div class="nf-code">4<span>0</span>4</div>
+    <p class="nf-txt">Diese Datei existiert nicht im Projekt.</p>
+
+    <div class="nf-box">
+      <div><span class="kw-r">Error</span><span class="punct">: </span><span class="str">ENOENT</span></div>
+      <div class="cmt">// no such file or directory</div>
+      <div><span class="kw">const</span> <span class="kw-b">zurueck</span> <span class="punct">=</span> <span class="str">"/"</span><span class="punct">;</span></div>
+    </div>
+
+    <div class="cta-row" style="justify-content:center">
+      <a class="cta cta-primary" href="/">← Zurück zum Portfolio</a>
+      <a class="cta" href="/#kontakt">Kontakt</a>
+    </div>
+  </main>
+</body>
+</html>

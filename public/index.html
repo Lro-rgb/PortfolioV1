@@ -38,16 +38,34 @@
 
 <!-- Styles -->
 <link rel="stylesheet" href="css/style.css">
+
+<!-- Strukturierte Daten für Suchmaschinen -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Luis Rosado",
+  "jobTitle": "Informatiker EFZ Applikationsentwicklung",
+  "email": "mailto:luisrosado008@gmail.com",
+  "address": { "@type": "PostalAddress", "addressLocality": "Burgdorf", "addressCountry": "CH" },
+  "alumniOf": { "@type": "EducationalOrganization", "name": "IMS an der BWD Bern" },
+  "sameAs": ["https://github.com/Lro-rgb"],
+  "knowsAbout": ["Python", "JavaScript", "SQL", "HTML", "CSS", "Git", "Linux"],
+  "seeks": { "@type": "Demand", "name": "Praktikumsstelle Applikationsentwicklung" }
+}
+</script>
 </head>
 <body>
 
+<a class="skip-link" href="#editorScroll">Zum Inhalt springen</a>
+
 <!-- ══════════════ SPLASH ══════════════ -->
-<div id="splash">
+<div id="splash" role="status" aria-live="polite" aria-label="Seite wird geladen">
   <div class="splash-logo">
-    <div class="splash-icon">⌨</div>
-    <div class="splash-name">luis<span>.</span>dev</div>
+    <div class="splash-icon" aria-hidden="true">⌨</div>
+    <div class="splash-name">luis<span aria-hidden="true">.</span>dev</div>
   </div>
-  <div class="splash-files" id="splashFiles"></div>
+  <div class="splash-files" id="splashFiles" aria-hidden="true"></div>
   <div class="splash-bar-wrap">
     <div class="splash-bar-label">
       <span id="splashLabel">Initialisiere...</span>
@@ -55,30 +73,31 @@
     </div>
     <div class="splash-bar-track"><div class="splash-bar-fill" id="splashFill"></div></div>
   </div>
-  <div class="splash-version">Visual Studio Code — v1.89.0</div>
+  <div class="splash-version" aria-hidden="true">Visual Studio Code — v1.89.0</div>
+  <button type="button" class="splash-skip" id="splashSkip">Überspringen ↵</button>
 </div>
 
 <!-- ══════════════ LOGIN ══════════════ -->
-<div class="overlay" id="loginOverlay">
+<div class="overlay" id="loginOverlay" role="dialog" aria-modal="true" aria-labelledby="loginTitle" aria-hidden="true">
   <div class="login-box">
     <div class="login-head">
       <div class="lh-dots">
-        <div class="lh-dot" style="background:#FF5F57;cursor:pointer" onclick="closeLogin()" title="Schliessen"></div>
-        <div class="lh-dot" style="background:#FFBD2E"></div>
-        <div class="lh-dot" style="background:#28CA41"></div>
+        <button type="button" class="lh-dot lh-close" style="background:#FF5F57" onclick="closeLogin()" aria-label="Dialog schliessen"></button>
+        <span class="lh-dot" style="background:#FFBD2E" aria-hidden="true"></span>
+        <span class="lh-dot" style="background:#28CA41" aria-hidden="true"></span>
       </div>
-      <span class="login-title">authentication.js — Zugang erforderlich</span>
+      <span class="login-title" id="loginTitle">authentication.js — Zugang erforderlich</span>
     </div>
     <div class="login-body">
-      <div class="login-cmt">// Diese Datei ist passwortgeschützt.<br>// Nur für berechtigte Personen.</div>
-      <label class="login-label">const password =</label>
+      <p class="login-cmt">// Diese Datei ist passwortgeschützt.<br>// Nur für berechtigte Personen.</p>
+      <label class="login-label" for="loginInput">const password =</label>
       <div class="login-iw">
-        <input class="login-in" id="loginInput" type="password" placeholder="••••••••" autocomplete="current-password"/>
-        <button class="login-tog" onclick="togglePw()" tabindex="-1">👁</button>
+        <input class="login-in" id="loginInput" type="password" placeholder="••••••••" autocomplete="current-password" aria-describedby="loginErr"/>
+        <button type="button" class="login-tog" onclick="togglePw()" id="loginTog" aria-label="Passwort anzeigen">👁</button>
       </div>
-      <button class="login-btn" id="loginBtn" onclick="doLogin()">ENTER ↵</button>
-      <div class="login-err" id="loginErr">Falsches Passwort.</div>
-      <span class="login-cancel" onclick="closeLogin()">Abbrechen — ESC</span>
+      <button type="button" class="login-btn" id="loginBtn" onclick="doLogin()">ENTER ↵</button>
+      <p class="login-err" id="loginErr" role="alert">Falsches Passwort.</p>
+      <button type="button" class="login-cancel" onclick="closeLogin()">Abbrechen — ESC</button>
     </div>
   </div>
 </div>
@@ -88,36 +107,42 @@
 
   <!-- TITLEBAR -->
   <div class="titlebar">
-    <div class="tb-dots"><div class="tb-dot r"></div><div class="tb-dot y"></div><div class="tb-dot g"></div></div>
+    <div class="tb-dots" aria-hidden="true"><div class="tb-dot r"></div><div class="tb-dot y"></div><div class="tb-dot g"></div></div>
     <div class="tb-title">luis-rosado — Visual Studio Code</div>
-    <div class="tb-icons"><span title="Search">⌕</span><span title="Settings">⚙</span></div>
+    <div class="tb-icons" aria-hidden="true"><span title="Search">⌕</span><span title="Settings">⚙</span></div>
   </div>
 
   <!-- TABBAR -->
-  <div class="tabbar" id="tabbar">
-    <div class="tab active" data-panel="home" onclick="openTab(this)">
-      <span class="file-ic ic-json">{ }</span> luis.json <span class="tab-x">×</span>
+  <div class="tabbar" id="tabbar" role="tablist" aria-label="Dateien">
+    <div class="tab active" role="tab" tabindex="0" id="tab-home" aria-controls="panel-home" aria-selected="true" data-panel="home">
+      <span class="file-ic ic-json" aria-hidden="true">{ }</span> luis.json
+      <button type="button" class="tab-x" aria-label="luis.json schliessen">×</button>
     </div>
-    <div class="tab" data-panel="skills" onclick="openTab(this)">
-      <span class="file-ic"><i class="devicon-python-plain colored"></i></span> skills.py <span class="tab-x">×</span>
+    <div class="tab" role="tab" tabindex="-1" id="tab-skills" aria-controls="panel-skills" aria-selected="false" data-panel="skills">
+      <span class="file-ic" aria-hidden="true"><i class="devicon-python-plain colored"></i></span> skills.py
+      <button type="button" class="tab-x" aria-label="skills.py schliessen">×</button>
     </div>
-    <div class="tab" data-panel="techstack" onclick="openTab(this)">
-      <span class="file-ic"><i class="devicon-typescript-plain colored"></i></span> techstack.ts <span class="tab-x">×</span>
+    <div class="tab" role="tab" tabindex="-1" id="tab-techstack" aria-controls="panel-techstack" aria-selected="false" data-panel="techstack">
+      <span class="file-ic" aria-hidden="true"><i class="devicon-typescript-plain colored"></i></span> techstack.ts
+      <button type="button" class="tab-x" aria-label="techstack.ts schliessen">×</button>
     </div>
-    <div class="tab" data-panel="projekte" onclick="openTab(this)">
-      <span class="file-ic"><i class="devicon-html5-plain colored"></i></span> projekte.html <span class="tab-x">×</span>
+    <div class="tab" role="tab" tabindex="-1" id="tab-projekte" aria-controls="panel-projekte" aria-selected="false" data-panel="projekte">
+      <span class="file-ic" aria-hidden="true"><i class="devicon-html5-plain colored"></i></span> projekte.html
+      <button type="button" class="tab-x" aria-label="projekte.html schliessen">×</button>
     </div>
-    <div class="tab" data-panel="interessen" onclick="openTab(this)">
-      <span class="file-ic ic-json">{ }</span> interessen.json <span class="tab-x">×</span>
+    <div class="tab" role="tab" tabindex="-1" id="tab-interessen" aria-controls="panel-interessen" aria-selected="false" data-panel="interessen">
+      <span class="file-ic ic-json" aria-hidden="true">{ }</span> interessen.json
+      <button type="button" class="tab-x" aria-label="interessen.json schliessen">×</button>
     </div>
-    <div class="tab" data-panel="kontakt" onclick="openTab(this)">
-      <span class="file-ic ic-sql"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="5" rx="8" ry="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" stroke="currentColor" stroke-width="1.8"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" stroke="currentColor" stroke-width="1.8"/></svg></span> kontakt.sql <span class="tab-x">×</span>
+    <div class="tab" role="tab" tabindex="-1" id="tab-kontakt" aria-controls="panel-kontakt" aria-selected="false" data-panel="kontakt">
+      <span class="file-ic ic-sql" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="5" rx="8" ry="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" stroke="currentColor" stroke-width="1.8"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" stroke="currentColor" stroke-width="1.8"/></svg></span> kontakt.sql
+      <button type="button" class="tab-x" aria-label="kontakt.sql schliessen">×</button>
     </div>
-    <div class="tab locked-tab" data-panel="noten" onclick="openLockedTab(this)">
-      <span class="file-ic ic-lock">🔒</span> noten.csv <span class="lock">⚿</span>
+    <div class="tab locked-tab" role="tab" tabindex="-1" id="tab-noten" aria-controls="panel-noten" aria-selected="false" data-panel="noten" data-locked="true">
+      <span class="file-ic ic-lock" aria-hidden="true">🔒</span> noten.csv <span class="lock" aria-hidden="true">🔒</span>
     </div>
-    <div class="tab locked-tab" data-panel="cv" onclick="openLockedTab(this)">
-      <span class="file-ic devicon-markdown-original"><i class="devicon-markdown-original"></i></span> lebenslauf.md <span class="lock">⚿</span>
+    <div class="tab locked-tab" role="tab" tabindex="-1" id="tab-cv" aria-controls="panel-cv" aria-selected="false" data-panel="cv" data-locked="true">
+      <span class="file-ic ic-md-wrap" aria-hidden="true"><i class="devicon-markdown-original"></i></span> lebenslauf.md <span class="lock" aria-hidden="true">🔒</span>
     </div>
   </div>
 
@@ -125,53 +150,60 @@
   <div class="pane">
 
     <!-- SIDEBAR -->
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="Datei-Explorer">
       <div class="sb-title">
         Explorer
-        <div class="sb-title-icons"><span>⊞</span><span>↺</span></div>
+        <div class="sb-title-icons" aria-hidden="true"><span>⊞</span><span>↺</span></div>
       </div>
       <div class="tree">
 
         <!-- Folder 1: luis-rosado -->
-        <div class="tree-folder open" id="folder1" onclick="toggleFolder(this)">
-          <span class="arrow">▶</span>
-          <span class="folder-icon">📂</span>
+        <button type="button" class="tree-folder open" id="folder1" aria-expanded="true" aria-controls="folder1-children">
+          <span class="arrow" aria-hidden="true">▶</span>
+          <span class="folder-icon" aria-hidden="true">📂</span>
           <span>luis-rosado</span>
-        </div>
-        <div class="tree-children">
-          <div class="tree-file active" onclick="openTabByName('home')"><span class="file-ic ic-json">{ }</span>luis.json</div>
-          <div class="tree-file" onclick="openTabByName('skills')"><span class="file-ic"><i class="devicon-python-plain colored"></i></span>skills.py</div>
-          <div class="tree-file" onclick="openTabByName('techstack')"><span class="file-ic"><i class="devicon-typescript-plain colored"></i></span>techstack.ts</div>
-          <div class="tree-file" onclick="openTabByName('projekte')"><span class="file-ic"><i class="devicon-html5-plain colored"></i></span>projekte.html</div>
-          <div class="tree-file" onclick="openTabByName('interessen')"><span class="file-ic ic-json">{ }</span>interessen.json</div>
-          <div class="tree-file" onclick="openTabByName('kontakt')"><span class="file-ic ic-sql"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="5" rx="8" ry="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" stroke="currentColor" stroke-width="1.8"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" stroke="currentColor" stroke-width="1.8"/></svg></span>kontakt.sql</div>
+        </button>
+        <div class="tree-children" id="folder1-children">
+          <button type="button" class="tree-file active" data-open="home"><span class="file-ic ic-json" aria-hidden="true">{ }</span>luis.json</button>
+          <button type="button" class="tree-file" data-open="skills"><span class="file-ic" aria-hidden="true"><i class="devicon-python-plain colored"></i></span>skills.py</button>
+          <button type="button" class="tree-file" data-open="techstack"><span class="file-ic" aria-hidden="true"><i class="devicon-typescript-plain colored"></i></span>techstack.ts</button>
+          <button type="button" class="tree-file" data-open="projekte"><span class="file-ic" aria-hidden="true"><i class="devicon-html5-plain colored"></i></span>projekte.html</button>
+          <button type="button" class="tree-file" data-open="interessen"><span class="file-ic ic-json" aria-hidden="true">{ }</span>interessen.json</button>
+          <button type="button" class="tree-file" data-open="kontakt"><span class="file-ic ic-sql" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="5" rx="8" ry="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" stroke="currentColor" stroke-width="1.8"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" stroke="currentColor" stroke-width="1.8"/></svg></span>kontakt.sql</button>
         </div>
 
         <!-- Folder 2: unterlagen (locked) -->
-        <div class="tree-folder" id="folder2" onclick="toggleFolder(this)" style="margin-top:.4rem">
-          <span class="arrow">▶</span>
-          <span class="folder-icon">📁</span>
+        <button type="button" class="tree-folder" id="folder2" aria-expanded="false" aria-controls="folder2-children" style="margin-top:.4rem">
+          <span class="arrow" aria-hidden="true">▶</span>
+          <span class="folder-icon" aria-hidden="true">📁</span>
           <span style="color:var(--dim)">unterlagen</span>
-          <span style="font-size:.6rem;color:var(--dim);margin-left:.3rem">🔒</span>
-        </div>
-        <div class="tree-children">
-          <div class="tree-file locked-file" onclick="openLockedTabByName('noten')"><span class="file-ic ic-lock" style="font-size:.7rem">🔒</span>noten.csv</div>
-          <div class="tree-file locked-file" onclick="openLockedTabByName('cv')"><span class="file-ic"><i class="devicon-markdown-original"></i></span>lebenslauf.md</div>
+          <span style="font-size:.6rem;color:var(--dim);margin-left:.3rem" aria-hidden="true">🔒</span>
+        </button>
+        <div class="tree-children" id="folder2-children">
+          <button type="button" class="tree-file locked-file" data-open="noten"><span class="file-ic ic-lock" style="font-size:.7rem" aria-hidden="true">🔒</span>noten.csv</button>
+          <button type="button" class="tree-file locked-file" data-open="cv"><span class="file-ic" aria-hidden="true"><i class="devicon-markdown-original"></i></span>lebenslauf.md</button>
         </div>
 
       </div>
       <div class="sb-bottom">
-        <div class="git-dot"></div>
+        <div class="git-dot" aria-hidden="true"></div>
         <div class="git-txt">main&nbsp;✓ clean</div>
       </div>
-    </div>
+    </nav>
 
     <!-- EDITOR -->
     <div class="editor">
-      <div class="editor-scroll" id="editorScroll">
+      <div class="editor-scroll" id="editorScroll" tabindex="-1">
+
+        <!-- Sichtbar, sobald wirklich alle Tabs geschlossen sind -->
+        <div class="editor-empty" id="editorEmpty" hidden>
+          <div class="ee-key" aria-hidden="true">⌘ ⇧ P</div>
+          <p class="ee-txt">Keine Datei geöffnet.</p>
+          <button type="button" class="cta" id="reopenAll">Alle Dateien wieder öffnen</button>
+        </div>
 
         <!-- ── HOME ── -->
-        <div class="editor-panel active" id="panel-home">
+        <div class="editor-panel active" id="panel-home" role="tabpanel" aria-labelledby="tab-home">
           <div class="breadcrumb">
             <span>luis-rosado</span><span class="sep">›</span><span class="bc-part">luis.json</span>
           </div>
@@ -188,14 +220,34 @@
               <div class="i1"><span class="kw">"status"</span><span class="punct">: </span><span class="str">"auf Praktikumssuche"</span></div>
               <div><span class="punct">}</span></div>
               <div style="height:2.5rem"></div>
-              <div class="hero-name reveal">Luis<br><span class="acc">Rosado</span></div>
-              <div class="hero-role reveal">Informatiker EFZ Applikationsentwicklung&nbsp;<span class="blink"></span></div>
+              <h1 class="hero-name reveal">Luis<br><span class="acc">Rosado</span></h1>
+              <p class="hero-role reveal">Informatiker EFZ Applikationsentwicklung&nbsp;<span class="blink" aria-hidden="true"></span></p>
               <div style="height:1.2rem"></div>
               <div class="prose reveal">
                 <p>Drittes Ausbildungsjahr als Applikationsentwickler EFZ an der IMS an der BWD Bern.</p>
                 <p>Was mich interessiert: verstehen, wie Systeme aufgebaut sind. Nicht nur dass etwas läuft, sondern warum.</p>
                 <p>Ich suche eine Praktikumsstelle, in der ich mein Wissen aus der Ausbildung in der Praxis anwenden und weiter ausbauen kann.</p>
               </div>
+
+              <div class="cta-row reveal">
+                <a class="cta cta-primary" href="mailto:luisrosado008@gmail.com?subject=Praktikumsstelle%20Applikationsentwicklung">
+                  <span aria-hidden="true">✉</span> E-Mail schreiben
+                </a>
+                <a class="cta" href="https://github.com/Lro-rgb" target="_blank" rel="noopener noreferrer">
+                  <span aria-hidden="true">🐙</span> GitHub ansehen
+                </a>
+                <button type="button" class="cta" data-open="projekte">
+                  <span aria-hidden="true">▸</span> Projekte ansehen
+                </button>
+              </div>
+
+              <dl class="fact-row reveal">
+                <div class="fact"><dt>Standort</dt><dd>Burgdorf BE</dd></div>
+                <div class="fact"><dt>Schule</dt><dd>IMS an der BWD Bern</dd></div>
+                <div class="fact"><dt>Lehrjahr</dt><dd>3. Ausbildungsjahr</dd></div>
+                <div class="fact"><dt>Gesucht</dt><dd>Praktikumsstelle</dd></div>
+              </dl>
+
               <div class="cb reveal">
                 <span class="cb-lang">python</span>
                 <div class="cl"><span class="kw">class</span> <span class="fn">LuisRosado</span><span class="punct">:</span></div>
@@ -213,34 +265,34 @@
         </div>
 
         <!-- ── SKILLS ── -->
-        <div class="editor-panel" id="panel-skills">
+        <div class="editor-panel" id="panel-skills" role="tabpanel" aria-labelledby="tab-skills">
           <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">skills.py</span></div>
           <div class="code-view">
             <div class="line-nums" id="ln-skills"></div>
             <div class="code-content">
               <div class="cmt"># skills.py — Technische Fähigkeiten</div><br>
-              <div class="ed-h1 reveal">Skills</div>
-              <div class="ed-h2 reveal">Webentwicklung</div>
+              <h2 class="ed-h1 reveal">Skills</h2>
+              <h3 class="ed-h2 reveal">Webentwicklung</h3>
               <table class="ed-table reveal">
                 <tr><th>Technologie</th><th>Level</th><th>Kontext</th></tr>
                 <tr><td><i class="devicon-html5-plain colored skill-ic"></i><i class="devicon-css3-plain colored skill-ic"></i>HTML5 / CSS3</td><td><span class="badge bg">Sehr gut</span></td><td>Schulprojekte, eigene Seiten</td></tr>
                 <tr><td><i class="devicon-javascript-plain colored skill-ic"></i>JavaScript</td><td><span class="badge bg">Sehr gut</span></td><td>DOM, Logik, Events</td></tr>
                 <tr><td><i class="devicon-html5-plain colored skill-ic"></i>Responsive Design</td><td><span class="badge bb">Gut</span></td><td>Mobile-first</td></tr>
               </table>
-              <div class="ed-h2 reveal">Datenbanken</div>
+              <h3 class="ed-h2 reveal">Datenbanken</h3>
               <table class="ed-table reveal">
                 <tr><th>Technologie</th><th>Level</th><th>Kontext</th></tr>
                 <tr><td><i class="devicon-mysql-plain colored skill-ic"></i>SQL</td><td><span class="badge bb">Gut</span></td><td>Abfragen, Joins, Subqueries</td></tr>
                 <tr><td><i class="devicon-redis-plain colored skill-ic"></i>NoSQL / Redis</td><td><span class="badge bb">Gut</span></td><td>Key-Value-Datenbanken</td></tr>
                 <tr><td><i class="devicon-mysql-plain colored skill-ic"></i>MariaDB</td><td><span class="badge bb">Gut</span></td><td>Schulprojekte</td></tr>
               </table>
-              <div class="ed-h2 reveal">Programmierung</div>
+              <h3 class="ed-h2 reveal">Programmierung</h3>
               <table class="ed-table reveal">
                 <tr><th>Sprache</th><th>Level</th><th>Einsatz</th></tr>
                 <tr><td><i class="devicon-python-plain colored skill-ic"></i>Python</td><td><span class="badge bb">Gut</span></td><td>Algorithmen, Skripte</td></tr>
                 <tr><td><i class="devicon-bash-plain colored skill-ic"></i>Bash / Terminal</td><td><span class="badge bb">Gut</span></td><td>Täglich</td></tr>
               </table>
-              <div class="ed-h2 reveal">Tools &amp; Infrastruktur</div>
+              <h3 class="ed-h2 reveal">Tools &amp; Infrastruktur</h3>
               <table class="ed-table reveal">
                 <tr><th>Tool</th><th>Level</th><th>Einsatz</th></tr>
                 <tr><td><i class="devicon-git-plain colored skill-ic"></i>Git / GitHub</td><td><span class="badge bb">Gut</span></td><td>Versionsverwaltung</td></tr>
@@ -249,7 +301,7 @@
                 <tr><td><i class="devicon-linux-plain colored skill-ic"></i>Linux / Terminal</td><td><span class="badge bo">Grundlagen</span></td><td>Schulserver, VMs</td></tr>
                 <tr><td>Netzwerke / TCP/IP</td><td><span class="badge bo">Grundlagen</span></td><td>IMS-Ausbildung</td></tr>
               </table>
-              <div class="ed-h2 reveal">Am Lernen</div>
+              <h3 class="ed-h2 reveal">Am Lernen</h3>
               <table class="ed-table reveal">
                 <tr><th>Technologie</th><th>Level</th><th>Kontext</th></tr>
                 <tr><td><i class="devicon-typescript-plain colored skill-ic"></i>TypeScript</td><td><span class="badge bo">Am Lernen</span></td><td>Vertiefung nach JavaScript</td></tr>
@@ -262,7 +314,7 @@
         </div>
 
         <!-- ── TECHSTACK ── -->
-        <div class="editor-panel" id="panel-techstack">
+        <div class="editor-panel" id="panel-techstack" role="tabpanel" aria-labelledby="tab-techstack">
           <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">techstack.ts</span></div>
           <div class="code-view">
             <div class="line-nums" id="ln-techstack"></div>
@@ -287,7 +339,7 @@
                 <div class="cl"><span class="punct">};</span></div>
               </div>
 
-              <div class="ed-h1 reveal" style="margin-top:2rem">Tech Stack</div>
+              <h2 class="ed-h1 reveal" style="margin-top:2rem">Tech Stack</h2>
               <div class="tech-grid reveal">
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-python-plain colored"></i></span><div class="tech-name">Python</div><div class="tech-cat">Programmierung</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-html5-plain colored"></i></span><div class="tech-name">HTML5</div><div class="tech-cat">Frontend</div></div>
@@ -305,7 +357,7 @@
                 <div class="tech-card" style="border:1px dashed var(--border2);background:transparent"><span class="tech-icon" style="opacity:.3;font-size:1.4rem">＋</span><div class="tech-name" style="color:var(--dim)">coming soon</div><div class="tech-cat" style="color:var(--dim)">Nächstes Ziel</div></div>
               </div>
 
-              <div class="ed-h2 reveal">Setup</div>
+              <h3 class="ed-h2 reveal">Setup</h3>
               <div class="prose reveal" style="margin-bottom:1.5rem">
                 <p>Für die Schule nutze ich einen Lenovo ThinkPad mit Dual-Boot — Windows 11 für den Alltag, Arch Linux fürs Programmieren und um zu verstehen, wie das System unter der Oberfläche funktioniert. Entwickelt wird in VS Code, versioniert über GitLab. Zuhause habe ich zusätzlich einen Desktop-PC mit Windows.</p>
               </div>
@@ -314,37 +366,37 @@
         </div>
 
         <!-- ── PROJEKTE ── -->
-        <div class="editor-panel" id="panel-projekte">
+        <div class="editor-panel" id="panel-projekte" role="tabpanel" aria-labelledby="tab-projekte">
           <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">projekte.html</span></div>
           <div class="code-view">
             <div class="line-nums" id="ln-projekte"></div>
             <div class="code-content">
               <div class="cmt">&lt;!-- projekte.html --&gt;</div><br>
-              <div class="ed-h1 reveal">Projekte</div>
+              <h2 class="ed-h1 reveal">Projekte</h2>
               <div class="proj-grid reveal">
                 <div class="proj-card">
                   <div class="proj-type">// Persönlich</div>
-                  <div class="proj-t">Konsolen-Modding: Switch &amp; 3DS</div>
+                  <h3 class="proj-t">Konsolen-Modding: Switch &amp; 3DS</h3>
                   <div class="proj-body">Nintendo Switch und Nintendo 3DS per Softmodding gejailbreakt. Bei der Switch über ein RCM-Jig im Recovery-Mode einen Payload (Hekate) geladen und ein EmuMMC aufgesetzt — möglich dank einer noch unpatched Firmware-Version. Bei der 3DS die Custom Firmware Luma3DS installiert.</div>
                   <div class="chips"><span class="chip">RCM</span><span class="chip">Hekate</span><span class="chip">EmuMMC</span><span class="chip">Luma3DS</span></div>
                 </div>
                 <div class="proj-card">
                   <div class="proj-type">// Persönlich</div>
-                  <div class="proj-t">Arch Linux + Hyprland Dual-Boot</div>
+                  <h3 class="proj-t">Arch Linux + Hyprland Dual-Boot</h3>
                   <div class="proj-body">Eigenes Dual-Boot-Setup auf dem ThinkPad: Arch Linux via <code>archinstall</code> installiert, Hyprland als Window Manager konfiguriert und individuell angepasst. Terminal-Setup mit Alacritty und Fish, dazu ein eigener Wallpaper-Switcher (waypaper + matugen/rofi), der beim Wallpaper-Wechsel automatisch das ganze Farbschema neu generiert.</div>
                   <div class="chips"><span class="chip">Arch Linux</span><span class="chip">Hyprland</span><span class="chip">Bash</span><span class="chip">Rofi</span><span class="chip">Matugen</span></div>
                 </div>
                 <div class="proj-card">
                   <div class="proj-type">// Schulprojekt · ÜK · Team Ivan / Matti / Luis</div>
-                  <div class="proj-t">Kobui</div>
-                  <a href="https://github.com/kiraa1q/kobui" class="proj-link" target="_blank">🐙 github.com/kiraa1q/kobui</a>
+                  <h3 class="proj-t">Kobui</h3>
+                  <a href="https://github.com/kiraa1q/kobui" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 github.com/kiraa1q/kobui</a>
                   <div class="proj-body">Co-Developer im 3er-Team. Kobui ist eine lokale, datenschutzfreundliche Web-App als Alternative zu cloudbasierten KI-Charakter-Diensten — sie bindet ein lokal laufendes LLM-Backend (KoboldCpp) an ein eigenes React-Frontend an, inklusive integrierter Dokumentation.</div>
                   <div class="chips"><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Vite</span><span class="chip">CSS Modules</span></div>
                 </div>
                 <div class="proj-card">
                   <div class="proj-type">// Schulprojekt · Modul 335 · Team Ivan / Matti / Luis</div>
-                  <div class="proj-t">Askel</div>
-                  <a href="https://github.com/Lro-rgb/Askel" class="proj-link" target="_blank">🐙 github.com/Lro-rgb/Askel</a>
+                  <h3 class="proj-t">Askel</h3>
+                  <a href="https://github.com/Lro-rgb/Askel" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 github.com/Lro-rgb/Askel</a>
                   <div class="proj-body">Co-Developer im selben 3er-Team wie bei Kobui. Askel (finnisch für "Schritt") ist eine mobile Bewegungs-Tracking-App: zeichnet Position, Höhe und Geschwindigkeit während einer Fahrt per GPS auf, lässt Routen speichern, benennen, farblich markieren und auf einer Karte anzeigen. Alle Daten bleiben bewusst lokal auf dem Gerät, kein Backend.</div>
                   <div class="chips"><span class="chip">React Native</span><span class="chip">Expo</span><span class="chip">TypeScript</span><span class="chip">expo-location</span></div>
                 </div>
@@ -354,18 +406,18 @@
         </div>
 
         <!-- ── INTERESSEN ── -->
-        <div class="editor-panel" id="panel-interessen">
+        <div class="editor-panel" id="panel-interessen" role="tabpanel" aria-labelledby="tab-interessen">
           <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">interessen.json</span></div>
           <div class="code-view">
             <div class="line-nums" id="ln-interessen"></div>
             <div class="code-content">
               <div class="cmt">// interessen.json</div><br>
-              <div class="ed-h1 reveal">Interessen</div>
+              <h2 class="ed-h1 reveal">Interessen</h2>
               <div class="int-row reveal">
-                <div class="int-cell"><span class="int-em">🎮</span><div class="int-label">Gaming</div><div class="int-hover">PS5 &amp; PC — Lieblingsspiele: Elden Ring, Persona 3</div></div>
-                <div class="int-cell"><span class="int-em">🎵</span><div class="int-label">Musik</div><div class="int-hover">Höre täglich Musik und bin immer auf der Suche nach neuen Songs</div></div>
-                <div class="int-cell"><span class="int-em">📚</span><div class="int-label">Lesen</div><div class="int-hover">Mangas &amp; Bücher</div></div>
-                <div class="int-cell"><span class="int-em">🛠️</span><div class="int-label">PC-Basteln</div><div class="int-hover">Baue PCs zusammen und modde Konsolen</div></div>
+                <div class="int-cell" tabindex="0"><span class="int-em" aria-hidden="true">🎮</span><h3 class="int-label">Gaming</h3><div class="int-hover">PS5 &amp; PC — Lieblingsspiele: Elden Ring, Persona 3</div></div>
+                <div class="int-cell" tabindex="0"><span class="int-em" aria-hidden="true">🎵</span><h3 class="int-label">Musik</h3><div class="int-hover">Höre täglich Musik und bin immer auf der Suche nach neuen Songs</div></div>
+                <div class="int-cell" tabindex="0"><span class="int-em" aria-hidden="true">📚</span><h3 class="int-label">Lesen</h3><div class="int-hover">Mangas &amp; Bücher</div></div>
+                <div class="int-cell" tabindex="0"><span class="int-em" aria-hidden="true">🛠️</span><h3 class="int-label">PC-Basteln</h3><div class="int-hover">Baue PCs zusammen und modde Konsolen</div></div>
               </div>
               <div class="cb reveal" style="margin-top:2rem">
                 <span class="cb-lang">json</span>
@@ -381,7 +433,7 @@
         </div>
 
         <!-- ── KONTAKT ── -->
-        <div class="editor-panel" id="panel-kontakt">
+        <div class="editor-panel" id="panel-kontakt" role="tabpanel" aria-labelledby="tab-kontakt">
           <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">kontakt.sql</span></div>
           <div class="code-view">
             <div class="line-nums" id="ln-kontakt"></div>
@@ -393,13 +445,13 @@
                 <div class="cl"><span class="kw">WHERE</span> person <span class="punct">=</span> <span class="str">'Luis Rosado'</span></div>
                 <div class="cl"><span class="kw">AND</span> verfuegbar <span class="punct">=</span> <span class="kw-g">TRUE</span><span class="punct">;</span></div>
               </div>
-              <div class="ed-h1 reveal">Kontakt</div>
+              <h2 class="ed-h1 reveal">Kontakt</h2>
               <div class="prose reveal" style="margin-bottom:1.8rem">
                 <p>Ich suche einen Praktikumsplatz für das dritte Ausbildungsjahr. Bei Fragen oder Interesse melden Sie sich gerne.</p>
               </div>
               <div class="contact-grid reveal">
                 <a href="mailto:luisrosado008@gmail.com" class="c-link"><span>✉</span><div><span class="c-label">E-Mail</span>luisrosado008@gmail.com</div></a>
-                <a href="https://github.com/Lro-rgb" class="c-link" target="_blank"><span>🐙</span><div><span class="c-label">GitHub</span>github.com/Lro-rgb</div></a>
+                <a href="https://github.com/Lro-rgb" class="c-link" target="_blank" rel="noopener noreferrer"><span>🐙</span><div><span class="c-label">GitHub</span>github.com/Lro-rgb</div></a>
               </div>
               <div style="margin-top:2.5rem;padding:1.2rem 1.5rem;background:#161B22;border:1px solid var(--border)" class="reveal">
                 <div class="cmt" style="margin-bottom:.6rem">-- Impressum</div>
@@ -410,7 +462,7 @@
         </div>
 
         <!-- ── NOTEN (locked) ── -->
-        <div class="editor-panel" id="panel-noten">
+        <div class="editor-panel" id="panel-noten" role="tabpanel" aria-labelledby="tab-noten">
           <div class="breadcrumb">
             <span>unterlagen</span><span class="sep">›</span><span class="bc-part">noten.csv</span>
             <button class="bc-logout" id="noten-dl" style="display:none;margin-left:auto;margin-right:.5rem" onclick="downloadNotenCsv()">⭳ CSV</button>
@@ -420,14 +472,14 @@
             <div class="line-nums" id="ln-noten"></div>
             <div class="code-content" id="cc-noten">
               <div class="cmt"># noten.csv</div><br>
-              <div class="ed-h1">Noten</div>
+              <h2 class="ed-h1">Noten</h2>
               <div id="noten-content"><span style="color:var(--dim);font-family:var(--mono);font-size:.8rem">Lade Daten…</span></div>
             </div>
           </div>
         </div>
 
         <!-- ── CV (locked) ── -->
-        <div class="editor-panel" id="panel-cv">
+        <div class="editor-panel" id="panel-cv" role="tabpanel" aria-labelledby="tab-cv">
           <div class="breadcrumb">
             <span>unterlagen</span><span class="sep">›</span><span class="bc-part">lebenslauf.md</span>
             <button class="bc-logout" id="cv-dl" style="display:none;margin-left:auto;margin-right:.5rem" onclick="downloadCvPdf()">⭳ PDF</button>
@@ -437,7 +489,7 @@
             <div class="line-nums" id="ln-cv"></div>
             <div class="code-content" id="cc-cv">
               <div class="cmt"># lebenslauf.md</div><br>
-              <div class="ed-h1">Lebenslauf</div>
+              <h2 class="ed-h1">Lebenslauf</h2>
               <div id="cv-content"><span style="color:var(--dim);font-family:var(--mono);font-size:.8rem">Lade Daten…</span></div>
             </div>
           </div>
