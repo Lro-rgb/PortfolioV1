@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Portfolio von Luis Rosado — Applikationsentwickler EFZ, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt."/>
+<meta name="author" content="Luis Rosado"/>
+<meta name="theme-color" content="#0D1117"/>
+<title>Luis Rosado — Applikationsentwickler EFZ</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+
+<!-- Open Graph / Link-Vorschau (z.B. bei Bewerbungs-Mail, LinkedIn) -->
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="de_CH"/>
+<meta property="og:site_name" content="Luis Rosado — Portfolio"/>
+<meta property="og:title" content="Luis Rosado — Applikationsentwickler EFZ"/>
+<meta property="og:description" content="Portfolio von Luis Rosado — Applikationsentwickler EFZ, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt."/>
+<meta property="og:image" content="og-image.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Luis Rosado — Informatiker EFZ Applikationsentwicklung"/>
+
+<!-- Twitter Card (nutzt dieselben Werte wie Open Graph) -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Luis Rosado — Applikationsentwickler EFZ"/>
+<meta name="twitter:description" content="Portfolio von Luis Rosado — Applikationsentwickler EFZ, IMS an der BWD Bern."/>
+<meta name="twitter:image" content="og-image.png"/>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Devicon — original technology icons (Python, Java, MySQL, etc.) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.16.0/devicon.min.css">
+
+<!-- Styles -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ══════════════ SPLASH ══════════════ -->
+<div id="splash">
+  <div class="splash-logo">
+    <div class="splash-icon">⌨</div>
+    <div class="splash-name">luis<span>.</span>dev</div>
+  </div>
+  <div class="splash-files" id="splashFiles"></div>
+  <div class="splash-bar-wrap">
+    <div class="splash-bar-label">
+      <span id="splashLabel">Initialisiere...</span>
+      <span id="splashPct">0%</span>
+    </div>
+    <div class="splash-bar-track"><div class="splash-bar-fill" id="splashFill"></div></div>
+  </div>
+  <div class="splash-version">Visual Studio Code — v1.89.0</div>
+</div>
+
+<!-- ══════════════ LOGIN ══════════════ -->
+<div class="overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="login-head">
+      <div class="lh-dots">
+        <div class="lh-dot" style="background:#FF5F57;cursor:pointer" onclick="closeLogin()" title="Schliessen"></div>
+        <div class="lh-dot" style="background:#FFBD2E"></div>
+        <div class="lh-dot" style="background:#28CA41"></div>
+      </div>
+      <span class="login-title">authentication.js — Zugang erforderlich</span>
+    </div>
+    <div class="login-body">
+      <div class="login-cmt">// Diese Datei ist passwortgeschützt.<br>// Nur für berechtigte Personen.</div>
+      <label class="login-label">const password =</label>
+      <div class="login-iw">
+        <input class="login-in" id="loginInput" type="password" placeholder="••••••••" autocomplete="current-password"/>
+        <button class="login-tog" onclick="togglePw()" tabindex="-1">👁</button>
+      </div>
+      <button class="login-btn" id="loginBtn" onclick="doLogin()">ENTER ↵</button>
+      <div class="login-err" id="loginErr">Falsches Passwort.</div>
+      <span class="login-cancel" onclick="closeLogin()">Abbrechen — ESC</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ IDE ══════════════ -->
+<div class="ide" id="ide">
+
+  <!-- TITLEBAR -->
+  <div class="titlebar">
+    <div class="tb-dots"><div class="tb-dot r"></div><div class="tb-dot y"></div><div class="tb-dot g"></div></div>
+    <div class="tb-title">luis-rosado — Visual Studio Code</div>
+    <div class="tb-icons"><span title="Search">⌕</span><span title="Settings">⚙</span></div>
+  </div>
+
+  <!-- TABBAR -->
+  <div class="tabbar" id="tabbar">
+    <div class="tab active" data-panel="home" onclick="openTab(this)">
+      <span class="file-ic ic-json">{ }</span> luis.json <span class="tab-x">×</span>
+    </div>
+    <div class="tab" data-panel="skills" onclick="openTab(this)">
+      <span class="file-ic"><i class="devicon-python-plain colored"></i></span> skills.py <span class="tab-x">×</span>
+    </div>
+    <div class="tab" data-panel="techstack" onclick="openTab(this)">
+      <span class="file-ic"><i class="devicon-typescript-plain colored"></i></span> techstack.ts <span class="tab-x">×</span>
+    </div>
+    <div class="tab" data-panel="projekte" onclick="openTab(this)">
+      <span class="file-ic"><i class="devicon-html5-plain colored"></i></span> projekte.html <span class="tab-x">×</span>
+    </div>
+    <div class="tab" data-panel="interessen" onclick="openTab(this)">
+      <span class="file-ic ic-json">{ }</span> interessen.json <span class="tab-x">×</span>
+    </div>
+    <div class="tab" data-panel="kontakt" onclick="openTab(this)">
+      <span class="file-ic ic-sql"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="5" rx="8" ry="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" stroke="currentColor" stroke-width="1.8"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" stroke="currentColor" stroke-width="1.8"/></svg></span> kontakt.sql <span class="tab-x">×</span>
+    </div>
+    <div class="tab locked-tab" data-panel="noten" onclick="openLockedTab(this)">
+      <span class="file-ic ic-lock">🔒</span> noten.csv <span class="lock">⚿</span>
+    </div>
+    <div class="tab locked-tab" data-panel="cv" onclick="openLockedTab(this)">
+      <span class="file-ic devicon-markdown-original"><i class="devicon-markdown-original"></i></span> lebenslauf.md <span class="lock">⚿</span>
+    </div>
+  </div>
+
+  <!-- PANE -->
+  <div class="pane">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sb-title">
+        Explorer
+        <div class="sb-title-icons"><span>⊞</span><span>↺</span></div>
+      </div>
+      <div class="tree">
+
+        <!-- Folder 1: luis-rosado -->
+        <div class="tree-folder open" id="folder1" onclick="toggleFolder(this)">
+          <span class="arrow">▶</span>
+          <span class="folder-icon">📂</span>
+          <span>luis-rosado</span>
+        </div>
+        <div class="tree-children">
+          <div class="tree-file active" onclick="openTabByName('home')"><span class="file-ic ic-json">{ }</span>luis.json</div>
+          <div class="tree-file" onclick="openTabByName('skills')"><span class="file-ic"><i class="devicon-python-plain colored"></i></span>skills.py</div>
+          <div class="tree-file" onclick="openTabByName('techstack')"><span class="file-ic"><i class="devicon-typescript-plain colored"></i></span>techstack.ts</div>
+          <div class="tree-file" onclick="openTabByName('projekte')"><span class="file-ic"><i class="devicon-html5-plain colored"></i></span>projekte.html</div>
+          <div class="tree-file" onclick="openTabByName('interessen')"><span class="file-ic ic-json">{ }</span>interessen.json</div>
+          <div class="tree-file" onclick="openTabByName('kontakt')"><span class="file-ic ic-sql"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="5" rx="8" ry="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" stroke="currentColor" stroke-width="1.8"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" stroke="currentColor" stroke-width="1.8"/></svg></span>kontakt.sql</div>
+        </div>
+
+        <!-- Folder 2: unterlagen (locked) -->
+        <div class="tree-folder" id="folder2" onclick="toggleFolder(this)" style="margin-top:.4rem">
+          <span class="arrow">▶</span>
+          <span class="folder-icon">📁</span>
+          <span style="color:var(--dim)">unterlagen</span>
+          <span style="font-size:.6rem;color:var(--dim);margin-left:.3rem">🔒</span>
+        </div>
+        <div class="tree-children">
+          <div class="tree-file locked-file" onclick="openLockedTabByName('noten')"><span class="file-ic ic-lock" style="font-size:.7rem">🔒</span>noten.csv</div>
+          <div class="tree-file locked-file" onclick="openLockedTabByName('cv')"><span class="file-ic"><i class="devicon-markdown-original"></i></span>lebenslauf.md</div>
+        </div>
+
+      </div>
+      <div class="sb-bottom">
+        <div class="git-dot"></div>
+        <div class="git-txt">main&nbsp;✓ clean</div>
+      </div>
+    </div>
+
+    <!-- EDITOR -->
+    <div class="editor">
+      <div class="editor-scroll" id="editorScroll">
+
+        <!-- ── HOME ── -->
+        <div class="editor-panel active" id="panel-home">
+          <div class="breadcrumb">
+            <span>luis-rosado</span><span class="sep">›</span><span class="bc-part">luis.json</span>
+          </div>
+          <div class="code-view">
+            <div class="line-nums" id="ln-home"></div>
+            <div class="code-content" id="cc-home">
+              <div class="cmt">// luis.json — Wer ich bin</div><br>
+              <div><span class="punct">{</span></div>
+              <div class="i1"><span class="kw">"name"</span><span class="punct">: </span><span class="str">"Luis Rosado"</span><span class="punct">,</span></div>
+              <div class="i1"><span class="kw">"rolle"</span><span class="punct">: </span><span class="str">"Informatiker EFZ Applikationsentwicklung"</span><span class="punct">,</span></div>
+              <div class="i1"><span class="kw">"schule"</span><span class="punct">: </span><span class="str">"IMS an der BWD Bern"</span><span class="punct">,</span></div>
+              <div class="i1"><span class="kw">"lehrjahr"</span><span class="punct">: </span><span class="num">3</span><span class="punct">,</span></div>
+              <div class="i1"><span class="kw">"standort"</span><span class="punct">: </span><span class="str">"Burgdorf, CH"</span><span class="punct">,</span></div>
+              <div class="i1"><span class="kw">"status"</span><span class="punct">: </span><span class="str">"auf Praktikumssuche"</span></div>
+              <div><span class="punct">}</span></div>
+              <div style="height:2.5rem"></div>
+              <div class="hero-name reveal">Luis<br><span class="acc">Rosado</span></div>
+              <div class="hero-role reveal">Informatiker EFZ Applikationsentwicklung&nbsp;<span class="blink"></span></div>
+              <div style="height:1.2rem"></div>
+              <div class="prose reveal">
+                <p>Drittes Ausbildungsjahr als Applikationsentwickler EFZ an der IMS an der BWD Bern.</p>
+                <p>Was mich interessiert: verstehen, wie Systeme aufgebaut sind. Nicht nur dass etwas läuft, sondern warum.</p>
+                <p>Ich suche eine Praktikumsstelle, in der ich mein Wissen aus der Ausbildung in der Praxis anwenden und weiter ausbauen kann.</p>
+              </div>
+              <div class="cb reveal">
+                <span class="cb-lang">python</span>
+                <div class="cl"><span class="kw">class</span> <span class="fn">LuisRosado</span><span class="punct">:</span></div>
+                <div class="cl i1"><span class="kw-b">def</span> <span class="fn">__init__</span><span class="punct">(self):</span></div>
+                <div class="cl i2"><span class="kw-b">self</span>.name <span class="punct">=</span> <span class="str">"Luis Rosado"</span></div>
+                <div class="cl i2"><span class="kw-b">self</span>.lehrjahr <span class="punct">=</span> <span class="num">3</span></div>
+                <div class="cl i2"><span class="kw-b">self</span>.fokus <span class="punct">=</span> <span class="str">"Applikationsentwicklung"</span></div>
+                <div class="cl i2"><span class="kw-b">self</span>.sucht <span class="punct">=</span> <span class="str">"Praktikumsplatz"</span></div>
+                <div class="cl i1"><br></div>
+                <div class="cl i1"><span class="kw-b">def</span> <span class="fn">kontakt</span><span class="punct">(self) -&gt;</span> <span class="type">str</span><span class="punct">:</span></div>
+                <div class="cl i2"><span class="kw">return</span> <span class="str">"luisrosado008@gmail.com"</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SKILLS ── -->
+        <div class="editor-panel" id="panel-skills">
+          <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">skills.py</span></div>
+          <div class="code-view">
+            <div class="line-nums" id="ln-skills"></div>
+            <div class="code-content">
+              <div class="cmt"># skills.py — Technische Fähigkeiten</div><br>
+              <div class="ed-h1 reveal">Skills</div>
+              <div class="ed-h2 reveal">Webentwicklung</div>
+              <table class="ed-table reveal">
+                <tr><th>Technologie</th><th>Level</th><th>Kontext</th></tr>
+                <tr><td><i class="devicon-html5-plain colored skill-ic"></i><i class="devicon-css3-plain colored skill-ic"></i>HTML5 / CSS3</td><td><span class="badge bg">Sehr gut</span></td><td>Schulprojekte, eigene Seiten</td></tr>
+                <tr><td><i class="devicon-javascript-plain colored skill-ic"></i>JavaScript</td><td><span class="badge bg">Sehr gut</span></td><td>DOM, Logik, Events</td></tr>
+                <tr><td><i class="devicon-html5-plain colored skill-ic"></i>Responsive Design</td><td><span class="badge bb">Gut</span></td><td>Mobile-first</td></tr>
+              </table>
+              <div class="ed-h2 reveal">Datenbanken</div>
+              <table class="ed-table reveal">
+                <tr><th>Technologie</th><th>Level</th><th>Kontext</th></tr>
+                <tr><td><i class="devicon-mysql-plain colored skill-ic"></i>SQL</td><td><span class="badge bb">Gut</span></td><td>Abfragen, Joins, Subqueries</td></tr>
+                <tr><td><i class="devicon-redis-plain colored skill-ic"></i>NoSQL / Redis</td><td><span class="badge bb">Gut</span></td><td>Key-Value-Datenbanken</td></tr>
+                <tr><td><i class="devicon-mysql-plain colored skill-ic"></i>MariaDB</td><td><span class="badge bb">Gut</span></td><td>Schulprojekte</td></tr>
+              </table>
+              <div class="ed-h2 reveal">Programmierung</div>
+              <table class="ed-table reveal">
+                <tr><th>Sprache</th><th>Level</th><th>Einsatz</th></tr>
+                <tr><td><i class="devicon-python-plain colored skill-ic"></i>Python</td><td><span class="badge bb">Gut</span></td><td>Algorithmen, Skripte</td></tr>
+                <tr><td><i class="devicon-bash-plain colored skill-ic"></i>Bash / Terminal</td><td><span class="badge bb">Gut</span></td><td>Täglich</td></tr>
+              </table>
+              <div class="ed-h2 reveal">Tools &amp; Infrastruktur</div>
+              <table class="ed-table reveal">
+                <tr><th>Tool</th><th>Level</th><th>Einsatz</th></tr>
+                <tr><td><i class="devicon-git-plain colored skill-ic"></i>Git / GitHub</td><td><span class="badge bb">Gut</span></td><td>Versionsverwaltung</td></tr>
+                <tr><td><i class="devicon-gitlab-plain colored skill-ic"></i>GitLab</td><td><span class="badge bb">Gut</span></td><td>Schulprojekte, Versionsverwaltung</td></tr>
+                <tr><td><i class="devicon-vscode-plain colored skill-ic"></i>VS Code</td><td><span class="badge bg">Täglich</span></td><td>Hauptentwicklungsumgebung</td></tr>
+                <tr><td><i class="devicon-linux-plain colored skill-ic"></i>Linux / Terminal</td><td><span class="badge bo">Grundlagen</span></td><td>Schulserver, VMs</td></tr>
+                <tr><td>Netzwerke / TCP/IP</td><td><span class="badge bo">Grundlagen</span></td><td>IMS-Ausbildung</td></tr>
+              </table>
+              <div class="ed-h2 reveal">Am Lernen</div>
+              <table class="ed-table reveal">
+                <tr><th>Technologie</th><th>Level</th><th>Kontext</th></tr>
+                <tr><td><i class="devicon-typescript-plain colored skill-ic"></i>TypeScript</td><td><span class="badge bo">Am Lernen</span></td><td>Vertiefung nach JavaScript</td></tr>
+                <tr><td><i class="devicon-react-original colored skill-ic"></i>React</td><td><span class="badge bo">Am Lernen</span></td><td>Component-basierte UIs</td></tr>
+                <tr><td><i class="devicon-docker-plain colored skill-ic"></i>Docker</td><td><span class="badge bo">Am Lernen</span></td><td>Containerisierung</td></tr>
+                <tr><td>REST APIs</td><td><span class="badge bo">Am Lernen</span></td><td>Schnittstellen-Design</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TECHSTACK ── -->
+        <div class="editor-panel" id="panel-techstack">
+          <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">techstack.ts</span></div>
+          <div class="code-view">
+            <div class="line-nums" id="ln-techstack"></div>
+            <div class="code-content">
+              <div class="cmt">// techstack.ts — Technologien &amp; Tools</div><br>
+              <div class="cb reveal">
+                <span class="cb-lang">typescript</span>
+                <div class="cl"><span class="kw">interface</span> <span class="type">TechStack</span> <span class="punct">{</span></div>
+                <div class="cl i1"><span class="kw-b">languages</span><span class="punct">:</span> <span class="type">string</span><span class="punct">[];</span></div>
+                <div class="cl i1"><span class="kw-b">databases</span><span class="punct">:</span> <span class="type">string</span><span class="punct">[];</span></div>
+                <div class="cl i1"><span class="kw-b">tools</span><span class="punct">:</span> <span class="type">string</span><span class="punct">[];</span></div>
+                <div class="cl i1"><span class="kw-b">os</span><span class="punct">:</span> <span class="type">string</span><span class="punct">[];</span></div>
+                <div class="cl i1"><span class="kw-b">devices</span><span class="punct">:</span> <span class="type">string</span><span class="punct">[];</span></div>
+                <div class="cl"><span class="punct">}</span></div>
+                <br>
+                <div class="cl"><span class="kw">const</span> <span class="kw-b">luis</span><span class="punct">:</span> <span class="type">TechStack</span> <span class="punct">= {</span></div>
+                <div class="cl i1"><span class="kw-b">languages</span><span class="punct">: [</span><span class="str">"Python"</span><span class="punct">,</span> <span class="str">"JavaScript"</span><span class="punct">,</span> <span class="str">"SQL"</span><span class="punct">,</span> <span class="str">"HTML/CSS"</span><span class="punct">],</span></div>
+                <div class="cl i1"><span class="kw-b">databases</span><span class="punct">: [</span><span class="str">"MariaDB"</span><span class="punct">,</span> <span class="str">"Redis (NoSQL)"</span><span class="punct">],</span></div>
+                <div class="cl i1"><span class="kw-b">tools</span><span class="punct">: [</span><span class="str">"Git"</span><span class="punct">,</span> <span class="str">"GitHub"</span><span class="punct">,</span> <span class="str">"GitLab"</span><span class="punct">,</span> <span class="str">"VS Code"</span><span class="punct">],</span></div>
+                <div class="cl i1"><span class="kw-b">os</span><span class="punct">: [</span><span class="str">"Windows 11"</span><span class="punct">,</span> <span class="str">"Arch Linux"</span><span class="punct">]</span><span class="punct">,</span></div>
+                <div class="cl i1"><span class="kw-b">devices</span><span class="punct">: [</span><span class="str">"Lenovo ThinkPad (Dual-Boot, Schule)"</span><span class="punct">,</span> <span class="str">"Desktop-PC (Windows, zuhause)"</span><span class="punct">]</span></div>
+                <div class="cl"><span class="punct">};</span></div>
+              </div>
+
+              <div class="ed-h1 reveal" style="margin-top:2rem">Tech Stack</div>
+              <div class="tech-grid reveal">
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-python-plain colored"></i></span><div class="tech-name">Python</div><div class="tech-cat">Programmierung</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-html5-plain colored"></i></span><div class="tech-name">HTML5</div><div class="tech-cat">Frontend</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-css3-plain colored"></i></span><div class="tech-name">CSS3</div><div class="tech-cat">Frontend</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-javascript-plain colored"></i></span><div class="tech-name">JavaScript</div><div class="tech-cat">Frontend / Logic</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-mysql-plain colored"></i></span><div class="tech-name">MariaDB</div><div class="tech-cat">Datenbank</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-redis-plain colored"></i></span><div class="tech-name">Redis</div><div class="tech-cat">NoSQL / Key-Value</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-git-plain colored"></i></span><div class="tech-name">Git</div><div class="tech-cat">Versionierung</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-github-original" style="color:#E6EDF3"></i></span><div class="tech-name">GitHub</div><div class="tech-cat">Kollaboration</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-gitlab-plain colored"></i></span><div class="tech-name">GitLab</div><div class="tech-cat">Schule</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-vscode-plain colored"></i></span><div class="tech-name">VS Code</div><div class="tech-cat">Editor</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-windows8-original colored"></i></span><div class="tech-name">Windows 11</div><div class="tech-cat">OS — Hauptsystem</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-archlinux-plain colored"></i></span><div class="tech-name">Arch Linux</div><div class="tech-cat">OS — Dev-Setup</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-bash-plain colored"></i></span><div class="tech-name">Bash</div><div class="tech-cat">Terminal / Skripte</div></div>
+                <div class="tech-card" style="border:1px dashed var(--border2);background:transparent"><span class="tech-icon" style="opacity:.3;font-size:1.4rem">＋</span><div class="tech-name" style="color:var(--dim)">coming soon</div><div class="tech-cat" style="color:var(--dim)">Nächstes Ziel</div></div>
+              </div>
+
+              <div class="ed-h2 reveal">Setup</div>
+              <div class="prose reveal" style="margin-bottom:1.5rem">
+                <p>Für die Schule nutze ich einen Lenovo ThinkPad mit Dual-Boot — Windows 11 für den Alltag, Arch Linux fürs Programmieren und um zu verstehen, wie das System unter der Oberfläche funktioniert. Entwickelt wird in VS Code, versioniert über GitLab. Zuhause habe ich zusätzlich einen Desktop-PC mit Windows.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── PROJEKTE ── -->
+        <div class="editor-panel" id="panel-projekte">
+          <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">projekte.html</span></div>
+          <div class="code-view">
+            <div class="line-nums" id="ln-projekte"></div>
+            <div class="code-content">
+              <div class="cmt">&lt;!-- projekte.html --&gt;</div><br>
+              <div class="ed-h1 reveal">Projekte</div>
+              <div class="proj-grid reveal">
+                <div class="proj-card">
+                  <div class="proj-type">// Persönlich</div>
+                  <div class="proj-t">Konsolen-Modding: Switch &amp; 3DS</div>
+                  <div class="proj-body">Nintendo Switch und Nintendo 3DS per Softmodding gejailbreakt. Bei der Switch über ein RCM-Jig im Recovery-Mode einen Payload (Hekate) geladen und ein EmuMMC aufgesetzt — möglich dank einer noch unpatched Firmware-Version. Bei der 3DS die Custom Firmware Luma3DS installiert.</div>
+                  <div class="chips"><span class="chip">RCM</span><span class="chip">Hekate</span><span class="chip">EmuMMC</span><span class="chip">Luma3DS</span></div>
+                </div>
+                <div class="proj-card">
+                  <div class="proj-type">// Persönlich</div>
+                  <div class="proj-t">Arch Linux + Hyprland Dual-Boot</div>
+                  <div class="proj-body">Eigenes Dual-Boot-Setup auf dem ThinkPad: Arch Linux via <code>archinstall</code> installiert, Hyprland als Window Manager konfiguriert und individuell angepasst. Terminal-Setup mit Alacritty und Fish, dazu ein eigener Wallpaper-Switcher (waypaper + matugen/rofi), der beim Wallpaper-Wechsel automatisch das ganze Farbschema neu generiert.</div>
+                  <div class="chips"><span class="chip">Arch Linux</span><span class="chip">Hyprland</span><span class="chip">Bash</span><span class="chip">Rofi</span><span class="chip">Matugen</span></div>
+                </div>
+                <div class="proj-card">
+                  <div class="proj-type">// Schulprojekt · ÜK · Team Ivan / Matti / Luis</div>
+                  <div class="proj-t">Kobui</div>
+                  <a href="https://github.com/kiraa1q/kobui" class="proj-link" target="_blank">🐙 github.com/kiraa1q/kobui</a>
+                  <div class="proj-body">Co-Developer im 3er-Team. Kobui ist eine lokale, datenschutzfreundliche Web-App als Alternative zu cloudbasierten KI-Charakter-Diensten — sie bindet ein lokal laufendes LLM-Backend (KoboldCpp) an ein eigenes React-Frontend an, inklusive integrierter Dokumentation.</div>
+                  <div class="chips"><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Vite</span><span class="chip">CSS Modules</span></div>
+                </div>
+                <div class="proj-card">
+                  <div class="proj-type">// Schulprojekt · Modul 335 · Team Ivan / Matti / Luis</div>
+                  <div class="proj-t">Askel</div>
+                  <a href="https://github.com/Lro-rgb/Askel" class="proj-link" target="_blank">🐙 github.com/Lro-rgb/Askel</a>
+                  <div class="proj-body">Co-Developer im selben 3er-Team wie bei Kobui. Askel (finnisch für "Schritt") ist eine mobile Bewegungs-Tracking-App: zeichnet Position, Höhe und Geschwindigkeit während einer Fahrt per GPS auf, lässt Routen speichern, benennen, farblich markieren und auf einer Karte anzeigen. Alle Daten bleiben bewusst lokal auf dem Gerät, kein Backend.</div>
+                  <div class="chips"><span class="chip">React Native</span><span class="chip">Expo</span><span class="chip">TypeScript</span><span class="chip">expo-location</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── INTERESSEN ── -->
+        <div class="editor-panel" id="panel-interessen">
+          <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">interessen.json</span></div>
+          <div class="code-view">
+            <div class="line-nums" id="ln-interessen"></div>
+            <div class="code-content">
+              <div class="cmt">// interessen.json</div><br>
+              <div class="ed-h1 reveal">Interessen</div>
+              <div class="int-row reveal">
+                <div class="int-cell"><span class="int-em">🎮</span><div class="int-label">Gaming</div><div class="int-hover">PS5 &amp; PC — Lieblingsspiele: Elden Ring, Persona 3</div></div>
+                <div class="int-cell"><span class="int-em">🎵</span><div class="int-label">Musik</div><div class="int-hover">Höre täglich Musik und bin immer auf der Suche nach neuen Songs</div></div>
+                <div class="int-cell"><span class="int-em">📚</span><div class="int-label">Lesen</div><div class="int-hover">Mangas &amp; Bücher</div></div>
+                <div class="int-cell"><span class="int-em">🛠️</span><div class="int-label">PC-Basteln</div><div class="int-hover">Baue PCs zusammen und modde Konsolen</div></div>
+              </div>
+              <div class="cb reveal" style="margin-top:2rem">
+                <span class="cb-lang">json</span>
+                <div class="cl"><span class="punct">{</span></div>
+                <div class="cl i1"><span class="kw">"hobbys"</span><span class="punct">: [</span><span class="str">"Gaming"</span><span class="punct">,</span> <span class="str">"Musik"</span><span class="punct">,</span> <span class="str">"Lesen"</span><span class="punct">,</span> <span class="str">"PC-Basteln"</span><span class="punct">],</span></div>
+                <div class="cl i1"><span class="kw">"projekte"</span><span class="punct">: </span><span class="str">"Baue PCs zusammen, modde Konsolen"</span><span class="punct">,</span></div>
+                <div class="cl i1"><span class="kw">"musik"</span><span class="punct">: </span><span class="str">"Täglich, immer auf der Suche nach neuen Songs"</span><span class="punct">,</span></div>
+                <div class="cl i1"><span class="kw">"games"</span><span class="punct">: </span><span class="str">"Elden Ring, Persona 3 (PS5 &amp; PC)"</span></div>
+                <div class="cl"><span class="punct">}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── KONTAKT ── -->
+        <div class="editor-panel" id="panel-kontakt">
+          <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">kontakt.sql</span></div>
+          <div class="code-view">
+            <div class="line-nums" id="ln-kontakt"></div>
+            <div class="code-content">
+              <div class="cmt">-- kontakt.sql</div><br>
+              <div class="cb reveal" style="margin-bottom:2rem">
+                <span class="cb-lang">sql</span>
+                <div class="cl"><span class="kw">SELECT</span> <span class="fn">*</span> <span class="kw">FROM</span> <span class="kw-b">kontakt</span></div>
+                <div class="cl"><span class="kw">WHERE</span> person <span class="punct">=</span> <span class="str">'Luis Rosado'</span></div>
+                <div class="cl"><span class="kw">AND</span> verfuegbar <span class="punct">=</span> <span class="kw-g">TRUE</span><span class="punct">;</span></div>
+              </div>
+              <div class="ed-h1 reveal">Kontakt</div>
+              <div class="prose reveal" style="margin-bottom:1.8rem">
+                <p>Ich suche einen Praktikumsplatz für das dritte Ausbildungsjahr. Bei Fragen oder Interesse melden Sie sich gerne.</p>
+              </div>
+              <div class="contact-grid reveal">
+                <a href="mailto:luisrosado008@gmail.com" class="c-link"><span>✉</span><div><span class="c-label">E-Mail</span>luisrosado008@gmail.com</div></a>
+                <a href="https://github.com/Lro-rgb" class="c-link" target="_blank"><span>🐙</span><div><span class="c-label">GitHub</span>github.com/Lro-rgb</div></a>
+              </div>
+              <div style="margin-top:2.5rem;padding:1.2rem 1.5rem;background:#161B22;border:1px solid var(--border)" class="reveal">
+                <div class="cmt" style="margin-bottom:.6rem">-- Impressum</div>
+                <div style="font-family:var(--mono);font-size:.77rem;color:var(--muted)">Luis Rosado · Pleerweg 13D, 3400 Burgdorf · <a href="mailto:luisrosado008@gmail.com" style="color:var(--blue)">luisrosado008@gmail.com</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── NOTEN (locked) ── -->
+        <div class="editor-panel" id="panel-noten">
+          <div class="breadcrumb">
+            <span>unterlagen</span><span class="sep">›</span><span class="bc-part">noten.csv</span>
+            <button class="bc-logout" id="noten-dl" style="display:none;margin-left:auto;margin-right:.5rem" onclick="downloadNotenCsv()">⭳ CSV</button>
+            <button class="bc-logout" onclick="doLogout()">logout</button>
+          </div>
+          <div class="code-view">
+            <div class="line-nums" id="ln-noten"></div>
+            <div class="code-content" id="cc-noten">
+              <div class="cmt"># noten.csv</div><br>
+              <div class="ed-h1">Noten</div>
+              <div id="noten-content"><span style="color:var(--dim);font-family:var(--mono);font-size:.8rem">Lade Daten…</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── CV (locked) ── -->
+        <div class="editor-panel" id="panel-cv">
+          <div class="breadcrumb">
+            <span>unterlagen</span><span class="sep">›</span><span class="bc-part">lebenslauf.md</span>
+            <button class="bc-logout" id="cv-dl" style="display:none;margin-left:auto;margin-right:.5rem" onclick="downloadCvPdf()">⭳ PDF</button>
+            <button class="bc-logout" onclick="doLogout()">logout</button>
+          </div>
+          <div class="code-view">
+            <div class="line-nums" id="ln-cv"></div>
+            <div class="code-content" id="cc-cv">
+              <div class="cmt"># lebenslauf.md</div><br>
+              <div class="ed-h1">Lebenslauf</div>
+              <div id="cv-content"><span style="color:var(--dim);font-family:var(--mono);font-size:.8rem">Lade Daten…</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUSBAR -->
+  <div class="statusbar">
+    <div class="sb-left">
+      <span>⎇&nbsp;main</span>
+      <span>✓ 0 Errors</span>
+      <span id="sb-lang">JSON</span>
+    </div>
+    <div class="sb-right">
+      <div class="sb-auth" id="sbAuth">🔒 Nicht eingeloggt</div>
+      <span>UTF-8</span>
+      <span>Ln <span id="sb-ln">1</span></span>
+    </div>
+  </div>
+
+</div><!-- /ide -->
+
+
+<!-- App logic -->
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "luis-rosado-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio-Website von Luis Rosado — IMS Bern, Bewerbung Praktikum",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod",
+    "hash-password": "node scripts/generate-password-hash.js",
+    "generate-secret": "node scripts/generate-jwt-secret.js"
+  },
+  "dependencies": {}
+}

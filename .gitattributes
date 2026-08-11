@@ -1,0 +1,7 @@
+# Zeilenenden im Repository immer als LF speichern,
+# im Arbeitsverzeichnis plattformüblich auschecken.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary
