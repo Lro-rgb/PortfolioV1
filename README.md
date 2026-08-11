@@ -85,10 +85,17 @@ Der Ablauf:
 3. `/api/protected` liefert Noten und Lebenslauf nur gegen ein gültiges Token
    aus. Die Daten stehen serverseitig und tauchen nie im Frontend-Bundle auf.
 
+Passwort-Hash und Token-Schlüssel stehen **nicht** im Repository, sondern
+kommen aus den Umgebungsvariablen `APP_PASSWORD_HASH` und `JWT_SECRET`.
+Fehlt eine davon, antwortet der geschützte Bereich mit 503 — ein
+Rückfall auf einen im Code hinterlegten Standardwert wäre kein Schutz,
+weil ihn jeder nachlesen könnte.
+
 Passwort ändern:
 
 ```bash
 node scripts/generate-password-hash.js NEUES_PASSWORT
 ```
 
-Der Output kommt in `api/login.js` bei `PASSWORD_HASH`.
+Der ausgegebene Wert kommt nach `.env` bzw. per `vercel env add
+APP_PASSWORD_HASH` in die Produktionsumgebung.

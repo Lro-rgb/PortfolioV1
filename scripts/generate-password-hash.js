@@ -10,8 +10,10 @@
  * Verwendung:
  *   node scripts/generate-password-hash.js DEIN_PASSWORT
  *
- * Den Output anschliessend in api/login.js bei
- * PASSWORD_HASH einfügen.
+ * Der Hash gehört als Umgebungsvariable APP_PASSWORD_HASH
+ * hinterlegt — nicht in den Quellcode. Das Repository ist
+ * öffentlich, und ein dort liegender Hash liesse sich in Ruhe
+ * offline durchprobieren.
  * ───────────────────────────────────────────────────────────
  */
 
@@ -28,7 +30,8 @@ if (!password) {
 const hash = hashPassword(password);
 
 console.log('');
-console.log('Passwort-Hash:');
-console.log(hash);
+console.log('APP_PASSWORD_HASH=' + hash);
 console.log('');
-console.log('→ In api/login.js bei PASSWORD_HASH einfügen.');
+console.log('→ Lokal: Zeile so in die Datei .env übernehmen.');
+console.log('→ Produktion: vercel env add APP_PASSWORD_HASH');
+console.log('   (nur den Wert nach dem Gleichheitszeichen einfügen)');

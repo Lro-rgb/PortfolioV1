@@ -15,8 +15,8 @@
 const crypto = require('crypto');
 
 console.log('');
-console.log('JWT_SECRET:');
-console.log(crypto.randomBytes(48).toString('hex'));
+console.log('JWT_SECRET=' + crypto.randomBytes(48).toString('hex'));
 console.log('');
-console.log('→ Als Umgebungsvariable in Vercel hinterlegen:');
-console.log('  vercel env add JWT_SECRET');
+console.log('→ Lokal: Zeile so in die Datei .env übernehmen.');
+console.log('→ Produktion: vercel env add JWT_SECRET');
+console.log('   (nur den Wert nach dem Gleichheitszeichen einfügen)');

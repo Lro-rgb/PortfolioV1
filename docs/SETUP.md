@@ -8,23 +8,30 @@
 
 Das Projekt hat keine npm-Abhängigkeiten — `npm install` ist nicht nötig.
 
-## 1. Login-Passwort festlegen
+## 1. Zugangsdaten erzeugen
+
+Beide Werte sind Pflicht — ohne sie verweigert der geschützte Bereich
+bewusst den Dienst (HTTP 503), statt auf einen im Code hinterlegten
+Standardwert zurückzufallen.
 
 ```bash
 node scripts/generate-password-hash.js DEIN_PASSWORT
-```
-
-→ Output in `api/login.js` bei `PASSWORD_HASH` einfügen.
-
-## 2. Token-Secret generieren
-
-```bash
 node scripts/generate-jwt-secret.js
 ```
 
-→ Wird in Schritt 5 als Umgebungsvariable gebraucht.
-Für die lokale Entwicklung: `.env.example` nach `.env` kopieren und den
-Wert bei `JWT_SECRET` eintragen.
+Beide Skripte geben eine fertige `NAME=wert`-Zeile aus.
+
+## 2. Lokal hinterlegen
+
+`.env.example` nach `.env` kopieren und die beiden Zeilen eintragen:
+
+```
+JWT_SECRET=…
+APP_PASSWORD_HASH=…
+```
+
+`.env` ist über `.gitignore` ausgeschlossen und gehört **nie** ins
+Repository.
 
 ## 3. Lokal testen
 
@@ -43,21 +50,32 @@ vercel
 Beim ersten Deploy fragt Vercel nach Projekteinstellungen —
 die Standardwerte passen.
 
-## 5. Umgebungsvariable setzen
+## 5. Umgebungsvariablen in Vercel setzen
 
 ```bash
 vercel env add JWT_SECRET
+vercel env add APP_PASSWORD_HASH
 ```
 
-→ Den in Schritt 2 generierten String einfügen. Danach erneut deployen,
-damit die Variable greift:
+→ Jeweils den in Schritt 1 erzeugten Wert einfügen (nur den Teil nach dem
+Gleichheitszeichen). Danach erneut deployen, damit die Variablen greifen:
 
 ```bash
 vercel --prod
 ```
 
-Ohne gesetztes `JWT_SECRET` fällt der Code auf einen Standardwert zurück —
-in Produktion ist die Variable also Pflicht.
+**Ohne diese beiden Variablen antwortet der geschützte Bereich mit 503.**
+Das ist Absicht: Ein Rückfall auf einen im Repository stehenden Standardwert
+wäre kein Schutz, weil ihn jeder nachlesen und damit selbst ein gültiges
+Token erzeugen könnte.
+
+Zum Prüfen nach dem Deploy:
+
+```bash
+curl -i https://DEINE-DOMAIN/api/protected
+```
+
+→ Erwartet wird `401` (kein Token). Kommt `503`, fehlt eine der Variablen.
 
 ## Projektstruktur
 
@@ -81,11 +99,18 @@ Mehr zu den Inhalten: siehe [`CONTENT-GUIDE.md`](CONTENT-GUIDE.md).
 
 ## Sicherheit
 
-- Das Passwort wird serverseitig mit scrypt gesalzen gehasht und in
-  konstanter Zeit verglichen (`crypto.timingSafeEqual`) — kein Klartext im Code.
-- Bei falschem Passwort antwortet der Endpoint bewusst verzögert, um
-  Brute-Force auszubremsen.
-- Das Token ist HMAC-SHA256-signiert und läuft nach 4 Stunden ab.
-- Es liegt nur im `sessionStorage` und verschwindet beim Schliessen des Tabs.
-- `JWT_SECRET` gehört nicht ins Repository, sondern nur in die
-  Vercel-Umgebungsvariablen (`.env` ist über `.gitignore` ausgeschlossen).
+- **Kein Geheimnis im Repository.** Weder Passwort-Hash noch Token-Schlüssel
+  stehen im Quellcode; beide kommen ausschliesslich aus Umgebungsvariablen.
+- **Kein Rückfallwert.** Fehlt eine Variable oder ist `JWT_SECRET` kürzer als
+  32 Zeichen, wird der Dienst verweigert statt mit einem schwachen Wert
+  weiterzuarbeiten.
+- Das Passwort wird mit scrypt gesalzen gehasht und in konstanter Zeit
+  verglichen (`crypto.timingSafeEqual`).
+- Bei falschem Passwort antwortet der Endpunkt verzögert, um Brute-Force
+  auszubremsen.
+- Das Token ist HMAC-SHA256-signiert und läuft nach 4 Stunden ab. Es liegt
+  nur im `sessionStorage` und verschwindet beim Schliessen des Tabs.
+- Die Endpunkte senden `Cache-Control: no-store`, damit geschützte Inhalte
+  nicht in Zwischenspeichern liegen bleiben.
+- Kein Wildcard-CORS: Frontend und API liegen auf derselben Herkunft, fremde
+  Seiten haben keinen Grund, diese Endpunkte anzusprechen.

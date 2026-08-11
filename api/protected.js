@@ -2,9 +2,7 @@
 // Vercel Serverless Function
 // GET /api/protected  Authorization: Bearer <token>  →  { noten, lebenslauf }
 
-const { verifyToken } = require('../lib/auth.js');
-
-const SECRET = process.env.JWT_SECRET || 'local-dev-secret-change-in-production';
+const { verifyToken, requireConfig } = require('../lib/auth.js');
 
 // ─── Geschützte Daten ─────────────────────────────────────────────────────
 // Bewusst serverseitig: diese Inhalte gehören nicht ins Frontend-Bundle,
@@ -23,7 +21,7 @@ const DATA = {
     erfahrung: [],
     nebenjobs: [
       {
-        zeitraum: 'wiederkehrend in den Schulferien',
+        zeitraum: 'seit 2023, jeweils in den Schulferien',
         titel: 'Aushilfe / Ferienvertretung',
         ort: 'Bahnhof Apotheke Achillea, Burgdorf',
         notiz: 'Auslieferung von Medikamenten an Kundinnen und Kunden, Reinigung der Apothekenraeume sowie Entsorgung und Aktenvernichtung. Einsatz als Vertretung fuer Mitarbeitende, die in den Ferien sind.'
@@ -36,14 +34,17 @@ const DATA = {
 // ────────────────────────────────────────────────────────────────────────
 
 module.exports = function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  if (req.method === 'OPTIONS') return res.status(200).end();
+  // Geschuetzte Inhalte duerfen weder von Browsern noch von Zwischenspeichern
+  // aufbewahrt werden.
+  res.setHeader('Cache-Control', 'no-store, private');
 
   if (req.method !== 'GET') {
+    res.setHeader('Allow', 'GET');
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  const config = requireConfig(res, false);
+  if (!config) return; // Antwort wurde bereits gesendet
 
   const auth = req.headers.authorization || '';
   const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
@@ -53,7 +54,7 @@ module.exports = function handler(req, res) {
   }
 
   try {
-    verifyToken(token, SECRET);
+    verifyToken(token, config.secret);
   } catch (e) {
     return res.status(401).json({ error: 'Token ungültig oder abgelaufen.' });
   }
