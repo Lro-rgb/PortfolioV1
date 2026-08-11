@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Portfolio von Luis Rosado — Applikationsentwickler EFZ, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt."/>
+<meta name="description" content="Portfolio von Luis Rosado — Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt."/>
 <meta name="author" content="Luis Rosado"/>
 <meta name="theme-color" content="#0D1117"/>
-<title>Luis Rosado — Applikationsentwickler EFZ</title>
+<title>Luis Rosado — Informatiker EFZ Applikationsentwicklung</title>
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
@@ -15,8 +15,8 @@
 <meta property="og:type" content="website"/>
 <meta property="og:locale" content="de_CH"/>
 <meta property="og:site_name" content="Luis Rosado — Portfolio"/>
-<meta property="og:title" content="Luis Rosado — Applikationsentwickler EFZ"/>
-<meta property="og:description" content="Portfolio von Luis Rosado — Applikationsentwickler EFZ, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt."/>
+<meta property="og:title" content="Luis Rosado — Informatiker EFZ Applikationsentwicklung"/>
+<meta property="og:description" content="Portfolio von Luis Rosado — Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt."/>
 <meta property="og:image" content="og-image.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
@@ -24,8 +24,8 @@
 
 <!-- Twitter Card (nutzt dieselben Werte wie Open Graph) -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Luis Rosado — Applikationsentwickler EFZ"/>
-<meta name="twitter:description" content="Portfolio von Luis Rosado — Applikationsentwickler EFZ, IMS an der BWD Bern."/>
+<meta name="twitter:title" content="Luis Rosado — Informatiker EFZ Applikationsentwicklung"/>
+<meta name="twitter:description" content="Portfolio von Luis Rosado — Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern."/>
 <meta name="twitter:image" content="og-image.png"/>
 
 <!-- Fonts -->
@@ -142,6 +142,10 @@
       <span class="file-ic ic-sql" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="5" rx="8" ry="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" stroke="currentColor" stroke-width="1.8"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" stroke="currentColor" stroke-width="1.8"/></svg></span> kontakt.sql
       <button type="button" class="tab-x" aria-label="kontakt.sql schliessen">×</button>
     </div>
+    <div class="tab" role="tab" tabindex="-1" id="tab-readme" aria-controls="panel-readme" aria-selected="false" data-panel="readme">
+      <span class="file-ic ic-md-wrap" aria-hidden="true"><i class="devicon-markdown-original"></i></span> README.md
+      <button type="button" class="tab-x" aria-label="README.md schliessen">×</button>
+    </div>
     <div class="tab locked-tab" role="tab" tabindex="-1" id="tab-noten" aria-controls="panel-noten" aria-selected="false" data-panel="noten" data-locked="true">
       <span class="file-ic ic-lock" aria-hidden="true">🔒</span> noten.csv <span class="lock" aria-hidden="true">🔒</span>
     </div>
@@ -177,6 +181,7 @@
           <button type="button" class="tree-file" data-open="projekte"><span class="file-ic" aria-hidden="true"><i class="devicon-html5-plain colored"></i></span>projekte.html</button>
           <button type="button" class="tree-file" data-open="interessen"><span class="file-ic ic-json" aria-hidden="true">{ }</span>interessen.json</button>
           <button type="button" class="tree-file" data-open="kontakt"><span class="file-ic ic-sql" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="5" rx="8" ry="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" stroke="currentColor" stroke-width="1.8"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" stroke="currentColor" stroke-width="1.8"/></svg></span>kontakt.sql</button>
+          <button type="button" class="tree-file" data-open="readme"><span class="file-ic ic-md-wrap" aria-hidden="true"><i class="devicon-markdown-original"></i></span>README.md</button>
         </div>
 
         <!-- Folder 2: unterlagen (locked) -->
@@ -231,7 +236,7 @@
               <p class="hero-role reveal">Informatiker EFZ Applikationsentwicklung&nbsp;<span class="blink" aria-hidden="true"></span></p>
               <div style="height:1.2rem"></div>
               <div class="prose reveal">
-                <p>Drittes Ausbildungsjahr als Applikationsentwickler EFZ an der IMS an der BWD Bern.</p>
+                <p>Drittes Ausbildungsjahr zum Informatiker EFZ, Fachrichtung Applikationsentwicklung, an der IMS an der BWD Bern.</p>
                 <p>Was mich interessiert: verstehen, wie Systeme aufgebaut sind. Nicht nur dass etwas läuft, sondern warum.</p>
                 <p>Ich suche eine Praktikumsstelle, in der ich mein Wissen aus der Ausbildung in der Praxis anwenden und weiter ausbauen kann.</p>
               </div>
@@ -247,6 +252,9 @@
                   <span aria-hidden="true">▸</span> Projekte ansehen
                 </button>
               </div>
+
+              <!-- Audio-Kurzvorstellung; bleibt leer, solange in app.js keine Datei eingetragen ist -->
+              <div class="media-audio reveal" data-audio="intro"></div>
 
               <dl class="fact-row reveal">
                 <div class="fact"><dt>Standort</dt><dd>Burgdorf BE</dd></div>
@@ -312,7 +320,7 @@
               <table class="ed-table reveal">
                 <tr><th>Technologie</th><th>Level</th><th>Kontext</th></tr>
                 <tr><td><i class="devicon-typescript-plain colored skill-ic"></i>TypeScript</td><td><span class="badge bo">Am Lernen</span></td><td>Vertiefung nach JavaScript</td></tr>
-                <tr><td><i class="devicon-react-original colored skill-ic"></i>React</td><td><span class="badge bo">Am Lernen</span></td><td>Component-basierte UIs</td></tr>
+                <tr><td><i class="devicon-react-original colored skill-ic"></i>React</td><td><span class="badge bo">Am Lernen</span></td><td>Komponentenbasierte UIs</td></tr>
                 <tr><td><i class="devicon-docker-plain colored skill-ic"></i>Docker</td><td><span class="badge bo">Am Lernen</span></td><td>Containerisierung</td></tr>
                 <tr><td>REST APIs</td><td><span class="badge bo">Am Lernen</span></td><td>Schnittstellen-Design</td></tr>
               </table>
@@ -361,12 +369,11 @@
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-windows8-original colored"></i></span><div class="tech-name">Windows 11</div><div class="tech-cat">OS — Hauptsystem</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-archlinux-plain colored"></i></span><div class="tech-name">Arch Linux</div><div class="tech-cat">OS — Dev-Setup</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-bash-plain colored"></i></span><div class="tech-name">Bash</div><div class="tech-cat">Terminal / Skripte</div></div>
-                <div class="tech-card" style="border:1px dashed var(--border2);background:transparent"><span class="tech-icon" style="opacity:.3;font-size:1.4rem">＋</span><div class="tech-name" style="color:var(--dim)">coming soon</div><div class="tech-cat" style="color:var(--dim)">Nächstes Ziel</div></div>
               </div>
 
               <h3 class="ed-h2 reveal">Setup</h3>
               <div class="prose reveal" style="margin-bottom:1.5rem">
-                <p>Für die Schule nutze ich einen Lenovo ThinkPad mit Dual-Boot — Windows 11 für den Alltag, Arch Linux fürs Programmieren und um zu verstehen, wie das System unter der Oberfläche funktioniert. Entwickelt wird in VS Code, versioniert über GitLab. Zuhause habe ich zusätzlich einen Desktop-PC mit Windows.</p>
+                <p>Für die Schule nutze ich ein Lenovo ThinkPad mit Dual-Boot — Windows 11 für den Alltag, Arch Linux fürs Programmieren und um zu verstehen, wie das System unter der Oberfläche funktioniert. Entwickelt wird in VS Code, versioniert über GitLab. Zuhause habe ich zusätzlich einen Desktop-PC mit Windows.</p>
               </div>
             </div>
           </div>
@@ -380,33 +387,100 @@
             <div class="code-content">
               <div class="cmt">&lt;!-- projekte.html --&gt;</div><br>
               <h2 class="ed-h1 reveal">Projekte</h2>
+              <div class="prose reveal" style="margin-bottom:.5rem">
+                <p>Jedes Projekt beginnt mit einem Abstract — der Kurzfassung in zwei, drei Sätzen. Darunter stehen die Details, der eingesetzte Stack und, wo vorhanden, Quellcode und Demo.</p>
+              </div>
+
+              <h3 class="ed-h2 reveal">Persönliche Projekte</h3>
               <div class="proj-grid reveal">
-                <div class="proj-card">
-                  <div class="proj-type">// Persönlich</div>
-                  <h3 class="proj-t">Konsolen-Modding: Switch &amp; 3DS</h3>
-                  <div class="proj-body">Nintendo Switch und Nintendo 3DS per Softmodding gejailbreakt. Bei der Switch über ein RCM-Jig im Recovery-Mode einen Payload (Hekate) geladen und ein EmuMMC aufgesetzt — möglich dank einer noch unpatched Firmware-Version. Bei der 3DS die Custom Firmware Luma3DS installiert.</div>
-                  <div class="chips"><span class="chip">RCM</span><span class="chip">Hekate</span><span class="chip">EmuMMC</span><span class="chip">Luma3DS</span></div>
-                </div>
-                <div class="proj-card">
-                  <div class="proj-type">// Persönlich</div>
-                  <h3 class="proj-t">Arch Linux + Hyprland Dual-Boot</h3>
-                  <div class="proj-body">Eigenes Dual-Boot-Setup auf dem ThinkPad: Arch Linux via <code>archinstall</code> installiert, Hyprland als Window Manager konfiguriert und individuell angepasst. Terminal-Setup mit Alacritty und Fish, dazu ein eigener Wallpaper-Switcher (waypaper + matugen/rofi), der beim Wallpaper-Wechsel automatisch das ganze Farbschema neu generiert.</div>
+
+                <article class="proj-card" id="proj-website">
+                  <div class="proj-type">// Persönlich · eigenständig · laufend</div>
+                  <h4 class="proj-t">Diese Website</h4>
+                  <p class="proj-abstract"><strong>Abstract —</strong> Eine Bewerbungs- und Portfolio-Website, deren Oberfläche als Code-Editor aufgebaut ist. Der öffentliche Teil zeigt Skills und Projekte, ein passwortgeschützter Teil Noten und Lebenslauf. Frontend und Backend sind von Hand geschrieben, ohne Framework und ohne eine einzige externe Abhängigkeit.</p>
+                  <div class="proj-body">
+                    Umgesetzt sind unter anderem: eine Tabverwaltung mit Tastatursteuerung, Öffnen und Schliessen von Dateien, adressierbare Abschnitte über den URL-Hash, ein Login gegen eine Serverless Function mit gesalzenem scrypt-Hash und zeitlich begrenztem Token, ein Explorer, der auf schmalen Bildschirmen zur Schublade wird, sowie ein eigenes Druck-Stylesheet. Geschützte Inhalte liegen serverseitig und tauchen nie im ausgelieferten Frontend auf.
+                  </div>
+                  <dl class="proj-meta">
+                    <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt — Konzept, Gestaltung, Frontend, Backend</dd></div>
+                    <div><dt>Besonderheit</dt><dd>Vollständig ohne Framework und ohne npm-Abhängigkeiten</dd></div>
+                  </dl>
+                  <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Node.js</span><span class="chip">Vercel</span></div>
+                  <div class="proj-links">
+                    <a href="https://github.com/Lro-rgb/portfolio" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                  </div>
+                  <div class="proj-media" data-media="website"></div>
+                </article>
+
+                <article class="proj-card" id="proj-arch">
+                  <div class="proj-type">// Persönlich · eigenständig</div>
+                  <h4 class="proj-t">Arch Linux + Hyprland Dual-Boot</h4>
+                  <p class="proj-abstract"><strong>Abstract —</strong> Ein selbst aufgesetztes Dual-Boot-System auf meinem ThinkPad: Windows 11 für den Alltag, Arch Linux mit dem Window Manager Hyprland fürs Programmieren. Kern des Projekts ist ein selbstgeschriebener Wallpaper-Switcher, der beim Bildwechsel automatisch das gesamte Farbschema des Systems neu erzeugt.</p>
+                  <div class="proj-body">
+                    Arch Linux über <code>archinstall</code> installiert und Hyprland von Grund auf konfiguriert. Terminal-Umgebung mit Alacritty und der Fish-Shell. Der Wallpaper-Switcher verbindet waypaper, matugen und rofi zu einem Ablauf: Bild auswählen, Farben daraus ableiten, alle Konfigurationsdateien neu schreiben, Programme neu laden — angestossen über ein eigenes Bash-Skript.
+                  </div>
+                  <dl class="proj-meta">
+                    <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt</dd></div>
+                    <div><dt>Gelernt</dt><dd>Bash-Skripting, Konfigurationsverwaltung, wie ein Linux-System unter der Oberfläche zusammenhängt</dd></div>
+                  </dl>
                   <div class="chips"><span class="chip">Arch Linux</span><span class="chip">Hyprland</span><span class="chip">Bash</span><span class="chip">Rofi</span><span class="chip">Matugen</span></div>
-                </div>
-                <div class="proj-card">
-                  <div class="proj-type">// Schulprojekt · ÜK · Team Ivan / Matti / Luis</div>
-                  <h3 class="proj-t">Kobui</h3>
-                  <a href="https://github.com/kiraa1q/kobui" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 github.com/kiraa1q/kobui</a>
-                  <div class="proj-body">Co-Developer im 3er-Team. Kobui ist eine lokale, datenschutzfreundliche Web-App als Alternative zu cloudbasierten KI-Charakter-Diensten — sie bindet ein lokal laufendes LLM-Backend (KoboldCpp) an ein eigenes React-Frontend an, inklusive integrierter Dokumentation.</div>
-                  <div class="chips"><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Vite</span><span class="chip">CSS Modules</span></div>
-                </div>
-                <div class="proj-card">
-                  <div class="proj-type">// Schulprojekt · Modul 335 · Team Ivan / Matti / Luis</div>
-                  <h3 class="proj-t">Askel</h3>
-                  <a href="https://github.com/Lro-rgb/Askel" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 github.com/Lro-rgb/Askel</a>
-                  <div class="proj-body">Co-Developer im selben 3er-Team wie bei Kobui. Askel (finnisch für "Schritt") ist eine mobile Bewegungs-Tracking-App: zeichnet Position, Höhe und Geschwindigkeit während einer Fahrt per GPS auf, lässt Routen speichern, benennen, farblich markieren und auf einer Karte anzeigen. Alle Daten bleiben bewusst lokal auf dem Gerät, kein Backend.</div>
+                  <div class="proj-media" data-media="arch"></div>
+                </article>
+
+                <article class="proj-card" id="proj-modding">
+                  <div class="proj-type">// Persönlich · eigenständig</div>
+                  <h4 class="proj-t">Konsolen-Modding: Switch &amp; 3DS</h4>
+                  <p class="proj-abstract"><strong>Abstract —</strong> Auf eigenen Geräten — einer Nintendo Switch und einem Nintendo 3DS — per Softmodding eine Custom Firmware eingerichtet, um zu verstehen, wie ein Bootvorgang abläuft und an welcher Stelle ein System seine Signaturen prüft.</p>
+                  <div class="proj-body">
+                    Bei der Switch über ein RCM-Jig im Recovery-Modus einen Payload (Hekate) geladen und ein EmuMMC aufgesetzt — eine abgetrennte Systemkopie, damit das Originalsystem unangetastet bleibt. Möglich war das nur wegen einer noch nicht gepatchten Firmware-Version. Beim 3DS die Custom Firmware Luma3DS installiert. Beide Geräte gehören mir; es ging um das Verständnis der Boot-Kette, nicht um Inhalte.
+                  </div>
+                  <dl class="proj-meta">
+                    <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt</dd></div>
+                    <div><dt>Gelernt</dt><dd>Bootvorgang, Recovery-Modi, Signaturprüfung, Umgang mit englischer Fachdokumentation</dd></div>
+                  </dl>
+                  <div class="chips"><span class="chip">RCM</span><span class="chip">Hekate</span><span class="chip">EmuMMC</span><span class="chip">Luma3DS</span></div>
+                  <div class="proj-media" data-media="modding"></div>
+                </article>
+
+              </div>
+
+              <h3 class="ed-h2 reveal">Schulprojekte</h3>
+              <div class="proj-grid reveal">
+
+                <article class="proj-card" id="proj-askel">
+                  <div class="proj-type">// Schulprojekt · Modul 335 · Dreierteam</div>
+                  <h4 class="proj-t">Askel</h4>
+                  <p class="proj-abstract"><strong>Abstract —</strong> Askel (finnisch für «Schritt») ist eine mobile App, die eine Fahrt per GPS aufzeichnet: Position, Höhe und Geschwindigkeit. Routen lassen sich speichern, benennen, farblich markieren und auf einer Karte anzeigen. Alle Daten bleiben bewusst auf dem Gerät — es gibt kein Backend.</p>
+                  <div class="proj-body">
+                    Umgesetzt mit React Native und Expo. Die Standortdaten kommen über <code>expo-location</code>, die Aufzeichnung läuft während der Fahrt weiter und die gespeicherten Routen werden lokal abgelegt. Der Verzicht auf ein Backend war eine bewusste Entscheidung: Bewegungsprofile sind besonders heikle Daten, und was das Gerät nie verlässt, kann auch nicht abfliessen.
+                  </div>
+                  <dl class="proj-meta">
+                    <div><dt>Team</dt><dd>Dreierteam, Schulprojekt im Modul 335</dd></div>
+                  </dl>
                   <div class="chips"><span class="chip">React Native</span><span class="chip">Expo</span><span class="chip">TypeScript</span><span class="chip">expo-location</span></div>
-                </div>
+                  <div class="proj-links">
+                    <a href="https://github.com/Lro-rgb/Askel" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                  </div>
+                  <div class="proj-media" data-media="askel"></div>
+                </article>
+
+                <article class="proj-card" id="proj-kobui">
+                  <div class="proj-type">// Schulprojekt · überbetrieblicher Kurs (ÜK) · Dreierteam</div>
+                  <h4 class="proj-t">Kobui</h4>
+                  <p class="proj-abstract"><strong>Abstract —</strong> Kobui ist eine Web-App, die ein lokal laufendes Sprachmodell (KoboldCpp) an ein eigenes React-Frontend anbindet — als datenschutzfreundliche Alternative zu cloudbasierten Diensten. Weil das Modell auf dem eigenen Rechner läuft, verlässt keine Eingabe das Gerät.</p>
+                  <div class="proj-body">
+                    Frontend mit TypeScript, React und Vite, gestaltet über CSS Modules. Die Anwendung spricht die lokale Schnittstelle von KoboldCpp an und bringt eine eigene Dokumentation mit, damit sie auch ohne Vorwissen aufgesetzt werden kann.
+                  </div>
+                  <dl class="proj-meta">
+                    <div><dt>Team</dt><dd>Dreierteam, überbetrieblicher Kurs</dd></div>
+                  </dl>
+                  <div class="chips"><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Vite</span><span class="chip">CSS Modules</span></div>
+                  <div class="proj-links">
+                    <a href="https://github.com/kiraa1q/kobui" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                  </div>
+                  <div class="proj-media" data-media="kobui"></div>
+                </article>
+
               </div>
             </div>
           </div>
@@ -454,15 +528,121 @@
               </div>
               <h2 class="ed-h1 reveal">Kontakt</h2>
               <div class="prose reveal" style="margin-bottom:1.8rem">
-                <p>Ich suche einen Praktikumsplatz für das dritte Ausbildungsjahr. Bei Fragen oder Interesse melden Sie sich gerne.</p>
+                <p>Ich suche einen Praktikumsplatz für das dritte Ausbildungsjahr. Bei Fragen oder Interesse melden Sie sich gerne bei mir.</p>
               </div>
               <div class="contact-grid reveal">
                 <a href="mailto:luisrosado008@gmail.com" class="c-link"><span>✉</span><div><span class="c-label">E-Mail</span>luisrosado008@gmail.com</div></a>
                 <a href="https://github.com/Lro-rgb" class="c-link" target="_blank" rel="noopener noreferrer"><span>🐙</span><div><span class="c-label">GitHub</span>github.com/Lro-rgb</div></a>
               </div>
-              <div style="margin-top:2.5rem;padding:1.2rem 1.5rem;background:#161B22;border:1px solid var(--border)" class="reveal">
-                <div class="cmt" style="margin-bottom:.6rem">-- Impressum</div>
-                <div style="font-family:var(--mono);font-size:.77rem;color:var(--muted)">Luis Rosado · Pleerweg 13D, 3400 Burgdorf · <a href="mailto:luisrosado008@gmail.com" style="color:var(--blue)">luisrosado008@gmail.com</a></div>
+              <h3 class="ed-h2 reveal">Zugang zum geschützten Bereich</h3>
+              <div class="prose reveal" style="margin-bottom:1.5rem">
+                <p>Noten und Lebenslauf liegen im Ordner <code>unterlagen</code> hinter einem Passwort. Die Zugangsdaten erhalten die Schulleitung und die betreuenden Lehrpersonen sowie Betriebe, bei denen ich mich bewerbe. Wenn Sie Zugang benötigen und ihn noch nicht haben, schreiben Sie mir kurz.</p>
+              </div>
+
+              <div class="impressum reveal">
+                <div class="cmt" style="margin-bottom:.8rem">-- Impressum</div>
+                <dl class="imp-list">
+                  <div><dt>Verantwortlich für den Inhalt</dt><dd>Luis Rosado</dd></div>
+                  <div><dt>Anschrift</dt><dd>Pleerweg 13D<br/>3400 Burgdorf<br/>Schweiz</dd></div>
+                  <div><dt>E-Mail</dt><dd><a href="mailto:luisrosado008@gmail.com">luisrosado008@gmail.com</a></dd></div>
+                  <div><dt>Zweck der Website</dt><dd>Persönliche Portfolio- und Bewerbungswebsite im Rahmen der Ausbildung an der IMS an der BWD Bern. Keine kommerzielle Nutzung.</dd></div>
+                  <div><dt>Hosting</dt><dd>Vercel Inc.</dd></div>
+                  <div><dt>Quellcode</dt><dd><a href="https://github.com/Lro-rgb/portfolio" target="_blank" rel="noopener noreferrer">github.com/Lro-rgb/portfolio</a></dd></div>
+                  <div><dt>Bildnachweis</dt><dd>Technologie-Logos von <a href="https://devicon.dev" target="_blank" rel="noopener noreferrer">Devicon</a> (MIT-Lizenz). Alle übrigen Inhalte stammen von mir.</dd></div>
+                  <div><dt>Schriften</dt><dd>JetBrains Mono und Inter, bezogen über Google Fonts (SIL Open Font License)</dd></div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── README ── -->
+        <div class="editor-panel" id="panel-readme" role="tabpanel" aria-labelledby="tab-readme">
+          <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">README.md</span></div>
+          <div class="code-view">
+            <div class="line-nums" id="ln-readme"></div>
+            <div class="code-content">
+              <div class="cmt"># README.md — Wie diese Seite gebaut ist</div><br>
+
+              <h2 class="ed-h1 reveal">Über diese Seite</h2>
+              <div class="prose reveal">
+                <p>Diese Seite ist meine persönliche Website im Rahmen der IMS-Ausbildung und gleichzeitig Teil meiner Bewerbungsunterlagen. Sie ist von mir selbst gebaut — von Hand, ohne Baukasten und ohne Framework.</p>
+                <p>Hier steht, warum sie so aussieht und funktioniert, wie sie es tut. Gestalterische Entscheidungen sind nachvollziehbar oder sie sind Zufall; ich möchte, dass meine nachvollziehbar sind.</p>
+              </div>
+
+              <h3 class="ed-h2 reveal">Warum ein Code-Editor als Oberfläche</h3>
+              <div class="prose reveal">
+                <p>Die Seite richtet sich an Betriebe, die Applikationsentwicklung ausbilden. Deshalb ist die Oberfläche selbst eine Arbeitsprobe: Sie ist einem Code-Editor nachempfunden — der Umgebung, in der ich täglich arbeite.</p>
+                <p>Jeder Abschnitt ist eine Datei, deren Endung zum Inhalt passt: <code>skills.py</code>, <code>techstack.ts</code>, <code>kontakt.sql</code>. Das ist kein Selbstzweck — die Endung sagt schon vor dem Lesen, worum es geht, und der Explorer links zeigt die gesamte Struktur auf einen Blick. Wer lieber klassisch navigiert, benutzt die Tableiste oben; beides führt zum selben Inhalt.</p>
+              </div>
+
+              <h3 class="ed-h2 reveal">Schrift</h3>
+              <table class="ed-table reveal">
+                <tr><th>Schrift</th><th>Eingesetzt für</th><th>Begründung</th></tr>
+                <tr>
+                  <td>JetBrains&nbsp;Mono</td>
+                  <td>Überschriften, Tabellen, Codeblöcke, Navigation</td>
+                  <td>Für Code entworfen: feste Zeichenbreite, klar unterscheidbares 0/O und 1/l/I. Hält Tabellenspalten optisch in Flucht.</td>
+                </tr>
+                <tr>
+                  <td>Inter</td>
+                  <td>Fliesstext und Beschreibungen</td>
+                  <td>Eine Monospace-Schrift ermüdet über mehrere Sätze. Inter ist für Bildschirme optimiert und auch in kleinen Graden gut lesbar.</td>
+                </tr>
+              </table>
+              <div class="prose reveal">
+                <p>Zwei Schriften mit klarer Aufgabenteilung: Monospace für Struktur und Daten, Inter für Sprache. Der Wechsel ist kein Stilmittel, sondern ein Hinweis darauf, welche Art von Information gerade folgt.</p>
+              </div>
+
+              <h3 class="ed-h2 reveal">Farben</h3>
+              <div class="prose reveal">
+                <p>Das Schema ist an ein dunkles Editor-Theme angelehnt. Ein einziger Akzentton — das Blau <code>#58A6FF</code> — führt durch die ganze Seite: aktiver Tab, Links, Schaltflächen, Fokusrahmen. Wer ihn einmal zugeordnet hat, findet sich überall zurecht.</p>
+                <p>Grün, Orange und Rot sind für Bedeutung reserviert, nicht für Dekoration: Einstufungen bei den Skills, Notenwerte, Fehlermeldungen. Farbe ist dabei nie der einzige Träger einer Information — überall steht auch der Text dabei, damit die Seite bei einer Farbsehschwäche verständlich bleibt.</p>
+              </div>
+              <div class="cb reveal">
+                <span class="cb-lang">css</span>
+                <div class="cl"><span class="punct">:root {</span></div>
+                <div class="cl i1"><span class="kw-b">--bg</span><span class="punct">:</span> <span class="str">#0D1117</span><span class="punct">;</span>   <span class="cmt">/* Hintergrund */</span></div>
+                <div class="cl i1"><span class="kw-b">--text</span><span class="punct">:</span> <span class="str">#E6EDF3</span><span class="punct">;</span> <span class="cmt">/* Fliesstext */</span></div>
+                <div class="cl i1"><span class="kw-b">--blue</span><span class="punct">:</span> <span class="str">#58A6FF</span><span class="punct">;</span> <span class="cmt">/* einziger Akzent */</span></div>
+                <div class="cl i1"><span class="kw-b">--green</span><span class="punct">:</span> <span class="str">#3FB950</span><span class="punct">;</span> <span class="cmt">/* nur für Bedeutung */</span></div>
+                <div class="cl"><span class="punct">}</span></div>
+              </div>
+
+              <h3 class="ed-h2 reveal">Grafische Elemente</h3>
+              <div class="prose reveal">
+                <p>Es gibt bewusst keine Schmuckbilder und keine Symbolfotos. Jedes grafische Element hat eine Aufgabe:</p>
+              </div>
+              <table class="ed-table reveal">
+                <tr><th>Element</th><th>Warum es da ist</th></tr>
+                <tr><td>Technologie-Icons</td><td>Originallogos der jeweiligen Technologie. Ein Stack ist damit auf einen Blick erfassbar, ohne jede Zeile zu lesen.</td></tr>
+                <tr><td>Tableiste &amp; Explorer</td><td>Tragen die Editor-Metapher und sind gleichzeitig die Navigation. Zwei Wege zum selben Ziel.</td></tr>
+                <tr><td>Zeilennummern</td><td>Verstärken die Metapher und zeigen nebenbei, wie lang ein Abschnitt ist. Auf schmalen Bildschirmen ausgeblendet, weil dort der Platz wichtiger ist.</td></tr>
+                <tr><td>Farbige Syntax</td><td>Die Codeblöcke sind echt eingefärbt statt als Bild eingebunden — dadurch bleiben sie markierbar, durchsuchbar und für Screenreader lesbar.</td></tr>
+                <tr><td>Ladebildschirm</td><td>Führt die Editor-Metapher ein, bevor der Inhalt erscheint. Überspringbar und läuft nur einmal pro Besuch.</td></tr>
+              </table>
+
+              <h3 class="ed-h2 reveal">Bedienung und Barrierefreiheit</h3>
+              <div class="prose reveal">
+                <p>Die ganze Seite lässt sich ohne Maus bedienen. In der Tableiste wechseln die Pfeiltasten zwischen den Dateien, <code>Pos1</code> und <code>Ende</code> springen an den Rand, <code>Entf</code> schliesst einen Tab. Jedes bedienbare Element hat einen sichtbaren Fokusrahmen, und ganz oben führt eine Sprungmarke direkt zum Inhalt.</p>
+                <p>Wer im Betriebssystem reduzierte Bewegung eingestellt hat, bekommt die Seite ohne Animationen und ohne Ladebildschirm. Jeder Abschnitt hat eine eigene Adresse — <code>#projekte</code> etwa lässt sich direkt verschicken.</p>
+              </div>
+
+              <h2 class="ed-h1 reveal">Technische Angaben</h2>
+              <table class="ed-table reveal">
+                <tr><th>Bereich</th><th>Umsetzung</th></tr>
+                <tr><td>Frontend</td><td>HTML, CSS und JavaScript von Hand — kein Framework, kein Build-Schritt. Was im Browser ankommt, ist genau das, was ich geschrieben habe.</td></tr>
+                <tr><td>Backend</td><td>Serverless Functions (Node.js) für Login und geschützte Inhalte</td></tr>
+                <tr><td>Passwortschutz</td><td>scrypt mit Salt, Vergleich in konstanter Zeit; Sitzung über ein signiertes Token mit vier Stunden Laufzeit</td></tr>
+                <tr><td>Abhängigkeiten</td><td>Keine. Weder Frontend noch Backend laden ein npm-Paket.</td></tr>
+                <tr><td>Hosting</td><td>Vercel</td></tr>
+                <tr><td>Versionsverwaltung</td><td><a href="https://github.com/Lro-rgb/portfolio" class="proj-link" target="_blank" rel="noopener noreferrer">github.com/Lro-rgb/portfolio</a> — der komplette Quellcode dieser Seite ist öffentlich einsehbar</td></tr>
+                <tr><td>Browser</td><td>Getestet in Chrome, Edge und Firefox. Funktioniert in jedem aktuellen Browser; ältere bekommen dieselben Inhalte, nur ohne einzelne visuelle Effekte.</td></tr>
+              </table>
+
+              <h3 class="ed-h2 reveal">Warum ohne Framework</h3>
+              <div class="prose reveal">
+                <p>Ein Framework hätte mir Arbeit abgenommen — und genau deshalb habe ich darauf verzichtet. Tabverwaltung, Zustandswechsel, Tastatursteuerung, Fokusverwaltung und der Login-Ablauf sind Dinge, die ich verstehen will, statt sie einzubinden. Was hier funktioniert, funktioniert, weil ich es geschrieben habe.</p>
               </div>
             </div>
           </div>
@@ -507,6 +687,18 @@
   </div>
 
 </div><!-- /ide -->
+
+<!-- ══════════════ BILD-VOLLANSICHT ══════════════ -->
+<div class="overlay lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot in Vollansicht" aria-hidden="true">
+  <figure class="lb-figure">
+    <img class="lb-img" id="lbImg" alt=""/>
+    <figcaption class="lb-cap" id="lbCap"></figcaption>
+  </figure>
+  <button type="button" class="lb-nav lb-prev" id="lbPrev" aria-label="Vorheriges Bild">‹</button>
+  <button type="button" class="lb-nav lb-next" id="lbNext" aria-label="Nächstes Bild">›</button>
+  <button type="button" class="lb-close" id="lbClose" aria-label="Vollansicht schliessen">×</button>
+  <div class="lb-count" id="lbCount" aria-hidden="true"></div>
+</div>
 
 
 <!-- App logic -->

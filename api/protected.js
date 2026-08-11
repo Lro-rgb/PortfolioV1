@@ -10,14 +10,18 @@ const SECRET = process.env.JWT_SECRET || 'local-dev-secret-change-in-production'
 // Bewusst serverseitig: diese Inhalte gehören nicht ins Frontend-Bundle,
 // sondern werden nur gegen ein gültiges Token ausgeliefert.
 //   noten:       { fach, note, semester }
-//   ausbildung / erfahrung: { zeitraum, titel, ort, notiz }
+//   ausbildung / erfahrung / nebenjobs: { zeitraum, titel, ort, notiz }
 //   zertifikate: { jahr, titel, anbieter }
 //   sprachen:    { sprache, niveau }
+//
+// "nebenjobs" deckt bezahlte Nebenjobs und Freiwilligenarbeit ab — die
+// IMS-Checkliste verlangt beides ausdruecklich im Lebenslauf.
 const DATA = {
   noten: [],
   lebenslauf: {
     ausbildung: [],
     erfahrung: [],
+    nebenjobs: [],
     zertifikate: [],
     sprachen: []
   }

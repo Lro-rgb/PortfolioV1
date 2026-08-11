@@ -2,7 +2,7 @@
    KONSTANTEN
 ═══════════════════════════════════ */
 // Dient nur noch als Liste der gültigen Panel-Namen (Deep-Linking).
-const LANG={home:'JSON',skills:'Python',techstack:'TypeScript',projekte:'HTML',interessen:'JSON',kontakt:'SQL',noten:'CSV',cv:'Markdown'};
+const LANG={home:'JSON',skills:'Python',techstack:'TypeScript',projekte:'HTML',interessen:'JSON',kontakt:'SQL',readme:'Markdown',noten:'CSV',cv:'Markdown'};
 const LOCKED=['noten','cv'];
 const LINE_H=31;
 const MOBILE=window.matchMedia('(max-width: 820px)');
@@ -15,10 +15,6 @@ let lastFocusedBeforeLogin=null;
 
 const $=id=>document.getElementById(id);
 
-// Diese Verweise stehen bewusst ganz oben: bei einem Wiederbesuch wird der
-// Splash übersprungen und startApp() läuft noch während des ersten
-// Skriptdurchlaufs. Alles, was openTab() anfasst, muss vorher deklariert
-// sein — sonst greift die temporale Todzone von const.
 const editorScroll=$('editorScroll');
 const sidebar=$('sidebar');
 const backdrop=$('sbBackdrop');
@@ -39,7 +35,11 @@ const overlay=$('loginOverlay');
     if(instant){
       splash.style.display='none';
       $('ide').classList.add('visible');
-      startApp();
+      // Bewusst erst im nächsten Tick: beim Wiederbesuch wird der Splash
+      // übersprungen, und dieser Zweig läuft dann noch mitten im ersten
+      // Skriptdurchlauf. Alles, was weiter unten per const deklariert ist,
+      // wäre zu diesem Zeitpunkt noch in der temporalen Todzone.
+      setTimeout(startApp,0);
       return;
     }
     splash.classList.add('fade');
@@ -307,8 +307,178 @@ backdrop.addEventListener('click',closeDrawer);
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&drawerOpen()&&!overlay.classList.contains('show'))closeDrawer();
 });
-// Beim Wechsel zurück auf ein breites Fenster darf kein halber Zustand bleiben
-MOBILE.addEventListener('change',e=>{if(!e.matches)closeDrawer();});
+// Beim Wechsel zurück auf ein breites Fenster darf kein halber Zustand bleiben.
+// addListener ist der Rückfall für ältere Safari-Versionen, die
+// addEventListener auf MediaQueryList noch nicht kennen.
+(function(){
+  const onChange=e=>{if(!e.matches)closeDrawer();};
+  if(MOBILE.addEventListener)MOBILE.addEventListener('change',onChange);
+  else if(MOBILE.addListener)MOBILE.addListener(onChange);
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   MEDIEN  —  Video, Screenshots, Downloads
+
+   Alles läuft über die beiden Objekte unten. Was hier nicht
+   eingetragen ist, wird auch nicht gerendert: keine leeren Player,
+   keine toten Verweise, kein "kommt noch".
+
+   Neue Datei einbinden:
+     1. Datei nach public/media/ legen
+     2. Hier beim passenden Projekt eintragen
+   Mehr ist nicht nötig — die Anzeige baut sich daraus auf.
+═══════════════════════════════════════════════════════════════ */
+
+// Kurzvorstellung als Audio auf der Startseite.
+//   intro:{ src:'media/vorstellung.m4a', titel:'…', dauer:'0:45', text:'…' }
+const AUDIO={};
+
+// Pro Projekt: video, shots (Screenshots), downloads.
+//   askel:{
+//     video:{src:'media/askel.mp4', poster:'media/askel-poster.jpg',
+//            titel:'Askel zeichnet eine Route auf', dauer:'1:10'},
+//     shots:[{src:'media/askel-1.jpg', alt:'Startbildschirm mit Routenliste'}],
+//     downloads:[{href:'media/askel-doku.pdf', label:'Projektdokumentation', meta:'PDF · 1,2 MB'}]
+//   }
+const MEDIA={};
+
+function el(tag,cls,html){
+  const n=document.createElement(tag);
+  if(cls)n.className=cls;
+  if(html!=null)n.innerHTML=html;
+  return n;
+}
+
+function renderAudio(){
+  document.querySelectorAll('[data-audio]').forEach(box=>{
+    const cfg=AUDIO[box.dataset.audio];
+    box.innerHTML='';
+    if(!cfg||!cfg.src)return;
+    const wrap=el('div','audio-card');
+    wrap.appendChild(el('div','audio-head',
+      '<span class="audio-ic" aria-hidden="true">▶</span>'+
+      '<span class="audio-title">'+esc(cfg.titel||'Kurzvorstellung')+'</span>'+
+      (cfg.dauer?'<span class="audio-dur">'+esc(cfg.dauer)+'</span>':'')));
+    const a=document.createElement('audio');
+    a.controls=true;a.preload='none';a.src=cfg.src;
+    a.textContent='Ihr Browser kann diese Audiodatei nicht abspielen.';
+    wrap.appendChild(a);
+    if(cfg.text)wrap.appendChild(el('p','audio-text',esc(cfg.text)));
+    box.appendChild(wrap);
+  });
+}
+
+function renderProjectMedia(){
+  document.querySelectorAll('[data-media]').forEach(box=>{
+    const cfg=MEDIA[box.dataset.media];
+    box.innerHTML='';
+    if(!cfg)return;
+
+    if(cfg.video&&cfg.video.src){
+      const v=document.createElement('video');
+      v.controls=true;v.preload='metadata';v.playsInline=true;
+      v.className='proj-video';
+      if(cfg.video.poster)v.poster=cfg.video.poster;
+      v.src=cfg.video.src;
+      v.textContent='Ihr Browser kann dieses Video nicht abspielen.';
+      const fig=el('figure','media-figure');
+      fig.appendChild(v);
+      if(cfg.video.titel){
+        fig.appendChild(el('figcaption','media-cap',
+          esc(cfg.video.titel)+(cfg.video.dauer?' <span class="media-dur">'+esc(cfg.video.dauer)+'</span>':'')));
+      }
+      box.appendChild(fig);
+    }
+
+    if(cfg.shots&&cfg.shots.length){
+      const grid=el('div','shot-grid');
+      cfg.shots.forEach((s,i)=>{
+        const b=el('button','shot');
+        b.type='button';
+        b.setAttribute('aria-label','Screenshot vergrössern: '+(s.alt||('Bild '+(i+1))));
+        b.dataset.group=box.dataset.media;
+        b.dataset.index=String(i);
+        const img=document.createElement('img');
+        img.src=s.src;img.alt=s.alt||'';img.loading='lazy';img.decoding='async';
+        b.appendChild(img);
+        grid.appendChild(b);
+      });
+      box.appendChild(grid);
+    }
+
+    if(cfg.downloads&&cfg.downloads.length){
+      const list=el('div','dl-list');
+      cfg.downloads.forEach(d=>{
+        const a=document.createElement('a');
+        a.className='dl-item';a.href=d.href;a.download='';
+        a.innerHTML='<span class="dl-ic" aria-hidden="true">⭳</span><span class="dl-label">'+
+          esc(d.label)+'</span>'+(d.meta?'<span class="dl-meta">'+esc(d.meta)+'</span>':'');
+        list.appendChild(a);
+      });
+      box.appendChild(list);
+    }
+  });
+}
+
+/* ── Screenshots in Vollansicht ── */
+const lightbox=$('lightbox');
+let lbGroup=[],lbIndex=0,lbReturnFocus=null;
+
+function openLightbox(group,index){
+  const cfg=MEDIA[group];
+  if(!cfg||!cfg.shots||!cfg.shots.length)return;
+  lbGroup=cfg.shots;lbIndex=index;lbReturnFocus=document.activeElement;
+  lightbox.classList.add('show');
+  lightbox.setAttribute('aria-hidden','false');
+  showLbImage();
+  $('lbClose').focus();
+}
+function showLbImage(){
+  const s=lbGroup[lbIndex];
+  $('lbImg').src=s.src;
+  $('lbImg').alt=s.alt||'';
+  $('lbCap').textContent=s.alt||'';
+  $('lbCount').textContent=(lbIndex+1)+' / '+lbGroup.length;
+  const many=lbGroup.length>1;
+  $('lbPrev').hidden=!many;
+  $('lbNext').hidden=!many;
+}
+function stepLightbox(d){
+  if(lbGroup.length<2)return;
+  lbIndex=(lbIndex+d+lbGroup.length)%lbGroup.length;
+  showLbImage();
+}
+function closeLightbox(){
+  if(!lightbox.classList.contains('show'))return;
+  lightbox.classList.remove('show');
+  lightbox.setAttribute('aria-hidden','true');
+  $('lbImg').removeAttribute('src');
+  if(lbReturnFocus&&document.contains(lbReturnFocus))lbReturnFocus.focus();
+  lbReturnFocus=null;
+}
+
+document.addEventListener('click',e=>{
+  const shot=e.target.closest('.shot');
+  if(shot)openLightbox(shot.dataset.group,Number(shot.dataset.index));
+});
+$('lbClose').addEventListener('click',closeLightbox);
+$('lbPrev').addEventListener('click',()=>stepLightbox(-1));
+$('lbNext').addEventListener('click',()=>stepLightbox(1));
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
+document.addEventListener('keydown',e=>{
+  if(!lightbox.classList.contains('show'))return;
+  if(e.key==='Escape'){e.preventDefault();closeLightbox();}
+  else if(e.key==='ArrowLeft')stepLightbox(-1);
+  else if(e.key==='ArrowRight')stepLightbox(1);
+  else if(e.key==='Tab'){
+    // Fokus im Dialog halten
+    const f=Array.from(lightbox.querySelectorAll('button')).filter(b=>!b.hidden);
+    if(!f.length)return;
+    const first=f[0],last=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  }
+});
 
 /* ═══════════════════════════════════
    ORDNER AUF/ZU
@@ -510,10 +680,13 @@ async function loadProtected(panel){
     }
 
     if(panel==='cv'){
-      lastLebenslauf=d.lebenslauf||{ausbildung:[],erfahrung:[],zertifikate:[],sprachen:[]};
+      lastLebenslauf=Object.assign(
+        {ausbildung:[],erfahrung:[],nebenjobs:[],zertifikate:[],sprachen:[]},
+        d.lebenslauf||{});
       const lv=lastLebenslauf;
       const box=$('cv-content'),dl=$('cv-dl');
-      const hasAny=lv.ausbildung.length||lv.erfahrung.length||lv.zertifikate.length||lv.sprachen.length;
+      const hasAny=lv.ausbildung.length||lv.erfahrung.length||lv.nebenjobs.length||
+                   lv.zertifikate.length||lv.sprachen.length;
       if(!hasAny){
         box.innerHTML=EMPTY_MSG;
         if(dl)dl.style.display='none';
@@ -528,6 +701,10 @@ async function loadProtected(panel){
             '<div><h3 class="ed-h2">Ausbildung</h3><div class="tl">'+tl(lv.ausbildung)+'</div></div>'+
             '<div><h3 class="ed-h2">Berufserfahrung</h3><div class="tl">'+tl(lv.erfahrung)+'</div></div>'+
           '</div>'+
+          (lv.nebenjobs.length
+            ? '<h3 class="ed-h2" style="margin-top:2rem">Nebenjobs &amp; Freiwilligenarbeit</h3>'+
+              '<div class="tl">'+tl(lv.nebenjobs)+'</div>'
+            : '')+
           '<h3 class="ed-h2" style="margin-top:2rem">Sprachen</h3>'+
           (lv.sprachen.length
             ? '<table class="ed-table"><tr><th>Sprache</th><th>Niveau</th></tr>'+
@@ -614,6 +791,11 @@ async function downloadCvPdf(){
       lv.erfahrung.forEach(e=>{body(e.zeitraum+'  —  '+e.titel);sub(e.ort+(e.notiz?' · '+e.notiz:''));y+=1;});
       y+=3;
     }
+    if(lv.nebenjobs&&lv.nebenjobs.length){
+      h2('Nebenjobs & Freiwilligenarbeit');
+      lv.nebenjobs.forEach(e=>{body(e.zeitraum+'  —  '+e.titel);sub(e.ort+(e.notiz?' · '+e.notiz:''));y+=1;});
+      y+=3;
+    }
     if(lv.sprachen.length){
       h2('Sprachen');
       lv.sprachen.forEach(s=>body(s.sprache+': '+s.niveau));
@@ -637,6 +819,9 @@ async function downloadCvPdf(){
 function startApp(){
   if(token&&verifyToken())updateAuth(true);
   else{token=null;sessionStorage.removeItem('lr_token');}
+
+  renderAudio();
+  renderProjectMedia();
 
   const fromHash=location.hash.replace('#','');
   const start=(fromHash&&LANG[fromHash])?fromHash:'home';
