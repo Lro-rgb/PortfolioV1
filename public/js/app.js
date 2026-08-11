@@ -257,7 +257,13 @@ function currentHashPanel(){
 function setHash(name){
   if(currentHashPanel()===name)return;
   const url=location.pathname+location.search+(name==='home'?'':'#'+name);
-  history.replaceState(null,'',url);
+  try{
+    history.replaceState(null,'',url);
+  }catch(e){
+    // Beim Öffnen als lokale Datei oder in einer Vorschau-Ansicht lehnen
+    // manche Browser replaceState ab. Die Adresse ist dann nur Beiwerk —
+    // ein Fehler hier darf nicht den Rest der Navigation abbrechen.
+  }
 }
 
 // Bleibt für von Hand geänderte Adressen zuständig — eigene Änderungen
