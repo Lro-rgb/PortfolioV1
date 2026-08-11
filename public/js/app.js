@@ -138,8 +138,12 @@ function openTab(name,opts){
   document.querySelectorAll('.tree-file').forEach(f=>f.classList.toggle('active',f.dataset.open===name));
 
   setEmptyState(false);
+  const panel=$('panel-'+name);
+  buildFolds(panel);
+  buildOutline(panel);
   buildLn(name);
   editorScroll.scrollTop=0;
+  updateOutlineState();
   initReveals();
   setHash(name);
   closeDrawer(); // auf dem Handy die Schublade nach der Auswahl schliessen
@@ -491,6 +495,121 @@ document.querySelectorAll('.tree-folder').forEach(btn=>{
     if(icon)icon.textContent=open?'📂':'📁';
   });
 });
+
+/* ═══════════════════════════════════════════════════════════════
+   GLIEDERUNG, LESEFORTSCHRITT UND FALTBARE DETAILS
+
+   Lange Abschnitte sind zum Überfliegen gedacht, nicht zum
+   Durchscrollen. Beides wird aus dem vorhandenen Markup erzeugt —
+   neue Inhalte brauchen keine zusätzliche Pflege.
+═══════════════════════════════════════════════════════════════ */
+
+const OUTLINE_MIN = 3; // ab so vielen Zwischentiteln lohnt sich eine Gliederung
+
+function slug(text, i){
+  const base = text.toLowerCase()
+    .replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss')
+    .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  return (base || 'abschnitt') + '-' + i;
+}
+
+function buildOutline(panel){
+  const content = panel.querySelector('.code-content');
+  if(!content || content.querySelector('.outline'))return;
+
+  const heads = Array.from(content.querySelectorAll('h3.ed-h2'));
+  if(heads.length < OUTLINE_MIN)return;
+
+  const bar = el('div','read-bar','<span></span>');
+  const nav = document.createElement('nav');
+  nav.className = 'outline';
+  nav.setAttribute('aria-label','Gliederung dieses Abschnitts');
+  nav.appendChild(el('span','outline-label','Abschnitt'));
+
+  heads.forEach((h,i)=>{
+    if(!h.id)h.id = panel.id.replace('panel-','') + '-' + slug(h.textContent, i);
+    const a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.textContent = h.textContent;
+    a.dataset.target = h.id;
+    nav.appendChild(a);
+  });
+
+  // Vor dem ersten Inhalt einhängen
+  content.insertBefore(nav, content.firstChild);
+  content.insertBefore(bar, nav);
+}
+
+// Der Hash gehört der Tab-Navigation — deshalb selbst scrollen statt
+// den Browser springen zu lassen.
+document.addEventListener('click',e=>{
+  const a = e.target.closest('.outline a');
+  if(!a)return;
+  e.preventDefault();
+  const target = $(a.dataset.target);
+  if(!target)return;
+  const top = target.offsetTop - 70;
+  editorScroll.scrollTo({top, behavior: reduceMotion ? 'auto' : 'smooth'});
+  target.setAttribute('tabindex','-1');
+  target.focus({preventScroll:true});
+});
+
+function updateOutlineState(){
+  const panel = document.querySelector('.editor-panel.active');
+  if(!panel)return;
+
+  const bar = panel.querySelector('.read-bar span');
+  if(bar){
+    const max = editorScroll.scrollHeight - editorScroll.clientHeight;
+    bar.style.width = (max > 0 ? Math.min(100, (editorScroll.scrollTop / max) * 100) : 0) + '%';
+  }
+
+  const links = panel.querySelectorAll('.outline a');
+  if(!links.length)return;
+  let currentId = null;
+  links.forEach(a=>{
+    const h = $(a.dataset.target);
+    if(h && h.offsetTop - 110 <= editorScroll.scrollTop) currentId = a.dataset.target;
+  });
+  links.forEach(a=>a.classList.toggle('current', a.dataset.target === currentId));
+}
+editorScroll.addEventListener('scroll',updateOutlineState);
+
+/* ── Technische Details einklappen ──
+   Der Abstract und die Rolle bleiben immer sichtbar; nur der lange
+   Fliesstext wandert hinter einen Schalter. So passen alle Projekte
+   auf einen Blick, ohne dass Inhalt verloren geht. */
+let foldCounter = 0;
+function buildFolds(panel){
+  panel.querySelectorAll('.proj-body:not([data-folded])').forEach(body=>{
+    body.setAttribute('data-folded','1');
+    const id = 'fold-' + (++foldCounter);
+
+    const wrap = el('div','fold');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'fold-btn';
+    btn.setAttribute('aria-expanded','false');
+    btn.setAttribute('aria-controls',id);
+    btn.innerHTML = '<span class="fold-arrow" aria-hidden="true">▶</span>Technische Details';
+
+    const holder = el('div','fold-body');
+    holder.id = id;
+    holder.hidden = true;
+
+    body.parentNode.insertBefore(wrap, body);
+    wrap.appendChild(btn);
+    wrap.appendChild(holder);
+    holder.appendChild(body);
+
+    btn.addEventListener('click',()=>{
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      holder.hidden = open;
+      buildLn(panel.id.replace('panel-',''));
+    });
+  });
+}
 
 /* ═══════════════════════════════════
    ZEILENNUMMERN

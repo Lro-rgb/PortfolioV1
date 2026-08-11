@@ -430,18 +430,33 @@
                   <div class="proj-media" data-media="website"></div>
                 </article>
 
+                <article class="proj-card" id="proj-wallpaper">
+                  <div class="proj-type">// Persönlich · eigenständig · eigenes Skript</div>
+                  <h4 class="proj-t">Wallpaper-Switcher mit automatischem Farbschema</h4>
+                  <p class="proj-abstract"><strong>Abstract —</strong> Ein selbstgeschriebenes Bash-Skript, das aus dem gewählten Hintergrundbild ein vollständiges Farbschema ableitet und es in einem Zug auf das ganze System anwendet. Ein Bildwechsel färbt damit Fensterrahmen, Leiste, Menü und Terminal automatisch passend um — ohne dass ich eine Konfigurationsdatei anfasse.</p>
+                  <div class="proj-body">
+                    Das Skript verkettet vier Werkzeuge zu einem Ablauf: <code>waypaper</code> zum Auswählen und Setzen des Bildes, <code>matugen</code> zum Ableiten einer Farbpalette daraus, <code>rofi</code> als Auswahlmenü und <code>waybar</code> als Statusleiste. Nach dem Erzeugen der Palette schreibt es die Konfigurationsdateien der beteiligten Programme neu und startet sie kontrolliert neu, damit die Änderung sofort sichtbar ist. Die Herausforderung lag weniger im Erzeugen der Farben als in der Reihenfolge: Wird ein Programm zu früh neu geladen, liest es noch die alte Palette.
+                  </div>
+                  <dl class="proj-meta">
+                    <div><dt>Meine Rolle</dt><dd>Alleine geschrieben</dd></div>
+                    <div><dt>Gelernt</dt><dd>Bash-Skripting, Verketten von Kommandozeilenwerkzeugen, Umgang mit Konfigurationsdateien und Prozessen unter Linux</dd></div>
+                  </dl>
+                  <div class="chips"><span class="chip">Bash</span><span class="chip">Matugen</span><span class="chip">Waypaper</span><span class="chip">Rofi</span><span class="chip">Waybar</span><span class="chip">Hyprland</span></div>
+                  <div class="proj-media" data-media="wallpaper"></div>
+                </article>
+
                 <article class="proj-card" id="proj-arch">
                   <div class="proj-type">// Persönlich · eigenständig</div>
                   <h4 class="proj-t">Arch Linux + Hyprland Dual-Boot</h4>
-                  <p class="proj-abstract"><strong>Abstract —</strong> Ein selbst aufgesetztes Dual-Boot-System auf meinem ThinkPad: Windows 11 für den Alltag, Arch Linux mit dem Window Manager Hyprland fürs Programmieren. Kern des Projekts ist ein selbstgeschriebener Wallpaper-Switcher, der beim Bildwechsel automatisch das gesamte Farbschema des Systems neu erzeugt.</p>
+                  <p class="proj-abstract"><strong>Abstract —</strong> Ein selbst aufgesetztes Dual-Boot-System auf meinem ThinkPad: Windows 11 für den Alltag, Arch Linux mit dem Window Manager Hyprland fürs Programmieren — eingerichtet, um zu verstehen, wie ein Linux-System unter der Oberfläche zusammengesetzt ist.</p>
                   <div class="proj-body">
-                    Arch Linux über <code>archinstall</code> installiert und Hyprland von Grund auf konfiguriert. Terminal-Umgebung mit Alacritty und der Fish-Shell. Der Wallpaper-Switcher verbindet waypaper, matugen und rofi zu einem Ablauf: Bild auswählen, Farben daraus ableiten, alle Konfigurationsdateien neu schreiben, Programme neu laden — angestossen über ein eigenes Bash-Skript.
+                    Arch Linux über <code>archinstall</code> installiert und Hyprland von Grund auf konfiguriert — bei Hyprland gibt es keine fertige Oberfläche, jede Taste und jedes Fensterverhalten steht in einer Konfigurationsdatei. Dazu eine Terminal-Umgebung mit Alacritty und der Fish-Shell und <code>waybar</code> als Statusleiste. Das Aufsetzen war der Anlass für den Wallpaper-Switcher oben.
                   </div>
                   <dl class="proj-meta">
                     <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt</dd></div>
-                    <div><dt>Gelernt</dt><dd>Bash-Skripting, Konfigurationsverwaltung, wie ein Linux-System unter der Oberfläche zusammenhängt</dd></div>
+                    <div><dt>Gelernt</dt><dd>Partitionierung und Bootloader, Konfigurationsverwaltung, Fehlersuche ohne grafische Oberfläche</dd></div>
                   </dl>
-                  <div class="chips"><span class="chip">Arch Linux</span><span class="chip">Hyprland</span><span class="chip">Bash</span><span class="chip">Rofi</span><span class="chip">Matugen</span></div>
+                  <div class="chips"><span class="chip">Arch Linux</span><span class="chip">Hyprland</span><span class="chip">Alacritty</span><span class="chip">Fish</span><span class="chip">Dual-Boot</span></div>
                   <div class="proj-media" data-media="arch"></div>
                 </article>
 
@@ -524,20 +539,38 @@
             <div class="code-content">
               <div class="cmt">// interessen.json</div><br>
               <h2 class="ed-h1 reveal">Interessen</h2>
-              <div class="int-row reveal">
-                <div class="int-cell" tabindex="0"><span class="int-em" aria-hidden="true">🎮</span><h3 class="int-label">Gaming</h3><div class="int-hover">PS5 &amp; PC — Lieblingsspiele: Elden Ring, Persona 3</div></div>
-                <div class="int-cell" tabindex="0"><span class="int-em" aria-hidden="true">🎵</span><h3 class="int-label">Musik</h3><div class="int-hover">Höre täglich Musik und bin immer auf der Suche nach neuen Songs</div></div>
-                <div class="int-cell" tabindex="0"><span class="int-em" aria-hidden="true">📚</span><h3 class="int-label">Lesen</h3><div class="int-hover">Mangas &amp; Bücher</div></div>
-                <div class="int-cell" tabindex="0"><span class="int-em" aria-hidden="true">🛠️</span><h3 class="int-label">PC-Basteln</h3><div class="int-hover">Baue PCs zusammen und modde Konsolen</div></div>
+              <div class="prose reveal" style="margin-bottom:1.4rem">
+                <p>Was ich neben der Ausbildung mache — und wo es sich mit ihr überschneidet.</p>
               </div>
-              <div class="cb reveal" style="margin-top:2rem">
-                <span class="cb-lang">json</span>
-                <div class="cl"><span class="punct">{</span></div>
-                <div class="cl i1"><span class="kw">"hobbys"</span><span class="punct">: [</span><span class="str">"Gaming"</span><span class="punct">,</span> <span class="str">"Musik"</span><span class="punct">,</span> <span class="str">"Lesen"</span><span class="punct">,</span> <span class="str">"PC-Basteln"</span><span class="punct">],</span></div>
-                <div class="cl i1"><span class="kw">"projekte"</span><span class="punct">: </span><span class="str">"Baue PCs zusammen, modde Konsolen"</span><span class="punct">,</span></div>
-                <div class="cl i1"><span class="kw">"musik"</span><span class="punct">: </span><span class="str">"Täglich, immer auf der Suche nach neuen Songs"</span><span class="punct">,</span></div>
-                <div class="cl i1"><span class="kw">"games"</span><span class="punct">: </span><span class="str">"Elden Ring, Persona 3 (PS5 &amp; PC)"</span></div>
-                <div class="cl"><span class="punct">}</span></div>
+              <div class="int-list reveal">
+                <div class="int-item">
+                  <span class="int-em" aria-hidden="true">🛠️</span>
+                  <div>
+                    <h3 class="int-label">PCs bauen und Geräte auseinandernehmen</h3>
+                    <p class="int-text">Ich baue Rechner selbst zusammen und habe zwei Spielkonsolen mit Custom Firmware versehen. Daher kommt auch mein Interesse daran, was unterhalb der Oberfläche passiert — Komponenten, Bootvorgang, Treiber.</p>
+                  </div>
+                </div>
+                <div class="int-item">
+                  <span class="int-em" aria-hidden="true">🎮</span>
+                  <div>
+                    <h3 class="int-label">Gaming</h3>
+                    <p class="int-text">PS5 und PC. Am liebsten Spiele, die einen nichts erklären und selbst herausfinden lassen — Elden Ring und Persona 3. Der Reiz ist derselbe wie beim Programmieren: ein System durchschauen, das sich nicht von selbst erklärt.</p>
+                  </div>
+                </div>
+                <div class="int-item">
+                  <span class="int-em" aria-hidden="true">📚</span>
+                  <div>
+                    <h3 class="int-label">Lesen</h3>
+                    <p class="int-text">Mangas und Bücher. Nebeneffekt der Ausbildung: Fachdokumentation ist fast durchgehend auf Englisch, und Lesen macht das leichter.</p>
+                  </div>
+                </div>
+                <div class="int-item">
+                  <span class="int-em" aria-hidden="true">🎵</span>
+                  <div>
+                    <h3 class="int-label">Musik</h3>
+                    <p class="int-text">Läuft bei mir den ganzen Tag, und ich suche ständig neue Sachen. Beim Programmieren mein Standardzustand.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
