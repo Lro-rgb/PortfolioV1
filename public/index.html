@@ -73,7 +73,7 @@
     </div>
     <div class="splash-bar-track"><div class="splash-bar-fill" id="splashFill"></div></div>
   </div>
-  <div class="splash-version" aria-hidden="true">Visual Studio Code — v1.89.0</div>
+  <div class="splash-version" aria-hidden="true">Portfolio v1.0 — Luis Rosado</div>
   <button type="button" class="splash-skip" id="splashSkip">Überspringen ↵</button>
 </div>
 
@@ -111,7 +111,7 @@
       <span aria-hidden="true">☰</span><span class="vh">Explorer öffnen</span>
     </button>
     <div class="tb-dots" aria-hidden="true"><div class="tb-dot r"></div><div class="tb-dot y"></div><div class="tb-dot g"></div></div>
-    <div class="tb-title">luis-rosado — Visual Studio Code</div>
+    <div class="tb-title">luis-rosado — Portfolio</div>
     <div class="tb-auth" id="sbAuth">🔒 Nicht eingeloggt</div>
     <div class="tb-icons" aria-hidden="true"><span title="Search">⌕</span><span title="Settings">⚙</span></div>
   </div>
@@ -209,7 +209,7 @@
 
         <!-- Sichtbar, sobald wirklich alle Tabs geschlossen sind -->
         <div class="editor-empty" id="editorEmpty" hidden>
-          <div class="ee-key" aria-hidden="true">⌘ ⇧ P</div>
+          <div class="ee-key" aria-hidden="true">{ }</div>
           <p class="ee-txt">Keine Datei geöffnet.</p>
           <button type="button" class="cta" id="reopenAll">Alle Dateien wieder öffnen</button>
         </div>
@@ -287,42 +287,60 @@
             <div class="code-content">
               <div class="cmt"># skills.py — Technische Fähigkeiten</div><br>
               <h2 class="ed-h1 reveal">Skills</h2>
+              <div class="prose reveal" style="margin-bottom:1.2rem">
+                <p>Statt einer Selbsteinschätzung steht hier, <strong>wo</strong> ich eine Technologie eingesetzt habe. Was ich behaupte, lässt sich in den Projekten nachschauen — der Quellcode ist offen.</p>
+              </div>
+              <ul class="legend reveal">
+                <li><span class="badge bg">In Projekten</span> in mindestens einem abgeschlossenen Projekt eingesetzt</li>
+                <li><span class="badge bb">Grundlagen</span> aus dem Unterricht, noch wenig eigene Praxis</li>
+                <li><span class="badge bo">Im Aufbau</span> arbeite ich mich gerade ein</li>
+              </ul>
+
               <h3 class="ed-h2 reveal">Webentwicklung</h3>
               <table class="ed-table reveal">
-                <tr><th>Technologie</th><th>Level</th><th>Kontext</th></tr>
-                <tr><td><i class="devicon-html5-plain colored skill-ic"></i><i class="devicon-css3-plain colored skill-ic"></i>HTML5 / CSS3</td><td><span class="badge bg">Sehr gut</span></td><td>Schulprojekte, eigene Seiten</td></tr>
-                <tr><td><i class="devicon-javascript-plain colored skill-ic"></i>JavaScript</td><td><span class="badge bg">Sehr gut</span></td><td>DOM, Logik, Events</td></tr>
-                <tr><td><i class="devicon-html5-plain colored skill-ic"></i>Responsive Design</td><td><span class="badge bb">Gut</span></td><td>Mobile-first</td></tr>
+                <tr><th>Technologie</th><th>Stand</th><th>Wo ich es eingesetzt habe</th></tr>
+                <tr><td><i class="devicon-html5-plain colored skill-ic"></i><i class="devicon-css3-plain colored skill-ic"></i>HTML5 / CSS3</td><td><span class="badge bg">In Projekten</span></td><td>Diese Website: Aufbau, Farbsystem, Druckansicht</td></tr>
+                <tr><td><i class="devicon-javascript-plain colored skill-ic"></i>JavaScript</td><td><span class="badge bg">In Projekten</span></td><td>Diese Website: Tabverwaltung, Tastatursteuerung, Login-Ablauf — ohne Framework</td></tr>
+                <tr><td><i class="devicon-css3-plain colored skill-ic"></i>Responsive Design</td><td><span class="badge bg">In Projekten</span></td><td>Diese Website: vier Umbruchpunkte, Explorer als Schublade auf dem Handy</td></tr>
               </table>
-              <h3 class="ed-h2 reveal">Datenbanken</h3>
-              <table class="ed-table reveal">
-                <tr><th>Technologie</th><th>Level</th><th>Kontext</th></tr>
-                <tr><td><i class="devicon-mysql-plain colored skill-ic"></i>SQL</td><td><span class="badge bb">Gut</span></td><td>Abfragen, Joins, Subqueries</td></tr>
-                <tr><td><i class="devicon-redis-plain colored skill-ic"></i>NoSQL / Redis</td><td><span class="badge bb">Gut</span></td><td>Key-Value-Datenbanken</td></tr>
-                <tr><td><i class="devicon-mysql-plain colored skill-ic"></i>MariaDB</td><td><span class="badge bb">Gut</span></td><td>Schulprojekte</td></tr>
-              </table>
+
               <h3 class="ed-h2 reveal">Programmierung</h3>
               <table class="ed-table reveal">
-                <tr><th>Sprache</th><th>Level</th><th>Einsatz</th></tr>
-                <tr><td><i class="devicon-python-plain colored skill-ic"></i>Python</td><td><span class="badge bb">Gut</span></td><td>Algorithmen, Skripte</td></tr>
-                <tr><td><i class="devicon-bash-plain colored skill-ic"></i>Bash / Terminal</td><td><span class="badge bb">Gut</span></td><td>Täglich</td></tr>
+                <tr><th>Sprache</th><th>Stand</th><th>Wo ich sie eingesetzt habe</th></tr>
+                <tr><td><i class="devicon-typescript-plain colored skill-ic"></i>TypeScript</td><td><span class="badge bg">In Projekten</span></td><td>Askel: Einstellungsbereich, Distanzberechnung, Speicherung der Routen</td></tr>
+                <tr><td><i class="devicon-bash-plain colored skill-ic"></i>Bash</td><td><span class="badge bb">Grundlagen</span></td><td>Eigener Wallpaper-Switcher unter Arch Linux</td></tr>
+                <tr><td><i class="devicon-python-plain colored skill-ic"></i>Python</td><td><span class="badge bb">Grundlagen</span></td><td>Unterricht: Algorithmen und kleinere Skripte</td></tr>
               </table>
-              <h3 class="ed-h2 reveal">Tools &amp; Infrastruktur</h3>
+
+              <h3 class="ed-h2 reveal">Frameworks &amp; Bibliotheken</h3>
               <table class="ed-table reveal">
-                <tr><th>Tool</th><th>Level</th><th>Einsatz</th></tr>
-                <tr><td><i class="devicon-git-plain colored skill-ic"></i>Git / GitHub</td><td><span class="badge bb">Gut</span></td><td>Versionsverwaltung</td></tr>
-                <tr><td><i class="devicon-gitlab-plain colored skill-ic"></i>GitLab</td><td><span class="badge bb">Gut</span></td><td>Schulprojekte, Versionsverwaltung</td></tr>
-                <tr><td><i class="devicon-vscode-plain colored skill-ic"></i>VS Code</td><td><span class="badge bg">Täglich</span></td><td>Hauptentwicklungsumgebung</td></tr>
-                <tr><td><i class="devicon-linux-plain colored skill-ic"></i>Linux / Terminal</td><td><span class="badge bo">Grundlagen</span></td><td>Schulserver, VMs</td></tr>
-                <tr><td>Netzwerke / TCP/IP</td><td><span class="badge bo">Grundlagen</span></td><td>IMS-Ausbildung</td></tr>
+                <tr><th>Technologie</th><th>Stand</th><th>Wo ich es eingesetzt habe</th></tr>
+                <tr><td><i class="devicon-react-original colored skill-ic"></i>React / React Native</td><td><span class="badge bg">In Projekten</span></td><td>Askel (React Native), Kobui (React)</td></tr>
+                <tr><td><i class="devicon-react-original colored skill-ic"></i>Expo</td><td><span class="badge bg">In Projekten</span></td><td>Askel: GPS-Zugriff über <code>expo-location</code></td></tr>
+                <tr><td><i class="devicon-jest-plain colored skill-ic"></i>Jest</td><td><span class="badge bb">Grundlagen</span></td><td>Askel: Tests für Distanzberechnung, Formatierung und Speicherung</td></tr>
               </table>
-              <h3 class="ed-h2 reveal">Am Lernen</h3>
+
+              <h3 class="ed-h2 reveal">Datenbanken</h3>
               <table class="ed-table reveal">
-                <tr><th>Technologie</th><th>Level</th><th>Kontext</th></tr>
-                <tr><td><i class="devicon-typescript-plain colored skill-ic"></i>TypeScript</td><td><span class="badge bo">Am Lernen</span></td><td>Vertiefung nach JavaScript</td></tr>
-                <tr><td><i class="devicon-react-original colored skill-ic"></i>React</td><td><span class="badge bo">Am Lernen</span></td><td>Komponentenbasierte UIs</td></tr>
-                <tr><td><i class="devicon-docker-plain colored skill-ic"></i>Docker</td><td><span class="badge bo">Am Lernen</span></td><td>Containerisierung</td></tr>
-                <tr><td>REST APIs</td><td><span class="badge bo">Am Lernen</span></td><td>Schnittstellen-Design</td></tr>
+                <tr><th>Technologie</th><th>Stand</th><th>Wo ich es eingesetzt habe</th></tr>
+                <tr><td><i class="devicon-mysql-plain colored skill-ic"></i>SQL / MariaDB</td><td><span class="badge bb">Grundlagen</span></td><td>Unterricht und Schulprojekte: Abfragen, Joins, Subqueries</td></tr>
+                <tr><td><i class="devicon-redis-plain colored skill-ic"></i>Redis (NoSQL)</td><td><span class="badge bb">Grundlagen</span></td><td>Unterricht: Key-Value-Datenbanken</td></tr>
+              </table>
+
+              <h3 class="ed-h2 reveal">Backend &amp; Infrastruktur</h3>
+              <table class="ed-table reveal">
+                <tr><th>Technologie</th><th>Stand</th><th>Wo ich es eingesetzt habe</th></tr>
+                <tr><td><i class="devicon-nodejs-plain colored skill-ic"></i>Node.js / Serverless</td><td><span class="badge bb">Grundlagen</span></td><td>Diese Website: Login und geschützter Bereich als Serverless Functions</td></tr>
+                <tr><td><i class="devicon-git-plain colored skill-ic"></i>Git / GitHub / GitLab</td><td><span class="badge bg">In Projekten</span></td><td>Versionsverwaltung in allen Projekten, Branches und Merges im Team</td></tr>
+                <tr><td><i class="devicon-linux-plain colored skill-ic"></i>Linux</td><td><span class="badge bb">Grundlagen</span></td><td>Arch Linux als Zweitsystem selbst eingerichtet und konfiguriert</td></tr>
+                <tr><td>Netzwerke / TCP/IP</td><td><span class="badge bb">Grundlagen</span></td><td>Unterricht an der IMS</td></tr>
+              </table>
+
+              <h3 class="ed-h2 reveal">Baue ich gerade aus</h3>
+              <table class="ed-table reveal">
+                <tr><th>Technologie</th><th>Stand</th><th>Warum</th></tr>
+                <tr><td><i class="devicon-docker-plain colored skill-ic"></i>Docker</td><td><span class="badge bo">Im Aufbau</span></td><td>Anwendungen so ausliefern, dass sie überall gleich laufen</td></tr>
+                <tr><td>REST APIs</td><td><span class="badge bo">Im Aufbau</span></td><td>Nach den zwei Endpunkten dieser Website das Thema sauber von Grund auf</td></tr>
               </table>
             </div>
           </div>

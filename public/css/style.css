@@ -247,6 +247,11 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
 .bo{background:rgba(227,179,65,.15);color:var(--orange)}
 .bt{background:rgba(57,208,184,.15);color:var(--teal)}
 
+/* LEGENDE ZUR SKILL-TABELLE */
+.legend{list-style:none;margin:0 0 1.6rem;padding:0;display:flex;flex-wrap:wrap;gap:.5rem 1.4rem}
+.legend li{display:flex;align-items:center;gap:.5rem;font-family:var(--mono);
+  font-size:.7rem;color:var(--dim)}
+
 /* TECH STACK GRID */
 .tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin:1rem 0 2rem}
 .tech-card{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:1.3rem;
