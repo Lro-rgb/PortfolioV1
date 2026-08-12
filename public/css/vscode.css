@@ -754,7 +754,13 @@ code {
   border-left-color: var(--accent);
 }
 
-.proj-abstract strong { color: var(--accent); }
+/* "Abstract" ist eine Beschriftung, kein Satzanfang. Als eigene Zeile
+   darueber braucht es keinen Gedankenstrich, der die beiden verbindet. */
+.proj-abstract strong {
+  display: block;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
 .proj-t { font-family: var(--sans); font-size: 1.05rem; font-weight: 600; }
 .proj-body { font-size: 14px; color: var(--muted); line-height: 1.7; }
 .proj-meta dd { font-size: 13.5px; }
@@ -771,7 +777,91 @@ code {
 .bb { background: color-mix(in srgb, var(--info) 18%, transparent); color: var(--info); }
 .bo { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
 
-/* Startseite */
+/* ── Startseite ────────────────────────────────────────────────────────────
+   Vorher standen dieselben Angaben dreimal auf einer Seite: als JSON-Block
+   oben, als Faktenleiste in der Mitte und als Python-Klasse unten. Geblieben
+   ist die Faktenleiste, dafuer mit Angaben, die tatsaechlich etwas sagen.
+   ─────────────────────────────────────────────────────────────────────── */
+
+/* Statuszeile ueber dem Namen: das Erste, was jemand wissen will. */
+.status-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--ok);
+  background: color-mix(in srgb, var(--ok) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ok) 35%, transparent);
+  border-radius: 999px;
+  padding: 4px 12px 4px 10px;
+  margin-bottom: 1.4rem;
+}
+
+.status-dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.status-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  animation: statusPulse 2.4s ease-out infinite;
+}
+
+@keyframes statusPulse {
+  0% { opacity: 0.9; transform: scale(0.6); }
+  70%, 100% { opacity: 0; transform: scale(1.7); }
+}
+
+/* Faktenleiste: drei Spalten statt vier, damit sechs Angaben sauber
+   aufgehen, und Werte gross genug zum Ueberfliegen. */
+.fact-row {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 820px;
+  margin: 2rem 0 1rem;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.fact {
+  background: var(--sb);
+  padding: 0.85rem 1.1rem;
+}
+
+.fact dt {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+
+.fact dd {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.fact dd a { color: var(--accent); text-decoration: none; }
+.fact dd a:hover { text-decoration: underline; }
+
+@media (max-width: 760px) {
+  .fact-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 460px) {
+  .fact-row { grid-template-columns: 1fr; }
+}
+
 .hero-name { font-family: var(--sans); font-weight: 700; letter-spacing: -0.03em; }
 .hero-name .acc { color: var(--accent); }
 .hero-role { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); }

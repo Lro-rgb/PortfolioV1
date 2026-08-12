@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Portfolio von Luis Rosado — Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt."/>
+<meta name="description" content="Portfolio von Luis Rosado · Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt."/>
 <meta name="author" content="Luis Rosado"/>
-<meta name="theme-color" content="#0D1117"/>
-<title>Luis Rosado — Informatiker EFZ Applikationsentwicklung</title>
+<meta name="theme-color" content="#1e1e1e"/>
+<title>Luis Rosado · Informatiker EFZ Applikationsentwicklung</title>
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
@@ -14,18 +14,18 @@
 <!-- Open Graph / Link-Vorschau (z.B. bei Bewerbungs-Mail, LinkedIn) -->
 <meta property="og:type" content="website"/>
 <meta property="og:locale" content="de_CH"/>
-<meta property="og:site_name" content="Luis Rosado — Portfolio"/>
-<meta property="og:title" content="Luis Rosado — Informatiker EFZ Applikationsentwicklung"/>
-<meta property="og:description" content="Portfolio von Luis Rosado — Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt."/>
+<meta property="og:site_name" content="Luis Rosado · Portfolio"/>
+<meta property="og:title" content="Luis Rosado · Informatiker EFZ Applikationsentwicklung"/>
+<meta property="og:description" content="Portfolio von Luis Rosado · Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt."/>
 <meta property="og:image" content="og-image.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
-<meta property="og:image:alt" content="Luis Rosado — Informatiker EFZ Applikationsentwicklung"/>
+<meta property="og:image:alt" content="Luis Rosado · Informatiker EFZ Applikationsentwicklung"/>
 
 <!-- Twitter Card (nutzt dieselben Werte wie Open Graph) -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Luis Rosado — Informatiker EFZ Applikationsentwicklung"/>
-<meta name="twitter:description" content="Portfolio von Luis Rosado — Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern."/>
+<meta name="twitter:title" content="Luis Rosado · Informatiker EFZ Applikationsentwicklung"/>
+<meta name="twitter:description" content="Portfolio von Luis Rosado · Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern."/>
 <meta name="twitter:image" content="og-image.png"/>
 
 <!-- Fonts -->
@@ -33,7 +33,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-<!-- Devicon — original technology icons (Python, Java, MySQL, etc.) -->
+<!-- Devicon: original technology icons (Python, Java, MySQL, etc.) -->
 <!-- Devicon liefert nur die Technologie-Logos. Das Stylesheet ist gross und
      wuerde das erste Zeichnen der Seite aufhalten, obwohl kein einziges
      Logo fuer den Text noetig ist. Der media="print"-Kniff laesst den
@@ -52,7 +52,7 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/vscode.css">
 
-<!-- Gewaehltes Farbdesign setzen, bevor die Seite zeichnet — sonst blitzt
+<!-- Gewaehltes Farbdesign setzen, bevor die Seite zeichnet, sonst blitzt
      kurz das Standarddesign auf. -->
 <script>
   (function () {
@@ -97,7 +97,7 @@
     </div>
     <div class="splash-bar-track"><div class="splash-bar-fill" id="splashFill"></div></div>
   </div>
-  <div class="splash-version" aria-hidden="true">Portfolio v1.0 — Luis Rosado</div>
+  <div class="splash-version" aria-hidden="true">Portfolio v1.0 · Luis Rosado</div>
   <button type="button" class="splash-skip" id="splashSkip">Überspringen ↵</button>
 </div>
 
@@ -110,7 +110,7 @@
         <span class="lh-dot" style="background:#FFBD2E" aria-hidden="true"></span>
         <span class="lh-dot" style="background:#28CA41" aria-hidden="true"></span>
       </div>
-      <span class="login-title" id="loginTitle">authentication.js — Zugang erforderlich</span>
+      <span class="login-title" id="loginTitle">authentication.js · Zugang erforderlich</span>
     </div>
     <div class="login-body">
       <p class="login-cmt">// Diese Datei ist passwortgeschützt.<br>// Nur für berechtigte Personen.</p>
@@ -121,7 +121,7 @@
       </div>
       <button type="button" class="login-btn" id="loginBtn" onclick="doLogin()">ENTER ↵</button>
       <p class="login-err" id="loginErr" role="alert">Falsches Passwort.</p>
-      <button type="button" class="login-cancel" onclick="closeLogin()">Abbrechen — ESC</button>
+      <button type="button" class="login-cancel" onclick="closeLogin()">Abbrechen (ESC)</button>
     </div>
   </div>
 </div>
@@ -156,7 +156,7 @@
 
   <!-- ── ACTIVITY BAR ──
        Die Icon-Leiste ganz links. Explorer klappt die Seitenleiste auf und
-       zu, die uebrigen Symbole springen an die passende Stelle — sie sind
+       zu, die uebrigen Symbole springen an die passende Stelle, sie sind
        also keine Attrappe. -->
   <nav class="activitybar" aria-label="Aktivitätsleiste">
     <button type="button" class="act-btn" id="actExplorer" aria-pressed="true" title="Explorer (Strg+Umschalt+E)">
@@ -172,7 +172,7 @@
     <button type="button" class="act-btn" data-open="projekte" title="Projekte">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><circle cx="18" cy="9" r="2.6"/><path d="M6 8.6v6.8M8.6 6H14a2 2 0 0 1 2 2v.6"/></svg>
       <span class="vh">Projekte</span>
-      <span class="act-badge" id="actProjCount">8</span>
+      <span class="act-badge" id="actProjCount">9</span>
     </button>
 
     <button type="button" class="act-btn" data-cmd="terminal" title="Terminal (Strg+^)">
@@ -298,23 +298,17 @@
           </div>
           <div class="code-view">
             <div class="code-content" id="cc-home">
-              <div class="cmt">// luis.json — Wer ich bin</div><br>
-              <div><span class="punct">{</span></div>
-              <div class="i1"><span class="kw">"name"</span><span class="punct">: </span><span class="str">"Luis Rosado"</span><span class="punct">,</span></div>
-              <div class="i1"><span class="kw">"rolle"</span><span class="punct">: </span><span class="str">"Informatiker EFZ Applikationsentwicklung"</span><span class="punct">,</span></div>
-              <div class="i1"><span class="kw">"schule"</span><span class="punct">: </span><span class="str">"IMS an der BWD Bern"</span><span class="punct">,</span></div>
-              <div class="i1"><span class="kw">"lehrjahr"</span><span class="punct">: </span><span class="num">3</span><span class="punct">,</span></div>
-              <div class="i1"><span class="kw">"standort"</span><span class="punct">: </span><span class="str">"Burgdorf, CH"</span><span class="punct">,</span></div>
-              <div class="i1"><span class="kw">"status"</span><span class="punct">: </span><span class="str">"auf Praktikumssuche"</span></div>
-              <div><span class="punct">}</span></div>
-              <div style="height:2.5rem"></div>
+              <div class="cmt">// luis.json</div><br>
+              <p class="status-line reveal">
+                <span class="status-dot" aria-hidden="true"></span>
+                Sucht eine Praktikumsstelle in der Applikationsentwicklung
+              </p>
               <h1 class="hero-name reveal">Luis<br><span class="acc">Rosado</span></h1>
               <p class="hero-role reveal">Informatiker EFZ Applikationsentwicklung&nbsp;<span class="blink" aria-hidden="true"></span></p>
-              <div style="height:1.2rem"></div>
               <div class="prose reveal">
-                <p>Drittes Ausbildungsjahr zum Informatiker EFZ, Fachrichtung Applikationsentwicklung, an der IMS an der BWD Bern.</p>
-                <p>Was mich interessiert: verstehen, wie Systeme aufgebaut sind. Nicht nur dass etwas läuft, sondern warum.</p>
-                <p>Ich suche eine Praktikumsstelle, in der ich mein Wissen aus der Ausbildung in der Praxis anwenden und weiter ausbauen kann.</p>
+                <p>Ich mache die IMS an der BWD Bern und bin im dritten Jahr auf dem Weg zum Informatiker EFZ, Fachrichtung Applikationsentwicklung.</p>
+                <p>Wenn mich etwas interessiert, baue ich es meistens einmal selbst nach, bis ich verstehe, warum es funktioniert. Aus dieser Angewohnheit sind die meisten Projekte auf dieser Seite entstanden.</p>
+                <p>Jetzt suche ich ein Praktikum, in dem ich in einem Team an Anwendungen mitarbeite, die auch wirklich jemand benutzt.</p>
               </div>
 
               <div class="cta-row reveal">
@@ -333,24 +327,13 @@
               <div class="media-audio reveal" data-audio="intro"></div>
 
               <dl class="fact-row reveal">
-                <div class="fact"><dt>Standort</dt><dd>Burgdorf BE</dd></div>
+                <div class="fact"><dt>Wohnort</dt><dd>Burgdorf BE</dd></div>
                 <div class="fact"><dt>Schule</dt><dd>IMS an der BWD Bern</dd></div>
-                <div class="fact"><dt>Lehrjahr</dt><dd>3. Ausbildungsjahr</dd></div>
-                <div class="fact"><dt>Gesucht</dt><dd>Praktikumsstelle</dd></div>
+                <div class="fact"><dt>Stand</dt><dd>3. Ausbildungsjahr</dd></div>
+                <div class="fact"><dt>Schwerpunkt</dt><dd>Web und Backend</dd></div>
+                <div class="fact"><dt>Arbeitet gern mit</dt><dd>TypeScript, React, Python</dd></div>
+                <div class="fact"><dt>Erreichbar</dt><dd><a href="mailto:luisrosado008@gmail.com">luisrosado008@gmail.com</a></dd></div>
               </dl>
-
-              <div class="cb reveal">
-                <span class="cb-lang">python</span>
-                <div class="cl"><span class="kw">class</span> <span class="fn">LuisRosado</span><span class="punct">:</span></div>
-                <div class="cl i1"><span class="kw-b">def</span> <span class="fn">__init__</span><span class="punct">(self):</span></div>
-                <div class="cl i2"><span class="kw-b">self</span>.name <span class="punct">=</span> <span class="str">"Luis Rosado"</span></div>
-                <div class="cl i2"><span class="kw-b">self</span>.lehrjahr <span class="punct">=</span> <span class="num">3</span></div>
-                <div class="cl i2"><span class="kw-b">self</span>.fokus <span class="punct">=</span> <span class="str">"Applikationsentwicklung"</span></div>
-                <div class="cl i2"><span class="kw-b">self</span>.sucht <span class="punct">=</span> <span class="str">"Praktikumsplatz"</span></div>
-                <div class="cl i1"><br></div>
-                <div class="cl i1"><span class="kw-b">def</span> <span class="fn">kontakt</span><span class="punct">(self) -&gt;</span> <span class="type">str</span><span class="punct">:</span></div>
-                <div class="cl i2"><span class="kw">return</span> <span class="str">"luisrosado008@gmail.com"</span></div>
-              </div>
             </div>
           </div>
         </div>
@@ -360,10 +343,10 @@
           <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">skills.py</span></div>
           <div class="code-view">
             <div class="code-content">
-              <div class="cmt"># skills.py — Technische Fähigkeiten</div><br>
+              <div class="cmt"># skills.py · Technische Fähigkeiten</div><br>
               <h2 class="ed-h1 reveal">Skills</h2>
               <div class="prose reveal" style="margin-bottom:1.2rem">
-                <p>Statt einer Selbsteinschätzung steht hier, <strong>wo</strong> ich eine Technologie eingesetzt habe. Was ich behaupte, lässt sich in den Projekten nachschauen — der Quellcode ist offen.</p>
+                <p>Statt einer Selbsteinschätzung steht hier, <strong>wo</strong> ich eine Technologie eingesetzt habe. Was ich behaupte, lässt sich in den Projekten nachschauen. Der Quellcode ist offen.</p>
               </div>
               <ul class="legend reveal">
                 <li><span class="badge bg">In Projekten</span> in mindestens einem abgeschlossenen Projekt eingesetzt</li>
@@ -375,7 +358,7 @@
               <table class="ed-table reveal">
                 <tr><th>Technologie</th><th>Stand</th><th>Wo ich es eingesetzt habe</th></tr>
                 <tr><td><i class="devicon-html5-plain colored skill-ic"></i><i class="devicon-css3-plain colored skill-ic"></i>HTML5 / CSS3</td><td><span class="badge bg">In Projekten</span></td><td>Portfolio: Aufbau, Farbsystem, Druckansicht</td></tr>
-                <tr><td><i class="devicon-javascript-plain colored skill-ic"></i>JavaScript</td><td><span class="badge bg">In Projekten</span></td><td>Portfolio: Tabverwaltung, Tastatursteuerung, Login-Ablauf — ohne Framework</td></tr>
+                <tr><td><i class="devicon-javascript-plain colored skill-ic"></i>JavaScript</td><td><span class="badge bg">In Projekten</span></td><td>Portfolio: Tabverwaltung, Tastatursteuerung und Login-Ablauf, alles ohne Framework</td></tr>
                 <tr><td><i class="devicon-css3-plain colored skill-ic"></i>Responsive Design</td><td><span class="badge bg">In Projekten</span></td><td>Portfolio: vier Umbruchpunkte, Explorer als Schublade auf dem Handy</td></tr>
               </table>
 
@@ -393,6 +376,7 @@
                 <tr><th>Technologie</th><th>Stand</th><th>Wo ich es eingesetzt habe</th></tr>
                 <tr><td><i class="devicon-react-original colored skill-ic"></i>React / React Native</td><td><span class="badge bg">In Projekten</span></td><td>Askel (React Native), Kobui (React)</td></tr>
                 <tr><td><i class="devicon-react-original colored skill-ic"></i>Expo</td><td><span class="badge bg">In Projekten</span></td><td>Askel: GPS-Zugriff über <code>expo-location</code></td></tr>
+                <tr><td><i class="devicon-nestjs-plain colored skill-ic"></i>NestJS</td><td><span class="badge bg">In Projekten</span></td><td>URL-Shortener: zwei Dienste mit Controllern, Modulen und API-Key-Middleware</td></tr>
                 <tr><td><i class="devicon-jest-plain colored skill-ic"></i>Jest</td><td><span class="badge bb">Grundlagen</span></td><td>Askel: Tests für Distanzberechnung, Formatierung und Speicherung</td></tr>
               </table>
 
@@ -408,7 +392,9 @@
                 <tr><th>Technologie</th><th>Stand</th><th>Wo ich es eingesetzt habe</th></tr>
                 <tr><td><i class="devicon-nodejs-plain colored skill-ic"></i>Node.js / Serverless</td><td><span class="badge bb">Grundlagen</span></td><td>Portfolio: Login und geschützter Bereich als Serverless Functions</td></tr>
                 <tr><td><i class="devicon-git-plain colored skill-ic"></i>Git / GitHub / GitLab</td><td><span class="badge bg">In Projekten</span></td><td>Versionsverwaltung in allen Projekten, Branches und Merges im Team</td></tr>
-                <tr><td><i class="devicon-docker-plain colored skill-ic"></i>Docker / Compose</td><td><span class="badge bg">In Projekten</span></td><td>Redis-Webshop: Anwendung und Datenbank starten zusammen aus einer Datei</td></tr>
+                <tr><td><i class="devicon-docker-plain colored skill-ic"></i>Docker / Compose</td><td><span class="badge bg">In Projekten</span></td><td>Redis-Webshop und URL-Shortener: Dienste und Datenbank starten zusammen aus einer Datei</td></tr>
+                <tr><td><i class="devicon-kubernetes-plain colored skill-ic"></i>Kubernetes / ArgoCD</td><td><span class="badge bg">In Projekten</span></td><td>URL-Shortener: Manifeste in einem eigenen GitOps-Repo, ArgoCD gleicht den Cluster automatisch ab</td></tr>
+                <tr><td><i class="devicon-gitlab-plain colored skill-ic"></i>CI-Pipeline</td><td><span class="badge bg">In Projekten</span></td><td>URL-Shortener: GitLab-Pipeline baut und prüft beide Dienste bei jedem Commit</td></tr>
                 <tr><td><i class="devicon-azure-plain colored skill-ic"></i>Azure / Betrieb</td><td><span class="badge bb">Grundlagen</span></td><td>DevOps-Modul: den Redis-Webshop nicht nur lokal, sondern auf einem Server betrieben</td></tr>
                 <tr><td><i class="devicon-linux-plain colored skill-ic"></i>Linux</td><td><span class="badge bb">Grundlagen</span></td><td>Arch Linux als Zweitsystem selbst eingerichtet und konfiguriert</td></tr>
                 <tr><td>Netzwerke / TCP/IP</td><td><span class="badge bb">Grundlagen</span></td><td>Unterricht an der IMS</td></tr>
@@ -418,7 +404,7 @@
               <table class="ed-table reveal">
                 <tr><th>Technologie</th><th>Stand</th><th>Warum</th></tr>
                 <tr><td>REST APIs</td><td><span class="badge bo">Im Aufbau</span></td><td>Nach den zwei Endpunkten dieser Website das Thema sauber von Grund auf</td></tr>
-                <tr><td><i class="devicon-nestjs-plain colored skill-ic"></i>NestJS / Prisma</td><td><span class="badge bo">Im Aufbau</span></td><td>Im Modul LBV 294 kennengelernt — ein Backend-Framework mit klarer Struktur, das ich sauber beherrschen möchte</td></tr>
+                
               </table>
             </div>
           </div>
@@ -429,7 +415,7 @@
           <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">techstack.ts</span></div>
           <div class="code-view">
             <div class="code-content">
-              <div class="cmt">// techstack.ts — Technologien &amp; Tools</div><br>
+              <div class="cmt">// techstack.ts · Technologien &amp; Tools</div><br>
               <div class="cb reveal">
                 <span class="cb-lang">typescript</span>
                 <div class="cl"><span class="kw">interface</span> <span class="type">TechStack</span> <span class="punct">{</span></div>
@@ -459,18 +445,20 @@
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-redis-plain colored"></i></span><div class="tech-name">Redis</div><div class="tech-cat">NoSQL / Key-Value</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-flask-original"></i></span><div class="tech-name">Flask</div><div class="tech-cat">Backend</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-docker-plain colored"></i></span><div class="tech-name">Docker</div><div class="tech-cat">Ausliefern</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-kubernetes-plain colored"></i></span><div class="tech-name">Kubernetes</div><div class="tech-cat">Betrieb</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-nestjs-plain colored"></i></span><div class="tech-name">NestJS</div><div class="tech-cat">Backend</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-git-plain colored"></i></span><div class="tech-name">Git</div><div class="tech-cat">Versionierung</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-github-original" style="color:#E6EDF3"></i></span><div class="tech-name">GitHub</div><div class="tech-cat">Kollaboration</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-gitlab-plain colored"></i></span><div class="tech-name">GitLab</div><div class="tech-cat">Schule</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-vscode-plain colored"></i></span><div class="tech-name">VS Code</div><div class="tech-cat">Editor</div></div>
-                <div class="tech-card"><span class="tech-icon"><i class="devicon-windows8-original colored"></i></span><div class="tech-name">Windows 11</div><div class="tech-cat">OS — Hauptsystem</div></div>
-                <div class="tech-card"><span class="tech-icon"><i class="devicon-archlinux-plain colored"></i></span><div class="tech-name">Arch Linux</div><div class="tech-cat">OS — Dev-Setup</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-windows8-original colored"></i></span><div class="tech-name">Windows 11</div><div class="tech-cat">Hauptsystem</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-archlinux-plain colored"></i></span><div class="tech-name">Arch Linux</div><div class="tech-cat">Dev-Setup</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-bash-plain colored"></i></span><div class="tech-name">Bash</div><div class="tech-cat">Terminal / Skripte</div></div>
               </div>
 
               <h3 class="ed-h2 reveal">Setup</h3>
               <div class="prose reveal" style="margin-bottom:1.5rem">
-                <p>Für die Schule nutze ich ein Lenovo ThinkPad mit Dual-Boot — Windows 11 für den Alltag, Arch Linux fürs Programmieren und um zu verstehen, wie das System unter der Oberfläche funktioniert. Entwickelt wird in VS Code, versioniert über GitLab. Zuhause habe ich zusätzlich einen Desktop-PC mit Windows.</p>
+                <p>Für die Schule nutze ich ein Lenovo ThinkPad mit Dual-Boot: Windows 11 für den Alltag, Arch Linux fürs Programmieren. Entwickelt wird in VS Code, versioniert über GitLab. Zuhause steht zusätzlich ein Desktop-PC mit Windows.</p>
               </div>
             </div>
           </div>
@@ -484,7 +472,7 @@
               <div class="cmt">&lt;!-- projekte.html --&gt;</div><br>
               <h2 class="ed-h1 reveal">Projekte</h2>
               <div class="prose reveal" style="margin-bottom:.5rem">
-                <p>Jedes Projekt beginnt mit einem Abstract — der Kurzfassung in zwei, drei Sätzen. Darunter stehen die Details, der eingesetzte Stack und, wo vorhanden, Quellcode und Demo.</p>
+                <p>Jedes Projekt beginnt mit einem Abstract, also der Kurzfassung in zwei bis drei Sätzen. Darunter stehen die Details, der eingesetzte Stack und, wo vorhanden, Quellcode und Demo.</p>
               </div>
 
               <h3 class="ed-h2 reveal">Persönliche Projekte</h3>
@@ -493,13 +481,13 @@
                 <article class="proj-card" id="proj-portfolio">
                   <div class="proj-type">// Persönlich · eigenständig · laufend</div>
                   <h4 class="proj-t">Portfolio</h4>
-                  <p class="proj-abstract"><strong>Abstract —</strong> Eine Bewerbungs- und Portfolio-Website, deren Oberfläche als Code-Editor aufgebaut ist. Der öffentliche Teil zeigt Skills und Projekte, ein passwortgeschützter Teil Noten und Lebenslauf. Frontend und Backend sind von Hand geschrieben, ohne Framework und ohne eine einzige externe Abhängigkeit.</p>
+                  <p class="proj-abstract"><strong>Abstract</strong>Diese Seite hier. Die Oberfläche ist einem Code-Editor nachgebaut, mit Tabs, Explorer, Terminal und Kommandopalette. Öffentlich sind Skills und Projekte, hinter einem Passwort liegen Noten und Lebenslauf. Alles von Hand geschrieben, ohne Framework und ohne eine einzige externe Abhängigkeit.</p>
                   <div class="proj-body">
-                    Umgesetzt sind unter anderem: eine Tabverwaltung mit Tastatursteuerung, Öffnen und Schliessen von Dateien, adressierbare Abschnitte über den URL-Hash, ein Login gegen eine Serverless Function mit gesalzenem scrypt-Hash und zeitlich begrenztem Token, ein Explorer, der auf schmalen Bildschirmen zur Schublade wird, sowie ein eigenes Druck-Stylesheet. Geschützte Inhalte liegen serverseitig und tauchen nie im ausgelieferten Frontend auf.
+                    Drin steckt unter anderem eine Tabverwaltung mit Tastatursteuerung, ein Explorer, der auf dem Handy zur Schublade wird, sechs Farbdesigns und ein eigenes Druck-Stylesheet. Der Login geht an eine Serverless Function, die das Passwort gegen einen gesalzenen scrypt-Hash prüft und ein Token mit vier Stunden Laufzeit zurückgibt. Noten und Lebenslauf liegen auf dem Server und stehen nie im ausgelieferten HTML. Wer den Quelltext im Browser öffnet, findet dort nichts.
                   </div>
                   <dl class="proj-meta">
-                    <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt — Konzept, Gestaltung, Frontend, Backend</dd></div>
-                    <div><dt>Besonderheit</dt><dd>Vollständig ohne Framework und ohne npm-Abhängigkeiten</dd></div>
+                    <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt: Konzept, Gestaltung, Frontend und Backend</dd></div>
+                    <div><dt>Besonderheit</dt><dd>Kein Framework, keine npm-Abhängigkeiten. Was im Browser ankommt, habe ich geschrieben.</dd></div>
                   </dl>
                   <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Node.js</span><span class="chip">Vercel</span></div>
                   <div class="proj-links">
@@ -511,13 +499,13 @@
                 <article class="proj-card" id="proj-wallpaper">
                   <div class="proj-type">// Persönlich · eigenständig · eigenes Skript</div>
                   <h4 class="proj-t">Wallpaper-Switcher mit automatischem Farbschema</h4>
-                  <p class="proj-abstract"><strong>Abstract —</strong> Ein selbstgeschriebenes Bash-Skript, das aus dem gewählten Hintergrundbild ein vollständiges Farbschema ableitet und es in einem Zug auf das ganze System anwendet. Ein Bildwechsel färbt damit Fensterrahmen, Leiste, Menü und Terminal automatisch passend um — ohne dass ich eine Konfigurationsdatei anfasse.</p>
+                  <p class="proj-abstract"><strong>Abstract</strong>Ein Bash-Skript, das aus meinem Hintergrundbild ein Farbschema errechnet und es auf das ganze System anwendet. Ein Bildwechsel färbt damit Fensterrahmen, Leiste, Menü und Terminal automatisch mit um, ohne dass ich eine Konfigurationsdatei anfassen muss.</p>
                   <div class="proj-body">
-                    Das Skript verkettet vier Werkzeuge zu einem Ablauf: <code>waypaper</code> zum Auswählen und Setzen des Bildes, <code>matugen</code> zum Ableiten einer Farbpalette daraus, <code>rofi</code> als Auswahlmenü und <code>waybar</code> als Statusleiste. Nach dem Erzeugen der Palette schreibt es die Konfigurationsdateien der beteiligten Programme neu und startet sie kontrolliert neu, damit die Änderung sofort sichtbar ist. Die Herausforderung lag weniger im Erzeugen der Farben als in der Reihenfolge: Wird ein Programm zu früh neu geladen, liest es noch die alte Palette.
+                    Das Skript verkettet vier Werkzeuge: <code>waypaper</code> setzt das Bild, <code>matugen</code> leitet die Farbpalette daraus ab, <code>rofi</code> ist das Auswahlmenü und <code>waybar</code> die Statusleiste. Danach schreibt es die Konfigurationsdateien der beteiligten Programme neu und startet sie kontrolliert neu. Der knifflige Teil waren nicht die Farben, sondern die Reihenfolge: Lädt ein Programm zu früh neu, liest es noch die alte Palette.
                   </div>
                   <dl class="proj-meta">
                     <div><dt>Meine Rolle</dt><dd>Alleine geschrieben</dd></div>
-                    <div><dt>Gelernt</dt><dd>Bash-Skripting, Verketten von Kommandozeilenwerkzeugen, Umgang mit Konfigurationsdateien und Prozessen unter Linux</dd></div>
+                    <div><dt>Gelernt</dt><dd>Bash, Kommandozeilenwerkzeuge verketten, Konfigurationsdateien und Prozesse unter Linux</dd></div>
                   </dl>
                   <div class="chips"><span class="chip">Bash</span><span class="chip">Matugen</span><span class="chip">Waypaper</span><span class="chip">Rofi</span><span class="chip">Waybar</span><span class="chip">Hyprland</span></div>
                   <div class="proj-media" data-media="wallpaper"></div>
@@ -526,9 +514,9 @@
                 <article class="proj-card" id="proj-arch">
                   <div class="proj-type">// Persönlich · eigenständig</div>
                   <h4 class="proj-t">Arch Linux + Hyprland Dual-Boot</h4>
-                  <p class="proj-abstract"><strong>Abstract —</strong> Ein selbst aufgesetztes Dual-Boot-System auf meinem ThinkPad: Windows 11 für den Alltag, Arch Linux mit dem Window Manager Hyprland fürs Programmieren — eingerichtet, um zu verstehen, wie ein Linux-System unter der Oberfläche zusammengesetzt ist.</p>
+                  <p class="proj-abstract"><strong>Abstract</strong>Ein selbst aufgesetztes Dual-Boot-System auf meinem ThinkPad: Windows 11 für den Alltag, Arch Linux mit dem Window Manager Hyprland fürs Programmieren. Eingerichtet, weil ich wissen wollte, wie ein Linux-System unter der Oberfläche zusammengesetzt ist.</p>
                   <div class="proj-body">
-                    Arch Linux über <code>archinstall</code> installiert und Hyprland von Grund auf konfiguriert — bei Hyprland gibt es keine fertige Oberfläche, jede Taste und jedes Fensterverhalten steht in einer Konfigurationsdatei. Dazu eine Terminal-Umgebung mit Alacritty und der Fish-Shell und <code>waybar</code> als Statusleiste. Das Aufsetzen war der Anlass für den Wallpaper-Switcher oben.
+                    Arch über <code>archinstall</code> installiert und Hyprland von Grund auf konfiguriert. Bei Hyprland gibt es keine fertige Oberfläche: Jede Taste und jedes Fensterverhalten steht in einer Konfigurationsdatei. Dazu Alacritty als Terminal, die Fish-Shell und <code>waybar</code> als Statusleiste. Aus diesem Setup ist auch der Wallpaper-Switcher entstanden.
                   </div>
                   <dl class="proj-meta">
                     <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt</dd></div>
@@ -541,13 +529,13 @@
                 <article class="proj-card" id="proj-modding">
                   <div class="proj-type">// Persönlich · eigenständig</div>
                   <h4 class="proj-t">Konsolen-Modding: Switch &amp; 3DS</h4>
-                  <p class="proj-abstract"><strong>Abstract —</strong> Auf eigenen Geräten — einer Nintendo Switch und einem Nintendo 3DS — per Softmodding eine Custom Firmware eingerichtet, um zu verstehen, wie ein Bootvorgang abläuft und an welcher Stelle ein System seine Signaturen prüft.</p>
+                  <p class="proj-abstract"><strong>Abstract</strong>Auf meiner eigenen Nintendo Switch und meinem 3DS eine Custom Firmware eingerichtet. Mich hat interessiert, wie ein Bootvorgang abläuft und an welcher Stelle ein System seine Signaturen prüft.</p>
                   <div class="proj-body">
-                    Bei der Switch über ein RCM-Jig im Recovery-Modus einen Payload (Hekate) geladen und ein EmuMMC aufgesetzt — eine abgetrennte Systemkopie, damit das Originalsystem unangetastet bleibt. Möglich war das nur wegen einer noch nicht gepatchten Firmware-Version. Beim 3DS die Custom Firmware Luma3DS installiert. Beide Geräte gehören mir; es ging um das Verständnis der Boot-Kette, nicht um Inhalte.
+                    Bei der Switch über ein RCM-Jig im Recovery-Modus den Payload Hekate geladen und ein EmuMMC aufgesetzt, also eine abgetrennte Systemkopie, damit das Originalsystem unangetastet bleibt. Das ging nur, weil die Firmware noch nicht gepatcht war. Auf dem 3DS läuft Luma3DS. Beide Geräte gehören mir, und es ging um die Boot-Kette, nicht um Inhalte.
                   </div>
                   <dl class="proj-meta">
                     <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt</dd></div>
-                    <div><dt>Gelernt</dt><dd>Bootvorgang, Recovery-Modi, Signaturprüfung, Umgang mit englischer Fachdokumentation</dd></div>
+                    <div><dt>Gelernt</dt><dd>Bootvorgang, Recovery-Modi, Signaturprüfung und der Umgang mit englischer Fachdokumentation</dd></div>
                   </dl>
                   <div class="chips"><span class="chip">RCM</span><span class="chip">Hekate</span><span class="chip">EmuMMC</span><span class="chip">Luma3DS</span></div>
                   <div class="proj-media" data-media="modding"></div>
@@ -558,12 +546,42 @@
               <h3 class="ed-h2 reveal">Schulprojekte</h3>
               <div class="proj-grid reveal">
 
+                <article class="proj-card" id="proj-urlshortener">
+                  <div class="proj-type">// Schulprojekt · Modul 210 · eigenständig</div>
+                  <h4 class="proj-t">URL-Shortener mit GitOps-Kette</h4>
+                  <p class="proj-abstract"><strong>Abstract</strong>Ein URL-Shortener aus zwei NestJS-Diensten und einer MariaDB, der nicht nur läuft, sondern auch ausgeliefert wird: containerisiert, über eine CI-Pipeline gebaut und von ArgoCD automatisch in einen Kubernetes-Cluster deployt. Das Interessante war weniger das Kürzen von Links als der Weg vom Commit bis in den laufenden Cluster.</p>
+                  <div class="proj-body">
+                    <strong>Die Anwendung.</strong> <code>shorty</code> nimmt lange URLs entgegen, gibt einen Kurzcode zurück und leitet beim Aufruf per 302 weiter. <code>keeper</code> ist der einzige Dienst, der die Datenbank sieht, und ist per API-Key geschützt. Von aussen erreichbar ist nur <code>shorty</code> über den Ingress, <code>keeper</code> hängt als ClusterIP dahinter. Ein Angreifer, der von aussen kommt, hat also keinen direkten Weg zur Datenbank.
+                    <br><br>
+                    <strong>Der Weg in den Cluster.</strong> Beide Dienste laufen in Containern, gebaut über eine GitLab-Pipeline. Die Kubernetes-Manifeste liegen bewusst in einem <em>zweiten</em> Repo: Anwendungscode und gewünschter Cluster-Zustand sind getrennt. ArgoCD beobachtet dieses GitOps-Repo und gleicht den Cluster automatisch an. Ein Deployment ist damit ein Commit, kein <code>kubectl</code>-Befehl von Hand. Wer den Zustand ändern will, muss durch Git, und dort ist jede Änderung nachvollziehbar.
+                    <br><br>
+                    Dazu kam schriftliche Arbeit, die ich sonst nirgends gemacht habe: ein Rollenkonzept mit IAM und RBAC, ein Sicherheitskonzept und eine Kostenanalyse für einen Betrieb in AWS. Alle drei theoretisch, aber sie haben mich zum ersten Mal darüber nachdenken lassen, was der Betrieb einer Anwendung tatsächlich kostet und wer worauf zugreifen darf.
+                  </div>
+                  <dl class="proj-meta">
+                    <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt. Der Kurs stellte ein leeres Grundgerüst mit den ersten sechs Commits, alles ab der Containerisierung stammt von mir: 17 der 23 Commits.</dd></div>
+                    <div><dt>Gelernt</dt><dd>
+                      <ul class="proj-ul">
+                        <li>Warum man Anwendungscode und Deployment-Zustand trennt</li>
+                        <li>Dass Container zur Sicherheit gehören, nicht nur zum Ausliefern, etwa wenn sie nicht als root laufen</li>
+                        <li>Einen Dienst so schneiden, dass nur einer nach aussen zeigt</li>
+                        <li>Dass ein Deployment reproduzierbar sein muss, sonst ist es Glückssache</li>
+                      </ul>
+                    </dd></div>
+                  </dl>
+                  <div class="chips"><span class="chip">NestJS</span><span class="chip">TypeScript</span><span class="chip">MariaDB</span><span class="chip">Docker</span><span class="chip">GitLab CI</span><span class="chip">Kubernetes</span><span class="chip">ArgoCD</span></div>
+                  <div class="proj-links">
+                    <a href="https://github.com/Lro-rgb/url-shortener" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Anwendung</a>
+                    <a href="https://github.com/Lro-rgb/url-shortener-gitops" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 GitOps-Repo</a>
+                  </div>
+                  <div class="proj-media" data-media="urlshortener"></div>
+                </article>
+
                 <article class="proj-card" id="proj-askel">
                   <div class="proj-type">// Schulprojekt · Modul 335 · Dreierteam</div>
                   <h4 class="proj-t">Askel</h4>
-                  <p class="proj-abstract"><strong>Abstract —</strong> Askel (finnisch für «Schritt») ist eine mobile App, die eine Fahrt per GPS aufzeichnet: Position, Höhe und Geschwindigkeit. Routen lassen sich speichern, benennen, farblich markieren und auf einer Karte anzeigen. Alle Daten bleiben bewusst auf dem Gerät — es gibt kein Backend.</p>
+                  <p class="proj-abstract"><strong>Abstract</strong>Askel heisst auf Finnisch «Schritt» und ist eine mobile App, die eine Fahrt per GPS aufzeichnet: Position, Höhe und Geschwindigkeit. Routen lassen sich speichern, benennen, farblich markieren und auf einer Karte anzeigen. Alle Daten bleiben auf dem Gerät, ein Backend gibt es nicht.</p>
                   <div class="proj-body">
-                    Umgesetzt mit React Native und Expo. Die Standortdaten kommen über <code>expo-location</code>, die Aufzeichnung läuft während der Fahrt weiter und die gespeicherten Routen werden lokal abgelegt. Der Verzicht auf ein Backend war eine bewusste Entscheidung: Bewegungsprofile sind besonders heikle Daten, und was das Gerät nie verlässt, kann auch nicht abfliessen.
+                    Umgesetzt mit React Native und Expo. Die Standortdaten kommen über <code>expo-location</code>, die Aufzeichnung läuft während der Fahrt weiter und die Routen werden lokal gespeichert. Dass es kein Backend gibt, war eine bewusste Entscheidung: Bewegungsprofile sind heikle Daten, und was das Gerät nie verlässt, kann auch nicht abfliessen.
                   </div>
                   <dl class="proj-meta">
                     <div><dt>Meine Rolle</dt><dd>Co-Developer im Dreierteam. Von mir stammen unter anderem:</dd></div>
@@ -588,14 +606,14 @@
                 <article class="proj-card" id="proj-kobui">
                   <div class="proj-type">// Schulprojekt · überbetrieblicher Kurs (ÜK) · Dreierteam</div>
                   <h4 class="proj-t">Kobui</h4>
-                  <p class="proj-abstract"><strong>Abstract —</strong> Kobui ist eine Web-App, die ein lokal laufendes Sprachmodell (KoboldCpp) an ein eigenes React-Frontend anbindet — als datenschutzfreundliche Alternative zu cloudbasierten Diensten. Weil das Modell auf dem eigenen Rechner läuft, verlässt keine Eingabe das Gerät.</p>
+                  <p class="proj-abstract"><strong>Abstract</strong>Kobui ist eine Web-App, die ein lokal laufendes Sprachmodell (KoboldCpp) an ein eigenes React-Frontend anbindet. Gedacht als datenschutzfreundliche Alternative zu Cloud-Diensten: Weil das Modell auf dem eigenen Rechner läuft, verlässt keine Eingabe das Gerät.</p>
                   <div class="proj-body">
-                    Frontend mit TypeScript, React und Vite, gestaltet über CSS Modules. Die Anwendung spricht die lokale Schnittstelle von KoboldCpp an und bringt eine eigene Dokumentation mit, damit sie auch ohne Vorwissen aufgesetzt werden kann.
+                    Frontend mit TypeScript, React und Vite, gestaltet über CSS Modules. Die Anwendung spricht die lokale Schnittstelle von KoboldCpp an und bringt eine eigene Anleitung mit, damit man sie auch ohne Vorwissen aufsetzen kann.
                   </div>
                   <dl class="proj-meta">
-                    <div><dt>Meine Rolle</dt><dd>Organisation und Gestaltung im Dreierteam: Ich habe Aufgaben verteilt, den Zeitplan im Blick behalten und bin dort eingesprungen, wo es gegen Ende knapp wurde. Dazu kam die gestalterische Ausrichtung der Oberfläche.</dd></div>
-                    <div><dt>Beigetragen</dt><dd>Installationsanleitung für das lokale Backend in der Projektdokumentation, Ergänzung alternativer Modelle sowie Korrekturen an der Bedienoberfläche</dd></div>
-                    <div><dt>Gelernt</dt><dd>Wie viel Abstimmung ein Dreierteam braucht — und dass ein realistischer Zeitplan mehr wert ist als ein ehrgeiziger</dd></div>
+                    <div><dt>Meine Rolle</dt><dd>Organisation und Gestaltung im Dreierteam. Ich habe Aufgaben verteilt, den Zeitplan im Blick behalten und bin eingesprungen, wo es gegen Ende knapp wurde.</dd></div>
+                    <div><dt>Beigetragen</dt><dd>Installationsanleitung für das lokale Backend, Ergänzung alternativer Modelle und Korrekturen an der Bedienoberfläche</dd></div>
+                    <div><dt>Gelernt</dt><dd>Wie viel Abstimmung ein Dreierteam braucht. Und dass ein realistischer Zeitplan mehr wert ist als ein ehrgeiziger.</dd></div>
                   </dl>
                   <div class="chips"><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Vite</span><span class="chip">CSS Modules</span></div>
                   <div class="proj-links">
@@ -607,26 +625,26 @@
                 <article class="proj-card" id="proj-webshop">
                   <div class="proj-type">// Schulprojekt · über drei Module gewachsen · laufend</div>
                   <h4 class="proj-t">Redis-Webshop</h4>
-                  <p class="proj-abstract"><strong>Abstract —</strong> Ein Webshop, der seine Daten nicht in einer Tabellendatenbank hält, sondern vollständig in Redis — einer Key-Value-Datenbank, die alles im Arbeitsspeicher hält. Entstanden ist er im NoSQL-Modul als weitgehend leeres Grundgerüst. Seither ist er mein Übungsprojekt: In jedem folgenden Modul, in dem es passte, habe ich ihn um das erweitert, was dort dran war.</p>
+                  <p class="proj-abstract"><strong>Abstract</strong>Ein Webshop, der seine Daten nicht in einer Tabellendatenbank hält, sondern komplett in Redis. Entstanden ist er im NoSQL-Modul als ziemlich leeres Grundgerüst. Seither ist er mein Übungsprojekt: In jedem folgenden Modul, in dem es gepasst hat, habe ich ihn um das erweitert, was gerade dran war.</p>
                   <div class="proj-body">
-                    <strong>NoSQL-Modul — das Datenmodell.</strong> Jeder Datensatz liegt als Hash unter einem sprechenden Schlüssel: <code>product:12</code>, <code>user:3</code>, <code>cart:3</code>. Weil Redis kein <code>WHERE</code> kennt, braucht jede Suche einen eigenen Index — die Kategorien liegen als Mengen unter <code>idx:kategorie:*</code> und enthalten die Produkt-IDs. Das war der eigentliche Lerneffekt: In SQL wäre das eine einzige Abfrage gewesen, hier muss der Index beim Speichern von Hand mitgeschrieben werden. Vergisst man das an einer Stelle, findet die Suche das Produkt nie wieder.
+                    <strong>NoSQL-Modul: das Datenmodell.</strong> Jeder Datensatz liegt als Hash unter einem sprechenden Schlüssel, also <code>product:12</code>, <code>user:3</code>, <code>cart:3</code>. Redis kennt kein <code>WHERE</code>, deshalb braucht jede Suche einen eigenen Index. Die Kategorien liegen als Mengen unter <code>idx:kategorie:*</code> und enthalten die Produkt-IDs. Genau das war der Lerneffekt: In SQL wäre es eine einzige Abfrage gewesen, hier muss ich den Index beim Speichern von Hand mitschreiben. Vergesse ich das an einer Stelle, findet die Suche das Produkt nie wieder.
                     <br><br>
-                    <strong>Docker-Modul — das Ausliefern.</strong> Anwendung und Datenbank starten seither zusammen über Docker Compose. Damit läuft der Shop auf einem fremden Rechner ohne Einrichtung von Hand. Aus derselben Ecke stammt eine Kleinigkeit, auf die ich bis heute stolz bin: Die Verbindung sucht sich ihren Port selbst — steht keine Umgebungsvariable, probiert sie 6379 und 6380 durch. In der Schule lief Redis auf einem anderen Port als zuhause, und statt die Datei jedes Mal zu ändern, klärt das Programm es selbst.
+                    <strong>Docker-Modul: das Ausliefern.</strong> Anwendung und Datenbank starten seither zusammen über Docker Compose, damit der Shop auch auf einem fremden Rechner ohne Einrichtung läuft. Aus derselben Zeit stammt eine Kleinigkeit, über die ich mich immer noch freue: Die Verbindung sucht sich ihren Port selbst. Steht keine Umgebungsvariable, probiert sie 6379 und 6380 durch. In der Schule lief Redis auf einem anderen Port als zuhause, und statt die Datei jedes Mal zu ändern, klärt das Programm es eben selbst.
                     <br><br>
-                    <strong>DevOps-/Azure-Modul — der Betrieb.</strong> Zuletzt ging es darum, die Anwendung nicht nur lokal laufen zu lassen, sondern auf einem Server zu betreiben und im Blick zu behalten.
+                    <strong>DevOps- und Azure-Modul: der Betrieb.</strong> Zuletzt ging es darum, die Anwendung nicht nur lokal laufen zu lassen, sondern auf einem Server zu betreiben und im Blick zu behalten.
                     <br><br>
-                    Inhaltlich kann der Shop heute: Anmeldung mit Rollen für Admins und Kundschaft, Produkte anlegen, bearbeiten und löschen, einen Warenkorb pro Benutzer sowie Skripte, die ihn mit Testdaten füllen.
+                    Heute kann der Shop: Anmeldung mit Rollen für Admins und Kundschaft, Produkte anlegen, bearbeiten und löschen, einen Warenkorb pro Benutzer und Skripte, die alles mit Testdaten füllen.
                   </div>
                   <dl class="proj-meta">
                     <div><dt>Meine Rolle</dt><dd>Eigenes Repository, von mir umgesetzt und über die Module hinweg weiterentwickelt</dd></div>
-                    <div><dt>Warum immer dasselbe Projekt</dt><dd>Ein neues Thema an bekanntem Code zu lernen, zeigt den Unterschied deutlicher als ein neues Beispielprojekt. Nebenbei sieht man an der Historie, wie sich derselbe Shop über ein Jahr verändert hat.</dd></div>
+                    <div><dt>Warum immer dasselbe Projekt</dt><dd>Ein neues Thema an bekanntem Code zu lernen zeigt den Unterschied deutlicher als ein frisches Beispielprojekt. Nebenbei sieht man an der Historie, wie sich derselbe Shop über ein Jahr verändert hat.</dd></div>
                     <div><dt>Gelernt</dt><dd>
                       <ul class="proj-ul">
                         <li>Datenmodellierung ohne Tabellen: der Schlüssel ist die Struktur</li>
-                        <li>Warum eine Key-Value-Datenbank schnell ist — und was man dafür aufgibt</li>
-                        <li>Indizes von Hand pflegen, statt sie von der Datenbank zu bekommen</li>
+                        <li>Warum eine Key-Value-Datenbank schnell ist und was man dafür aufgibt</li>
+                        <li>Indizes selbst pflegen, statt sie von der Datenbank zu bekommen</li>
                         <li>Mehrere Dienste gemeinsam starten und ausliefern</li>
-                        <li>Dass eine Anwendung, die auf einem Server läuft, andere Fragen stellt als eine, die nur lokal läuft</li>
+                        <li>Dass eine Anwendung auf einem Server andere Fragen stellt als eine, die nur lokal läuft</li>
                       </ul>
                     </dd></div>
                   </dl>
@@ -640,18 +658,18 @@
                 <article class="proj-card" id="proj-bookloan">
                   <div class="proj-type">// Schulprojekt · überbetrieblicher Kurs · Modul LBV 294 · Dreierteam</div>
                   <h4 class="proj-t">BookLoan</h4>
-                  <p class="proj-abstract"><strong>Abstract —</strong> BookLoan ist eine Webanwendung zur Verwaltung von Bibliotheken, Büchern und Ausleihen: Bestände anlegen und pflegen, Bücher ausleihen und zurücknehmen, Benutzerkonten verwalten. Die Anwendung ist mehrsprachig, hat einen hellen und einen dunklen Modus und führt neue Benutzer über eine kurze Einführung. Ich bin während des laufenden Projekts ins Team nachgerückt.</p>
+                  <p class="proj-abstract"><strong>Abstract</strong>BookLoan ist eine Webanwendung zur Verwaltung von Bibliotheken, Büchern und Ausleihen: Bestände anlegen und pflegen, Bücher ausleihen und zurücknehmen, Benutzerkonten verwalten. Die Anwendung ist mehrsprachig, hat einen hellen und einen dunklen Modus und führt neue Benutzer über eine kurze Einführung. Ich bin während des laufenden Projekts ins Team nachgerückt.</p>
                   <div class="proj-body">
                     Getrennte Anwendungen für Frontend und Backend: vorne React 19 mit TypeScript, Vite und React Router, hinten NestJS mit Prisma als Zugriffsschicht auf eine MySQL-Datenbank. Die Anmeldung läuft über JWT. Beide Teile starten zusammen über Docker Compose, sodass die Anwendung auf einem fremden Rechner ohne Einrichtung von Hand läuft.
                   </div>
                   <dl class="proj-meta">
                     <div><dt>Meine Rolle</dt><dd>Nachgerückt: Ich bin für einen ausgeschiedenen Kollegen ins bestehende Dreierteam gekommen, als das Projekt schon lief. Mein Schwerpunkt lag beim Sammeln und Ausarbeiten von Ideen für Funktionen und Gestaltung; dazu kam Mitarbeit dort, wo gerade Hände gebraucht wurden.</dd></div>
-                    <div><dt>Ehrlich gesagt</dt><dd>Der grössere Teil des Codes stammt nicht von mir — im Repository ist noch das ursprüngliche Team genannt. Ich führe das Projekt hier auf, weil das Einsteigen in eine fremde, bereits laufende Codebasis eine eigene Erfahrung war, nicht wegen des Umfangs meines Anteils.</dd></div>
+                    <div><dt>Ehrlich gesagt</dt><dd>Der grössere Teil des Codes stammt nicht von mir, und im Repository steht noch das ursprüngliche Team. Ich führe das Projekt hier auf, weil das Einsteigen in eine fremde, schon laufende Codebasis eine eigene Erfahrung war, nicht wegen der Grösse meines Anteils.</dd></div>
                     <div><dt>Gelernt</dt><dd>
                       <ul class="proj-ul">
                         <li>Sich in fremden Code einarbeiten, ohne das Team auszubremsen</li>
                         <li>Dass man als Nachrücker zuerst zuhört und liest, bevor man Vorschläge macht</li>
-                        <li>Wie ein getrenntes Frontend und Backend zusammenspielen — React vorne, NestJS und Prisma hinten</li>
+                        <li>Wie getrenntes Frontend und Backend zusammenspielen: React vorne, NestJS und Prisma hinten</li>
                       </ul>
                     </dd></div>
                   </dl>
@@ -675,21 +693,21 @@
               <div class="cmt">// interessen.json</div><br>
               <h2 class="ed-h1 reveal">Interessen</h2>
               <div class="prose reveal" style="margin-bottom:1.4rem">
-                <p>Was ich neben der Ausbildung mache — und wo es sich mit ihr überschneidet.</p>
+                <p>Was ich neben der Ausbildung mache, und wo es sich mit ihr überschneidet.</p>
               </div>
               <div class="int-list reveal">
                 <div class="int-item">
                   <span class="int-em" aria-hidden="true">🛠️</span>
                   <div>
                     <h3 class="int-label">PCs bauen und Geräte auseinandernehmen</h3>
-                    <p class="int-text">Ich baue Rechner selbst zusammen und habe zwei Spielkonsolen mit Custom Firmware versehen. Daher kommt auch mein Interesse daran, was unterhalb der Oberfläche passiert — Komponenten, Bootvorgang, Treiber.</p>
+                    <p class="int-text">Ich baue Rechner selbst zusammen und habe zwei Spielkonsolen mit Custom Firmware versehen. Daher kommt auch mein Interesse an dem, was unter der Oberfläche passiert: Komponenten, Bootvorgang, Treiber.</p>
                   </div>
                 </div>
                 <div class="int-item">
                   <span class="int-em" aria-hidden="true">🎮</span>
                   <div>
                     <h3 class="int-label">Gaming</h3>
-                    <p class="int-text">PS5 und PC. Am liebsten Spiele, die einen nichts erklären und selbst herausfinden lassen — Elden Ring und Persona 3. Der Reiz ist derselbe wie beim Programmieren: ein System durchschauen, das sich nicht von selbst erklärt.</p>
+                    <p class="int-text">PS5 und PC. Am liebsten Spiele, die einem nichts erklären, zum Beispiel Elden Ring und Persona 3. Der Reiz ist derselbe wie beim Programmieren: ein System durchschauen, das sich nicht von selbst erklärt.</p>
                   </div>
                 </div>
                 <div class="int-item">
@@ -717,15 +735,9 @@
           <div class="code-view">
             <div class="code-content">
               <div class="cmt">-- kontakt.sql</div><br>
-              <div class="cb reveal" style="margin-bottom:2rem">
-                <span class="cb-lang">sql</span>
-                <div class="cl"><span class="kw">SELECT</span> <span class="fn">*</span> <span class="kw">FROM</span> <span class="kw-b">kontakt</span></div>
-                <div class="cl"><span class="kw">WHERE</span> person <span class="punct">=</span> <span class="str">'Luis Rosado'</span></div>
-                <div class="cl"><span class="kw">AND</span> verfuegbar <span class="punct">=</span> <span class="kw-g">TRUE</span><span class="punct">;</span></div>
-              </div>
               <h2 class="ed-h1 reveal">Kontakt</h2>
-              <div class="prose reveal" style="margin-bottom:1.8rem">
-                <p>Ich suche einen Praktikumsplatz für das dritte Ausbildungsjahr. Bei Fragen oder Interesse melden Sie sich gerne bei mir.</p>
+              <div class="prose reveal" style="margin-bottom:1.6rem">
+                <p>Ich suche eine Praktikumsstelle in der Applikationsentwicklung. Wenn Sie Fragen haben oder Unterlagen brauchen, schreiben Sie mir einfach. Ich antworte meistens am gleichen Tag.</p>
               </div>
               <div class="contact-grid reveal">
                 <a href="mailto:luisrosado008@gmail.com" class="c-link"><span>✉</span><div><span class="c-label">E-Mail</span>luisrosado008@gmail.com</div></a>
@@ -733,7 +745,7 @@
               </div>
               <h3 class="ed-h2 reveal">Zugang zum geschützten Bereich</h3>
               <div class="prose reveal" style="margin-bottom:1.5rem">
-                <p>Noten und Lebenslauf liegen im Ordner <code>unterlagen</code> hinter einem Passwort. Die Zugangsdaten erhalten die Schulleitung und die betreuenden Lehrpersonen sowie Betriebe, bei denen ich mich bewerbe. Wenn Sie Zugang benötigen und ihn noch nicht haben, schreiben Sie mir kurz.</p>
+                <p>Noten und Lebenslauf liegen im Ordner <code>unterlagen</code> hinter einem Passwort. Die Zugangsdaten bekommen die Schulleitung, die betreuenden Lehrpersonen und Betriebe, bei denen ich mich bewerbe. Falls Sie den Zugang brauchen und noch nicht haben, genügt eine kurze Mail.</p>
               </div>
 
               <div class="impressum reveal">
@@ -758,18 +770,18 @@
           <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">README.md</span></div>
           <div class="code-view">
             <div class="code-content">
-              <div class="cmt"># README.md — Wie diese Seite gebaut ist</div><br>
+              <div class="cmt"># README.md · Wie diese Seite gebaut ist</div><br>
 
               <h2 class="ed-h1 reveal">Über diese Seite</h2>
               <div class="prose reveal">
-                <p>Diese Seite ist meine persönliche Website im Rahmen der IMS-Ausbildung und gleichzeitig Teil meiner Bewerbungsunterlagen. Sie ist von mir selbst gebaut — von Hand, ohne Baukasten und ohne Framework.</p>
+                <p>Diese Seite ist meine persönliche Website im Rahmen der IMS-Ausbildung und gleichzeitig Teil meiner Bewerbungsunterlagen. Ich habe sie von Hand gebaut, ohne Baukasten und ohne Framework.</p>
                 <p>Hier steht, warum sie so aussieht und funktioniert, wie sie es tut. Gestalterische Entscheidungen sind nachvollziehbar oder sie sind Zufall; ich möchte, dass meine nachvollziehbar sind.</p>
               </div>
 
               <h3 class="ed-h2 reveal">Warum ein Code-Editor als Oberfläche</h3>
               <div class="prose reveal">
-                <p>Die Seite richtet sich an Betriebe, die Applikationsentwicklung ausbilden. Deshalb ist die Oberfläche selbst eine Arbeitsprobe: Sie ist einem Code-Editor nachempfunden — der Umgebung, in der ich täglich arbeite.</p>
-                <p>Jeder Abschnitt ist eine Datei, deren Endung zum Inhalt passt: <code>skills.py</code>, <code>techstack.ts</code>, <code>kontakt.sql</code>. Das ist kein Selbstzweck — die Endung sagt schon vor dem Lesen, worum es geht, und der Explorer links zeigt die gesamte Struktur auf einen Blick. Wer lieber klassisch navigiert, benutzt die Tableiste oben; beides führt zum selben Inhalt.</p>
+                <p>Die Seite richtet sich an Betriebe, die Applikationsentwicklung ausbilden. Deshalb ist die Oberfläche selbst eine Arbeitsprobe: Sie ist einem Code-Editor nachempfunden, also der Umgebung, in der ich täglich arbeite.</p>
+                <p>Jeder Abschnitt ist eine Datei, deren Endung zum Inhalt passt: <code>skills.py</code>, <code>techstack.ts</code>, <code>kontakt.sql</code>. Das ist kein Selbstzweck: Die Endung sagt schon vor dem Lesen, worum es geht, und der Explorer links zeigt die ganze Struktur auf einen Blick. Wer lieber klassisch navigiert, benutzt die Tableiste oben; beides führt zum selben Inhalt.</p>
               </div>
 
               <h3 class="ed-h2 reveal">Schrift</h3>
@@ -792,16 +804,17 @@
 
               <h3 class="ed-h2 reveal">Farben</h3>
               <div class="prose reveal">
-                <p>Das Schema ist an ein dunkles Editor-Theme angelehnt. Ein einziger Akzentton — das Blau <code>#58A6FF</code> — führt durch die ganze Seite: aktiver Tab, Links, Schaltflächen, Fokusrahmen. Wer ihn einmal zugeordnet hat, findet sich überall zurecht.</p>
-                <p>Grün, Orange und Rot sind für Bedeutung reserviert, nicht für Dekoration: Einstufungen bei den Skills, Notenwerte, Fehlermeldungen. Farbe ist dabei nie der einzige Träger einer Information — überall steht auch der Text dabei, damit die Seite bei einer Farbsehschwäche verständlich bleibt.</p>
+                <p>Die Farben stammen aus den echten VS-Code-Themes. Ein einziger Akzentton führt durch die ganze Seite: aktiver Tab, Links, Schaltflächen, Fokusrahmen. Wer ihn einmal zugeordnet hat, findet sich überall zurecht.</p>
+                <p>Grün, Orange und Rot sind für Bedeutung reserviert, nicht für Dekoration: Einstufungen bei den Skills, Notenwerte, Fehlermeldungen. Farbe ist dabei nie der einzige Träger einer Information. Überall steht auch der Text dabei, damit die Seite bei einer Farbsehschwäche verständlich bleibt.</p>
               </div>
               <div class="cb reveal">
                 <span class="cb-lang">css</span>
+                <div class="cl"><span class="cmt">/* Dark+, das Standarddesign von VS Code */</span></div>
                 <div class="cl"><span class="punct">:root {</span></div>
-                <div class="cl i1"><span class="kw-b">--bg</span><span class="punct">:</span> <span class="str">#0D1117</span><span class="punct">;</span>   <span class="cmt">/* Hintergrund */</span></div>
-                <div class="cl i1"><span class="kw-b">--text</span><span class="punct">:</span> <span class="str">#E6EDF3</span><span class="punct">;</span> <span class="cmt">/* Fliesstext */</span></div>
-                <div class="cl i1"><span class="kw-b">--blue</span><span class="punct">:</span> <span class="str">#58A6FF</span><span class="punct">;</span> <span class="cmt">/* einziger Akzent */</span></div>
-                <div class="cl i1"><span class="kw-b">--green</span><span class="punct">:</span> <span class="str">#3FB950</span><span class="punct">;</span> <span class="cmt">/* nur für Bedeutung */</span></div>
+                <div class="cl i1"><span class="kw-b">--bg</span><span class="punct">:</span> <span class="str">#1e1e1e</span><span class="punct">;</span>  <span class="cmt">/* editor.background */</span></div>
+                <div class="cl i1"><span class="kw-b">--sb</span><span class="punct">:</span> <span class="str">#252526</span><span class="punct">;</span>  <span class="cmt">/* sideBar.background */</span></div>
+                <div class="cl i1"><span class="kw-b">--act-bg</span><span class="punct">:</span> <span class="str">#333333</span><span class="punct">;</span>  <span class="cmt">/* activityBar */</span></div>
+                <div class="cl i1"><span class="kw-b">--status-bg</span><span class="punct">:</span> <span class="str">#007acc</span><span class="punct">;</span>  <span class="cmt">/* statusBar */</span></div>
                 <div class="cl"><span class="punct">}</span></div>
               </div>
 
@@ -814,31 +827,31 @@
                 <tr><td>Technologie-Icons</td><td>Originallogos der jeweiligen Technologie. Ein Stack ist damit auf einen Blick erfassbar, ohne jede Zeile zu lesen.</td></tr>
                 <tr><td>Tableiste &amp; Explorer</td><td>Tragen die Editor-Metapher und sind gleichzeitig die Navigation. Zwei Wege zum selben Ziel.</td></tr>
                 <tr><td>Zeilennummern</td><td>Verstärken die Metapher und zeigen nebenbei, wie lang ein Abschnitt ist. Auf schmalen Bildschirmen ausgeblendet, weil dort der Platz wichtiger ist.</td></tr>
-                <tr><td>Farbige Syntax</td><td>Die Codeblöcke sind echt eingefärbt statt als Bild eingebunden — dadurch bleiben sie markierbar, durchsuchbar und für Screenreader lesbar.</td></tr>
+                <tr><td>Farbige Syntax</td><td>Die Codeblöcke sind echt eingefärbt statt als Bild eingebunden. Dadurch bleiben sie markierbar, durchsuchbar und für Screenreader lesbar.</td></tr>
                 <tr><td>Ladebildschirm</td><td>Führt die Editor-Metapher ein, bevor der Inhalt erscheint. Überspringbar und läuft nur einmal pro Besuch.</td></tr>
               </table>
 
               <h3 class="ed-h2 reveal">Bedienung und Barrierefreiheit</h3>
               <div class="prose reveal">
                 <p>Die ganze Seite lässt sich ohne Maus bedienen. In der Tableiste wechseln die Pfeiltasten zwischen den Dateien, <code>Pos1</code> und <code>Ende</code> springen an den Rand, <code>Entf</code> schliesst einen Tab. Jedes bedienbare Element hat einen sichtbaren Fokusrahmen, und ganz oben führt eine Sprungmarke direkt zum Inhalt.</p>
-                <p>Wer im Betriebssystem reduzierte Bewegung eingestellt hat, bekommt die Seite ohne Animationen und ohne Ladebildschirm. Jeder Abschnitt hat eine eigene Adresse — <code>#projekte</code> etwa lässt sich direkt verschicken.</p>
+                <p>Wer im Betriebssystem reduzierte Bewegung eingestellt hat, bekommt die Seite ohne Animationen und ohne Ladebildschirm. Jeder Abschnitt hat eine eigene Adresse: <code>#projekte</code> lässt sich zum Beispiel direkt verschicken.</p>
               </div>
 
               <h2 class="ed-h1 reveal">Technische Angaben</h2>
               <table class="ed-table reveal">
                 <tr><th>Bereich</th><th>Umsetzung</th></tr>
-                <tr><td>Frontend</td><td>HTML, CSS und JavaScript von Hand — kein Framework, kein Build-Schritt. Was im Browser ankommt, ist genau das, was ich geschrieben habe.</td></tr>
+                <tr><td>Frontend</td><td>HTML, CSS und JavaScript von Hand, ohne Framework und ohne Build-Schritt. Was im Browser ankommt, ist genau das, was ich geschrieben habe.</td></tr>
                 <tr><td>Backend</td><td>Serverless Functions (Node.js) für Login und geschützte Inhalte</td></tr>
                 <tr><td>Passwortschutz</td><td>scrypt mit Salt, Vergleich in konstanter Zeit; Sitzung über ein signiertes Token mit vier Stunden Laufzeit</td></tr>
                 <tr><td>Abhängigkeiten</td><td>Keine. Weder Frontend noch Backend laden ein npm-Paket.</td></tr>
                 <tr><td>Hosting</td><td>Vercel</td></tr>
-                <tr><td>Versionsverwaltung</td><td><a href="https://github.com/Lro-rgb/PortfolioV1" class="proj-link" target="_blank" rel="noopener noreferrer">github.com/Lro-rgb/PortfolioV1</a> — der komplette Quellcode dieser Seite ist öffentlich einsehbar</td></tr>
+                <tr><td>Versionsverwaltung</td><td><a href="https://github.com/Lro-rgb/PortfolioV1" class="proj-link" target="_blank" rel="noopener noreferrer">github.com/Lro-rgb/PortfolioV1</a>, der komplette Quellcode dieser Seite ist öffentlich einsehbar</td></tr>
                 <tr><td>Browser</td><td>Getestet in Chrome, Edge und Firefox. Funktioniert in jedem aktuellen Browser; ältere bekommen dieselben Inhalte, nur ohne einzelne visuelle Effekte.</td></tr>
               </table>
 
               <h3 class="ed-h2 reveal">Warum ohne Framework</h3>
               <div class="prose reveal">
-                <p>Ein Framework hätte mir Arbeit abgenommen — und genau deshalb habe ich darauf verzichtet. Tabverwaltung, Zustandswechsel, Tastatursteuerung, Fokusverwaltung und der Login-Ablauf sind Dinge, die ich verstehen will, statt sie einzubinden. Was hier funktioniert, funktioniert, weil ich es geschrieben habe.</p>
+                <p>Ein Framework hätte mir Arbeit abgenommen, und genau deshalb habe ich darauf verzichtet. Tabverwaltung, Tastatursteuerung, Fokusverwaltung und der Login-Ablauf sind Dinge, die ich verstehen will, statt sie einzubinden.</p>
               </div>
             </div>
           </div>
@@ -889,7 +902,7 @@
       <button type="button" class="panel-close" id="panelClose" aria-label="Panel schliessen">✕</button>
     </div>
     <div class="term" id="termOut" tabindex="0">
-      <div class="term-line out">Portfolio-Shell — <code>help</code> zeigt alle Befehle.</div>
+      <div class="term-line out">Portfolio-Shell. <code>help</code> zeigt alle Befehle.</div>
       <div class="term-input-row">
         <span class="term-prompt">luis@portfolio</span><span class="term-path">~$</span>
         <input class="term-input" id="termInput" autocomplete="off" spellcheck="false"
@@ -900,7 +913,7 @@
 
   <!-- ── STATUSLEISTE ──
        Sie war in der Vorgaengerversion entfernt worden. Ohne sie fehlt der
-       Oberflaeche die untere Kante — und ein guter Platz fuer Angaben, die
+       Oberflaeche die untere Kante, und einen guten Platz fuer Angaben, die
        sonst nirgends hinpassen. -->
   <div class="statusbar" id="statusbar">
     <a class="st-item" href="https://github.com/Lro-rgb/PortfolioV1" target="_blank" rel="noopener noreferrer" title="Quellcode auf GitHub">
@@ -948,7 +961,7 @@
 <!-- App logic
      app.js: Tabs, Explorer, Login, geschützte Daten, Medien.
      vscode.js: Activity Bar, Statusleiste, Farbdesigns, Kommandopalette,
-     Terminal — baut auf den Funktionen aus app.js auf und muss deshalb
+     Terminal. Baut auf den Funktionen aus app.js auf und muss deshalb
      danach geladen werden. -->
 <script src="js/app.js"></script>
 <script src="js/vscode.js"></script>
