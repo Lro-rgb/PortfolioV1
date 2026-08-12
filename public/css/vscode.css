@@ -1,0 +1,878 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   vscode.css — die Oberflaechenteile, die VS Code ausmachen
+
+   Laedt nach style.css und ergaenzt beziehungsweise korrigiert dort, wo die
+   erste Fassung von der echten Oberflaeche abwich.
+
+   Leitgedanke: Die Huelle ist eine genaue Nachbildung, der Inhalt darin ist
+   normaler, gut lesbarer Text. Umgekehrt — Huelle ungefaehr, Inhalt als
+   Pseudo-Code — sieht zwar nach Programmieren aus, liest sich aber schlecht.
+   Wer eine Bewerbung prueft, soll den Text lesen koennen, ohne ihn zu
+   entziffern.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════════
+   1. GERUEST
+
+   Echtes VS Code ordnet die Flaechen so an: Titelleiste ganz oben ueber
+   alles, darunter links die Activity Bar, daneben die Sidebar, rechts der
+   Editorbereich, und unten die Statusleiste ueber die volle Breite.
+
+   Wichtig und in der ersten Fassung falsch: Die Tableiste gehoert NUR ueber
+   den Editor, nicht ueber die Sidebar. Genau daran erkennt man auf einen
+   Blick, ob eine Nachbildung stimmt.
+   ═══════════════════════════════════════════════════════════════════════ */
+.ide {
+  display: grid;
+  grid-template-columns: var(--w-activity) auto minmax(0, 1fr);
+  grid-template-rows: var(--h-title) var(--h-tabs) minmax(0, 1fr) auto var(--h-status);
+  grid-template-areas:
+    'title    title   title'
+    'activity sidebar tabs'
+    'activity sidebar editor'
+    'activity sidebar panel'
+    'status   status  status';
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* .pane war der Kasten um Sidebar und Editor. Mit display:contents
+   verschwindet er aus dem Layout, ohne aus dem HTML zu verschwinden —
+   seine Kinder werden damit direkt zu Feldern des Rasters oben. So
+   konnte die Oberflaeche neu angeordnet werden, ohne 600 Zeilen Inhalt
+   im HTML zu verschieben. */
+.pane { display: contents; }
+
+.titlebar { grid-area: title; }
+.activitybar { grid-area: activity; }
+.sidebar { grid-area: sidebar; }
+.tabbar { grid-area: tabs; }
+.editor { grid-area: editor; }
+.panel { grid-area: panel; }
+.statusbar { grid-area: status; }
+
+.editor {
+  min-width: 0;
+  min-height: 0;
+  background: var(--bg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   2. TITELLEISTE
+   Im echten VS Code steht dort links ein Menue (Datei, Bearbeiten, …),
+   mittig der Titel des Arbeitsbereichs.
+   ═══════════════════════════════════════════════════════════════════════ */
+.titlebar {
+  background: var(--tb);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 8px;
+  user-select: none;
+  min-width: 0;
+}
+
+.tb-menu {
+  display: flex;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.tb-menu button {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--text);
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tb-menu button:hover {
+  background: var(--list-hover);
+}
+
+/* Suchfeld in der Titelleiste — im echten VS Code sitzt dort die
+   Kommandopalette. Ein Klick oeffnet sie, genau wie Strg+P. */
+.tb-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: min(560px, 38vw);
+  height: 22px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  color: var(--muted);
+  cursor: pointer;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.tb-search:hover { border-color: var(--focus); }
+.tb-search kbd {
+  font-family: var(--sans);
+  font-size: 10px;
+  color: var(--dim);
+  border: 1px solid var(--border2);
+  border-radius: 3px;
+  padding: 0 4px;
+}
+
+.tb-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   3. ACTIVITY BAR
+   Die 48 Pixel breite Icon-Leiste ganz links. Das wiedererkennbarste
+   Element der ganzen Oberflaeche — und in der ersten Fassung nicht
+   vorhanden. Der aktive Eintrag traegt links einen 2px-Strich und volle
+   Deckkraft; das ist genau die Kennzeichnung, die VS Code verwendet.
+   ═══════════════════════════════════════════════════════════════════════ */
+.activitybar {
+  background: var(--act-bg);
+  border-right: 1px solid var(--act-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  user-select: none;
+}
+
+.act-btn {
+  position: relative;
+  width: var(--w-activity);
+  height: 48px;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--act-fg);
+  transition: color 0.12s ease;
+}
+
+.act-btn svg { width: 24px; height: 24px; display: block; }
+.act-btn:hover { color: var(--act-fg-active); }
+
+.act-btn[aria-pressed='true'],
+.act-btn.active {
+  color: var(--act-fg-active);
+}
+
+.act-btn[aria-pressed='true']::before,
+.act-btn.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--act-fg-active);
+}
+
+/* Zaehler am Symbol (Anzahl Projekte, gesperrte Dateien) — im echten
+   VS Code sitzt dort die Zahl der Aenderungen in der Quellcodeverwaltung. */
+.act-badge {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 15px;
+  text-align: center;
+}
+
+.act-bottom { margin-top: auto; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   4. SIDEBAR
+   Geht jetzt ueber die volle Hoehe (unter der Titelleiste), nicht mehr nur
+   neben dem Editor.
+   ═══════════════════════════════════════════════════════════════════════ */
+.sidebar {
+  width: var(--w-sidebar);
+  background: var(--sb);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+}
+
+/* Eingeklappt: die Spalte verschwindet, die Activity Bar bleibt stehen —
+   dasselbe Verhalten wie beim Klick auf das Explorer-Symbol in VS Code.
+   Nur auf breiten Fenstern: schmale benutzen die Schublade, und dort
+   wuerde display:none sie unerreichbar machen. */
+@media (min-width: 821px) {
+  .ide[data-sidebar='hidden'] .sidebar {
+    display: none;
+  }
+}
+
+.sb-title {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 10px 20px 6px;
+  border-bottom: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.tree-folder,
+.tree-file {
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 22px;
+  padding: 0 12px;
+  height: 22px;
+  border-radius: 0;
+}
+
+.tree-file { padding-left: 34px; }
+
+.tree-file.active {
+  background: var(--list-active);
+  color: #fff;
+}
+
+[data-theme='light-plus'] .tree-file.active { color: #fff; }
+
+.tree-file:hover,
+.tree-folder:hover { background: var(--list-hover); }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   5. TABLEISTE
+   Aktive Datei: heller Hintergrund und ein farbiger Strich OBEN — nicht
+   unten. Auch das ist ein Detail, an dem man eine Nachbildung erkennt.
+   ═══════════════════════════════════════════════════════════════════════ */
+.tabbar {
+  background: var(--tabbar-bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: stretch;
+  overflow-x: auto;
+  scrollbar-width: none;
+  min-width: 0;
+}
+
+.tabbar::-webkit-scrollbar { display: none; }
+
+.tab {
+  height: var(--h-tabs);
+  padding: 0 10px;
+  gap: 6px;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--muted);
+  background: var(--tab-bg);
+  border-right: 1px solid var(--border);
+  border-bottom: none;
+  border-top: 1px solid transparent;
+  position: relative;
+}
+
+.tab.active {
+  background: var(--tab-active-bg);
+  color: var(--text);
+  border-bottom-color: transparent;
+  border-top-color: var(--tab-active-border);
+}
+
+.tab:hover { background: var(--tab-active-bg); }
+
+/* Ungespeicherte Datei: VS Code zeigt statt des Schliessen-Kreuzes einen
+   Punkt. Hier markiert er die Datei, die man gerade liest. */
+.tab.active .tab-x { opacity: 1; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   6. STATUSLEISTE
+   War in der ersten Fassung entfernt worden. Sie ist aber die zweite
+   Haelfte des Wiedererkennungswerts — und ein guter Platz fuer Angaben,
+   die sonst nirgends hinpassen: Theme, Sprache der Datei, Anmeldestatus.
+   ═══════════════════════════════════════════════════════════════════════ */
+.statusbar {
+  background: var(--status-bg);
+  color: var(--status-fg);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 4px;
+  font-family: var(--sans);
+  font-size: 12px;
+  user-select: none;
+  overflow: hidden;
+}
+
+.st-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: var(--h-status);
+  padding: 0 7px;
+  white-space: nowrap;
+  color: inherit;
+  background: none;
+  border: none;
+  font: inherit;
+  text-decoration: none;
+}
+
+button.st-item { cursor: pointer; }
+button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
+[data-theme='github-dark'] button.st-item:hover,
+[data-theme='dracula'] button.st-item:hover,
+[data-theme='one-dark'] button.st-item:hover { background: rgba(255, 255, 255, 0.08); }
+
+.st-right { margin-left: auto; display: flex; align-items: center; }
+.st-item svg { width: 13px; height: 13px; }
+
+@media (max-width: 900px) {
+  .st-hide-sm { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   7. PANEL (Terminal)
+   Faehrt unten aus dem Editorbereich aus, genau wie Strg+^ in VS Code.
+   ═══════════════════════════════════════════════════════════════════════ */
+.panel {
+  background: var(--panel-bg);
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-rows: 35px 1fr;
+  height: 240px;
+  min-height: 0;
+}
+
+.panel[hidden] { display: none; }
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--border2);
+}
+
+.panel-tab {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-bottom: 1px solid transparent;
+  padding: 8px 0 6px;
+  cursor: pointer;
+}
+
+.panel-tab.active {
+  color: var(--text);
+  border-bottom-color: var(--text);
+}
+
+.panel-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+.panel-close:hover { color: var(--text); }
+
+.term {
+  overflow-y: auto;
+  padding: 8px 12px 12px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.65;
+  min-height: 0;
+}
+
+.term-line { white-space: pre-wrap; word-break: break-word; }
+.term-line.cmd { color: var(--text); }
+.term-line.out { color: var(--muted); }
+.term-line.err { color: var(--danger); }
+.term-line.ok { color: var(--ok); }
+.term-prompt { color: var(--ok); }
+.term-path { color: var(--syn-var); }
+
+.term-input-row { display: flex; gap: 6px; align-items: baseline; }
+
+.term-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--text);
+  min-width: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   8. KOMMANDOPALETTE
+   Nachbildung des Quick Input von VS Code: schmaler Kasten, der oben aus
+   der Titelleiste faellt.
+   ═══════════════════════════════════════════════════════════════════════ */
+.qi-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: transparent;
+}
+
+/* Ohne diese Zeile bleibt die Flaeche liegen, auch wenn das hidden-Attribut
+   gesetzt ist: Ein display:flex aus dem Stylesheet schlaegt das display:none,
+   das der Browser fuer [hidden] mitbringt. Die Palette lag dann unsichtbar
+   ueber der ganzen Seite und hat jeden Klick abgefangen. */
+.qi-backdrop[hidden] {
+  display: none;
+}
+
+.qi {
+  width: min(600px, 92vw);
+  margin-top: 4px;
+  background: var(--widget-bg);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.qi-input {
+  width: 100%;
+  height: 26px;
+  margin: 6px;
+  width: calc(100% - 12px);
+  padding: 0 6px;
+  background: var(--bg);
+  border: 1px solid var(--focus);
+  border-radius: 2px;
+  outline: none;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+}
+
+.qi-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 4px;
+  max-height: min(44vh, 340px);
+  overflow-y: auto;
+}
+
+.qi-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--text);
+  text-align: left;
+}
+
+.qi-item[data-active='true'] { background: var(--list-active); color: #fff; }
+.qi-item[data-active='true'] .qi-hint { color: rgba(255, 255, 255, 0.7); }
+.qi-item .file-ic { flex-shrink: 0; }
+
+.qi-hint {
+  margin-left: auto;
+  font-size: 11.5px;
+  color: var(--dim);
+  white-space: nowrap;
+}
+
+.qi-group {
+  padding: 6px 10px 2px;
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.qi-empty { padding: 10px; font-size: 13px; color: var(--muted); }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   9. LESBARKEIT IM EDITOR
+
+   Der eigentliche Punkt dieser Ueberarbeitung. Vorher lief der Fliesstext
+   in Monospace mit Zeilenhoehe 1.95 neben einer Spalte mit erfundenen
+   Zeilennummern. Das sah nach Editor aus, las sich aber muehsam.
+
+   Jetzt: Der Inhalt ist gesetzt wie die Vorschau einer Markdown-Datei in
+   VS Code — serifenlos, in ruhiger Groesse, mit begrenzter Zeilenlaenge.
+   Monospace bleibt dort, wo tatsaechlich Code steht.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Die Spalte mit den erfundenen Zeilennummern faellt weg. Sie war nicht
+   einmal wahrheitsgemaess: Die Zahlen wurden aus der Pixelhoehe des
+   Inhalts geschaetzt und passten zu keiner Zeile. Echte Zeilennummern
+   stehen jetzt in den Codebloecken, wo sie stimmen. */
+
+.code-view {
+  display: block;
+  min-height: 100%;
+}
+
+.code-content {
+  padding: 28px 40px 64px;
+  line-height: 1.7;
+  font-size: 15px;
+  color: var(--text);
+  max-width: 900px;
+  min-width: 0;
+}
+
+.editor-scroll { background: var(--bg); }
+
+/* Fliesstext: heller und groesser als vorher. --muted war fuer laengere
+   Absaetze zu schwach. */
+.prose {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.7;
+  max-width: 68ch;
+}
+
+.prose p { margin-bottom: 0.85rem; }
+.prose strong { color: var(--text); font-weight: 600; }
+
+/* Ueberschriften: im Editor wirkt Monospace hier richtig, weil es
+   Dateiueberschriften sind — aber groesser und mit mehr Luft. */
+.ed-h1 {
+  font-family: var(--sans);
+  font-size: 1.65rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 1.2rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.ed-h2 {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 2rem 0 0.7rem;
+}
+
+/* Das "##" davor bleibt — es ist die Markdown-Herkunft und faerbt sich
+   in der Kommentarfarbe des Themes. */
+.ed-h2::before {
+  content: '##';
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--syn-comment);
+  margin-right: 0.5rem;
+}
+
+/* Tabellen: 0.77rem war zu klein zum Lesen. */
+.ed-table {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  margin: 0.6rem 0 1.8rem;
+}
+
+.ed-table th {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.5rem 0.8rem;
+}
+
+.ed-table td { padding: 0.55rem 0.8rem; color: var(--text); }
+.ed-table tr:hover td { background: var(--list-hover); }
+
+/* Kommentarzeile am Anfang jeder Datei — echte Kommentarfarbe des Themes */
+.cmt {
+  color: var(--syn-comment);
+  font-family: var(--mono);
+  font-size: 13px;
+  font-style: normal;
+}
+
+/* Codebloecke: hier gehoert Monospace hin, hier stimmen Zeilennummern. */
+.cb {
+  background: var(--sb);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+  padding: 12px 14px 12px 0;
+  counter-reset: cbline;
+}
+
+.cb::before { display: none; }
+
+.cb .cl,
+.cb > div:not(.cb-lang) {
+  counter-increment: cbline;
+  position: relative;
+  padding-left: 52px;
+}
+
+/* Echte, fortlaufende Zeilennummern — im Gegensatz zu vorher stimmen sie. */
+.cb .cl::before,
+.cb > div:not(.cb-lang)::before {
+  content: counter(cbline);
+  position: absolute;
+  left: 0;
+  width: 38px;
+  text-align: right;
+  color: var(--ln);
+  user-select: none;
+}
+
+.cb-lang {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dim);
+  top: 8px;
+  right: 12px;
+}
+
+/* Syntaxfarben aus dem aktiven Theme */
+.kw { color: var(--syn-kw); }
+.kw-b { color: var(--syn-kw2); }
+.kw-g { color: var(--ok); }
+.str { color: var(--syn-str); }
+.fn { color: var(--syn-fn); }
+.num { color: var(--syn-num); }
+.type { color: var(--syn-type); }
+.punct { color: var(--syn-punct); }
+
+code {
+  background: var(--sb);
+  border-color: var(--border);
+  color: var(--syn-str);
+  white-space: normal;
+}
+
+/* Breadcrumb wie in VS Code: klein, ohne eigene Flaeche */
+.breadcrumb {
+  background: var(--bg);
+  border-bottom: none;
+  padding: 6px 40px;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.breadcrumb .bc-part { color: var(--muted); }
+
+/* Gliederung: als ruhige Zeile, nicht als Kachelreihe */
+.outline {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border2);
+  padding: 8px 40px;
+  gap: 0.2rem 0.4rem;
+}
+
+.outline a {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  border-radius: 3px;
+}
+
+.outline a.current {
+  color: var(--accent);
+  background: var(--list-hover);
+  border-color: transparent;
+}
+
+.outline-label {
+  font-family: var(--sans);
+  font-size: 10.5px;
+}
+
+/* Karten und Kacheln an die Themefarben angleichen */
+.proj-card,
+.tech-card,
+.int-item,
+.audio-card,
+.dl-item,
+.shot {
+  background: var(--sb);
+  border-color: var(--border);
+}
+
+.proj-card:hover,
+.tech-card:hover,
+.int-item:hover { background: var(--list-hover); }
+
+.proj-abstract {
+  font-size: 14.5px;
+  color: var(--text);
+  border-left-color: var(--accent);
+}
+
+.proj-abstract strong { color: var(--accent); }
+.proj-t { font-family: var(--sans); font-size: 1.05rem; font-weight: 600; }
+.proj-body { font-size: 14px; color: var(--muted); line-height: 1.7; }
+.proj-meta dd { font-size: 13.5px; }
+.proj-type { font-family: var(--sans); font-size: 11.5px; }
+.int-text { font-size: 14px; }
+.int-item .int-label { font-family: var(--sans); font-size: 14.5px; font-weight: 600; }
+.tech-name { font-family: var(--sans); font-size: 13px; }
+.tech-cat { font-family: var(--sans); font-size: 11px; }
+.fact dd { font-family: var(--sans); font-size: 13.5px; }
+.chip { font-size: 11px; background: var(--border2); border-color: var(--border); }
+
+.badge { font-family: var(--sans); font-size: 11px; font-weight: 500; }
+.bg { background: color-mix(in srgb, var(--ok) 18%, transparent); color: var(--ok); }
+.bb { background: color-mix(in srgb, var(--info) 18%, transparent); color: var(--info); }
+.bo { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+
+/* Startseite */
+.hero-name { font-family: var(--sans); font-weight: 700; letter-spacing: -0.03em; }
+.hero-name .acc { color: var(--accent); }
+.hero-role { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); }
+.cta { font-family: var(--sans); font-size: 13px; background: var(--sb); border-color: var(--border); }
+.cta:hover { border-color: var(--focus); background: var(--list-hover); }
+.cta-primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.cta-primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; filter: brightness(1.12); }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   10. SCHMALE BILDSCHIRME
+   Activity Bar bleibt (sie ist schmal genug), die Sidebar wird zur
+   Schublade — so wie VS Code sich auf einem kleinen Fenster verhaelt.
+   ═══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 820px) {
+  .ide {
+    grid-template-columns: var(--w-activity) minmax(0, 1fr);
+    grid-template-areas:
+      'title    title'
+      'activity tabs'
+      'activity editor'
+      'activity panel'
+      'status   status';
+  }
+
+  .sidebar {
+    position: fixed;
+    top: var(--h-title);
+    bottom: var(--h-status);
+    left: var(--w-activity);
+    z-index: 400;
+    transform: translateX(-102%);
+    transition: transform 0.22s ease;
+    box-shadow: var(--shadow);
+  }
+
+  .sidebar.open { transform: none; }
+
+  .sb-backdrop {
+    display: block;
+    position: fixed;
+    inset: var(--h-title) 0 var(--h-status) 0;
+    z-index: 390;
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  .sb-backdrop[hidden] { display: none; }
+
+  .code-content { padding: 20px 18px 56px; }
+  .breadcrumb, .outline { padding-left: 18px; padding-right: 18px; }
+  .tb-search { display: none; }
+  .tb-menu { display: none; }
+  .panel { height: 200px; }
+
+  /* Die erste Fassung liess die Seite auf dem Handy mitwachsen, statt
+     alles in 100dvh zu quetschen. Das war richtig und wird hier wieder
+     hergestellt — meine Regel weiter oben haette es sonst ueberschrieben,
+     weil sie spaeter im Stylesheet steht. */
+  .ide {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: auto;
+  }
+
+  /* Die Statusleiste bleibt am unteren Rand sichtbar, auch waehrend die
+     Seite scrollt — sonst waere sie auf dem Handy praktisch nie zu sehen. */
+  .statusbar {
+    position: sticky;
+    bottom: 0;
+    z-index: 300;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   11. DRUCK
+   Die Druckregeln in style.css kennen die neuen Oberflaechenteile noch
+   nicht — hier nachgezogen. Beim Ausdruck bleibt nur der Inhalt uebrig.
+   ═══════════════════════════════════════════════════════════════════════ */
+@media print {
+  .activitybar,
+  .statusbar,
+  .panel,
+  .qi-backdrop,
+  .tb-menu,
+  .tb-search,
+  .outline,
+  .read-bar {
+    display: none !important;
+  }
+
+  .ide {
+    display: block !important;
+    height: auto !important;
+    grid-template-areas: none !important;
+  }
+
+  .code-content { max-width: none; }
+  .cb .cl::before,
+  .cb > div:not(.cb-lang)::before { color: #999 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar { transition: none; }
+}

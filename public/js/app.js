@@ -4,7 +4,6 @@
 // Dient nur noch als Liste der gültigen Panel-Namen (Deep-Linking).
 const LANG={home:'JSON',skills:'Python',techstack:'TypeScript',projekte:'HTML',interessen:'JSON',kontakt:'SQL',readme:'Markdown',noten:'CSV',cv:'Markdown'};
 const LOCKED=['noten','cv'];
-const LINE_H=31;
 const MOBILE=window.matchMedia('(max-width: 820px)');
 
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -141,7 +140,6 @@ function openTab(name,opts){
   const panel=$('panel-'+name);
   buildFolds(panel);
   buildOutline(panel);
-  buildLn(name);
   editorScroll.scrollTop=0;
   updateOutlineState();
   initReveals();
@@ -614,7 +612,7 @@ function updateOutlineState(){
   }
   links.forEach(a=>a.classList.toggle('current', a.dataset.target === currentId));
 }
-editorScroll.addEventListener('scroll',updateOutlineState);
+// Der Scroll-Listener dazu steht weiter unten gebuendelt (onEditorScroll).
 
 /* ── Technische Details einklappen ──
    Der Abstract und die Rolle bleiben immer sichtbar; nur der lange
@@ -647,46 +645,73 @@ function buildFolds(panel){
       const open = btn.getAttribute('aria-expanded') === 'true';
       btn.setAttribute('aria-expanded', open ? 'false' : 'true');
       holder.hidden = open;
-      buildLn(panel.id.replace('panel-',''));
     });
   });
 }
 
 /* ═══════════════════════════════════
-   ZEILENNUMMERN
-═══════════════════════════════════ */
-function buildLn(name){
-  const el=$('ln-'+name);
-  if(!el)return;
-  const cc=$('cc-'+name)||document.querySelector('#panel-'+name+' .code-content');
-  const lines=Math.max(50,Math.ceil((cc?cc.scrollHeight:900)/LINE_H));
-  if(el.childElementCount===lines)return;
-  el.innerHTML=Array.from({length:lines},(_,i)=>'<div>'+(i+1)+'</div>').join('');
-}
+   SCROLL REVEAL
 
-// Beim Umbruch ändert sich die Höhe des Inhalts — Nummern neu aufbauen.
-let resizeTimer=null;
-window.addEventListener('resize',()=>{
-  clearTimeout(resizeTimer);
-  resizeTimer=setTimeout(()=>{
-    const active=document.querySelector('.tab.active');
-    if(active)buildLn(active.dataset.panel);
-  },200);
-});
+   Vorher lief bei jedem einzelnen Scroll-Pixel ein querySelectorAll ueber
+   das ganze Dokument, und fuer jedes gefundene Element wurde
+   getBoundingClientRect() aufgerufen — bei 62 Elementen also 62 erzwungene
+   Layoutberechnungen pro Ereignis.
+
+   Ein IntersectionObserver macht dasselbe, aber der Browser rechnet es
+   selbst und meldet sich nur, wenn ein Element tatsaechlich sichtbar wird.
+   Kein Scroll-Listener noetig.
+═══════════════════════════════════ */
+const revealObserver = 'IntersectionObserver' in window
+  ? new IntersectionObserver((entries,obs)=>{
+      entries.forEach(entry=>{
+        if(!entry.isIntersecting)return;
+        entry.target.classList.add('in');
+        obs.unobserve(entry.target); // einmal eingeblendet, bleibt eingeblendet
+      });
+    },{root:editorScroll,rootMargin:'0px 0px -5% 0px'})
+  : null;
+
+/** Nimmt alle noch nicht eingeblendeten Elemente in Beobachtung.
+ *  Wird nach jedem Tabwechsel aufgerufen, weil dann neue Panels im
+ *  sichtbaren Bereich stehen. */
+function initReveals(){
+  const targets=document.querySelectorAll('.reveal:not(.in),.tl-e:not(.in)');
+  if(!revealObserver){
+    // Sehr alter Browser: dann eben sofort alles zeigen, statt es zu verstecken.
+    targets.forEach(el=>el.classList.add('in'));
+    return;
+  }
+  targets.forEach(el=>revealObserver.observe(el));
+}
 
 /* ═══════════════════════════════════
-   SCROLL REVEAL
+   SCROLL-EREIGNISSE
+
+   Statt mehrerer Listener, die unabhaengig voneinander bei jedem Pixel
+   feuern, gibt es einen einzigen. Er sammelt die Aufgaben und fuehrt sie
+   gebuendelt im naechsten Animationsbild aus (requestAnimationFrame) —
+   also hoechstens einmal pro Bildwiederholung statt dutzende Male.
+
+   Andere Skripte haengen sich mit onEditorScroll(fn) ein, damit nicht
+   jedes seinen eigenen Listener mitbringt.
 ═══════════════════════════════════ */
-function isInView(el){
-  const r=el.getBoundingClientRect();
-  return r.top<window.innerHeight&&r.bottom>0;
+const scrollJobs=[];
+let scrollScheduled=false;
+
+function onEditorScroll(fn){
+  scrollJobs.push(fn);
 }
-function initReveals(){
-  document.querySelectorAll('.reveal:not(.in),.tl-e:not(.in)').forEach(el=>{
-    if(isInView(el))el.classList.add('in');
+
+editorScroll.addEventListener('scroll',()=>{
+  if(scrollScheduled)return;
+  scrollScheduled=true;
+  requestAnimationFrame(()=>{
+    scrollScheduled=false;
+    scrollJobs.forEach(fn=>fn());
   });
-}
-editorScroll.addEventListener('scroll',initReveals);
+},{passive:true});
+
+onEditorScroll(updateOutlineState);
 
 /* ═══════════════════════════════════
    LOGIN
@@ -880,7 +905,6 @@ async function loadProtected(panel){
         if(dl)dl.style.display='inline-flex';
       }
     }
-    setTimeout(()=>buildLn(panel),150);
   }catch(e){
     console.error(e);
   }

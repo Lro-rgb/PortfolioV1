@@ -1,0 +1,372 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   themes.css — Farbthemen
+
+   Die Werte sind nicht geschaetzt, sondern aus den echten VS-Code-Themes
+   uebernommen (workbench.colorCustomizations und tokenColors). Genau
+   deshalb wirkt die Oberflaeche vertraut: Wer VS Code benutzt, erkennt
+   "Dark+" oder "Dracula" sofort wieder.
+
+   Aufbau: Jede Variable beschreibt einen Oberflaechenteil, nicht eine
+   Farbe. "--act-bg" ist der Hintergrund der Activity Bar — welche Farbe
+   das ist, entscheidet allein das gewaehlte Theme. Kein Bauteil im
+   restlichen CSS nennt je einen Farbwert.
+
+   Neues Theme hinzufuegen: Block kopieren, Werte ersetzen, den Namen in
+   THEMES in app.js eintragen. Sonst ist nichts zu tun.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Dark+ (Default Dark) — das Standardtheme von VS Code ───────────────── */
+:root,
+[data-theme='dark-plus'] {
+  color-scheme: dark;
+
+  /* Flaechen */
+  --bg: #1e1e1e;              /* editor.background */
+  --sb: #252526;              /* sideBar.background */
+  --tb: #3c3c3c;              /* titleBar.activeBackground */
+  --tabbar-bg: #252526;       /* editorGroupHeader.tabsBackground */
+  --tab-bg: #2d2d2d;          /* tab.inactiveBackground */
+  --tab-active-bg: #1e1e1e;   /* tab.activeBackground */
+  --act-bg: #333333;          /* activityBar.background */
+  --panel-bg: #1e1e1e;        /* panel.background */
+  --widget-bg: #252526;       /* editorWidget.background */
+
+  /* Linien */
+  --border: #3c3c3c;          /* contrastBorder / panel.border */
+  --border2: #2b2b2b;
+  --act-border: #2b2b2b;
+
+  /* Schrift */
+  --text: #cccccc;            /* foreground */
+  --muted: #9d9d9d;           /* descriptionForeground */
+  --dim: #6e7681;
+  --ln: #858585;              /* editorLineNumber.foreground */
+  --act-fg: #ffffff66;        /* activityBar.inactiveForeground */
+  --act-fg-active: #ffffff;   /* activityBar.foreground */
+
+  /* Zustaende */
+  --list-hover: #2a2d2e;      /* list.hoverBackground */
+  --list-active: #094771;     /* list.activeSelectionBackground */
+  --focus: #007fd4;           /* focusBorder */
+  --accent: #007acc;          /* Akzent der Oberflaeche */
+  --status-bg: #007acc;       /* statusBar.background */
+  --status-fg: #ffffff;
+  --tab-active-border: #007acc;
+
+  /* Syntaxfarben (tokenColors) */
+  --syn-comment: #6a9955;
+  --syn-kw: #c586c0;          /* Steuerworte: if, return, class */
+  --syn-kw2: #569cd6;         /* Deklarationen: const, def, interface */
+  --syn-str: #ce9178;
+  --syn-fn: #dcdcaa;
+  --syn-num: #b5cea8;
+  --syn-type: #4ec9b0;
+  --syn-var: #9cdcfe;
+  --syn-punct: #d4d4d4;
+
+  /* Bedeutungsfarben (Skills, Noten, Meldungen) — bewusst nicht aus der
+     Syntaxpalette, damit Bedeutung und Codefarbe nicht verwechselt werden. */
+  --ok: #4ec9b0;
+  --info: #569cd6;
+  --warn: #d7ba7d;
+  --danger: #f48771;
+
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* ── GitHub Dark ───────────────────────────────────────────────────────── */
+[data-theme='github-dark'] {
+  color-scheme: dark;
+
+  --bg: #0d1117;
+  --sb: #010409;
+  --tb: #010409;
+  --tabbar-bg: #010409;
+  --tab-bg: #010409;
+  --tab-active-bg: #0d1117;
+  --act-bg: #010409;
+  --panel-bg: #0d1117;
+  --widget-bg: #161b22;
+
+  --border: #30363d;
+  --border2: #21262d;
+  --act-border: #30363d;
+
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --dim: #484f58;
+  --ln: #6e7681;
+  --act-fg: #8b949e;
+  --act-fg-active: #e6edf3;
+
+  --list-hover: #161b22;
+  --list-active: #1f6feb40;
+  --focus: #58a6ff;
+  --accent: #58a6ff;
+  --status-bg: #0d1117;
+  --status-fg: #8b949e;
+  --tab-active-border: #f78166;
+
+  --syn-comment: #8b949e;
+  --syn-kw: #ff7b72;
+  --syn-kw2: #ff7b72;
+  --syn-str: #a5d6ff;
+  --syn-fn: #d2a8ff;
+  --syn-num: #79c0ff;
+  --syn-type: #ffa657;
+  --syn-var: #79c0ff;
+  --syn-punct: #c9d1d9;
+
+  --ok: #3fb950;
+  --info: #58a6ff;
+  --warn: #d29922;
+  --danger: #f85149;
+
+  --shadow: 0 8px 24px rgba(1, 4, 9, 0.8);
+}
+
+/* ── Dracula ───────────────────────────────────────────────────────────── */
+[data-theme='dracula'] {
+  color-scheme: dark;
+
+  --bg: #282a36;
+  --sb: #21222c;
+  --tb: #191a21;
+  --tabbar-bg: #191a21;
+  --tab-bg: #21222c;
+  --tab-active-bg: #282a36;
+  --act-bg: #343746;
+  --panel-bg: #282a36;
+  --widget-bg: #21222c;
+
+  --border: #191a21;
+  --border2: #44475a;
+  --act-border: #191a21;
+
+  --text: #f8f8f2;
+  --muted: #b3b7c4;
+  --dim: #6272a4;
+  --ln: #6272a4;
+  --act-fg: #6272a4;
+  --act-fg-active: #f8f8f2;
+
+  --list-hover: #44475a75;
+  --list-active: #44475a;
+  --focus: #bd93f9;
+  --accent: #bd93f9;
+  --status-bg: #191a21;
+  --status-fg: #f8f8f2;
+  --tab-active-border: #ff79c6;
+
+  --syn-comment: #6272a4;
+  --syn-kw: #ff79c6;
+  --syn-kw2: #8be9fd;
+  --syn-str: #f1fa8c;
+  --syn-fn: #50fa7b;
+  --syn-num: #bd93f9;
+  --syn-type: #8be9fd;
+  --syn-var: #f8f8f2;
+  --syn-punct: #f8f8f2;
+
+  --ok: #50fa7b;
+  --info: #8be9fd;
+  --warn: #ffb86c;
+  --danger: #ff5555;
+
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Nord ──────────────────────────────────────────────────────────────── */
+[data-theme='nord'] {
+  color-scheme: dark;
+
+  --bg: #2e3440;
+  --sb: #2e3440;
+  --tb: #2e3440;
+  --tabbar-bg: #2e3440;
+  --tab-bg: #2e3440;
+  --tab-active-bg: #3b4252;
+  --act-bg: #2e3440;
+  --panel-bg: #2e3440;
+  --widget-bg: #2e3440;
+
+  --border: #3b4252;
+  --border2: #434c5e;
+  --act-border: #3b4252;
+
+  --text: #d8dee9;
+  --muted: #9aa5b6;
+  --dim: #616e88;
+  --ln: #4c566a;
+  --act-fg: #6d7a90;
+  --act-fg-active: #d8dee9;
+
+  --list-hover: #3b4252;
+  --list-active: #434c5e;
+  --focus: #88c0d0;
+  --accent: #88c0d0;
+  --status-bg: #3b4252;
+  --status-fg: #d8dee9;
+  --tab-active-border: #88c0d0;
+
+  --syn-comment: #616e88;
+  --syn-kw: #81a1c1;
+  --syn-kw2: #81a1c1;
+  --syn-str: #a3be8c;
+  --syn-fn: #88c0d0;
+  --syn-num: #b48ead;
+  --syn-type: #8fbcbb;
+  --syn-var: #d8dee9;
+  --syn-punct: #eceff4;
+
+  --ok: #a3be8c;
+  --info: #88c0d0;
+  --warn: #ebcb8b;
+  --danger: #bf616a;
+
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* ── One Dark Pro ──────────────────────────────────────────────────────── */
+[data-theme='one-dark'] {
+  color-scheme: dark;
+
+  --bg: #282c34;
+  --sb: #21252b;
+  --tb: #21252b;
+  --tabbar-bg: #21252b;
+  --tab-bg: #21252b;
+  --tab-active-bg: #282c34;
+  --act-bg: #333842;
+  --panel-bg: #282c34;
+  --widget-bg: #21252b;
+
+  --border: #181a1f;
+  --border2: #3e4451;
+  --act-border: #181a1f;
+
+  --text: #abb2bf;
+  --muted: #9098a5;
+  --dim: #5c6370;
+  --ln: #4b5263;
+  --act-fg: #6b727d;
+  --act-fg-active: #d7dae0;
+
+  --list-hover: #2c313a;
+  --list-active: #2c313a;
+  --focus: #61afef;
+  --accent: #61afef;
+  --status-bg: #21252b;
+  --status-fg: #9da5b4;
+  --tab-active-border: #61afef;
+
+  --syn-comment: #5c6370;
+  --syn-kw: #c678dd;
+  --syn-kw2: #c678dd;
+  --syn-str: #98c379;
+  --syn-fn: #61afef;
+  --syn-num: #d19a66;
+  --syn-type: #e5c07b;
+  --syn-var: #e06c75;
+  --syn-punct: #abb2bf;
+
+  --ok: #98c379;
+  --info: #61afef;
+  --warn: #e5c07b;
+  --danger: #e06c75;
+
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* ── Light+ (Default Light) ────────────────────────────────────────────────
+   Kein nachtraeglicher Zusatz: Wer die Seite in einem hellen Raum oder auf
+   einem Beamer ansieht, liest hier deutlich besser. Die Activity Bar bleibt
+   dunkel — genau wie im echten Light+.
+   ─────────────────────────────────────────────────────────────────────── */
+[data-theme='light-plus'] {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --sb: #f3f3f3;
+  --tb: #dddddd;
+  --tabbar-bg: #f3f3f3;
+  --tab-bg: #ececec;
+  --tab-active-bg: #ffffff;
+  --act-bg: #2c2c2c;
+  --panel-bg: #ffffff;
+  --widget-bg: #f3f3f3;
+
+  --border: #d4d4d4;
+  --border2: #e7e7e7;
+  --act-border: #2c2c2c;
+
+  --text: #333333;
+  --muted: #616161;
+  --dim: #8a8a8a;
+  --ln: #237893;
+  --act-fg: #ffffff66;
+  --act-fg-active: #ffffff;
+
+  --list-hover: #e8e8e8;
+  --list-active: #0060c0;
+  --focus: #0090f1;
+  --accent: #005fb8;
+  --status-bg: #007acc;
+  --status-fg: #ffffff;
+  --tab-active-border: #005fb8;
+
+  --syn-comment: #008000;
+  --syn-kw: #af00db;
+  --syn-kw2: #0000ff;
+  --syn-str: #a31515;
+  --syn-fn: #795e26;
+  --syn-num: #098658;
+  --syn-type: #267f99;
+  --syn-var: #001080;
+  --syn-punct: #383838;
+
+  --ok: #107c10;
+  --info: #005fb8;
+  --warn: #855a00;
+  --danger: #cd3131;
+
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Schriften und Altnamen
+
+   Die Seite hiess ihre Farben frueher --blue, --green, --red. Das sind
+   Farbnamen, keine Bedeutungen: In Dracula ist "blue" pink. Deshalb heissen
+   sie jetzt nach ihrer Aufgabe (--accent, --ok, --danger). Die alten Namen
+   bleiben als Verweis bestehen, damit bestehendes CSS weiterlaeuft — sie
+   loesen sich auf demselben Element auf und nehmen darum automatisch den
+   Wert des aktiven Themes an.
+   ═══════════════════════════════════════════════════════════════════════ */
+:root {
+  --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --blue: var(--accent);
+  --green: var(--ok);
+  --red: var(--danger);
+  --orange: var(--warn);
+  --purple: var(--syn-kw);
+  --teal: var(--syn-type);
+
+  /* Hoehen der Oberflaechenteile — an einer Stelle, damit das Raster der
+     .ide und die einzelnen Leisten nicht auseinanderlaufen koennen. */
+  --h-title: 35px;
+  --h-tabs: 35px;
+  --h-status: 22px;
+  --w-activity: 48px;
+  --w-sidebar: 240px;
+}
+
+/* Wenn ein helles Theme aktiv ist, brauchen ein paar Stellen weniger
+   Kontrast statt mehr — hier zentral geregelt statt in jedem Bauteil. */
+[data-theme='light-plus'] .tab:hover,
+[data-theme='light-plus'] .tree-file:hover,
+[data-theme='light-plus'] .tree-folder:hover {
+  background: var(--list-hover);
+}

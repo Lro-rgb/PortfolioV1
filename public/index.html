@@ -34,10 +34,34 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <!-- Devicon — original technology icons (Python, Java, MySQL, etc.) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.16.0/devicon.min.css">
+<!-- Devicon liefert nur die Technologie-Logos. Das Stylesheet ist gross und
+     wuerde das erste Zeichnen der Seite aufhalten, obwohl kein einziges
+     Logo fuer den Text noetig ist. Der media="print"-Kniff laesst den
+     Browser es nebenher laden und erst danach anwenden: Der Inhalt steht
+     sofort, die Logos erscheinen Sekundenbruchteile spaeter. -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.16.0/devicon.min.css"
+      media="print" onload="this.media='all';this.onload=null">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.16.0/devicon.min.css"></noscript>
 
-<!-- Styles -->
+<!-- Styles
+     themes.css zuerst: dort stehen die Farbwerte aller Designs.
+     style.css baut darauf auf, vscode.css ergaenzt die Oberflaechenteile
+     (Activity Bar, Statusleiste, Panel) und die Lesbarkeit im Editor. -->
+<link rel="stylesheet" href="css/themes.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/vscode.css">
+
+<!-- Gewaehltes Farbdesign setzen, bevor die Seite zeichnet — sonst blitzt
+     kurz das Standarddesign auf. -->
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('lr_theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch (e) { /* privater Modus: dann gilt das Standarddesign */ }
+  })();
+</script>
 
 <!-- Strukturierte Daten für Suchmaschinen -->
 <script type="application/ld+json">
@@ -105,16 +129,69 @@
 <!-- ══════════════ IDE ══════════════ -->
 <div class="ide" id="ide">
 
-  <!-- TITLEBAR -->
+  <!-- ── TITELLEISTE ──
+       Links das Menue wie in VS Code, mittig das Suchfeld (es oeffnet die
+       Kommandopalette, genau wie Strg+P), rechts der Anmeldestatus. -->
   <div class="titlebar">
     <button type="button" class="sb-toggle" id="sbToggle" aria-expanded="false" aria-controls="sidebar">
       <span aria-hidden="true">☰</span><span class="vh">Explorer öffnen</span>
     </button>
-    <div class="tb-dots" aria-hidden="true"><div class="tb-dot r"></div><div class="tb-dot y"></div><div class="tb-dot g"></div></div>
-    <div class="tb-title">luis-rosado — Portfolio</div>
-    <div class="tb-auth" id="sbAuth">🔒 Nicht eingeloggt</div>
-    <div class="tb-icons" aria-hidden="true"><span title="Search">⌕</span><span title="Settings">⚙</span></div>
+
+    <div class="tb-menu" aria-hidden="true">
+      <button type="button" data-cmd="palette">Gehe zu</button>
+      <button type="button" data-cmd="terminal">Terminal</button>
+      <button type="button" data-cmd="theme">Design</button>
+    </div>
+
+    <button type="button" class="tb-search" id="tbSearch">
+      <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></svg>
+      Dateien und Befehle durchsuchen
+      <kbd>Strg P</kbd>
+    </button>
+
+    <div class="tb-right">
+      <div class="tb-auth" id="sbAuth">🔒 Nicht eingeloggt</div>
+    </div>
   </div>
+
+  <!-- ── ACTIVITY BAR ──
+       Die Icon-Leiste ganz links. Explorer klappt die Seitenleiste auf und
+       zu, die uebrigen Symbole springen an die passende Stelle — sie sind
+       also keine Attrappe. -->
+  <nav class="activitybar" aria-label="Aktivitätsleiste">
+    <button type="button" class="act-btn" id="actExplorer" aria-pressed="true" title="Explorer (Strg+Umschalt+E)">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 5h-8l-2-2H3.5A1.5 1.5 0 0 0 2 4.5v15A1.5 1.5 0 0 0 3.5 21h17a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 20.5 5Zm0 14.5h-17v-13h6.38l2 2h8.62Z"/></svg>
+      <span class="vh">Explorer ein- und ausblenden</span>
+    </button>
+
+    <button type="button" class="act-btn" data-cmd="palette" title="Suchen (Strg+P)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.7-4.7"/></svg>
+      <span class="vh">Suchen</span>
+    </button>
+
+    <button type="button" class="act-btn" data-open="projekte" title="Projekte">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><circle cx="18" cy="9" r="2.6"/><path d="M6 8.6v6.8M8.6 6H14a2 2 0 0 1 2 2v.6"/></svg>
+      <span class="vh">Projekte</span>
+      <span class="act-badge" id="actProjCount">8</span>
+    </button>
+
+    <button type="button" class="act-btn" data-cmd="terminal" title="Terminal (Strg+^)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m6.5 9.5 3 2.5-3 2.5M13 15h5"/></svg>
+      <span class="vh">Terminal</span>
+    </button>
+
+    <button type="button" class="act-btn" data-open="cv" title="Unterlagen (passwortgeschützt)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>
+      <span class="vh">Geschützte Unterlagen</span>
+    </button>
+
+    <div class="act-bottom">
+      <button type="button" class="act-btn" data-cmd="theme" title="Farbdesign wechseln">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor" stroke="none"/></svg>
+        <span class="vh">Farbdesign wechseln</span>
+      </button>
+    </div>
+  </nav>
 
   <!-- TABBAR -->
   <div class="tabbar" id="tabbar" role="tablist" aria-label="Dateien">
@@ -220,7 +297,6 @@
             <span>luis-rosado</span><span class="sep">›</span><span class="bc-part">luis.json</span>
           </div>
           <div class="code-view">
-            <div class="line-nums" id="ln-home"></div>
             <div class="code-content" id="cc-home">
               <div class="cmt">// luis.json — Wer ich bin</div><br>
               <div><span class="punct">{</span></div>
@@ -283,7 +359,6 @@
         <div class="editor-panel" id="panel-skills" role="tabpanel" aria-labelledby="tab-skills">
           <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">skills.py</span></div>
           <div class="code-view">
-            <div class="line-nums" id="ln-skills"></div>
             <div class="code-content">
               <div class="cmt"># skills.py — Technische Fähigkeiten</div><br>
               <h2 class="ed-h1 reveal">Skills</h2>
@@ -309,7 +384,8 @@
                 <tr><th>Sprache</th><th>Stand</th><th>Wo ich sie eingesetzt habe</th></tr>
                 <tr><td><i class="devicon-typescript-plain colored skill-ic"></i>TypeScript</td><td><span class="badge bg">In Projekten</span></td><td>Askel: Einstellungsbereich, Distanzberechnung, Speicherung der Routen</td></tr>
                 <tr><td><i class="devicon-bash-plain colored skill-ic"></i>Bash</td><td><span class="badge bb">Grundlagen</span></td><td>Eigener Wallpaper-Switcher unter Arch Linux</td></tr>
-                <tr><td><i class="devicon-python-plain colored skill-ic"></i>Python</td><td><span class="badge bb">Grundlagen</span></td><td>Unterricht: Algorithmen und kleinere Skripte</td></tr>
+                <tr><td><i class="devicon-python-plain colored skill-ic"></i>Python</td><td><span class="badge bg">In Projekten</span></td><td>Redis-Webshop: Flask-Anwendung mit Anmeldung, Rollen und Warenkorb</td></tr>
+                <tr><td><i class="devicon-flask-original skill-ic"></i>Flask</td><td><span class="badge bg">In Projekten</span></td><td>Redis-Webshop: Routen, Formularprüfung, Sitzungen, Jinja2-Vorlagen</td></tr>
               </table>
 
               <h3 class="ed-h2 reveal">Frameworks &amp; Bibliotheken</h3>
@@ -324,7 +400,7 @@
               <table class="ed-table reveal">
                 <tr><th>Technologie</th><th>Stand</th><th>Wo ich es eingesetzt habe</th></tr>
                 <tr><td><i class="devicon-mysql-plain colored skill-ic"></i>SQL / MariaDB</td><td><span class="badge bb">Grundlagen</span></td><td>Unterricht und Schulprojekte: Abfragen, Joins, Subqueries</td></tr>
-                <tr><td><i class="devicon-redis-plain colored skill-ic"></i>Redis (NoSQL)</td><td><span class="badge bb">Grundlagen</span></td><td>Unterricht: Key-Value-Datenbanken</td></tr>
+                <tr><td><i class="devicon-redis-plain colored skill-ic"></i>Redis (NoSQL)</td><td><span class="badge bg">In Projekten</span></td><td>Redis-Webshop: Datenmodell aus Hashes und Mengen, eigene Indizes statt <code>JOIN</code></td></tr>
               </table>
 
               <h3 class="ed-h2 reveal">Backend &amp; Infrastruktur</h3>
@@ -332,6 +408,8 @@
                 <tr><th>Technologie</th><th>Stand</th><th>Wo ich es eingesetzt habe</th></tr>
                 <tr><td><i class="devicon-nodejs-plain colored skill-ic"></i>Node.js / Serverless</td><td><span class="badge bb">Grundlagen</span></td><td>Portfolio: Login und geschützter Bereich als Serverless Functions</td></tr>
                 <tr><td><i class="devicon-git-plain colored skill-ic"></i>Git / GitHub / GitLab</td><td><span class="badge bg">In Projekten</span></td><td>Versionsverwaltung in allen Projekten, Branches und Merges im Team</td></tr>
+                <tr><td><i class="devicon-docker-plain colored skill-ic"></i>Docker / Compose</td><td><span class="badge bg">In Projekten</span></td><td>Redis-Webshop: Anwendung und Datenbank starten zusammen aus einer Datei</td></tr>
+                <tr><td><i class="devicon-azure-plain colored skill-ic"></i>Azure / Betrieb</td><td><span class="badge bb">Grundlagen</span></td><td>DevOps-Modul: den Redis-Webshop nicht nur lokal, sondern auf einem Server betrieben</td></tr>
                 <tr><td><i class="devicon-linux-plain colored skill-ic"></i>Linux</td><td><span class="badge bb">Grundlagen</span></td><td>Arch Linux als Zweitsystem selbst eingerichtet und konfiguriert</td></tr>
                 <tr><td>Netzwerke / TCP/IP</td><td><span class="badge bb">Grundlagen</span></td><td>Unterricht an der IMS</td></tr>
               </table>
@@ -339,8 +417,8 @@
               <h3 class="ed-h2 reveal">Baue ich gerade aus</h3>
               <table class="ed-table reveal">
                 <tr><th>Technologie</th><th>Stand</th><th>Warum</th></tr>
-                <tr><td><i class="devicon-docker-plain colored skill-ic"></i>Docker</td><td><span class="badge bo">Im Aufbau</span></td><td>Anwendungen so ausliefern, dass sie überall gleich laufen</td></tr>
                 <tr><td>REST APIs</td><td><span class="badge bo">Im Aufbau</span></td><td>Nach den zwei Endpunkten dieser Website das Thema sauber von Grund auf</td></tr>
+                <tr><td><i class="devicon-nestjs-plain colored skill-ic"></i>NestJS / Prisma</td><td><span class="badge bo">Im Aufbau</span></td><td>Im Modul LBV 294 kennengelernt — ein Backend-Framework mit klarer Struktur, das ich sauber beherrschen möchte</td></tr>
               </table>
             </div>
           </div>
@@ -350,7 +428,6 @@
         <div class="editor-panel" id="panel-techstack" role="tabpanel" aria-labelledby="tab-techstack">
           <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">techstack.ts</span></div>
           <div class="code-view">
-            <div class="line-nums" id="ln-techstack"></div>
             <div class="code-content">
               <div class="cmt">// techstack.ts — Technologien &amp; Tools</div><br>
               <div class="cb reveal">
@@ -380,6 +457,8 @@
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-javascript-plain colored"></i></span><div class="tech-name">JavaScript</div><div class="tech-cat">Frontend / Logic</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-mysql-plain colored"></i></span><div class="tech-name">MariaDB</div><div class="tech-cat">Datenbank</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-redis-plain colored"></i></span><div class="tech-name">Redis</div><div class="tech-cat">NoSQL / Key-Value</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-flask-original"></i></span><div class="tech-name">Flask</div><div class="tech-cat">Backend</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-docker-plain colored"></i></span><div class="tech-name">Docker</div><div class="tech-cat">Ausliefern</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-git-plain colored"></i></span><div class="tech-name">Git</div><div class="tech-cat">Versionierung</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-github-original" style="color:#E6EDF3"></i></span><div class="tech-name">GitHub</div><div class="tech-cat">Kollaboration</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-gitlab-plain colored"></i></span><div class="tech-name">GitLab</div><div class="tech-cat">Schule</div></div>
@@ -401,7 +480,6 @@
         <div class="editor-panel" id="panel-projekte" role="tabpanel" aria-labelledby="tab-projekte">
           <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">projekte.html</span></div>
           <div class="code-view">
-            <div class="line-nums" id="ln-projekte"></div>
             <div class="code-content">
               <div class="cmt">&lt;!-- projekte.html --&gt;</div><br>
               <h2 class="ed-h1 reveal">Projekte</h2>
@@ -425,7 +503,7 @@
                   </dl>
                   <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Node.js</span><span class="chip">Vercel</span></div>
                   <div class="proj-links">
-                    <a href="https://github.com/Lro-rgb/portfolio" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                    <a href="https://github.com/Lro-rgb/PortfolioV1" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
                   </div>
                   <div class="proj-media" data-media="portfolio"></div>
                 </article>
@@ -526,6 +604,64 @@
                   <div class="proj-media" data-media="kobui"></div>
                 </article>
 
+                <article class="proj-card" id="proj-webshop">
+                  <div class="proj-type">// Schulprojekt · über drei Module gewachsen · laufend</div>
+                  <h4 class="proj-t">Redis-Webshop</h4>
+                  <p class="proj-abstract"><strong>Abstract —</strong> Ein Webshop, der seine Daten nicht in einer Tabellendatenbank hält, sondern vollständig in Redis — einer Key-Value-Datenbank, die alles im Arbeitsspeicher hält. Entstanden ist er im NoSQL-Modul als weitgehend leeres Grundgerüst. Seither ist er mein Übungsprojekt: In jedem folgenden Modul, in dem es passte, habe ich ihn um das erweitert, was dort dran war.</p>
+                  <div class="proj-body">
+                    <strong>NoSQL-Modul — das Datenmodell.</strong> Jeder Datensatz liegt als Hash unter einem sprechenden Schlüssel: <code>product:12</code>, <code>user:3</code>, <code>cart:3</code>. Weil Redis kein <code>WHERE</code> kennt, braucht jede Suche einen eigenen Index — die Kategorien liegen als Mengen unter <code>idx:kategorie:*</code> und enthalten die Produkt-IDs. Das war der eigentliche Lerneffekt: In SQL wäre das eine einzige Abfrage gewesen, hier muss der Index beim Speichern von Hand mitgeschrieben werden. Vergisst man das an einer Stelle, findet die Suche das Produkt nie wieder.
+                    <br><br>
+                    <strong>Docker-Modul — das Ausliefern.</strong> Anwendung und Datenbank starten seither zusammen über Docker Compose. Damit läuft der Shop auf einem fremden Rechner ohne Einrichtung von Hand. Aus derselben Ecke stammt eine Kleinigkeit, auf die ich bis heute stolz bin: Die Verbindung sucht sich ihren Port selbst — steht keine Umgebungsvariable, probiert sie 6379 und 6380 durch. In der Schule lief Redis auf einem anderen Port als zuhause, und statt die Datei jedes Mal zu ändern, klärt das Programm es selbst.
+                    <br><br>
+                    <strong>DevOps-/Azure-Modul — der Betrieb.</strong> Zuletzt ging es darum, die Anwendung nicht nur lokal laufen zu lassen, sondern auf einem Server zu betreiben und im Blick zu behalten.
+                    <br><br>
+                    Inhaltlich kann der Shop heute: Anmeldung mit Rollen für Admins und Kundschaft, Produkte anlegen, bearbeiten und löschen, einen Warenkorb pro Benutzer sowie Skripte, die ihn mit Testdaten füllen.
+                  </div>
+                  <dl class="proj-meta">
+                    <div><dt>Meine Rolle</dt><dd>Eigenes Repository, von mir umgesetzt und über die Module hinweg weiterentwickelt</dd></div>
+                    <div><dt>Warum immer dasselbe Projekt</dt><dd>Ein neues Thema an bekanntem Code zu lernen, zeigt den Unterschied deutlicher als ein neues Beispielprojekt. Nebenbei sieht man an der Historie, wie sich derselbe Shop über ein Jahr verändert hat.</dd></div>
+                    <div><dt>Gelernt</dt><dd>
+                      <ul class="proj-ul">
+                        <li>Datenmodellierung ohne Tabellen: der Schlüssel ist die Struktur</li>
+                        <li>Warum eine Key-Value-Datenbank schnell ist — und was man dafür aufgibt</li>
+                        <li>Indizes von Hand pflegen, statt sie von der Datenbank zu bekommen</li>
+                        <li>Mehrere Dienste gemeinsam starten und ausliefern</li>
+                        <li>Dass eine Anwendung, die auf einem Server läuft, andere Fragen stellt als eine, die nur lokal läuft</li>
+                      </ul>
+                    </dd></div>
+                  </dl>
+                  <div class="chips"><span class="chip">Python</span><span class="chip">Flask</span><span class="chip">Redis</span><span class="chip">Docker Compose</span><span class="chip">Jinja2</span><span class="chip">Azure</span></div>
+                  <div class="proj-links">
+                    <a href="https://github.com/Lro-rgb/redis-webshop" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                  </div>
+                  <div class="proj-media" data-media="webshop"></div>
+                </article>
+
+                <article class="proj-card" id="proj-bookloan">
+                  <div class="proj-type">// Schulprojekt · überbetrieblicher Kurs · Modul LBV 294 · Dreierteam</div>
+                  <h4 class="proj-t">BookLoan</h4>
+                  <p class="proj-abstract"><strong>Abstract —</strong> BookLoan ist eine Webanwendung zur Verwaltung von Bibliotheken, Büchern und Ausleihen: Bestände anlegen und pflegen, Bücher ausleihen und zurücknehmen, Benutzerkonten verwalten. Die Anwendung ist mehrsprachig, hat einen hellen und einen dunklen Modus und führt neue Benutzer über eine kurze Einführung. Ich bin während des laufenden Projekts ins Team nachgerückt.</p>
+                  <div class="proj-body">
+                    Getrennte Anwendungen für Frontend und Backend: vorne React 19 mit TypeScript, Vite und React Router, hinten NestJS mit Prisma als Zugriffsschicht auf eine MySQL-Datenbank. Die Anmeldung läuft über JWT. Beide Teile starten zusammen über Docker Compose, sodass die Anwendung auf einem fremden Rechner ohne Einrichtung von Hand läuft.
+                  </div>
+                  <dl class="proj-meta">
+                    <div><dt>Meine Rolle</dt><dd>Nachgerückt: Ich bin für einen ausgeschiedenen Kollegen ins bestehende Dreierteam gekommen, als das Projekt schon lief. Mein Schwerpunkt lag beim Sammeln und Ausarbeiten von Ideen für Funktionen und Gestaltung; dazu kam Mitarbeit dort, wo gerade Hände gebraucht wurden.</dd></div>
+                    <div><dt>Ehrlich gesagt</dt><dd>Der grössere Teil des Codes stammt nicht von mir — im Repository ist noch das ursprüngliche Team genannt. Ich führe das Projekt hier auf, weil das Einsteigen in eine fremde, bereits laufende Codebasis eine eigene Erfahrung war, nicht wegen des Umfangs meines Anteils.</dd></div>
+                    <div><dt>Gelernt</dt><dd>
+                      <ul class="proj-ul">
+                        <li>Sich in fremden Code einarbeiten, ohne das Team auszubremsen</li>
+                        <li>Dass man als Nachrücker zuerst zuhört und liest, bevor man Vorschläge macht</li>
+                        <li>Wie ein getrenntes Frontend und Backend zusammenspielen — React vorne, NestJS und Prisma hinten</li>
+                      </ul>
+                    </dd></div>
+                  </dl>
+                  <div class="chips"><span class="chip">React 19</span><span class="chip">TypeScript</span><span class="chip">NestJS</span><span class="chip">Prisma</span><span class="chip">MySQL</span><span class="chip">Docker</span></div>
+                  <div class="proj-links">
+                    <a href="https://github.com/etschwab/BookLoan" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                  </div>
+                  <div class="proj-media" data-media="bookloan"></div>
+                </article>
+
               </div>
             </div>
           </div>
@@ -535,7 +671,6 @@
         <div class="editor-panel" id="panel-interessen" role="tabpanel" aria-labelledby="tab-interessen">
           <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">interessen.json</span></div>
           <div class="code-view">
-            <div class="line-nums" id="ln-interessen"></div>
             <div class="code-content">
               <div class="cmt">// interessen.json</div><br>
               <h2 class="ed-h1 reveal">Interessen</h2>
@@ -580,7 +715,6 @@
         <div class="editor-panel" id="panel-kontakt" role="tabpanel" aria-labelledby="tab-kontakt">
           <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">kontakt.sql</span></div>
           <div class="code-view">
-            <div class="line-nums" id="ln-kontakt"></div>
             <div class="code-content">
               <div class="cmt">-- kontakt.sql</div><br>
               <div class="cb reveal" style="margin-bottom:2rem">
@@ -610,7 +744,7 @@
                   <div><dt>E-Mail</dt><dd><a href="mailto:luisrosado008@gmail.com">luisrosado008@gmail.com</a></dd></div>
                   <div><dt>Zweck der Website</dt><dd>Persönliche Portfolio- und Bewerbungswebsite im Rahmen der Ausbildung an der IMS an der BWD Bern. Keine kommerzielle Nutzung.</dd></div>
                   <div><dt>Hosting</dt><dd>Vercel Inc.</dd></div>
-                  <div><dt>Quellcode</dt><dd><a href="https://github.com/Lro-rgb/portfolio" target="_blank" rel="noopener noreferrer">github.com/Lro-rgb/portfolio</a></dd></div>
+                  <div><dt>Quellcode</dt><dd><a href="https://github.com/Lro-rgb/PortfolioV1" target="_blank" rel="noopener noreferrer">github.com/Lro-rgb/PortfolioV1</a></dd></div>
                   <div><dt>Bildnachweis</dt><dd>Technologie-Logos von <a href="https://devicon.dev" target="_blank" rel="noopener noreferrer">Devicon</a> (MIT-Lizenz). Alle übrigen Inhalte stammen von mir.</dd></div>
                   <div><dt>Schriften</dt><dd>JetBrains Mono und Inter, bezogen über Google Fonts (SIL Open Font License)</dd></div>
                 </dl>
@@ -623,7 +757,6 @@
         <div class="editor-panel" id="panel-readme" role="tabpanel" aria-labelledby="tab-readme">
           <div class="breadcrumb"><span>luis-rosado</span><span class="sep">›</span><span class="bc-part">README.md</span></div>
           <div class="code-view">
-            <div class="line-nums" id="ln-readme"></div>
             <div class="code-content">
               <div class="cmt"># README.md — Wie diese Seite gebaut ist</div><br>
 
@@ -699,7 +832,7 @@
                 <tr><td>Passwortschutz</td><td>scrypt mit Salt, Vergleich in konstanter Zeit; Sitzung über ein signiertes Token mit vier Stunden Laufzeit</td></tr>
                 <tr><td>Abhängigkeiten</td><td>Keine. Weder Frontend noch Backend laden ein npm-Paket.</td></tr>
                 <tr><td>Hosting</td><td>Vercel</td></tr>
-                <tr><td>Versionsverwaltung</td><td><a href="https://github.com/Lro-rgb/portfolio" class="proj-link" target="_blank" rel="noopener noreferrer">github.com/Lro-rgb/portfolio</a> — der komplette Quellcode dieser Seite ist öffentlich einsehbar</td></tr>
+                <tr><td>Versionsverwaltung</td><td><a href="https://github.com/Lro-rgb/PortfolioV1" class="proj-link" target="_blank" rel="noopener noreferrer">github.com/Lro-rgb/PortfolioV1</a> — der komplette Quellcode dieser Seite ist öffentlich einsehbar</td></tr>
                 <tr><td>Browser</td><td>Getestet in Chrome, Edge und Firefox. Funktioniert in jedem aktuellen Browser; ältere bekommen dieselben Inhalte, nur ohne einzelne visuelle Effekte.</td></tr>
               </table>
 
@@ -719,7 +852,6 @@
             <button class="bc-logout" onclick="doLogout()">logout</button>
           </div>
           <div class="code-view">
-            <div class="line-nums" id="ln-noten"></div>
             <div class="code-content" id="cc-noten">
               <div class="cmt"># noten.csv</div><br>
               <h2 class="ed-h1">Noten</h2>
@@ -736,7 +868,6 @@
             <button class="bc-logout" onclick="doLogout()">logout</button>
           </div>
           <div class="code-view">
-            <div class="line-nums" id="ln-cv"></div>
             <div class="code-content" id="cc-cv">
               <div class="cmt"># lebenslauf.md</div><br>
               <h2 class="ed-h1">Lebenslauf</h2>
@@ -749,7 +880,57 @@
     </div>
   </div>
 
+  <!-- ── PANEL / TERMINAL ──
+       Faehrt unten aus, wie Strg+^ in VS Code. Die Befehle sind echt: Sie
+       oeffnen Dateien, wechseln das Design und geben Auskunft. -->
+  <section class="panel" id="panelTerminal" hidden aria-label="Terminal">
+    <div class="panel-head">
+      <button type="button" class="panel-tab active">Terminal</button>
+      <button type="button" class="panel-close" id="panelClose" aria-label="Panel schliessen">✕</button>
+    </div>
+    <div class="term" id="termOut" tabindex="0">
+      <div class="term-line out">Portfolio-Shell — <code>help</code> zeigt alle Befehle.</div>
+      <div class="term-input-row">
+        <span class="term-prompt">luis@portfolio</span><span class="term-path">~$</span>
+        <input class="term-input" id="termInput" autocomplete="off" spellcheck="false"
+               aria-label="Terminal-Eingabe" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STATUSLEISTE ──
+       Sie war in der Vorgaengerversion entfernt worden. Ohne sie fehlt der
+       Oberflaeche die untere Kante — und ein guter Platz fuer Angaben, die
+       sonst nirgends hinpassen. -->
+  <div class="statusbar" id="statusbar">
+    <a class="st-item" href="https://github.com/Lro-rgb/PortfolioV1" target="_blank" rel="noopener noreferrer" title="Quellcode auf GitHub">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M11 3.5a2 2 0 1 1-2.6 1.9v5.2A2 2 0 1 1 5.8 12V4.4"/><circle cx="5" cy="3.5" r="1.6"/></svg>
+      main
+    </a>
+    <button type="button" class="st-item" data-cmd="terminal" title="Terminal ein- und ausblenden">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m3 5 3 3-3 3M8.5 11H13"/></svg>
+      Terminal
+    </button>
+    <span class="st-item st-hide-sm" id="stProblems" title="Keine bekannten Probleme">0 Fehler, 0 Warnungen</span>
+
+    <div class="st-right">
+      <span class="st-item st-hide-sm" id="stLines">–</span>
+      <button type="button" class="st-item" data-cmd="theme" id="stTheme" title="Farbdesign wechseln">Dark+</button>
+      <span class="st-item" id="stLang">JSON</span>
+      <button type="button" class="st-item" id="stAuth" data-open="cv" title="Geschützte Unterlagen">🔒 Gast</button>
+    </div>
+  </div>
+
 </div><!-- /ide -->
+
+<!-- ══════════════ KOMMANDOPALETTE (Strg+P) ══════════════ -->
+<div class="qi-backdrop" id="qiBackdrop" hidden>
+  <div class="qi" role="dialog" aria-modal="true" aria-label="Gehe zu Datei oder Befehl">
+    <input class="qi-input" id="qiInput" type="text" autocomplete="off" spellcheck="false"
+           placeholder="Datei eingeben, oder > für Befehle" aria-controls="qiList" />
+    <ul class="qi-list" id="qiList" role="listbox" aria-label="Ergebnisse"></ul>
+  </div>
+</div>
 
 <!-- ══════════════ BILD-VOLLANSICHT ══════════════ -->
 <div class="overlay lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot in Vollansicht" aria-hidden="true">
@@ -764,7 +945,12 @@
 </div>
 
 
-<!-- App logic -->
+<!-- App logic
+     app.js: Tabs, Explorer, Login, geschützte Daten, Medien.
+     vscode.js: Activity Bar, Statusleiste, Farbdesigns, Kommandopalette,
+     Terminal — baut auf den Funktionen aus app.js auf und muss deshalb
+     danach geladen werden. -->
 <script src="js/app.js"></script>
+<script src="js/vscode.js"></script>
 </body>
 </html>
