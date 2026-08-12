@@ -612,7 +612,7 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
   .sk-list{display:block!important}
   .sk{page-break-inside:avoid;border-bottom:1px solid #ddd}
   .sk-dot{display:none!important}
-  .sk-where{color:#555!important}
+  .sk-chip{color:#555!important;border:1px solid #bbb!important;background:#fff!important}
   .sk .vh,.sk-next .vh{position:static;width:auto;height:auto;margin:0;
     overflow:visible;clip:auto;clip-path:none;white-space:normal;
     font-size:9pt;color:#555!important}

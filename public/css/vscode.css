@@ -643,12 +643,15 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
   gap: 0 2.5rem;
 }
 
+/* Eine Zeile pro Technologie: Punkt, Name, Projekt. Vorher stand unter
+   jedem Namen noch ein Satz — bei achtzehn Eintraegen war das eine Wand
+   aus Fliesstext, durch die man lesen statt schauen musste. */
 .sk {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr) auto;
   column-gap: 0.6rem;
-  align-items: baseline;
-  padding: 0.5rem 0;
+  align-items: center;
+  padding: 0.42rem 0;
   border-bottom: 1px solid var(--border2);
 }
 
@@ -674,18 +677,38 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
   min-width: 0;
 }
 
-/* Der Beleg steht unter dem Namen, buendig mit ihm — deshalb die zweite
-   Rasterzelle und nicht einfach ein Zeilenumbruch. */
-.sk-where {
-  grid-column: 2;
-  font-family: var(--sans);
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--muted);
-  margin-top: 0.15rem;
+/* Der Beleg: nur noch der Projektname, rechtsbuendig, damit alle
+   Projekte einer Spalte untereinander auf einer Kante stehen. */
+.sk-wo {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.3rem;
+  flex-shrink: 0;
 }
 
-.sk-where code { font-size: 11.5px; }
+.sk-chip {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.1rem 0.55rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.sk-chip:hover { color: var(--accent); border-color: var(--accent); }
+
+/* Kein Projekt dahinter, also auch nichts zum Anklicken. */
+.sk-chip-still {
+  cursor: default;
+  color: var(--dim);
+  background: none;
+  border-color: var(--border2);
+}
 
 /* Legende: dieselben Punkte, aber ohne Rasterzeile darunter. */
 .legend { gap: 0.4rem 1.6rem; margin-bottom: 1.4rem; }
@@ -869,6 +892,174 @@ code {
 .slider[data-slider="musik"] .shot {
   flex-basis: clamp(150px, 24%, 210px);
   aspect-ratio: 1;
+}
+
+/* ── Kontaktseite ──────────────────────────────────────────────────────────
+   Vorher zwei schmale Zeilen mit Emoji und danach eine lange Impressum-
+   Liste. Jetzt zwei grosse Karten als das, was man hier tun kann, und
+   die Pflichtangaben eingeklappt darunter.
+   ───────────────────────────────────────────────────────────────────────── */
+.kontakt-karten {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  max-width: 660px;
+  margin: 0 0 0.9rem;
+}
+
+.kk {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem 1.1rem;
+  background: var(--sb);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.kk:hover { background: var(--list-hover); border-color: var(--accent); }
+
+/* Die Mail ist der eigentliche Zweck der Seite und darf das zeigen. */
+.kk-haupt {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--sb));
+}
+
+.kk-haupt:hover { background: color-mix(in srgb, var(--accent) 20%, var(--sb)); }
+
+.kk-ic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  font-size: 17px;
+}
+
+.kk-ic svg { width: 19px; height: 19px; }
+.kk-ic .devicon-github-original { color: var(--text); }
+
+.kk-txt { min-width: 0; }
+
+.kk-t {
+  display: block;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.kk-s {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 0.15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kk-neben {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin: 0 0 2rem;
+}
+
+.kk-hinweis {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+/* Schaltflaechen: ein Stil fuer die ganze Seite, zwei Groessen. */
+.btn {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  color: var(--text);
+  background: var(--sb);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.btn:hover { background: var(--list-hover); border-color: var(--accent); }
+.btn-klein { font-size: 11.5px; padding: 0.35rem 0.7rem; }
+
+.btn-ok {
+  color: var(--ok);
+  border-color: color-mix(in srgb, var(--ok) 55%, transparent);
+  background: color-mix(in srgb, var(--ok) 12%, transparent);
+}
+
+/* Impressum */
+.impressum {
+  max-width: 660px;
+  margin: 0 0 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border2);
+  background: none;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  border-radius: 0;
+}
+
+.impressum .fold-btn { font-family: var(--sans); font-size: 12.5px; }
+
+.imp-list {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 0;
+  margin-top: 0.6rem;
+}
+
+/* Jede Angabe ist ein eigenes Raster aus Bezeichnung und Wert — so
+   stehen die Werte aller Zeilen auf derselben Kante. */
+.imp-list > div {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--border2);
+}
+
+.imp-list > div:last-child { border-bottom: 0; }
+
+.imp-list dt {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin: 0;
+}
+
+.imp-list dd {
+  font-family: var(--sans);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+.imp-list a { color: var(--accent); }
+
+@media (max-width: 760px) {
+  .kontakt-karten { grid-template-columns: minmax(0, 1fr); }
+  .imp-list { grid-template-columns: minmax(0, 1fr); }
+  .imp-list > div { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; }
 }
 
 /* Herkunft der Bilder — Fussnote, keine Ueberschrift. */

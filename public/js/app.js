@@ -935,14 +935,52 @@ function buildFolds(panel){
     wrap.appendChild(btn);
     wrap.appendChild(holder);
     holder.appendChild(body);
-
-    btn.addEventListener('click',()=>{
-      const open = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
-      holder.hidden = open;
-    });
   });
 }
+
+/* Ein Umschalter fuer alle Faltungen — die erzeugten oben und die, die
+   direkt im HTML stehen (Impressum). */
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('.fold-btn');
+  if(!btn)return;
+  const body=document.getElementById(btn.getAttribute('aria-controls'));
+  if(!body)return;
+  const offen=btn.getAttribute('aria-expanded')==='true';
+  btn.setAttribute('aria-expanded',offen?'false':'true');
+  body.hidden=offen;
+});
+
+/* Mailadresse in die Zwischenablage. Der moderne Weg braucht eine sichere
+   Verbindung und ein Fenster im Vordergrund; scheitert er, wird der alte
+   Weg ueber ein verstecktes Feld versucht — erst dann gilt es als
+   fehlgeschlagen. */
+async function inZwischenablage(text){
+  if(navigator.clipboard&&window.isSecureContext){
+    try{await navigator.clipboard.writeText(text);return true;}catch(err){/* weiter unten */}
+  }
+  try{
+    const feld=document.createElement('textarea');
+    feld.value=text;feld.setAttribute('readonly','');
+    feld.style.cssText='position:fixed;top:-1000px';
+    document.body.appendChild(feld);
+    feld.select();
+    const ok=document.execCommand('copy');
+    document.body.removeChild(feld);
+    return ok;
+  }catch(err){return false;}
+}
+
+document.addEventListener('click',async e=>{
+  const btn=e.target.closest('[data-adresse]');
+  if(!btn)return;
+  const ok=await inZwischenablage(btn.dataset.adresse);
+  const alt=btn.dataset.text||btn.textContent;
+  btn.dataset.text=alt;
+  btn.textContent=ok?'Kopiert':'Kopieren nicht möglich';
+  btn.classList.toggle('btn-ok',ok);
+  clearTimeout(btn._zurueck);
+  btn._zurueck=setTimeout(()=>{btn.textContent=alt;btn.classList.remove('btn-ok');},1800);
+});
 
 /* ═══════════════════════════════════
    SCROLL REVEAL
