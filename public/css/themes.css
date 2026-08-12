@@ -49,8 +49,11 @@
   --list-active: #094771;     /* list.activeSelectionBackground */
   --focus: #007fd4;           /* focusBorder */
   --accent: #007acc;          /* Akzent der Oberflaeche */
-  --status-bg: #007acc;       /* statusBar.background */
-  --status-fg: #ffffff;
+  /* Statusleiste bewusst gedaempft: das reine #007acc von VS Code ist die
+     kraeftigste Flaeche der ganzen Seite und zieht den Blick nach unten
+     weg vom Inhalt. Gleicher Farbton, weniger Saettigung. */
+  --status-bg: #2d5876;       /* statusBar.background */
+  --status-fg: #e6eef5;
   --tab-active-border: #007acc;
 
   /* Syntaxfarben (tokenColors) */
@@ -311,8 +314,8 @@
   --list-active: #0060c0;
   --focus: #0090f1;
   --accent: #005fb8;
-  --status-bg: #007acc;
-  --status-fg: #ffffff;
+  --status-bg: #3a6d92;
+  --status-fg: #f2f7fb;
   --tab-active-border: #005fb8;
 
   --syn-comment: #008000;

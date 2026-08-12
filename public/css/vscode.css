@@ -628,6 +628,84 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
 .ed-table td { padding: 0.55rem 0.8rem; color: var(--text); }
 .ed-table tr:hover td { background: var(--list-hover); }
 
+/* ── Skill-Liste ───────────────────────────────────────────────────────────
+   Sechs Tabellen mit je drei Spalten waren auf der Skills-Seite zu viel:
+   Kopfzeilen, Rahmen und eine Spalte, in der zwanzigmal fast dasselbe
+   Wort stand. Geblieben sind zwei Spalten Eintraege — Name oben, Beleg
+   klein darunter — und ein farbiger Punkt fuer die Einstufung.
+   ───────────────────────────────────────────────────────────────────────── */
+.sk-list {
+  list-style: none;
+  margin: 0.4rem 0 1.6rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 2.5rem;
+}
+
+.sk {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.6rem;
+  align-items: baseline;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border2);
+}
+
+.sk-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  transform: translateY(-1px);
+}
+
+.d-proj { background: var(--ok); }
+.d-base { background: var(--info); }
+.d-new  { background: var(--warn); }
+
+.sk-name {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+/* Der Beleg steht unter dem Namen, buendig mit ihm — deshalb die zweite
+   Rasterzelle und nicht einfach ein Zeilenumbruch. */
+.sk-where {
+  grid-column: 2;
+  font-family: var(--sans);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+.sk-where code { font-size: 11.5px; }
+
+/* Legende: dieselben Punkte, aber ohne Rasterzeile darunter. */
+.legend { gap: 0.4rem 1.6rem; margin-bottom: 1.4rem; }
+.legend li { font-family: var(--sans); font-size: 12px; color: var(--muted); }
+
+.sk-next {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0.4rem 0 1rem;
+}
+
+/* Zwei Spalten brauchen Platz; darunter untereinander. */
+@media (max-width: 900px) {
+  .sk-list { grid-template-columns: minmax(0, 1fr); gap: 0; }
+}
+
 /* Kommentarzeile am Anfang jeder Datei — echte Kommentarfarbe des Themes */
 .cmt {
   color: var(--syn-comment);
@@ -742,6 +820,292 @@ code {
 .shot {
   background: var(--sb);
   border-color: var(--border);
+}
+
+/* ── Bilderstrecken (Interessen) ───────────────────────────────────────────
+   Ein Streifen, den man mit den Knoepfen, dem Rad oder dem Finger
+   verschiebt. Kein Selbstlauf, keine Ueberblendung: die Bilder sollen
+   angeschaut werden koennen, nicht vorbeiziehen.
+   ───────────────────────────────────────────────────────────────────────── */
+.slider { margin: 0.7rem 0 1.9rem; }
+
+/* Bereiche ohne eingetragene Bilder hinterlassen keine Luecke. */
+.slider:empty { display: none; margin: 0; }
+
+.sl-track {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  cursor: grab;
+}
+
+/* Waehrend des Ziehens stoert das Einrasten — es zerrt gegen die Maus.
+   Es greift wieder, sobald man loslaesst. */
+.sl-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+.sl-dragging img { pointer-events: none; }
+
+/* Querformat statt des Hochformats der Projekt-Screenshots — Fotos vom
+   Regal, vom Bildschirm oder vom Schreibtisch sind meistens breiter. */
+/* 16:9 statt 4:3 — Key-Art von Spielen ist quer, im hochformatigeren
+   Rahmen ginge zu viel vom Bild verloren. */
+.sl-track .shot {
+  flex: 0 0 clamp(200px, 34%, 300px);
+  aspect-ratio: 16 / 9;
+  scroll-snap-align: start;
+}
+
+/* Albumcover sind quadratisch — im Querformat waere oben und unten
+   jeweils ein Streifen abgeschnitten. */
+.slider[data-slider="musik"] .shot {
+  flex-basis: clamp(150px, 24%, 210px);
+  aspect-ratio: 1;
+}
+
+/* Herkunft der Bilder — Fussnote, keine Ueberschrift. */
+.quellen {
+  margin: 2.2rem 0 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border2);
+  font-family: var(--sans);
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--dim);
+  max-width: 640px;
+}
+
+/* Bandcover sind hochkant. */
+.slider[data-slider="lesen"] .shot {
+  flex-basis: clamp(130px, 20%, 180px);
+  aspect-ratio: 2 / 3;
+}
+
+/* Im Streifen kein Anheben beim Ueberfahren: eine Verschiebung erzeugt
+   eine eigene Zeichenebene, und die geriet mit der Gliederungsleiste
+   darueber ins Gehege. Der Rahmen reicht als Rueckmeldung. */
+.sl-track .shot:hover { transform: none; border-color: var(--accent); }
+
+.sl-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.1rem;
+}
+
+.sl-btn {
+  width: 26px;
+  height: 26px;
+  line-height: 1;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--sb);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.sl-btn:hover { background: var(--list-hover); border-color: var(--accent); }
+
+.sl-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+  background: var(--sb);
+  border-color: var(--border);
+}
+
+/* Die Bilder sollen beim Ziehen nicht als Verknuepfung am Mauszeiger
+   haengen bleiben. */
+.sl-track .shot img { -webkit-user-drag: none; user-select: none; }
+
+.sl-count {
+  font-family: var(--sans);
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: 0.3rem;
+}
+
+/* ── Verweis nach draussen (stats.fm) ─────────────────────────────────────
+   Bewusst eine Karte und kein eingebettetes Fenster: stats.fm schickt
+   x-frame-options: SAMEORIGIN, ein iframe bliebe leer.
+   ───────────────────────────────────────────────────────────────────────── */
+.ext-card {
+  display: block;
+  margin: 0.2rem 0 1.9rem;
+  padding: 0.85rem 1.1rem;
+  background: var(--sb);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--accent);
+  border-radius: 3px;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.ext-card:hover { background: var(--list-hover); border-color: var(--accent); }
+
+.ext-label {
+  display: block;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.2rem;
+}
+
+.ext-text {
+  display: block;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.ext-host {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 0.35rem;
+  word-break: break-all;
+}
+
+/* Leere Rahmen, solange fuer ein Thema noch keine Bilder eingetragen sind. */
+.sl-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-style: dashed;
+  cursor: default;
+}
+
+.sl-ph span {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  color: var(--dim);
+}
+
+/* ── Hörstatistiken (stats.fm) ─────────────────────────────────────────── */
+.statsfm { margin: 0.2rem 0 1.9rem; }
+
+/* Bewusst schmal gehalten: die Statistik ist eine Randnotiz, kein
+   zweiter Inhalt neben dem Text. */
+.statsfm.sfm-geladen {
+  max-width: 620px;
+  background: var(--sb);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--accent);
+  border-radius: 3px;
+  padding: 0.7rem 0.85rem;
+}
+
+.sfm-head {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--border2);
+}
+
+.sfm-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.sfm-name {
+  display: block;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.sfm-sub {
+  display: block;
+  font-family: var(--sans);
+  font-size: 10.5px;
+  color: var(--muted);
+}
+
+.sfm-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.3rem 1.4rem;
+  margin-top: 0.6rem;
+}
+
+.sfm-col-t {
+  font-family: var(--sans);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  margin: 0 0 0.3rem;
+}
+
+.sfm-list { list-style: none; margin: 0; padding: 0; }
+
+.sfm-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.16rem 0;
+  min-width: 0;
+}
+
+.sfm-pos {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dim);
+  width: 1ch;
+  flex-shrink: 0;
+}
+
+.sfm-cover {
+  width: 22px;
+  height: 22px;
+  border-radius: 2px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.sfm-txt { min-width: 0; }
+
+.sfm-t1, .sfm-t2 {
+  display: block;
+  font-family: var(--sans);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sfm-t1 { font-size: 11.5px; color: var(--text); line-height: 1.35; }
+.sfm-t2 { font-size: 10.5px; color: var(--muted); line-height: 1.3; }
+
+.sfm-link {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.sfm-link:hover { text-decoration: underline; }
+
+@media (max-width: 760px) {
+  .sfm-cols { grid-template-columns: minmax(0, 1fr); gap: 1.2rem; }
 }
 
 .proj-card:hover,

@@ -301,7 +301,7 @@
               <div class="cmt">// luis.json</div><br>
               <p class="status-line reveal">
                 <span class="status-dot" aria-hidden="true"></span>
-                Sucht eine Praktikumsstelle in der Applikationsentwicklung
+                Praktikum gesucht · Applikationsentwicklung EFZ
               </p>
               <h1 class="hero-name reveal">Luis<br><span class="acc">Rosado</span></h1>
               <p class="hero-role reveal">Informatiker EFZ Applikationsentwicklung&nbsp;<span class="blink" aria-hidden="true"></span></p>
@@ -345,67 +345,89 @@
             <div class="code-content">
               <div class="cmt"># skills.py · Technische Fähigkeiten</div><br>
               <h2 class="ed-h1 reveal">Skills</h2>
-              <div class="prose reveal" style="margin-bottom:1.2rem">
-                <p>Statt einer Selbsteinschätzung steht hier, <strong>wo</strong> ich eine Technologie eingesetzt habe. Was ich behaupte, lässt sich in den Projekten nachschauen. Der Quellcode ist offen.</p>
+              <div class="prose reveal" style="margin-bottom:1rem">
+                <p>Statt einer Selbsteinschätzung steht hier, <strong>wo</strong> ich eine Technologie eingesetzt habe. Nachprüfen lässt sich das in den Projekten — der Quellcode ist offen.</p>
               </div>
+
+              <!-- Die Einstufung stand frueher als Textmarke in einer eigenen
+                   Tabellenspalte. Bei zwanzig Zeilen war das zwanzigmal
+                   dasselbe Wort. Jetzt traegt ein Punkt die Information, der
+                   Text dazu steht einmal in der Legende — und fuer
+                   Screenreader zusaetzlich an jedem Eintrag. -->
               <ul class="legend reveal">
-                <li><span class="badge bg">In Projekten</span> in mindestens einem abgeschlossenen Projekt eingesetzt</li>
-                <li><span class="badge bb">Grundlagen</span> aus dem Unterricht, noch wenig eigene Praxis</li>
-                <li><span class="badge bo">Im Aufbau</span> arbeite ich mich gerade ein</li>
+                <li><span class="sk-dot d-proj" aria-hidden="true"></span>in einem Projekt eingesetzt</li>
+                <li><span class="sk-dot d-base" aria-hidden="true"></span>Grundlagen aus dem Unterricht</li>
+                <li><span class="sk-dot d-new" aria-hidden="true"></span>arbeite ich mich gerade ein</li>
               </ul>
 
-              <h3 class="ed-h2 reveal">Webentwicklung</h3>
-              <table class="ed-table reveal">
-                <tr><th>Technologie</th><th>Stand</th><th>Wo ich es eingesetzt habe</th></tr>
-                <tr><td><i class="devicon-html5-plain colored skill-ic"></i><i class="devicon-css3-plain colored skill-ic"></i>HTML5 / CSS3</td><td><span class="badge bg">In Projekten</span></td><td>Portfolio: Aufbau, Farbsystem, Druckansicht</td></tr>
-                <tr><td><i class="devicon-javascript-plain colored skill-ic"></i>JavaScript</td><td><span class="badge bg">In Projekten</span></td><td>Portfolio: Tabverwaltung, Tastatursteuerung und Login-Ablauf, alles ohne Framework</td></tr>
-                <tr><td><i class="devicon-css3-plain colored skill-ic"></i>Responsive Design</td><td><span class="badge bg">In Projekten</span></td><td>Portfolio: vier Umbruchpunkte, Explorer als Schublade auf dem Handy</td></tr>
-              </table>
+              <h3 class="ed-h2 reveal">Web &amp; Frontend</h3>
+              <ul class="sk-list reveal">
+                <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-html5-plain colored skill-ic"></i>HTML5 / CSS3<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-where">Portfolio: Aufbau, Farbsystem, vier Umbruchpunkte, Druckansicht</span></li>
+                <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-javascript-plain colored skill-ic"></i>JavaScript<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-where">Portfolio: Tabs, Tastatursteuerung, Login — ohne Framework</span></li>
+                <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-typescript-plain colored skill-ic"></i>TypeScript<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-where">Askel: Einstellungen, Distanzberechnung, Routen speichern</span></li>
+                <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-react-original colored skill-ic"></i>React / React Native<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-where">Kobui (React), Askel (React Native, GPS über Expo)</span></li>
+                <li class="sk"><span class="sk-dot d-base" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-jest-plain colored skill-ic"></i>Jest<span class="vh"> — Grundlagen aus dem Unterricht</span></span>
+                  <span class="sk-where">Askel: Tests für Distanzberechnung und Speicherung</span></li>
+              </ul>
 
-              <h3 class="ed-h2 reveal">Programmierung</h3>
-              <table class="ed-table reveal">
-                <tr><th>Sprache</th><th>Stand</th><th>Wo ich sie eingesetzt habe</th></tr>
-                <tr><td><i class="devicon-typescript-plain colored skill-ic"></i>TypeScript</td><td><span class="badge bg">In Projekten</span></td><td>Askel: Einstellungsbereich, Distanzberechnung, Speicherung der Routen</td></tr>
-                <tr><td><i class="devicon-bash-plain colored skill-ic"></i>Bash</td><td><span class="badge bb">Grundlagen</span></td><td>Eigener Wallpaper-Switcher unter Arch Linux</td></tr>
-                <tr><td><i class="devicon-python-plain colored skill-ic"></i>Python</td><td><span class="badge bg">In Projekten</span></td><td>Redis-Webshop: Flask-Anwendung mit Anmeldung, Rollen und Warenkorb</td></tr>
-                <tr><td><i class="devicon-flask-original skill-ic"></i>Flask</td><td><span class="badge bg">In Projekten</span></td><td>Redis-Webshop: Routen, Formularprüfung, Sitzungen, Jinja2-Vorlagen</td></tr>
-              </table>
+              <h3 class="ed-h2 reveal">Backend &amp; Daten</h3>
+              <ul class="sk-list reveal">
+                <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-python-plain colored skill-ic"></i>Python<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-where">Redis-Webshop: Anmeldung, Rollen, Warenkorb</span></li>
+                <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-flask-original skill-ic"></i>Flask<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-where">Redis-Webshop: Routen, Formularprüfung, Jinja2-Vorlagen</span></li>
+                <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-nestjs-plain colored skill-ic"></i>NestJS<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-where">URL-Shortener: zwei Dienste, Module, API-Key-Middleware</span></li>
+                <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-redis-plain colored skill-ic"></i>Redis (NoSQL)<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-where">Redis-Webshop: Hashes und Mengen, eigene Indizes statt <code>JOIN</code></span></li>
+                <li class="sk"><span class="sk-dot d-base" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-nodejs-plain colored skill-ic"></i>Node.js / Serverless<span class="vh"> — Grundlagen aus dem Unterricht</span></span>
+                  <span class="sk-where">Portfolio: Login und geschützter Bereich als Functions</span></li>
+                <li class="sk"><span class="sk-dot d-base" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-mysql-plain colored skill-ic"></i>SQL / MariaDB<span class="vh"> — Grundlagen aus dem Unterricht</span></span>
+                  <span class="sk-where">Unterricht und Schulprojekte: Abfragen, Joins, Subqueries</span></li>
+              </ul>
 
-              <h3 class="ed-h2 reveal">Frameworks &amp; Bibliotheken</h3>
-              <table class="ed-table reveal">
-                <tr><th>Technologie</th><th>Stand</th><th>Wo ich es eingesetzt habe</th></tr>
-                <tr><td><i class="devicon-react-original colored skill-ic"></i>React / React Native</td><td><span class="badge bg">In Projekten</span></td><td>Askel (React Native), Kobui (React)</td></tr>
-                <tr><td><i class="devicon-react-original colored skill-ic"></i>Expo</td><td><span class="badge bg">In Projekten</span></td><td>Askel: GPS-Zugriff über <code>expo-location</code></td></tr>
-                <tr><td><i class="devicon-nestjs-plain colored skill-ic"></i>NestJS</td><td><span class="badge bg">In Projekten</span></td><td>URL-Shortener: zwei Dienste mit Controllern, Modulen und API-Key-Middleware</td></tr>
-                <tr><td><i class="devicon-jest-plain colored skill-ic"></i>Jest</td><td><span class="badge bb">Grundlagen</span></td><td>Askel: Tests für Distanzberechnung, Formatierung und Speicherung</td></tr>
-              </table>
+              <h3 class="ed-h2 reveal">Betrieb &amp; Werkzeuge</h3>
+              <ul class="sk-list reveal">
+                <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-git-plain colored skill-ic"></i>Git / GitHub / GitLab<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-where">Alle Projekte, Branches und Merges auch im Team</span></li>
+                <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-docker-plain colored skill-ic"></i>Docker / Compose<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-where">Redis-Webshop und URL-Shortener starten aus einer Datei</span></li>
+                <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-kubernetes-plain colored skill-ic"></i>Kubernetes / ArgoCD<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-where">URL-Shortener: Manifeste im GitOps-Repo, ArgoCD gleicht ab</span></li>
+                <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-gitlab-plain colored skill-ic"></i>CI-Pipeline<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-where">URL-Shortener: GitLab baut und prüft bei jedem Commit</span></li>
+                <li class="sk"><span class="sk-dot d-base" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-linux-plain colored skill-ic"></i>Linux / Bash<span class="vh"> — Grundlagen aus dem Unterricht</span></span>
+                  <span class="sk-where">Arch Linux als Zweitsystem, eigener Wallpaper-Switcher</span></li>
+                <li class="sk"><span class="sk-dot d-base" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-azure-plain colored skill-ic"></i>Azure / Betrieb<span class="vh"> — Grundlagen aus dem Unterricht</span></span>
+                  <span class="sk-where">DevOps-Modul: Redis-Webshop auf einem Server betrieben</span></li>
+                <li class="sk"><span class="sk-dot d-base" aria-hidden="true"></span>
+                  <span class="sk-name">Netzwerke / TCP-IP<span class="vh"> — Grundlagen aus dem Unterricht</span></span>
+                  <span class="sk-where">Unterricht an der IMS</span></li>
+              </ul>
 
-              <h3 class="ed-h2 reveal">Datenbanken</h3>
-              <table class="ed-table reveal">
-                <tr><th>Technologie</th><th>Stand</th><th>Wo ich es eingesetzt habe</th></tr>
-                <tr><td><i class="devicon-mysql-plain colored skill-ic"></i>SQL / MariaDB</td><td><span class="badge bb">Grundlagen</span></td><td>Unterricht und Schulprojekte: Abfragen, Joins, Subqueries</td></tr>
-                <tr><td><i class="devicon-redis-plain colored skill-ic"></i>Redis (NoSQL)</td><td><span class="badge bg">In Projekten</span></td><td>Redis-Webshop: Datenmodell aus Hashes und Mengen, eigene Indizes statt <code>JOIN</code></td></tr>
-              </table>
-
-              <h3 class="ed-h2 reveal">Backend &amp; Infrastruktur</h3>
-              <table class="ed-table reveal">
-                <tr><th>Technologie</th><th>Stand</th><th>Wo ich es eingesetzt habe</th></tr>
-                <tr><td><i class="devicon-nodejs-plain colored skill-ic"></i>Node.js / Serverless</td><td><span class="badge bb">Grundlagen</span></td><td>Portfolio: Login und geschützter Bereich als Serverless Functions</td></tr>
-                <tr><td><i class="devicon-git-plain colored skill-ic"></i>Git / GitHub / GitLab</td><td><span class="badge bg">In Projekten</span></td><td>Versionsverwaltung in allen Projekten, Branches und Merges im Team</td></tr>
-                <tr><td><i class="devicon-docker-plain colored skill-ic"></i>Docker / Compose</td><td><span class="badge bg">In Projekten</span></td><td>Redis-Webshop und URL-Shortener: Dienste und Datenbank starten zusammen aus einer Datei</td></tr>
-                <tr><td><i class="devicon-kubernetes-plain colored skill-ic"></i>Kubernetes / ArgoCD</td><td><span class="badge bg">In Projekten</span></td><td>URL-Shortener: Manifeste in einem eigenen GitOps-Repo, ArgoCD gleicht den Cluster automatisch ab</td></tr>
-                <tr><td><i class="devicon-gitlab-plain colored skill-ic"></i>CI-Pipeline</td><td><span class="badge bg">In Projekten</span></td><td>URL-Shortener: GitLab-Pipeline baut und prüft beide Dienste bei jedem Commit</td></tr>
-                <tr><td><i class="devicon-azure-plain colored skill-ic"></i>Azure / Betrieb</td><td><span class="badge bb">Grundlagen</span></td><td>DevOps-Modul: den Redis-Webshop nicht nur lokal, sondern auf einem Server betrieben</td></tr>
-                <tr><td><i class="devicon-linux-plain colored skill-ic"></i>Linux</td><td><span class="badge bb">Grundlagen</span></td><td>Arch Linux als Zweitsystem selbst eingerichtet und konfiguriert</td></tr>
-                <tr><td>Netzwerke / TCP/IP</td><td><span class="badge bb">Grundlagen</span></td><td>Unterricht an der IMS</td></tr>
-              </table>
-
-              <h3 class="ed-h2 reveal">Baue ich gerade aus</h3>
-              <table class="ed-table reveal">
-                <tr><th>Technologie</th><th>Stand</th><th>Warum</th></tr>
-                <tr><td>REST APIs</td><td><span class="badge bo">Im Aufbau</span></td><td>Nach den zwei Endpunkten dieser Website das Thema sauber von Grund auf</td></tr>
-                
-              </table>
+              <p class="sk-next reveal"><span class="sk-dot d-new" aria-hidden="true"></span>
+                Als Nächstes: REST-APIs von Grund auf, nach den zwei Endpunkten dieser Website.</p>
             </div>
           </div>
         </div>
@@ -693,38 +715,53 @@
               <div class="cmt">// interessen.json</div><br>
               <h2 class="ed-h1 reveal">Interessen</h2>
               <div class="prose reveal" style="margin-bottom:1.4rem">
-                <p>Was ich neben der Ausbildung mache, und wo es sich mit ihr überschneidet.</p>
+                <p>Was ich neben der Schule mache.</p>
               </div>
-              <div class="int-list reveal">
-                <div class="int-item">
-                  <span class="int-em" aria-hidden="true">🛠️</span>
-                  <div>
-                    <h3 class="int-label">PCs bauen und Geräte auseinandernehmen</h3>
-                    <p class="int-text">Ich baue Rechner selbst zusammen und habe zwei Spielkonsolen mit Custom Firmware versehen. Daher kommt auch mein Interesse an dem, was unter der Oberfläche passiert: Komponenten, Bootvorgang, Treiber.</p>
-                  </div>
-                </div>
-                <div class="int-item">
-                  <span class="int-em" aria-hidden="true">🎮</span>
-                  <div>
-                    <h3 class="int-label">Gaming</h3>
-                    <p class="int-text">PS5 und PC. Am liebsten Spiele, die einem nichts erklären, zum Beispiel Elden Ring und Persona 3. Der Reiz ist derselbe wie beim Programmieren: ein System durchschauen, das sich nicht von selbst erklärt.</p>
-                  </div>
-                </div>
-                <div class="int-item">
-                  <span class="int-em" aria-hidden="true">📚</span>
-                  <div>
-                    <h3 class="int-label">Lesen</h3>
-                    <p class="int-text">Mangas und Bücher. Nebeneffekt der Ausbildung: Fachdokumentation ist fast durchgehend auf Englisch, und Lesen macht das leichter.</p>
-                  </div>
-                </div>
-                <div class="int-item">
-                  <span class="int-em" aria-hidden="true">🎵</span>
-                  <div>
-                    <h3 class="int-label">Musik</h3>
-                    <p class="int-text">Läuft bei mir den ganzen Tag, und ich suche ständig neue Sachen. Beim Programmieren mein Standardzustand.</p>
-                  </div>
-                </div>
+
+              <h3 class="ed-h2 reveal">Gaming</h3>
+              <div class="prose reveal">
+                <p>Ich habe über hundert Spiele gespielt. Wenn mir eines gefällt, spiele ich es auf 100 Prozent: alle Trophäen, alle Nebenaufgaben, alle Sammelobjekte. Die meiste Zeit habe ich in Persona 3 FES, Palworld und Elden Ring verbracht.</p>
               </div>
+              <div class="slider reveal" data-slider="gaming"></div>
+
+              <h3 class="ed-h2 reveal">Musik</h3>
+              <div class="prose reveal">
+                <p>Ich höre den ganzen Tag Musik und sammle Alben auch physisch. Das sind meine liebsten:</p>
+              </div>
+              <div class="slider reveal" data-slider="musik"></div>
+              <div class="prose reveal">
+                <p>Dazu The Smiths, bei denen ich mich auf kein einzelnes Album festlegen kann. Was ich tatsächlich höre, steht in meinen Hörstatistiken:</p>
+              </div>
+              <!-- Live aus der stats.fm-API. Bis die Daten da sind (oder
+                   falls der Dienst nicht antwortet) steht hier der Verweis
+                   auf das Profil — die Seite hat damit nie ein Loch. -->
+              <div class="statsfm reveal" id="statsfm" data-user="31otkarr5nhbkw2wldfglezk6ehu">
+                <a class="ext-card" href="https://stats.fm/31otkarr5nhbkw2wldfglezk6ehu" target="_blank" rel="noopener noreferrer">
+                  <span class="ext-label">stats.fm</span>
+                  <span class="ext-text">Meine Hörstatistiken, direkt aus Spotify: meistgehörte Künstler, Alben und Titel</span>
+                  <span class="ext-host">stats.fm/31otkarr5nhbkw2wldfglezk6ehu</span>
+                </a>
+              </div>
+
+              <h3 class="ed-h2 reveal">Lesen</h3>
+              <div class="prose reveal">
+                <p>Ich lese hauptsächlich Mangas und sammle die Reihen bis zum letzten Band. Zu einigen davon habe ich auch Figuren.</p>
+              </div>
+              <div class="slider reveal" data-slider="lesen"></div>
+
+              <h3 class="ed-h2 reveal">Hardware und Softmods</h3>
+              <div class="prose reveal">
+                <p>Ich habe einen PC selbst zusammengebaut und zwei Konsolen mit Custom Firmware versehen.</p>
+              </div>
+              <div class="slider reveal" data-slider="hardware"></div>
+
+              <!-- Kurze Herkunftsangabe zu den Bildern. Bewusst eine Zeile
+                   am Seitenende und kein eigener Abschnitt. -->
+              <p class="quellen reveal">
+                Bildnachweis: Key-Art der Spiele von Steam, Album- und Bandcover aus dem
+                Angebot von Apple und der Open Library. Die Rechte liegen bei den jeweiligen
+                Studios, Labels und Verlagen; die Bilder stehen hier als Hinweis auf das Werk.
+              </p>
             </div>
           </div>
         </div>
@@ -814,7 +851,7 @@
                 <div class="cl i1"><span class="kw-b">--bg</span><span class="punct">:</span> <span class="str">#1e1e1e</span><span class="punct">;</span>  <span class="cmt">/* editor.background */</span></div>
                 <div class="cl i1"><span class="kw-b">--sb</span><span class="punct">:</span> <span class="str">#252526</span><span class="punct">;</span>  <span class="cmt">/* sideBar.background */</span></div>
                 <div class="cl i1"><span class="kw-b">--act-bg</span><span class="punct">:</span> <span class="str">#333333</span><span class="punct">;</span>  <span class="cmt">/* activityBar */</span></div>
-                <div class="cl i1"><span class="kw-b">--status-bg</span><span class="punct">:</span> <span class="str">#007acc</span><span class="punct">;</span>  <span class="cmt">/* statusBar */</span></div>
+                <div class="cl i1"><span class="kw-b">--status-bg</span><span class="punct">:</span> <span class="str">#2d5876</span><span class="punct">;</span>  <span class="cmt">/* statusBar, gedämpft */</span></div>
                 <div class="cl"><span class="punct">}</span></div>
               </div>
 

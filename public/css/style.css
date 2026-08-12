@@ -176,7 +176,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
 /* ═══ GLIEDERUNG & LESEFORTSCHRITT ═══
    Lange Abschnitte werden sonst zur Scroll-Strecke. Die Gliederung wird
    aus den Zwischentiteln erzeugt und bleibt beim Scrollen oben stehen. */
-.outline{position:sticky;top:0;z-index:20;background:var(--bg);
+/* z-index bewusst hoch: ein Bild, ueber dem die Maus steht, bekommt durch
+   die Hervorhebung eine eigene Zeichenebene und schob sich sonst vor die
+   Leiste, sobald es beim Scrollen darunter durchlief. */
+.outline{position:sticky;top:0;z-index:40;background:var(--bg);
   border-bottom:1px solid var(--border2);padding:.55rem 2.5rem;
   display:flex;flex-wrap:wrap;align-items:center;gap:.3rem .5rem}
 .outline-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;
@@ -187,7 +190,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
 .outline a:hover{color:var(--text);background:rgba(255,255,255,.05)}
 .outline a.current{color:var(--blue);border-color:var(--border);background:#161B22}
 
-.read-bar{position:sticky;top:0;z-index:21;height:2px;background:transparent}
+.read-bar{position:sticky;top:0;z-index:41;height:2px;background:transparent}
 .read-bar span{display:block;height:100%;width:0;background:var(--blue);
   transition:width .1s linear}
 
@@ -602,6 +605,17 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
   .proj-card,.tech-card,.note-card,.cb,.fact{page-break-inside:avoid}
   .chip,.badge{border:1px solid #bbb;background:#fff!important}
   .ed-table td,.ed-table th{border-color:#ccc}
+
+  /* Skills: der farbige Punkt ueberlebt den Druck nicht (Hintergruende
+     werden weggelassen). Also faellt er weg und die Einstufung, die am
+     Bildschirm nur Screenreader hoeren, wird sichtbar gedruckt. */
+  .sk-list{display:block!important}
+  .sk{page-break-inside:avoid;border-bottom:1px solid #ddd}
+  .sk-dot{display:none!important}
+  .sk-where{color:#555!important}
+  .sk .vh,.sk-next .vh{position:static;width:auto;height:auto;margin:0;
+    overflow:visible;clip:auto;clip-path:none;white-space:normal;
+    font-size:9pt;color:#555!important}
 
   /* Ziel-URLs sichtbar machen — im Ausdruck ist ein Link sonst wertlos */
   a[href^="http"]::after{content:" (" attr(href) ")";font-size:8pt;color:#666;word-break:break-all}

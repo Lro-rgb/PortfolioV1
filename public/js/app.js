@@ -350,6 +350,59 @@ const AUDIO={};
 //   }
 const MEDIA={};
 
+/* Interessen: pro Bereich eine Bilderstrecke.
+   Bild einbinden: Datei nach public/media/ legen und hier eine Zeile
+   eintragen. Bereiche ohne Bilder erscheinen gar nicht — kein leerer
+   Rahmen, kein Platzhalter.
+     gaming:[{src:'media/gaming-eldenring.jpg', alt:'Elden Ring, …'}]
+   Der Text im alt-Attribut steht auch als Bildunterschrift in der
+   Vollansicht. */
+const INTERESSEN={
+  // Key-Art der Spiele, geladen aus der oeffentlichen Bildablage von
+  // Steam. Die Bilder gehoeren den jeweiligen Studios; sie stehen hier
+  // als Hinweis auf das Spiel, nicht als eigenes Werk.
+  gaming:[
+    {src:'media/gaming-persona3.jpg',
+     alt:'Persona 3 — Key-Art des Protagonisten mit SEES-Armbinde'},
+    {src:'media/gaming-elden-ring.jpg',
+     alt:'Elden Ring — Key-Art'},
+    {src:'media/gaming-undertale.jpg',
+     alt:'Undertale — Titelschriftzug'},
+    {src:'media/gaming-palworld.jpg',
+     alt:'Palworld — Key-Art'},
+    {src:'media/gaming-ghost-of-tsushima.jpg',
+     alt:'Ghost of Tsushima — Key-Art'}
+  ],
+  // Albumcover, geholt aus der oeffentlichen Suche von Apple Music
+  // (1000 x 1000). Auch hier: die Bilder gehoeren den Labels.
+  musik:[
+    {src:'media/musik-college-dropout.jpg',
+     alt:'The College Dropout von Kanye West'},
+    {src:'media/musik-ok-computer.jpg',
+     alt:'OK Computer von Radiohead'},
+    {src:'media/musik-this-is-how-tomorrow-moves.jpg',
+     alt:'This Is How Tomorrow Moves von beabadoobee'},
+    {src:'media/musik-travelling-without-moving.jpg',
+     alt:'Travelling Without Moving von Jamiroquai'},
+    {src:'media/musik-lily-chou-chou.jpg',
+     alt:'Soundtrack zu All About Lily Chou-Chou'}
+  ],
+  // Bandcover, gesucht ueber Apple Books und Open Library.
+  lesen:[
+    {src:'media/lesen-jojolion.jpg',
+     alt:'JoJo’s Bizarre Adventure Teil 8 — JoJolion, Band 1'},
+    {src:'media/lesen-dragon-ball-z.jpg',
+     alt:'Dragon Ball Z, Band 1'},
+    {src:'media/lesen-hellsing.jpg',
+     alt:'Hellsing, Band 1'},
+    {src:'media/lesen-goodnight-punpun.jpg',
+     alt:'Goodnight Punpun, Band 1'},
+    {src:'media/lesen-berserk.jpg',
+     alt:'Berserk, Band 1'}
+  ],
+  hardware:[]
+};
+
 function el(tag,cls,html){
   const n=document.createElement(tag);
   if(cls)n.className=cls;
@@ -426,6 +479,248 @@ function renderProjectMedia(){
       box.appendChild(list);
     }
   });
+}
+
+/* ── Bilderstrecken auf der Interessen-Seite ──
+   Ein waagrechter Streifen mit Einrastpunkten. Die Knoepfe scrollen ihn,
+   ein Klick auf ein Bild oeffnet dieselbe Vollansicht wie bei den
+   Projekten — dafuer werden die Listen unter einem eigenen Namen in
+   MEDIA hinterlegt. */
+function renderSliders(){
+  document.querySelectorAll('[data-slider]').forEach(box=>{
+    const key=box.dataset.slider;
+    const bilder=INTERESSEN[key]||[];
+    box.innerHTML='';
+
+    // Solange keine Bilder eingetragen sind, stehen hier leere Rahmen.
+    // Sie zeigen, wo die Bilder hinkommen, und verschwinden von selbst,
+    // sobald oben in INTERESSEN die erste Zeile steht.
+    if(!bilder.length){
+      const track=el('div','sl-track');
+      for(let i=0;i<4;i++)track.appendChild(el('div','shot sl-ph','<span>Bild folgt</span>'));
+      box.appendChild(track);
+      return;
+    }
+
+    const gruppe='int-'+key;
+    MEDIA[gruppe]={shots:bilder};
+
+
+    const track=el('div','sl-track');
+    bilder.forEach((b,i)=>{
+      const btn=el('button','shot sl-item');
+      btn.type='button';
+      btn.dataset.group=gruppe;
+      btn.dataset.index=String(i);
+      btn.setAttribute('aria-label','Bild vergrössern: '+(b.alt||('Bild '+(i+1))));
+      const img=document.createElement('img');
+      img.src=b.src;img.alt=b.alt||'';img.loading='lazy';img.decoding='async';
+      btn.appendChild(img);
+      track.appendChild(btn);
+    });
+    box.appendChild(track);
+
+    // Bei einem einzelnen Bild gibt es nichts zu blaettern.
+    if(bilder.length>1){
+      const nav=el('div','sl-nav');
+      nav.innerHTML=
+        '<button type="button" class="sl-btn" data-dir="-1" aria-label="Weiter nach links">‹</button>'+
+        '<button type="button" class="sl-btn" data-dir="1" aria-label="Weiter nach rechts">›</button>'+
+        '<span class="sl-count">'+bilder.length+' Bilder</span>';
+      box.appendChild(nav);
+      dragbar(track);
+      track.addEventListener('scroll',()=>randKnoepfe(box),{passive:true});
+      // Erst nach dem Layout messen, sonst ist die Breite noch 0.
+      requestAnimationFrame(()=>randKnoepfe(box));
+    }
+  });
+}
+
+/* Schrittweite: genau ein Bild samt Abstand. Vorher war es ein Bruchteil
+   der sichtbaren Breite — dabei blieb nach jedem Klick ein anderer
+   Bildausschnitt am Rand stehen. */
+function slSchritt(track){
+  const erst=track.querySelector('.shot');
+  if(!erst)return track.clientWidth;
+  const abstand=parseFloat(getComputedStyle(track).columnGap)||0;
+  return erst.getBoundingClientRect().width+abstand;
+}
+
+/* Am Anfang und am Ende ist der jeweilige Knopf wirkungslos — dann soll
+   er auch so aussehen und von der Tabulatortaste uebersprungen werden. */
+function randKnoepfe(box){
+  const track=box.querySelector('.sl-track');
+  const links=box.querySelector('.sl-btn[data-dir="-1"]');
+  const rechts=box.querySelector('.sl-btn[data-dir="1"]');
+  if(!track||!links||!rechts)return;
+  const rest=track.scrollWidth-track.clientWidth-track.scrollLeft;
+  links.disabled=track.scrollLeft<2;
+  rechts.disabled=rest<2;
+}
+
+/* Ziehen mit der Maus, wie im Datei-Explorer. Am Ende des Ziehens wird der
+   Klick verschluckt, sonst oeffnet jedes Ziehen die Vollansicht. */
+function dragbar(track){
+  let unten=false,startX=0,startL=0,gezogen=false;
+
+  track.addEventListener('pointerdown',e=>{
+    if(e.button!==0||e.pointerType==='touch')return; // Finger kann der Browser besser
+    unten=true;gezogen=false;
+    startX=e.clientX;startL=track.scrollLeft;
+    track.classList.add('sl-dragging');
+  });
+
+  track.addEventListener('pointermove',e=>{
+    if(!unten)return;
+    const weg=e.clientX-startX;
+    if(Math.abs(weg)>4){
+      gezogen=true;
+      if(track.hasPointerCapture&&!track.hasPointerCapture(e.pointerId))
+        track.setPointerCapture(e.pointerId);
+    }
+    if(gezogen){track.scrollLeft=startL-weg;e.preventDefault();}
+  });
+
+  const los=e=>{
+    if(!unten)return;
+    unten=false;
+    track.classList.remove('sl-dragging');
+    if(e&&e.pointerId!=null&&track.hasPointerCapture&&track.hasPointerCapture(e.pointerId))
+      track.releasePointerCapture(e.pointerId);
+    // Flagge einen Wimpernschlag stehen lassen: der Klick kommt erst danach.
+    if(gezogen)setTimeout(()=>{gezogen=false;},0);
+  };
+  track.addEventListener('pointerup',los);
+  track.addEventListener('pointercancel',los);
+  track.addEventListener('pointerleave',los);
+
+  track.addEventListener('click',e=>{
+    if(gezogen){e.preventDefault();e.stopPropagation();}
+  },true);
+}
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.sl-btn');
+  if(!b)return;
+  const box=b.closest('[data-slider]');
+  const track=box.querySelector('.sl-track');
+  if(!track)return;
+  const sanft=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  track.scrollBy({left:Number(b.dataset.dir)*slSchritt(track),
+                  behavior:sanft?'smooth':'auto'});
+});
+
+/* ══════════════════════════════════════════════════════════════════
+   HÖRSTATISTIKEN  —  stats.fm
+
+   Die oeffentliche API von stats.fm erlaubt Anfragen aus dem Browser
+   (Access-Control-Allow-Origin: *), deshalb braucht es keinen eigenen
+   Serverdienst dazwischen. Ein iframe waere nicht gegangen: stats.fm
+   schickt x-frame-options: SAMEORIGIN.
+
+   Geladen wird erst, wenn der Abschnitt sichtbar wird — die Startseite
+   soll nicht auf einen fremden Dienst warten. Antwortet er nicht, bleibt
+   der Verweis auf das Profil stehen, der im HTML schon drin ist.
+══════════════════════════════════════════════════════════════════ */
+const SFM_API='https://api.stats.fm/api/v1/users/';
+const SFM_ZEITRAUM='weeks';   // letzte vier Wochen
+
+async function ladeStatsfm(box){
+  const user=box.dataset.user;
+  if(!user||box.dataset.geladen)return;
+  box.dataset.geladen='1';
+
+  const hole=async pfad=>{
+    const r=await fetch(SFM_API+encodeURIComponent(user)+pfad,{headers:{Accept:'application/json'}});
+    if(!r.ok)throw new Error('stats.fm antwortet mit '+r.status);
+    return r.json();
+  };
+
+  try{
+    const [profil,titel,kuenstler]=await Promise.all([
+      hole(''),
+      hole('/top/tracks?range='+SFM_ZEITRAUM+'&limit=5'),
+      hole('/top/artists?range='+SFM_ZEITRAUM+'&limit=5')
+    ]);
+    zeigeStatsfm(box,profil.item||{},
+      (titel.items||[]).slice(0,5),(kuenstler.items||[]).slice(0,5));
+  }catch(err){
+    // Kein Alarm auf der Seite: der Verweis auf das Profil steht ja da.
+    console.warn('Hörstatistiken nicht geladen:',err.message);
+    box.dataset.geladen='';
+  }
+}
+
+function zeigeStatsfm(box,profil,titel,kuenstler){
+  if(!titel.length&&!kuenstler.length)return;
+  const url='https://stats.fm/'+(profil.customId||box.dataset.user);
+
+  const kopf=el('div','sfm-head');
+  if(profil.image){
+    const img=document.createElement('img');
+    img.className='sfm-avatar';img.src=profil.image;img.alt='';
+    img.loading='lazy';img.decoding='async';
+    kopf.appendChild(img);
+  }
+  kopf.appendChild(el('div','sfm-ident',
+    '<span class="sfm-name">'+esc(profil.displayName||'stats.fm')+'</span>'+
+    '<span class="sfm-sub">Letzte vier Wochen · stats.fm</span>'));
+
+  const spalte=(titel2,eintraege,bild,zeile1,zeile2)=>{
+    const s=el('div','sfm-col');
+    s.appendChild(el('h4','sfm-col-t',esc(titel2)));
+    const ol=document.createElement('ol');
+    ol.className='sfm-list';
+    eintraege.forEach((e,i)=>{
+      const li=document.createElement('li');
+      li.className='sfm-item';
+      const q=bild(e);
+      li.innerHTML='<span class="sfm-pos">'+(i+1)+'</span>'+
+        (q?'<img class="sfm-cover" src="'+esc(q)+'" alt="" loading="lazy" decoding="async">':'')+
+        '<span class="sfm-txt"><span class="sfm-t1">'+esc(zeile1(e))+'</span>'+
+        (zeile2(e)?'<span class="sfm-t2">'+esc(zeile2(e))+'</span>':'')+'</span>';
+      ol.appendChild(li);
+    });
+    s.appendChild(ol);
+    return s;
+  };
+
+  const raster=el('div','sfm-cols');
+  if(titel.length){
+    raster.appendChild(spalte('Titel',titel,
+      e=>(e.track&&e.track.albums&&e.track.albums[0]||{}).image,
+      e=>(e.track||{}).name||'',
+      e=>((e.track||{}).artists||[]).map(a=>a.name).join(', ')));
+  }
+  if(kuenstler.length){
+    raster.appendChild(spalte('Künstler',kuenstler,
+      e=>(e.artist||{}).image,
+      e=>(e.artist||{}).name||'',
+      ()=>''));
+  }
+
+  const fuss=document.createElement('a');
+  fuss.className='sfm-link';
+  fuss.href=url;fuss.target='_blank';fuss.rel='noopener noreferrer';
+  fuss.textContent='Ganzes Profil auf stats.fm';
+
+  box.innerHTML='';
+  box.classList.add('sfm-geladen');
+  box.appendChild(kopf);
+  box.appendChild(raster);
+  box.appendChild(fuss);
+}
+
+function beobachteStatsfm(){
+  const box=$('statsfm');
+  if(!box)return;
+  if(!('IntersectionObserver'in window)){ladeStatsfm(box);return;}
+  const beob=new IntersectionObserver(eintraege=>{
+    eintraege.forEach(e=>{
+      if(e.isIntersecting){beob.disconnect();ladeStatsfm(box);}
+    });
+  },{rootMargin:'200px'});
+  beob.observe(box);
 }
 
 /* ── Screenshots in Vollansicht ── */
@@ -1006,6 +1301,8 @@ function startApp(){
 
   renderAudio();
   renderProjectMedia();
+  renderSliders();
+  beobachteStatsfm();
 
   const fromHash=location.hash.replace('#','');
   const start=(fromHash&&LANG[fromHash])?fromHash:'home';
