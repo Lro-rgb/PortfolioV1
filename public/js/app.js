@@ -399,7 +399,20 @@ const MEDIA={
      Unruhe, die eine Uebersicht kaputt macht. Die Eintraege bleiben
      stehen, damit ein einziges Wort sie wieder einschaltet. */
   portfolio:{format:'quer', platzhalter:{anzahl:2}},
-  modding:{platzhalter:{anzahl:2}},
+  /* Eigene Aufnahmen der beiden Geraete. Beide lagen quer im Foto und
+     sind hier aufgerichtet; die Bildschirme sollen lesbar sein, das ist
+     der ganze Zweck der Bilder. */
+  modding:{
+    // 4:3 statt 16:10 — in einer festen Kachel bekaemen die Fotos sonst
+    // schwarze Balken an den Seiten.
+    format:'frei',
+    shots:[
+      {src:'media/modding-switch.jpg',
+       alt:'Die Switch im Bootloader hekate, daneben der RCM-Jig zum Auslösen des Recovery-Modus'},
+      {src:'media/modding-3ds.jpg',
+       alt:'Der 3DS mit Luma3DS: oben der Homebrew Launcher, unten das Menü mit den installierten Anwendungen'}
+    ]
+  },
   /* Vier Bildschirmfotos aus der Projektdokumentation, in der Reihenfolge
      der Kette: gebaut, ausgerollt, laeuft, antwortet. Sie sind sehr
      unterschiedlich breit — ein Pipeline-Bild ist mehr als dreimal so
@@ -408,8 +421,13 @@ const MEDIA={
   urlshortener:{
     format:'frei',
     shots:[
-      {src:'media/urlshortener-01-pipeline.png',
-       alt:'Die Pipeline in GitLab CI, alle Stufen grün'},
+      /* Statt der Pipeline die Container Registry. Die Pipeline-Aufnahme
+         liegt weiter unter media/urlshortener-01-pipeline.png; zum
+         Zurücktauschen reicht es, die beiden Zeilen zu vertauschen:
+           {src:'media/urlshortener-01-pipeline.png',
+            alt:'Die Pipeline in GitLab CI, alle Stufen grün'}, */
+      {src:'media/urlshortener-02-registry.png',
+       alt:'Die Container Registry mit den fertigen Abbildern von shorty und keeper'},
       {src:'media/urlshortener-05-argocd.png',
        alt:'ArgoCD meldet die Anwendung als Synced und Healthy'},
       {src:'media/urlshortener-03-pods.png',
@@ -418,14 +436,15 @@ const MEDIA={
        alt:'Ein Aufruf über den Ingress: der gekürzte Link leitet weiter'}
     ]
   },
-  /* Askel laeuft auf dem Handy, darum eine Bildschirmaufnahme im Hoch-
-     format statt eines Bildes. Die Datei kommt unveraendert aus der
-     Aufnahme (480 x 1040, elf Sekunden) und wiegt gut ein Megabyte —
-     preload='metadata' laedt sie erst beim Abspielen. */
-  askel:{
-    video:{src:'media/askel.mov', titel:'Askel auf dem Handy', dauer:'0:11',
-           format:'hoch'}
-  },
+  /* Askel laeuft auf dem Handy, darum kommt hier eine Bildschirmaufnahme
+     im Hochformat hin, kein Bild. Die alte Aufnahme ist raus, die neue
+     folgt — dann diese Zeilen wieder einkommentieren und den Dateinamen
+     anpassen:
+       video:{src:'media/askel.mp4', titel:'Askel auf dem Handy',
+              dauer:'0:11', format:'hoch'}
+     format:'hoch' stellt das Video auf 340px Hoehe, statt es ueber die
+     halbe Karte laufen zu lassen. */
+  askel:{platzhalter:{video:true}},
   kobui:{platzhalter:{anzahl:2}},
   webshop:{format:'quer', platzhalter:{anzahl:2}},
   bookloan:{format:'quer', platzhalter:{anzahl:2}},
@@ -488,7 +507,17 @@ const INTERESSEN={
     {src:'media/lesen-berserk.jpg',
      alt:'Berserk, Band 1'}
   ],
-  hardware:[]
+  /* Eigene Fotos: der selbst gebaute Rechner und die beiden Konsolen mit
+     Custom Firmware — genau das, was der Text ueber der Strecke ankuendigt.
+     Die Konsolenbilder sind dieselben wie in der Modding-Karte. */
+  hardware:[
+    {src:'media/hardware-setup.jpg',
+     alt:'Mein Arbeitsplatz: selbst gebauter Rechner mit Wasserkühlung, drei Bildschirme und der Laptop daneben'},
+    {src:'media/modding-switch.jpg',
+     alt:'Die Switch im Bootloader hekate, daneben der RCM-Jig zum Auslösen des Recovery-Modus'},
+    {src:'media/modding-3ds.jpg',
+     alt:'Der 3DS mit Luma3DS: oben der Homebrew Launcher, unten das Menü mit den installierten Anwendungen'}
+  ]
 };
 
 function el(tag,cls,html){
@@ -886,10 +915,37 @@ function openLightbox(group,index){
   showLbImage();
   $('lbClose').focus();
 }
+/* Anzeigegroesse in der Vollansicht.
+
+   max-width allein reicht nicht: es kann ein Bild nur kleiner machen, nie
+   groesser. Kleine Aufnahmen — der Screenshot von "kubectl get pods" ist
+   815 Pixel breit — standen deshalb als Briefmarke mitten in der schwarzen
+   Flaeche. Hier wird die Breite ausgerechnet: so gross wie der Platz
+   erlaubt, aber hoechstens doppelt so gross wie das Original. Weiter
+   hochgerechnet wird Text auf einem Bildschirmfoto nur matschig.
+
+   Die Hoehe bleibt auf auto, damit das Seitenverhaeltnis stimmt und der
+   Rahmen genau am Bild sitzt statt mit unsichtbaren Balken daneben. */
+function lbGroesse(){
+  const img=$('lbImg');
+  if(!img.naturalWidth)return;
+  const platzB=window.innerWidth*0.94;
+  const platzH=window.innerHeight*0.80-40;   // 40px fuer die Bildunterschrift
+  const faktor=Math.min(2,platzB/img.naturalWidth,platzH/img.naturalHeight);
+  img.style.width=Math.round(img.naturalWidth*faktor)+'px';
+}
+window.addEventListener('resize',()=>{
+  if(lightbox.classList.contains('show'))lbGroesse();
+});
+
 function showLbImage(){
   const s=lbGroup[lbIndex];
-  $('lbImg').src=s.src;
-  $('lbImg').alt=s.alt||'';
+  const img=$('lbImg');
+  img.style.width='';   // Rest vom vorherigen Bild
+  img.src=s.src;
+  img.alt=s.alt||'';
+  if(img.complete)lbGroesse();
+  else img.addEventListener('load',lbGroesse,{once:true});
   $('lbCap').textContent=s.alt||'';
   $('lbCount').textContent=(lbIndex+1)+' / '+lbGroup.length;
   const many=lbGroup.length>1;
