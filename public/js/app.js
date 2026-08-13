@@ -337,18 +337,103 @@ document.addEventListener('keydown',e=>{
    Mehr ist nicht nötig — die Anzeige baut sich daraus auf.
 ═══════════════════════════════════════════════════════════════ */
 
+/* Leere Bildrahmen anzeigen oder nicht. Auf true stehen sie in jeder Karte
+   ohne Bild als gestricheltes "Bild folgt" — nuetzlich, solange man selbst
+   daran arbeitet, unruhig fuer jeden, der die Seite nur anschaut. */
+const PLATZHALTER_ZEIGEN=false;
+
 // Kurzvorstellung als Audio auf der Startseite.
 //   intro:{ src:'media/vorstellung.m4a', titel:'…', dauer:'0:45', text:'…' }
 const AUDIO={};
 
-// Pro Projekt: video, shots (Screenshots), downloads.
-//   askel:{
-//     video:{src:'media/askel.mp4', poster:'media/askel-poster.jpg',
-//            titel:'Askel zeichnet eine Route auf', dauer:'1:10'},
-//     shots:[{src:'media/askel-1.jpg', alt:'Startbildschirm mit Routenliste'}],
-//     downloads:[{href:'media/askel-doku.pdf', label:'Projektdokumentation', meta:'PDF · 1,2 MB'}]
-//   }
-const MEDIA={};
+/* Pro Projekt: video, shots (Screenshots), downloads.
+     askel:{
+       video:{src:'media/askel.mp4', poster:'media/askel-poster.jpg',
+              titel:'Askel zeichnet eine Route auf', dauer:'1:10',
+              format:'hoch'},   // hochkant, für Aufnahmen vom Handy
+       format:'quer',   // 16:10 statt hochkant — für Bilder vom Rechner
+       shots:[{src:'media/askel-1.jpg', alt:'Startbildschirm mit Routenliste'}],
+       downloads:[{href:'media/askel-doku.pdf', label:'Projektdokumentation', meta:'PDF · 1,2 MB'}]
+     }
+   Ohne format sind die Kacheln hochkant (9:16), passend für Aufnahmen
+   vom Handy. 'quer' macht sie breiter, sonst wird ein 1600 Pixel breiter
+   Bildschirm in einer 110-Pixel-Kachel zu Brei.
+
+   Die Schlüssel entsprechen data-media in index.html. Eingetragen sind
+   bisher die beiden Linux-Projekte; die übrigen Zeilen stehen als
+   Vorlage bereit und werden erst angezeigt, wenn die Datei wirklich in
+   public/media/ liegt. */
+const MEDIA={
+  // Eigene Bildschirmfotos aus dem wallsync-Repo. Dasselbe Hintergrundbild
+  // einmal vor und einmal nach dem Durchlauf: erst Standardfarben, dann die
+  // aus dem Bild errechnete Palette in Leiste, Terminal und Menü.
+  wallpaper:{
+    format:'quer',
+    shots:[
+      {src:'media/wallsync-before.jpg',
+       alt:'Der Desktop vor dem Durchlauf: Leiste, Terminal und Menü noch in den Standardfarben'},
+      {src:'media/wallsync-after.jpg',
+       alt:'Derselbe Desktop nach dem Durchlauf: alle Farben stammen jetzt aus dem Hintergrundbild'}
+    ]
+  },
+  // Bildschirmfotos meines Arch-Setups, ebenfalls aus dem eigenen Repo.
+  arch:{
+    format:'quer',
+    shots:[
+      {src:'media/arch-terminal.jpg',
+       alt:'Alacritty mit der Fish-Shell, darüber die Waybar als Statusleiste'},
+      {src:'media/arch-file-explorer.jpg',
+       alt:'Nautilus als Dateimanager, eingefärbt in der Palette des Hintergrundbilds'},
+      {src:'media/arch-logout-menu.jpg',
+       alt:'Das Abmeldemenü, gebaut mit rofi und aus der Waybar heraus aufgerufen'}
+    ]
+  },
+  /* Noch ohne Datei: platzhalter reserviert den Platz, damit jede Karte
+     gleich aufgebaut ist. Sobald daneben shots oder video steht, ver-
+     schwindet der Rahmen von selbst — der Platzhalter wird nur gezeigt,
+     solange nichts Echtes da ist.
+
+     Ob sie ueberhaupt erscheinen, entscheidet PLATZHALTER_ZEIGEN weiter
+     unten. Sechs von zehn Karten hatten damit einen gestrichelten Kasten
+     mit "Bild folgt" an der auffaelligsten Stelle — das ist genau die
+     Unruhe, die eine Uebersicht kaputt macht. Die Eintraege bleiben
+     stehen, damit ein einziges Wort sie wieder einschaltet. */
+  portfolio:{format:'quer', platzhalter:{anzahl:2}},
+  modding:{platzhalter:{anzahl:2}},
+  /* Vier Bildschirmfotos aus der Projektdokumentation, in der Reihenfolge
+     der Kette: gebaut, ausgerollt, laeuft, antwortet. Sie sind sehr
+     unterschiedlich breit — ein Pipeline-Bild ist mehr als dreimal so
+     breit wie hoch — darum format:'frei': die Kacheln nehmen die
+     Proportion des Bildes an, statt es in ein festes Raster zu zwingen. */
+  urlshortener:{
+    format:'frei',
+    shots:[
+      {src:'media/urlshortener-01-pipeline.png',
+       alt:'Die Pipeline in GitLab CI, alle Stufen grün'},
+      {src:'media/urlshortener-05-argocd.png',
+       alt:'ArgoCD meldet die Anwendung als Synced und Healthy'},
+      {src:'media/urlshortener-03-pods.png',
+       alt:'kubectl get pods: beide Dienste laufen mit 1/1'},
+      {src:'media/urlshortener-04-curl.png',
+       alt:'Ein Aufruf über den Ingress: der gekürzte Link leitet weiter'}
+    ]
+  },
+  /* Askel laeuft auf dem Handy, darum eine Bildschirmaufnahme im Hoch-
+     format statt eines Bildes. Die Datei kommt unveraendert aus der
+     Aufnahme (480 x 1040, elf Sekunden) und wiegt gut ein Megabyte —
+     preload='metadata' laedt sie erst beim Abspielen. */
+  askel:{
+    video:{src:'media/askel.mov', titel:'Askel auf dem Handy', dauer:'0:11',
+           format:'hoch'}
+  },
+  kobui:{platzhalter:{anzahl:2}},
+  webshop:{format:'quer', platzhalter:{anzahl:2}},
+  bookloan:{format:'quer', platzhalter:{anzahl:2}},
+  // Die erste Website liegt als Kopie unter public/erste-website/ und wird
+  // deshalb direkt eingebettet statt abfotografiert.
+  erstewebsite:{einbettung:{src:'erste-website',
+                            titel:'Die Seite von 2024 öffnen'}}
+};
 
 /* Interessen: pro Bereich eine Bilderstrecke.
    Bild einbinden: Datei nach public/media/ legen und hier eine Zeile
@@ -362,7 +447,10 @@ const INTERESSEN={
   // Steam. Die Bilder gehoeren den jeweiligen Studios; sie stehen hier
   // als Hinweis auf das Spiel, nicht als eigenes Werk.
   gaming:[
-    {src:'media/gaming-persona3.jpg',
+    // Sehr breites Bild (1920 x 620), der Kopf steht ganz links. Mittig
+    // beschnitten fing die Kachel erst hinter dem Gesicht an, darum der
+    // Ausschnitt weit nach links.
+    {src:'media/gaming-persona3.jpg', ausschnitt:'12% 50%',
      alt:'Persona 3 — Key-Art des Protagonisten mit SEES-Armbinde'},
     {src:'media/gaming-elden-ring.jpg',
      alt:'Elden Ring — Key-Art'},
@@ -438,7 +526,7 @@ function renderProjectMedia(){
     if(cfg.video&&cfg.video.src){
       const v=document.createElement('video');
       v.controls=true;v.preload='metadata';v.playsInline=true;
-      v.className='proj-video';
+      v.className='proj-video'+(cfg.video.format==='hoch'?' hoch':'');
       if(cfg.video.poster)v.poster=cfg.video.poster;
       v.src=cfg.video.src;
       v.textContent='Ihr Browser kann dieses Video nicht abspielen.';
@@ -451,8 +539,51 @@ function renderProjectMedia(){
       box.appendChild(fig);
     }
 
+    /* Statt eines Bildschirmfotos die Seite selbst, verkleinert in einem
+       Rahmen. Ein Foto veraltet, sobald sich etwas aendert; die Einbettung
+       zeigt immer den aktuellen Stand. Das Fenster ist auf 1280 Pixel
+       gestellt und wird auf die Kartenbreite heruntergerechnet, damit die
+       Seite so aussieht wie auf einem Rechner und nicht wie auf einem
+       schmalen Handy. Ohne Skripte, ohne Mausereignisse — es ist ein Bild,
+       kein zweites Fenster zum Bedienen. */
+    if(cfg.einbettung&&cfg.einbettung.src){
+      const fig=el('figure','media-figure');
+      const rahmen=el('div','embed-frame');
+      const f=document.createElement('iframe');
+      f.src=cfg.einbettung.src;
+      f.loading='lazy';
+      f.setAttribute('sandbox','');
+      f.setAttribute('scrolling','no');
+      f.setAttribute('aria-hidden','true');
+      f.tabIndex=-1;
+      rahmen.appendChild(f);
+      // Der Rahmen selbst nimmt keine Klicks an, darum der Verweis darunter.
+      const a=document.createElement('a');
+      a.className='embed-open';a.href=cfg.einbettung.src;
+      a.target='_blank';a.rel='noopener noreferrer';
+      a.textContent=cfg.einbettung.titel||'Seite öffnen';
+      fig.appendChild(rahmen);
+      fig.appendChild(a);
+      box.appendChild(fig);
+
+      /* Erst messen, wenn der Rahmen im Dokument haengt — vorher ist seine
+         Breite 0 und der Massstab entsprechend auch. Danach bei jeder
+         Aenderung nachziehen: ResizeObserver deckt Kartenbreite und
+         Seitenleiste ab, das resize-Ereignis aeltere Browser ohne
+         ResizeObserver. */
+      const massstab=()=>{
+        const b=rahmen.clientWidth;
+        if(b)f.style.transform='scale('+(b/1280)+')';
+      };
+      massstab();
+      requestAnimationFrame(massstab);
+      f.addEventListener('load',massstab);
+      window.addEventListener('resize',massstab);
+      if(window.ResizeObserver)new ResizeObserver(massstab).observe(rahmen);
+    }
+
     if(cfg.shots&&cfg.shots.length){
-      const grid=el('div','shot-grid');
+      const grid=el('div','shot-grid'+(cfg.format?' '+cfg.format:''));
       cfg.shots.forEach((s,i)=>{
         const b=el('button','shot');
         b.type='button';
@@ -465,6 +596,21 @@ function renderProjectMedia(){
         grid.appendChild(b);
       });
       box.appendChild(grid);
+    }
+
+    /* Platzhalter: nur, solange fuer diese Sorte nichts Echtes vorliegt.
+       Ein Video ersetzt den Videorahmen, Bilder ersetzen die Kacheln —
+       beides kann nebeneinander stehen. */
+    const ph=PLATZHALTER_ZEIGEN?cfg.platzhalter:null;
+    if(ph){
+      if(ph.video&&!(cfg.video&&cfg.video.src)){
+        box.appendChild(el('div','video-ph','<span>Video folgt</span>'));
+      }
+      if(ph.anzahl&&!(cfg.shots&&cfg.shots.length)){
+        const grid=el('div','shot-grid ph-grid'+(cfg.format==='quer'?' quer':''));
+        for(let i=0;i<ph.anzahl;i++)grid.appendChild(el('div','shot ph','<span>Bild folgt</span>'));
+        box.appendChild(grid);
+      }
     }
 
     if(cfg.downloads&&cfg.downloads.length){
@@ -515,6 +661,10 @@ function renderSliders(){
       btn.setAttribute('aria-label','Bild vergrössern: '+(b.alt||('Bild '+(i+1))));
       const img=document.createElement('img');
       img.src=b.src;img.alt=b.alt||'';img.loading='lazy';img.decoding='async';
+      // Die Kachel ist immer gleich gross, die Bilder sind es nicht. Steht
+      // das Wichtige nicht in der Mitte, verschiebt ausschnitt den
+      // sichtbaren Bereich — 0% ganz nach links, 100% ganz nach rechts.
+      if(b.ausschnitt)img.style.objectPosition=b.ausschnitt;
       btn.appendChild(img);
       track.appendChild(btn);
     });
@@ -909,14 +1059,24 @@ function updateOutlineState(){
 }
 // Der Scroll-Listener dazu steht weiter unten gebuendelt (onEditorScroll).
 
-/* ── Technische Details einklappen ──
-   Der Abstract und die Rolle bleiben immer sichtbar; nur der lange
-   Fliesstext wandert hinter einen Schalter. So passen alle Projekte
-   auf einen Blick, ohne dass Inhalt verloren geht. */
+/* ── Ausfuehrliches einklappen ──
+   Sichtbar bleibt, was zum Ueberfliegen reicht: Art des Projekts, Titel,
+   Abstract, Bilder, die eigene Rolle, der Stack und die Verweise. Der
+   lange Fliesstext und die restlichen Details — Gelerntes, was ich heute
+   anders mache — wandern hinter einen Schalter.
+
+   Der Grund: die Details waren mit Abstand der laengste Block einer Karte,
+   bei manchen Projekten fast die Haelfte der Hoehe. Zehn Karten mit je
+   drei Absaetzen nebeneinander liest niemand; man sucht erst das Projekt
+   und liest dann eines. Verloren geht nichts, es ist einen Klick weit weg
+   und steht beim Drucken ohnehin wieder offen. */
 let foldCounter = 0;
 function buildFolds(panel){
-  panel.querySelectorAll('.proj-body:not([data-folded])').forEach(body=>{
-    body.setAttribute('data-folded','1');
+  panel.querySelectorAll('.proj-card:not([data-folded])').forEach(karte=>{
+    const body = karte.querySelector('.proj-body');
+    const meta = karte.querySelector('.proj-meta');
+    if(!body && !meta) return;
+    karte.setAttribute('data-folded','1');
     const id = 'fold-' + (++foldCounter);
 
     const wrap = el('div','fold');
@@ -925,16 +1085,30 @@ function buildFolds(panel){
     btn.className = 'fold-btn';
     btn.setAttribute('aria-expanded','false');
     btn.setAttribute('aria-controls',id);
-    btn.innerHTML = '<span class="fold-arrow" aria-hidden="true">▶</span>Technische Details';
+    btn.innerHTML = '<span class="fold-arrow" aria-hidden="true">▶</span>Ausführlich';
 
     const holder = el('div','fold-body');
     holder.id = id;
     holder.hidden = true;
 
-    body.parentNode.insertBefore(wrap, body);
+    // Der Schalter sitzt hinter der sichtbaren Zeile mit der Rolle, damit
+    // die Reihenfolge stimmt: erst was bleibt, dann was sich oeffnet.
+    const anker = meta || body;
+    anker.parentNode.insertBefore(wrap, anker.nextSibling);
     wrap.appendChild(btn);
     wrap.appendChild(holder);
-    holder.appendChild(body);
+    if(body) holder.appendChild(body);
+
+    // Von den Details bleibt die erste Zeile stehen — das ist die Rolle,
+    // und die ist fuer einen Betrieb die wichtigste Angabe der Karte.
+    if(meta){
+      const zeilen = [...meta.children];
+      if(zeilen.length > 1){
+        const rest = el('dl','proj-meta');
+        zeilen.slice(1).forEach(z=>rest.appendChild(z));
+        holder.appendChild(rest);
+      }
+    }
   });
 }
 

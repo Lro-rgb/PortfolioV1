@@ -83,8 +83,9 @@ curl -i https://DEINE-DOMAIN/api/protected
 luis-rosado-portfolio/
 ├── public/              ← Frontend (statische Dateien)
 │   ├── index.html
-│   ├── css/style.css
-│   └── js/app.js
+│   ├── css/               ← themes.css, style.css, vscode.css
+│   ├── js/                ← app.js, vscode.js
+│   └── media/             ← Bilder der Interessen-Seite
 ├── api/                 ← Backend (Vercel Serverless Functions)
 │   ├── login.js         ← Login-Endpoint
 │   └── protected.js     ← Geschützte Daten (Noten, Lebenslauf)

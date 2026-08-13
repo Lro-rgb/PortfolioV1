@@ -557,9 +557,24 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
 .code-content {
   padding: 28px 40px 64px;
   line-height: 1.7;
-  font-size: 15px;
+  font-size: 18px;
   color: var(--text);
-  max-width: 900px;
+  /* Auf breiten Bildschirmen blieb rechts eine tote Flaeche stehen: der
+     Inhalt hing bei 900px linksbuendig fest, der Rest war leer. Er darf
+     jetzt bis 1700px mitwachsen — auf einem 2500 Pixel breiten Monitor
+     macht das den Unterschied zwischen halb gefuellt und gefuellt. Der
+     Fliesstext bleibt trotzdem begrenzt, dafuer sorgt .prose mit seinen
+     80ch; Zeilen ueber die volle Breite liest niemand gern. Breiter
+     werden vor allem die Raster, also Projektkarten und Tabellen. */
+  max-width: 1700px;
+  /* Nicht mittig, sondern leicht nach links versetzt: vom uebrigen Platz
+     bekommt die linke Seite ein Viertel, die rechte drei. Das haelt den
+     Text in der Naehe des Explorers — ein Editor liest sich von links —
+     ohne dass rechts wieder eine tote Flaeche entsteht. Passt der Inhalt
+     ohnehin nicht mehr ins Fenster, ist der Wert 0 und nichts verschiebt
+     sich. */
+  margin-left: max(0px, calc((100% - 1700px) / 4));
+  margin-right: auto;
   min-width: 0;
 }
 
@@ -569,10 +584,10 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
    Absaetze zu schwach. */
 .prose {
   font-family: var(--sans);
-  font-size: 15px;
+  font-size: 18px;
   color: var(--text);
   line-height: 1.7;
-  max-width: 68ch;
+  max-width: 80ch;
 }
 
 .prose p { margin-bottom: 0.85rem; }
@@ -613,7 +628,7 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
 /* Tabellen: 0.77rem war zu klein zum Lesen. */
 .ed-table {
   font-family: var(--sans);
-  font-size: 13.5px;
+  font-size: 16.5px;
   margin: 0.6rem 0 1.8rem;
 }
 
@@ -837,7 +852,6 @@ code {
 /* Karten und Kacheln an die Themefarben angleichen */
 .proj-card,
 .tech-card,
-.int-item,
 .audio-card,
 .dl-item,
 .shot {
@@ -1300,11 +1314,10 @@ code {
 }
 
 .proj-card:hover,
-.tech-card:hover,
-.int-item:hover { background: var(--list-hover); }
+.tech-card:hover { background: var(--list-hover); }
 
 .proj-abstract {
-  font-size: 14.5px;
+  font-size: 17.5px;
   color: var(--text);
   border-left-color: var(--accent);
 }
@@ -1316,16 +1329,22 @@ code {
   color: var(--accent);
   margin-bottom: 0.35rem;
 }
-.proj-t { font-family: var(--sans); font-size: 1.05rem; font-weight: 600; }
-.proj-body { font-size: 14px; color: var(--muted); line-height: 1.7; }
-.proj-meta dd { font-size: 13.5px; }
-.proj-type { font-family: var(--sans); font-size: 11.5px; }
-.int-text { font-size: 14px; }
-.int-item .int-label { font-family: var(--sans); font-size: 14.5px; font-weight: 600; }
-.tech-name { font-family: var(--sans); font-size: 13px; }
-.tech-cat { font-family: var(--sans); font-size: 11px; }
-.fact dd { font-family: var(--sans); font-size: 13.5px; }
-.chip { font-size: 11px; background: var(--border2); border-color: var(--border); }
+.proj-t { font-family: var(--sans); font-size: 1.3rem; font-weight: 600; }
+.proj-body { font-size: 17px; color: var(--muted); line-height: 1.7; }
+.proj-meta dd { font-size: 16.5px; }
+.proj-type { font-family: var(--sans); font-size: 13px; }
+.tech-name { font-family: var(--sans); font-size: 15.5px; }
+.tech-cat { font-family: var(--sans); font-size: 12.5px; }
+.fact dd { font-family: var(--sans); font-size: 16.5px; }
+/* Sechs bis sieben Chips pro Karte, jeder mit eigenem Rahmen, lasen sich
+   wie eine Reihe Schaltflaechen. Ohne Rahmen und mit ruhigerer Flaeche
+   bleiben sie das, was sie sind: eine Aufzaehlung. */
+.chip {
+  font-size: 12.5px;
+  background: color-mix(in srgb, var(--border2) 55%, transparent);
+  border-color: transparent;
+  color: var(--muted);
+}
 
 .badge { font-family: var(--sans); font-size: 11px; font-weight: 500; }
 .bg { background: color-mix(in srgb, var(--ok) 18%, transparent); color: var(--ok); }

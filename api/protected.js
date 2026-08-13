@@ -15,7 +15,13 @@ const { verifyToken, requireConfig } = require('../lib/auth.js');
 // "nebenjobs" deckt bezahlte Nebenjobs und Freiwilligenarbeit ab — die
 // IMS-Checkliste verlangt beides ausdruecklich im Lebenslauf.
 const DATA = {
-  noten: [],
+  noten: [
+    {
+      fach: 'üK-Modul 187 — ICT-Arbeitsplatz mit Betriebssystem in Betrieb nehmen',
+      note: 5.0,
+      semester: 'September 2024'
+    }
+  ],
   lebenslauf: {
     ausbildung: [],
     erfahrung: [],

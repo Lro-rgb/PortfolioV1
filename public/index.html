@@ -504,6 +504,7 @@
                   <div class="proj-type">// Persönlich · eigenständig · laufend</div>
                   <h4 class="proj-t">Portfolio</h4>
                   <p class="proj-abstract"><strong>Abstract</strong>Diese Seite hier. Die Oberfläche ist einem Code-Editor nachgebaut, mit Tabs, Explorer, Terminal und Kommandopalette. Öffentlich sind Skills und Projekte, hinter einem Passwort liegen Noten und Lebenslauf. Alles von Hand geschrieben, ohne Framework und ohne eine einzige externe Abhängigkeit.</p>
+                  <div class="proj-media" data-media="portfolio"></div>
                   <div class="proj-body">
                     Drin steckt unter anderem eine Tabverwaltung mit Tastatursteuerung, ein Explorer, der auf dem Handy zur Schublade wird, sechs Farbdesigns und ein eigenes Druck-Stylesheet. Der Login geht an eine Serverless Function, die das Passwort gegen einen gesalzenen scrypt-Hash prüft und ein Token mit vier Stunden Laufzeit zurückgibt. Noten und Lebenslauf liegen auf dem Server und stehen nie im ausgelieferten HTML. Wer den Quelltext im Browser öffnet, findet dort nichts.
                   </div>
@@ -515,13 +516,13 @@
                   <div class="proj-links">
                     <a href="https://github.com/Lro-rgb/PortfolioV1" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
                   </div>
-                  <div class="proj-media" data-media="portfolio"></div>
                 </article>
 
                 <article class="proj-card" id="proj-wallpaper">
                   <div class="proj-type">// Persönlich · eigenständig · eigenes Skript</div>
                   <h4 class="proj-t">Wallpaper-Switcher mit automatischem Farbschema</h4>
                   <p class="proj-abstract"><strong>Abstract</strong>Ein Bash-Skript, das aus meinem Hintergrundbild ein Farbschema errechnet und es auf das ganze System anwendet. Ein Bildwechsel färbt damit Fensterrahmen, Leiste, Menü und Terminal automatisch mit um, ohne dass ich eine Konfigurationsdatei anfassen muss.</p>
+                  <div class="proj-media" data-media="wallpaper"></div>
                   <div class="proj-body">
                     Das Skript verkettet vier Werkzeuge: <code>waypaper</code> setzt das Bild, <code>matugen</code> leitet die Farbpalette daraus ab, <code>rofi</code> ist das Auswahlmenü und <code>waybar</code> die Statusleiste. Danach schreibt es die Konfigurationsdateien der beteiligten Programme neu und startet sie kontrolliert neu. Der knifflige Teil waren nicht die Farben, sondern die Reihenfolge: Lädt ein Programm zu früh neu, liest es noch die alte Palette.
                   </div>
@@ -530,28 +531,34 @@
                     <div><dt>Gelernt</dt><dd>Bash, Kommandozeilenwerkzeuge verketten, Konfigurationsdateien und Prozesse unter Linux</dd></div>
                   </dl>
                   <div class="chips"><span class="chip">Bash</span><span class="chip">Matugen</span><span class="chip">Waypaper</span><span class="chip">Rofi</span><span class="chip">Waybar</span><span class="chip">Hyprland</span></div>
-                  <div class="proj-media" data-media="wallpaper"></div>
+                  <div class="proj-links">
+                    <a href="https://github.com/Lro-rgb/wallsync" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                  </div>
                 </article>
 
                 <article class="proj-card" id="proj-arch">
                   <div class="proj-type">// Persönlich · eigenständig</div>
                   <h4 class="proj-t">Arch Linux + Hyprland Dual-Boot</h4>
                   <p class="proj-abstract"><strong>Abstract</strong>Ein selbst aufgesetztes Dual-Boot-System auf meinem ThinkPad: Windows 11 für den Alltag, Arch Linux mit dem Window Manager Hyprland fürs Programmieren. Eingerichtet, weil ich wissen wollte, wie ein Linux-System unter der Oberfläche zusammengesetzt ist.</p>
+                  <div class="proj-media" data-media="arch"></div>
                   <div class="proj-body">
-                    Arch über <code>archinstall</code> installiert und Hyprland von Grund auf konfiguriert. Bei Hyprland gibt es keine fertige Oberfläche: Jede Taste und jedes Fensterverhalten steht in einer Konfigurationsdatei. Dazu Alacritty als Terminal, die Fish-Shell und <code>waybar</code> als Statusleiste. Aus diesem Setup ist auch der Wallpaper-Switcher entstanden.
+                    Arch über <code>archinstall</code> installiert und Hyprland von Grund auf konfiguriert. Bei Hyprland gibt es keine fertige Oberfläche: Jede Taste und jedes Fensterverhalten steht in einer Konfigurationsdatei. Dazu Alacritty als Terminal, die Fish-Shell, <code>waybar</code> als Statusleiste, <code>fuzzel</code> als Programmstarter und Nautilus als Dateimanager. Das Abmeldemenü ist kein fertiges Programm, sondern ein <code>rofi</code>-Skript, das aus der Leiste heraus aufgerufen wird. Aus diesem Setup ist auch der Wallpaper-Switcher entstanden, der inzwischen ein eigenes Repository hat.
                   </div>
                   <dl class="proj-meta">
                     <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt</dd></div>
                     <div><dt>Gelernt</dt><dd>Partitionierung und Bootloader, Konfigurationsverwaltung, Fehlersuche ohne grafische Oberfläche</dd></div>
                   </dl>
-                  <div class="chips"><span class="chip">Arch Linux</span><span class="chip">Hyprland</span><span class="chip">Alacritty</span><span class="chip">Fish</span><span class="chip">Dual-Boot</span></div>
-                  <div class="proj-media" data-media="arch"></div>
+                  <div class="chips"><span class="chip">Arch Linux</span><span class="chip">Hyprland</span><span class="chip">Alacritty</span><span class="chip">Fish</span><span class="chip">Waybar</span><span class="chip">Nautilus</span><span class="chip">Dual-Boot</span></div>
+                  <div class="proj-links">
+                    <a href="https://github.com/Lro-rgb/arch-hyprland-rice" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Konfiguration auf GitHub</a>
+                  </div>
                 </article>
 
                 <article class="proj-card" id="proj-modding">
                   <div class="proj-type">// Persönlich · eigenständig</div>
                   <h4 class="proj-t">Konsolen-Modding: Switch &amp; 3DS</h4>
                   <p class="proj-abstract"><strong>Abstract</strong>Auf meiner eigenen Nintendo Switch und meinem 3DS eine Custom Firmware eingerichtet. Mich hat interessiert, wie ein Bootvorgang abläuft und an welcher Stelle ein System seine Signaturen prüft.</p>
+                  <div class="proj-media" data-media="modding"></div>
                   <div class="proj-body">
                     Bei der Switch über ein RCM-Jig im Recovery-Modus den Payload Hekate geladen und ein EmuMMC aufgesetzt, also eine abgetrennte Systemkopie, damit das Originalsystem unangetastet bleibt. Das ging nur, weil die Firmware noch nicht gepatcht war. Auf dem 3DS läuft Luma3DS. Beide Geräte gehören mir, und es ging um die Boot-Kette, nicht um Inhalte.
                   </div>
@@ -560,7 +567,6 @@
                     <div><dt>Gelernt</dt><dd>Bootvorgang, Recovery-Modi, Signaturprüfung und der Umgang mit englischer Fachdokumentation</dd></div>
                   </dl>
                   <div class="chips"><span class="chip">RCM</span><span class="chip">Hekate</span><span class="chip">EmuMMC</span><span class="chip">Luma3DS</span></div>
-                  <div class="proj-media" data-media="modding"></div>
                 </article>
 
               </div>
@@ -572,6 +578,7 @@
                   <div class="proj-type">// Schulprojekt · Modul 210 · eigenständig</div>
                   <h4 class="proj-t">URL-Shortener mit GitOps-Kette</h4>
                   <p class="proj-abstract"><strong>Abstract</strong>Ein URL-Shortener aus zwei NestJS-Diensten und einer MariaDB, der nicht nur läuft, sondern auch ausgeliefert wird: containerisiert, über eine CI-Pipeline gebaut und von ArgoCD automatisch in einen Kubernetes-Cluster deployt. Das Interessante war weniger das Kürzen von Links als der Weg vom Commit bis in den laufenden Cluster.</p>
+                  <div class="proj-media" data-media="urlshortener"></div>
                   <div class="proj-body">
                     <strong>Die Anwendung.</strong> <code>shorty</code> nimmt lange URLs entgegen, gibt einen Kurzcode zurück und leitet beim Aufruf per 302 weiter. <code>keeper</code> ist der einzige Dienst, der die Datenbank sieht, und ist per API-Key geschützt. Von aussen erreichbar ist nur <code>shorty</code> über den Ingress, <code>keeper</code> hängt als ClusterIP dahinter. Ein Angreifer, der von aussen kommt, hat also keinen direkten Weg zur Datenbank.
                     <br><br>
@@ -595,13 +602,13 @@
                     <a href="https://github.com/Lro-rgb/url-shortener" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Anwendung</a>
                     <a href="https://github.com/Lro-rgb/url-shortener-gitops" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 GitOps-Repo</a>
                   </div>
-                  <div class="proj-media" data-media="urlshortener"></div>
                 </article>
 
                 <article class="proj-card" id="proj-askel">
                   <div class="proj-type">// Schulprojekt · Modul 335 · Dreierteam</div>
                   <h4 class="proj-t">Askel</h4>
                   <p class="proj-abstract"><strong>Abstract</strong>Askel heisst auf Finnisch «Schritt» und ist eine mobile App, die eine Fahrt per GPS aufzeichnet: Position, Höhe und Geschwindigkeit. Routen lassen sich speichern, benennen, farblich markieren und auf einer Karte anzeigen. Alle Daten bleiben auf dem Gerät, ein Backend gibt es nicht.</p>
+                  <div class="proj-media" data-media="askel"></div>
                   <div class="proj-body">
                     Umgesetzt mit React Native und Expo. Die Standortdaten kommen über <code>expo-location</code>, die Aufzeichnung läuft während der Fahrt weiter und die Routen werden lokal gespeichert. Dass es kein Backend gibt, war eine bewusste Entscheidung: Bewegungsprofile sind heikle Daten, und was das Gerät nie verlässt, kann auch nicht abfliessen.
                   </div>
@@ -622,13 +629,13 @@
                   <div class="proj-links">
                     <a href="https://github.com/Lro-rgb/Askel" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
                   </div>
-                  <div class="proj-media" data-media="askel"></div>
                 </article>
 
                 <article class="proj-card" id="proj-kobui">
                   <div class="proj-type">// Schulprojekt · überbetrieblicher Kurs (ÜK) · Dreierteam</div>
                   <h4 class="proj-t">Kobui</h4>
                   <p class="proj-abstract"><strong>Abstract</strong>Kobui ist eine Web-App, die ein lokal laufendes Sprachmodell (KoboldCpp) an ein eigenes React-Frontend anbindet. Gedacht als datenschutzfreundliche Alternative zu Cloud-Diensten: Weil das Modell auf dem eigenen Rechner läuft, verlässt keine Eingabe das Gerät.</p>
+                  <div class="proj-media" data-media="kobui"></div>
                   <div class="proj-body">
                     Frontend mit TypeScript, React und Vite, gestaltet über CSS Modules. Die Anwendung spricht die lokale Schnittstelle von KoboldCpp an und bringt eine eigene Anleitung mit, damit man sie auch ohne Vorwissen aufsetzen kann.
                   </div>
@@ -641,13 +648,13 @@
                   <div class="proj-links">
                     <a href="https://github.com/kiraa1q/kobui" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
                   </div>
-                  <div class="proj-media" data-media="kobui"></div>
                 </article>
 
                 <article class="proj-card" id="proj-webshop">
                   <div class="proj-type">// Schulprojekt · über drei Module gewachsen · laufend</div>
                   <h4 class="proj-t">Redis-Webshop</h4>
                   <p class="proj-abstract"><strong>Abstract</strong>Ein Webshop, der seine Daten nicht in einer Tabellendatenbank hält, sondern komplett in Redis. Entstanden ist er im NoSQL-Modul als ziemlich leeres Grundgerüst. Seither ist er mein Übungsprojekt: In jedem folgenden Modul, in dem es gepasst hat, habe ich ihn um das erweitert, was gerade dran war.</p>
+                  <div class="proj-media" data-media="webshop"></div>
                   <div class="proj-body">
                     <strong>NoSQL-Modul: das Datenmodell.</strong> Jeder Datensatz liegt als Hash unter einem sprechenden Schlüssel, also <code>product:12</code>, <code>user:3</code>, <code>cart:3</code>. Redis kennt kein <code>WHERE</code>, deshalb braucht jede Suche einen eigenen Index. Die Kategorien liegen als Mengen unter <code>idx:kategorie:*</code> und enthalten die Produkt-IDs. Genau das war der Lerneffekt: In SQL wäre es eine einzige Abfrage gewesen, hier muss ich den Index beim Speichern von Hand mitschreiben. Vergesse ich das an einer Stelle, findet die Suche das Produkt nie wieder.
                     <br><br>
@@ -674,13 +681,13 @@
                   <div class="proj-links">
                     <a href="https://github.com/Lro-rgb/redis-webshop" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
                   </div>
-                  <div class="proj-media" data-media="webshop"></div>
                 </article>
 
                 <article class="proj-card" id="proj-bookloan">
                   <div class="proj-type">// Schulprojekt · überbetrieblicher Kurs · Modul LBV 294 · Dreierteam</div>
                   <h4 class="proj-t">BookLoan</h4>
                   <p class="proj-abstract"><strong>Abstract</strong>BookLoan ist eine Webanwendung zur Verwaltung von Bibliotheken, Büchern und Ausleihen: Bestände anlegen und pflegen, Bücher ausleihen und zurücknehmen, Benutzerkonten verwalten. Die Anwendung ist mehrsprachig, hat einen hellen und einen dunklen Modus und führt neue Benutzer über eine kurze Einführung. Ich bin während des laufenden Projekts ins Team nachgerückt.</p>
+                  <div class="proj-media" data-media="bookloan"></div>
                   <div class="proj-body">
                     Getrennte Anwendungen für Frontend und Backend: vorne React 19 mit TypeScript, Vite und React Router, hinten NestJS mit Prisma als Zugriffsschicht auf eine MySQL-Datenbank. Die Anmeldung läuft über JWT. Beide Teile starten zusammen über Docker Compose, sodass die Anwendung auf einem fremden Rechner ohne Einrichtung von Hand läuft.
                   </div>
@@ -699,7 +706,35 @@
                   <div class="proj-links">
                     <a href="https://github.com/etschwab/BookLoan" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
                   </div>
-                  <div class="proj-media" data-media="bookloan"></div>
+                </article>
+
+                <article class="proj-card" id="proj-erstewebsite">
+                  <div class="proj-type">// Schulprojekt · 1. Lehrjahr · eigenständig · mein erstes Projekt</div>
+                  <h4 class="proj-t">Erste eigene Website</h4>
+                  <p class="proj-abstract"><strong>Abstract</strong>Eine Info-Seite über mich mit fünf Unterseiten: Home, Über mich, Freizeit, Ausbildung und Kontakt. Reines HTML und CSS, ohne JavaScript, von Hand geschrieben und über FTP auf den Klassenserver geladen. Das war im ersten Lehrjahr meine erste Website überhaupt.</p>
+                  <div class="proj-media" data-media="erstewebsite"></div>
+                  <div class="proj-body">
+                    Inhaltlich ging es um mich selbst, technisch um die Grundlagen: eine gemeinsame Navigation auf jeder Seite, ein durchgehendes Layout, eingebundene Bilder und eine Quellenseite für alles, was nicht von mir stammt. Die Seite liegt bis heute unverändert auf dem Schulserver; eine Kopie davon liegt als Unterseite hier, damit sie erreichbar bleibt, wenn der Schulserver es irgendwann nicht mehr ist.
+                    <br><br>
+                    Ich zeige sie bewusst im Originalzustand. Die Rechtschreibung ist stellenweise daneben, jede Unterseite wiederholt dieselbe Navigation als Kopie, und es gibt kein Layout fürs Handy. Genau daran sehe ich den Abstand zu dem, was ich heute baue: Das Portfolio, auf dem Sie gerade sind, ist dasselbe Vorhaben — eine Seite über mich — nur ein Jahr später.
+                  </div>
+                  <dl class="proj-meta">
+                    <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt: Inhalt, Layout und Umsetzung</dd></div>
+                    <div><dt>Gelernt</dt><dd>
+                      <ul class="proj-ul">
+                        <li>HTML-Grundgerüst, Verlinkung zwischen mehreren Seiten und Einbinden von Bildern</li>
+                        <li>CSS auslagern, statt jede Seite einzeln zu gestalten</li>
+                        <li>Dateien per FTP auf einen Webserver bringen</li>
+                        <li>Dass Quellen anzugeben dazugehört, auch bei Bildern</li>
+                      </ul>
+                    </dd></div>
+                    <div><dt>Was ich heute anders mache</dt><dd>Navigation nicht mehr in jede Datei kopieren, Layout von Anfang an fürs Handy mitdenken und den Text vor dem Veröffentlichen gegenlesen</dd></div>
+                  </dl>
+                  <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">FTP</span></div>
+                  <div class="proj-links">
+                    <a href="erste-website" class="proj-link" target="_blank" rel="noopener noreferrer">🌐 Kopie hier ansehen</a>
+                    <a href="http://datastaff.com.br/rosado/" class="proj-link" target="_blank" rel="noopener noreferrer">🏫 Original auf dem Schulserver</a>
+                  </div>
                 </article>
 
               </div>

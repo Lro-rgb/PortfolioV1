@@ -1,0 +1,341 @@
+body {
+    margin: 0px;
+    font-family: Arial, sans-serif;
+    background-color:#D0D5D5 
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #434444;
+    justify-content: center;
+}
+
+nav ul {
+    display: flex;
+    list-style-type: none;
+    text-align: center;
+}
+
+nav ul li {
+    margin: 0 30px;
+    padding: 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 23px;
+    display: flex;
+    transition: font-size 0.5s;
+}
+
+nav ul li a:hover {
+    color: #8E39FF;
+    font-size: 29px;
+}
+
+footer {
+    background-color: #434444;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    text-decoration: none;
+    margin-bottom: 0;
+}
+
+.footer_verzeichnis {
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+    display: flexbox;
+    font-size: 29px;
+    margin-top: 10px;
+    margin-top: 10px;
+}
+
+.footer_verzeichnis a {
+    color: #fff;
+    transition: color 0.5s, font-size 0.5s;
+}
+
+.footer_verzeichnis a:hover {
+    color: #8E39FF;
+    font-size: 32px;
+}
+
+h1 {
+    text-align: center;
+    color: #8E39FF;
+    font-size: 5cqb;
+    font-size: 45px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 10px;
+}
+h3 {
+    text-align: center;
+    font-size: 40px;
+}
+
+/* Home */
+
+.start {
+    font-size: 28px;
+}
+
+.home_button{
+    font-weight: 600;
+    height: auto;
+}
+
+
+.goofy {
+    margin-left: 220px;
+    height: 400px;
+}
+  
+.goofy2 {
+    margin-left: 260px;
+    height: 490px;
+    position: absolute;
+    left: 52%;
+    transform: translateX(-50%);
+}
+
+/* Über mich*/
+
+.baby {
+    float: right;
+    width: 220px;
+    margin-left: 10px;
+}
+
+.baby::after {
+    display: table;
+    clear: both;
+}
+
+.Übermich {
+    text-align: right;
+    font-size: 23px;
+}
+
+
+.Family {
+    float: left;
+    width: 370px;
+    margin-right: 10px;
+}
+
+.Family::after {
+    display: table;
+    clear: both;
+}
+
+.Famillie {
+    text-align: left;
+    font-size: 23px;
+}
+
+.Famillie-Luis {
+    margin-top: 7%;
+}
+
+.Kanye {
+    float: right;
+    width: 200px;
+    margin-left: 10px;
+    margin-bottom: 0px;
+}
+
+.Kanye::after {
+    display: table;
+    clear: both;
+}
+
+.Interessen {
+    text-align: left;
+    font-size: 23px;
+}
+
+.Interessen-Luis {
+    margin-top: 7%;
+    margin-bottom: 10px;
+}
+
+.freizeit-text {
+    text-align: left;
+    font-size: 23px;
+    margin-top: 10px;
+}
+
+.freizeit {
+    float: left;
+    width: 300px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.freizeit-link {
+    text-decoration: underline;
+    color: black;
+    transition: color 0.3s, font-size 0.5s;
+}
+
+.freizeit-link:hover {
+    color:#8E39FF;
+    font-size: 26px;
+}
+
+.freizeit::after {
+    display: table;
+    clear: both;
+}
+
+/* Freizeit */
+
+.spotify {
+    width: 350px;
+    float: left;
+    margin-right: 10px;
+    transition: filter 0.5s, width 0.5s;
+}
+
+.spotify:hover {
+    filter: brightness(0.7);
+    width: 360px;
+}
+
+.Musik {
+    margin-top: 90px;
+    margin-bottom: 40px;
+}
+
+div {
+    font-family: Arial, sans-serif;
+}
+
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.h2 {
+    text-align: left;
+}
+
+.rechts {
+    text-align: right;
+}
+   
+.links {
+    text-align: left;
+}
+
+/* Ausbildung */
+
+.gsteig_primar {
+    height: 400px;
+        float: left;
+        margin-right: 10px;
+}
+
+.gsteig_ober {
+    height: 350px;
+        float: left;
+        margin-right: 10px;
+}
+
+.primar {
+    font-size: 20px;
+}
+
+.ober {
+    margin-top: 100px;
+}
+
+.bwd {
+    height: 350px;
+    float: left;
+    margin-right: 10px;
+}
+
+.kindergarten {
+    height: 350px;
+    float: left;
+    margin-right: 10px;
+}
+
+.primaer {
+    margin-top: 100px;
+}
+
+/* Kontakt */
+
+.Snapchat {   
+    font-size: 34px;
+}
+
+.Snapchat img {
+    width: 253px;
+}
+
+.Instagram img{
+    width: 250px;
+}
+
+
+.Instagram {
+    font-size: 34px;  
+}
+
+.Whatsapp img{
+    width: 250px;
+    align-items: center;
+}
+
+.Whatsapp {  
+    font-size: 34px;    
+}
+
+.WhatsappNummer {
+    margin-top: 18%;
+    font-size: 30px;
+}
+
+.SocialMedia {
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    margin-left: 41%;  
+}
+
+/* Quellen */
+
+.quellen-angabe {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.quellen-angabe a {
+    color: black;
+    transition: color 0.5s, font-size 0.5s;
+}
+
+.quellen-angabe a:hover {
+    color: #8E39FF;
+    font-size: 24px;
+}
+
+.osaka {
+    width: 1100px;
+    margin-bottom: 0px;
+}

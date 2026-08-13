@@ -8,13 +8,15 @@ werden.
 | Was | Datei | Bereich |
 |---|---|---|
 | Name, Rolle, Intro-Text | `public/index.html` | `panel-home` |
-| Skills-Tabellen | `public/index.html` | `panel-skills` |
+| Skills-Liste | `public/index.html` | `panel-skills` |
 | Tech-Stack-Kacheln | `public/index.html` | `panel-techstack` |
 | Projekte | `public/index.html` | `panel-projekte` |
 | Hobbys / Interessen | `public/index.html` | `panel-interessen` |
 | Kontakt + Impressum | `public/index.html` | `panel-kontakt` |
 | Gestaltung & Technik | `public/index.html` | `panel-readme` |
 | Videos, Screenshots, Downloads | `public/js/app.js` | `MEDIA` |
+| Bilder der Interessen-Seite | `public/js/app.js` | `INTERESSEN` |
+| Hörstatistiken (Profil, Zeitraum) | `public/index.html` / `public/js/app.js` | `#statsfm[data-user]`, `SFM_ZEITRAUM` |
 | Audio-Kurzvorstellung | `public/js/app.js` | `AUDIO` |
 | **Noten (geschützt)** | `api/protected.js` | `DATA.noten` |
 | **Lebenslauf (geschützt)** | `api/protected.js` | `DATA.lebenslauf` |
@@ -25,10 +27,10 @@ werden.
 Jeder Tab in der Oberfläche entspricht einem `.editor-panel` im HTML:
 
 - **`luis.json`** → Startseite: Name, Rolle, Intro-Text
-- **`skills.py`** → Tabellen mit technischen Fähigkeiten
+- **`skills.py`** → eine Zeile je Technologie mit dem Projekt dahinter
 - **`techstack.ts`** → Kacheln mit verwendeten Technologien
 - **`projekte.html`** → Projekt-Karten
-- **`interessen.json`** → Interessen-Kacheln
+- **`interessen.json`** → Interessen mit Bilderstrecken und Hörstatistiken
 - **`kontakt.sql`** → Kontaktdaten + Impressum
 
 Die Panels sind im HTML mit Kommentaren abgetrennt (z. B. `<!-- ── SKILLS ── -->`).
@@ -124,3 +126,32 @@ Icon einbinden:
 ```
 
 Die Namen der verfügbaren Icons stehen auf devicon.dev.
+
+## 7. Bilder der Interessen-Seite (`public/js/app.js`)
+
+Jedes Thema auf `interessen.json` hat eine Bilderstrecke. Die Listen stehen
+in `INTERESSEN`:
+
+```js
+const INTERESSEN = {
+  gaming:   [{ src: 'media/gaming-elden-ring.jpg', alt: 'Elden Ring — Key-Art' }],
+  musik:    [],
+  lesen:    [],
+  hardware: []
+};
+```
+
+Ablauf für ein neues Bild: Datei nach `public/media/` legen, eine Zeile
+eintragen. Der `alt`-Text ist zugleich die Bildunterschrift in der
+Vollansicht, also beschreiben, was zu sehen ist. Themen ohne Einträge zeigen
+leere Rahmen mit dem Hinweis „Bild folgt".
+
+Bilder, die nicht von dir stammen, gehören in den Bildnachweis am Ende der
+Interessen-Seite und ins Impressum auf `kontakt.sql`.
+
+## 8. Hörstatistiken (stats.fm)
+
+Das Profil steht als `data-user` am Element `#statsfm` im HTML, der Zeitraum
+in `SFM_ZEITRAUM` in `app.js` (`weeks`, `months` oder `lifetime`). Antwortet
+stats.fm nicht, bleibt der Verweis auf das Profil stehen, der im HTML
+hinterlegt ist — dort muss die Adresse also ebenfalls stimmen.

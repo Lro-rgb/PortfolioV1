@@ -30,8 +30,12 @@ Wo welche Inhalte gepflegt werden: [`docs/CONTENT-GUIDE.md`](docs/CONTENT-GUIDE.
 luis-rosado-portfolio/
 ├── public/                  # Frontend (statisch, von Vercel ausgeliefert)
 │   ├── index.html           #   Seitenstruktur / Inhalte
-│   ├── css/style.css        #   Gesamtes Styling
-│   └── js/app.js            #   Interaktivität (Tabs, Login, Animationen)
+│   ├── css/themes.css       #   Farben und Schriften der sechs Farbdesigns
+│   ├── css/style.css        #   Grundstyling der Inhalte
+│   ├── css/vscode.css       #   Editor-Oberfläche und alles, was darauf aufbaut
+│   ├── js/app.js            #   Tabs, Login, Medien, Bilderstrecken, Hörstatistiken
+│   ├── js/vscode.js         #   Activity Bar, Statusleiste, Kommandopalette, Terminal
+│   └── media/               #   Bilder der Interessen-Seite
 │
 ├── api/                     # Backend — Vercel Serverless Functions
 │   ├── login.js             #   POST /api/login     → prüft Passwort, gibt Token zurück
@@ -66,10 +70,17 @@ luis-rosado-portfolio/
 | Passwort | scrypt mit Salt (Node `crypto`) |
 | Session | HMAC-SHA256-signiertes Token, 4 h gültig |
 | Hosting | Vercel |
+| Hörstatistiken | Öffentliche API von [stats.fm](https://stats.fm) (wird beim Aufruf der Interessen-Seite geladen) |
 
 Das Frontend kommt bewusst ohne Framework und ohne Build-Schritt aus — die
-drei Dateien in `public/` sind genau das, was der Browser ausliefert. Auch
-das Backend nutzt nur Node-Bordmittel, `dependencies` ist leer.
+Dateien in `public/` sind genau das, was der Browser ausliefert. Auch das
+Backend nutzt nur Node-Bordmittel, `dependencies` ist leer.
+
+Zur Laufzeit werden drei Dinge von fremden Servern geholt: die Schriften und
+die Technologie-Logos jeweils von einem CDN, und die Hörstatistiken von
+stats.fm. Alles andere, auch die Bilder unter `public/media/`, liegt im
+Repository. Die Herkunft der Bilder steht auf der Interessen-Seite und im
+Impressum.
 
 ---
 
