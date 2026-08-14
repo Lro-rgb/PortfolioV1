@@ -243,6 +243,19 @@ $('tabbar').addEventListener('click',e=>{
   if(tab)openTab(tab.dataset.panel);
 });
 
+/* Das Mausrad ueber der Leiste schiebt die Tabs seitwaerts, wie in VS Code.
+   Sonst sind auf einem etwas schmaleren Bildschirm die hinteren Dateien gar
+   nicht erreichbar: das Rad meldet nur eine senkrechte Bewegung, die Leiste
+   laeuft aber waagrecht — gescrollt wurde also der Inhalt darunter.
+   deltaMode 1 heisst "in Zeilen" (Firefox unter Windows); ungerechnet waeren
+   das drei Pixel pro Umdrehung. */
+$('tabbar').addEventListener('wheel',e=>{
+  const leiste=e.currentTarget;
+  if(leiste.scrollWidth<=leiste.clientWidth)return; // passt alles: Seite scrollt weiter
+  leiste.scrollLeft+=(e.deltaY||e.deltaX)*(e.deltaMode?16:1);
+  e.preventDefault();
+},{passive:false});
+
 $('tabbar').addEventListener('keydown',e=>{
   const tab=e.target.closest('.tab');
   if(!tab)return;
