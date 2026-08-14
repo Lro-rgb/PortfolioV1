@@ -13,11 +13,24 @@ Serverless-Function ausgeliefert wird.
 ## Schnellstart
 
 ```bash
-npm install -g vercel
-vercel dev
+node scripts/dev-server.js
 ```
 
-→ Läuft auf `http://localhost:3000`
+→ Läuft auf `http://localhost:4175`, ohne Installation und ohne Konto.
+
+Der Entwicklungsserver liefert nicht nur `public/` aus, sondern bedient auch
+die Funktionen in `api/` und liest die `.env` — Anmeldung, Noten und die
+Kompetenznachweise lassen sich damit lokal vollständig testen. Er schickt
+dieselben Sicherheitskopfzeilen mit wie `vercel.json`, damit eine zu enge
+Content-Security-Policy hier auffällt und nicht erst nach dem
+Veröffentlichen.
+
+Zum Deployen wird die Vercel-CLI gebraucht:
+
+```bash
+npm install -g vercel
+vercel --prod
+```
 
 Einrichtung und Deployment im Detail: [`docs/SETUP.md`](docs/SETUP.md)
 Wo welche Inhalte gepflegt werden: [`docs/CONTENT-GUIDE.md`](docs/CONTENT-GUIDE.md)

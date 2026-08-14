@@ -9,6 +9,8 @@
 process.env.JWT_SECRET = 'nur-fuer-diesen-test-mindestens-32-zeichen-lang';
 
 const assert = require('assert');
+const os = require('os');
+
 const { signToken } = require('../lib/auth.js');
 const handler = require('../api/zeugnis.js');
 
@@ -43,6 +45,12 @@ for (const boese of ['../lib/auth.js', '../../.env', '187/../../lib/auth.js', ''
   assert.strictEqual(a.code, 404, 'unerlaubte Modulangabe muss 404 geben: ' + JSON.stringify(boese));
   assert.ok(!Buffer.isBuffer(a.koerper), 'es darf keine Datei herauskommen fuer: ' + JSON.stringify(boese));
 }
+
+/* Aus einem fremden Arbeitsverzeichnis heraus pruefen. Genau daran ist es
+   einmal gescheitert: der Pfad zur PDF wurde aus process.cwd() gebaut, und
+   der Entwicklungsserver startet eine Ebene hoeher — mit gueltigem Token kam
+   trotzdem "nicht gefunden". Von hier aus faellt das auf. */
+process.chdir(os.tmpdir());
 
 // ── Mit gueltigem Token kommt die richtige Datei ──
 for (const modul of ['187', '106', '294', '210', '335']) {

@@ -50,7 +50,11 @@ module.exports = function handler(req, res) {
   const datei = DATEIEN[modul];
   if (!datei) return res.status(404).json({ error: 'Kein Zeugnis zu diesem Modul.' });
 
-  const pfad = path.join(process.cwd(), 'unterlagen', datei);
+  /* Vom Ort dieser Datei aus rechnen, nicht von process.cwd(): das ist das
+     Verzeichnis, aus dem der Prozess gestartet wurde, und liegt beim
+     Entwicklungsserver eine Ebene daneben. Die Datei war dann nicht zu
+     finden, obwohl sie da war. */
+  const pfad = path.join(__dirname, '..', 'unterlagen', datei);
   let inhalt;
   try {
     inhalt = fs.readFileSync(pfad);

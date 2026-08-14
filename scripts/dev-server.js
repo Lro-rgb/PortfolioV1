@@ -19,6 +19,71 @@ const path = require('path');
 
 const port = Number(process.argv[2]) || 4175;
 const wurzel = path.join(__dirname, '..', 'public');
+const projekt = path.join(__dirname, '..');
+
+/* .env einlesen, wie es "vercel dev" spaeter auch tut. Ohne JWT_SECRET und
+   APP_PASSWORD_HASH antwortet der geschuetzte Bereich mit 503 — das ist so
+   gewollt, es soll hier nur nicht daran scheitern, dass die Datei niemand
+   liest. */
+function ladeEnv() {
+  try {
+    for (const zeile of fs.readFileSync(path.join(projekt, '.env'), 'utf8').split('\n')) {
+      const t = zeile.trim();
+      if (!t || t.startsWith('#')) continue;
+      const i = t.indexOf('=');
+      if (i < 1) continue;
+      const name = t.slice(0, i).trim();
+      if (!(name in process.env)) process.env[name] = t.slice(i + 1).trim();
+    }
+  } catch { /* keine .env: dann eben ohne */ }
+}
+ladeEnv();
+
+/* Die Serverless Functions aus api/ auch hier bedienen.
+   Vorher gab es sie lokal schlicht nicht: jede Anfrage an /api/... lief in
+   die 404 fuer statische Dateien. Anmeldung, Noten und die
+   Kompetenznachweise waren damit nur nach dem Veroeffentlichen zu testen —
+   also genau die Stellen, an denen ein Fehler am meisten kostet. */
+function apiBedienen(req, res, pfad) {
+  const name = pfad.replace(/^\/api\//, '').replace(/\.js$/, '');
+  const datei = path.join(projekt, 'api', name + '.js');
+  if (!/^[a-z0-9-]+$/i.test(name) || !fs.existsSync(datei)) {
+    res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
+    res.end(JSON.stringify({ error: 'Keine solche Funktion.' }));
+    return;
+  }
+
+  // Bei jeder Anfrage neu laden, damit Aenderungen ohne Neustart greifen.
+  delete require.cache[require.resolve(datei)];
+  const handler = require(datei);
+
+  const koerper = [];
+  req.on('data', s => koerper.push(s));
+  req.on('end', async () => {
+    const roh = Buffer.concat(koerper).toString('utf8');
+    req.query = Object.fromEntries(new URL(req.url, 'http://localhost').searchParams);
+    try { req.body = roh ? JSON.parse(roh) : {}; } catch { req.body = {}; }
+
+    /* Vercel gibt den Funktionen ein paar Bequemlichkeiten mit, die das
+       nackte http-Modul nicht hat. Genau diese drei benutzen die Funktionen
+       hier — mehr nachzubauen waere geraten statt gebraucht. */
+    res.status = code => { res.statusCode = code; return res; };
+    res.json = wert => {
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      res.end(JSON.stringify(wert));
+      return res;
+    };
+    res.send = wert => { res.end(Buffer.isBuffer(wert) ? wert : String(wert)); return res; };
+
+    try {
+      await handler(req, res);
+    } catch (e) {
+      console.error('Fehler in /api/' + name + ':', e);
+      if (!res.headersSent) res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ error: 'Fehler in der Funktion.' }));
+    }
+  });
+}
 
 const typen = {
   '.html': 'text/html; charset=utf-8',
@@ -86,6 +151,11 @@ http.createServer((req, res) => {
     pfad = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
   } catch {
     res.writeHead(400).end('Ungueltige Adresse');
+    return;
+  }
+
+  if (pfad.startsWith('/api/')) {
+    apiBedienen(req, res, pfad);
     return;
   }
 
