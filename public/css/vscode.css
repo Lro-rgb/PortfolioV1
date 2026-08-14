@@ -794,7 +794,6 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
 /* Syntaxfarben aus dem aktiven Theme */
 .kw { color: var(--syn-kw); }
 .kw-b { color: var(--syn-kw2); }
-.kw-g { color: var(--ok); }
 .str { color: var(--syn-str); }
 .fn { color: var(--syn-fn); }
 .num { color: var(--syn-num); }
@@ -1351,42 +1350,6 @@ code {
    ist die Faktenleiste, dafuer mit Angaben, die tatsaechlich etwas sagen.
    ─────────────────────────────────────────────────────────────────────── */
 
-/* Statuszeile ueber dem Namen: das Erste, was jemand wissen will. */
-.status-line {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12.5px;
-  color: var(--ok);
-  background: color-mix(in srgb, var(--ok) 12%, transparent);
-  border: 1px solid color-mix(in srgb, var(--ok) 35%, transparent);
-  border-radius: 999px;
-  padding: 4px 12px 4px 10px;
-  margin-bottom: 1.4rem;
-}
-
-.status-dot {
-  position: relative;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: currentColor;
-  flex-shrink: 0;
-}
-
-.status-dot::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  border: 1px solid currentColor;
-  animation: statusPulse 2.4s ease-out infinite;
-}
-
-@keyframes statusPulse {
-  0% { opacity: 0.9; transform: scale(0.6); }
-  70%, 100% { opacity: 0; transform: scale(1.7); }
-}
 
 /* Faktenleiste: drei Spalten statt vier, damit sechs Angaben sauber
    aufgehen, und Werte gross genug zum Ueberfliegen. */

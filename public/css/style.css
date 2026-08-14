@@ -136,8 +136,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
 .tree-file.locked-file:hover{color:var(--muted);background:rgba(255,255,255,.03)}
 
 /* file type colors */
-.ic-js{color:#E3B341}
-.ic-sql{color:#CC2936}.ic-md{color:#8B949E}.ic-json{color:#CBCB41}
+.ic-sql{color:#CC2936}.ic-json{color:#CBCB41}
 .ic-csv{color:#3FB950}
 
 /* ═══ SCHLOSS-SYMBOL ═══
@@ -259,11 +258,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
 .cmt{color:var(--dim);font-family:var(--mono);font-size:.79rem;font-style:italic}
 .kw{color:var(--purple);font-family:var(--mono)}
 .kw-b{color:var(--blue);font-family:var(--mono)}
-.kw-g{color:var(--green);font-family:var(--mono)}
 .str{color:var(--orange);font-family:var(--mono)}
 .fn{color:#79C0FF;font-family:var(--mono)}
 .punct{color:var(--muted);font-family:var(--mono)}
-.num{color:#79C0FF;font-family:var(--mono)}
 .type{color:var(--teal);font-family:var(--mono)}
 
 /* HERO */
@@ -887,7 +884,7 @@ body.voll-offen{overflow:hidden}
 }
 
 /* ═══ DEVICON — original technology icons ═══ */
-.tech-icon i, .tech-icon .devicon{font-size:1.8rem;line-height:1}
+.tech-icon i{font-size:1.8rem;line-height:1}
 .skill-ic{font-size:1.08rem;margin-right:.5rem;vertical-align:-2px}
 .skill-ic.colored{filter:none}
 .tech-card .tech-icon{display:flex;align-items:center;justify-content:center;height:1.8rem;margin-bottom:.7rem}

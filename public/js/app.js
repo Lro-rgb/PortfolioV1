@@ -93,7 +93,6 @@ const overlay=$('loginOverlay');
 ═══════════════════════════════════ */
 function tabEl(name){return document.querySelector('.tab[data-panel="'+name+'"]');}
 function isLocked(name){return LOCKED.indexOf(name)!==-1;}
-function isOpen(name){const t=tabEl(name);return !!t&&!t.classList.contains('closed');}
 function openTabNames(){
   return Array.from(document.querySelectorAll('.tab:not(.closed)')).map(t=>t.dataset.panel);
 }
