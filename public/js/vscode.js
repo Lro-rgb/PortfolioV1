@@ -111,7 +111,12 @@
     terminal: () => togglePanel(),
     theme: () => openPalette('>design '),
     explorer: toggleSidebar,
-    print: () => window.print(),
+    // Erst die Bilder der noch nie geoeffneten Bereiche holen — im Ausdruck
+    // stehen alle Bereiche untereinander —, dann den Dialog aufmachen.
+    print: async () => {
+      if (typeof alleBilderFreigeben === 'function') await alleBilderFreigeben();
+      window.print();
+    },
     mail: () => {
       window.location.href =
         'mailto:luisrosado008@gmail.com?subject=Praktikumsstelle%20Applikationsentwicklung';

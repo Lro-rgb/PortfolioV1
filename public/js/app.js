@@ -112,6 +112,52 @@ function switchableTabs(){
  * Öffnet einen Tab. Gesperrte Tabs verlangen vorher ein gültiges Token —
  * ohne das wird der Login-Dialog gezeigt und die Auswahl gemerkt.
  */
+/* Bilder eines Bereichs wirklich holen.
+
+   loading="lazy" allein hat hier nicht gereicht. Die Bereiche liegen alle im
+   selben Dokument und werden nur ueber eine Klasse ein- und ausgeblendet; fuer
+   den Browser stehen ihre Bilder damit an Position null und gelten als
+   sichtbar. Er hat sie deshalb sofort geladen — beim ersten Aufruf kamen ueber
+   fuenf Megabyte herunter, obwohl der Besucher nur die Startseite sieht und
+   die Bilder von Interessen und Projekten vielleicht nie ansteuert.
+
+   Darum steht die Adresse zunaechst in data-src, wo sie den Browser nicht
+   interessiert, und wandert erst hierher, wenn der Bereich geoeffnet wird. */
+function bilderFreigeben(panel,sofort){
+  if(!panel)return;
+  panel.querySelectorAll('img[data-src]').forEach(img=>{
+    /* Fuer den Ausdruck muss "lazy" weg. Die noch nie geoeffneten Bereiche
+       sind in dem Moment ausgeblendet, und ein ausgeblendetes Bild laedt der
+       Browser mit lazy grundsaetzlich nicht — es bliebe leer, obwohl es auf
+       dem Papier stehen soll. */
+    if(sofort)img.loading='eager';
+    img.src=img.dataset.src;
+    delete img.dataset.src;
+  });
+}
+
+/* Auf Papier stehen alle Bereiche untereinander, auch die nie geoeffneten.
+   Deren Bilder muessen also vorher noch geholt werden, sonst bleiben im
+   Ausdruck Luecken. Gibt die Rueckmeldung, wann alles geladen ist, damit der
+   Druckbefehl darauf warten kann — der Druckdialog selbst wartet nicht. */
+function alleBilderFreigeben(){
+  bilderFreigeben(document,true);
+  const offen=[...document.images].filter(img=>!img.complete);
+  if(!offen.length)return Promise.resolve();
+  return Promise.race([
+    Promise.all(offen.map(img=>new Promise(fertig=>{
+      img.addEventListener('load',fertig,{once:true});
+      img.addEventListener('error',fertig,{once:true});
+    }))),
+    // Wer offline ist oder ein Bild nicht bekommt, soll trotzdem drucken
+    // koennen, statt vor einem Dialog zu warten, der nie aufgeht.
+    new Promise(fertig=>setTimeout(fertig,3000))
+  ]);
+}
+/* Sicherheitsnetz fuer Strg+P und das Browsermenue: dort bleibt keine Zeit
+   zum Nachladen, aber angestossen ist besser als gar nicht. */
+window.addEventListener('beforeprint',()=>{bilderFreigeben(document,true);});
+
 function openTab(name,opts){
   opts=opts||{};
   const tab=tabEl(name);
@@ -133,6 +179,7 @@ function openTab(name,opts){
   });
   document.querySelectorAll('.editor-panel').forEach(p=>p.classList.remove('active'));
   $('panel-'+name).classList.add('active');
+  bilderFreigeben($('panel-'+name));
 
   document.querySelectorAll('.tree-file').forEach(f=>f.classList.toggle('active',f.dataset.open===name));
 
@@ -445,6 +492,20 @@ const MEDIA={
      format:'hoch' stellt das Video auf 340px Hoehe, statt es ueber die
      halbe Karte laufen zu lassen. */
   askel:{platzhalter:{video:true}},
+  /* Bildschirmaufnahme aus dem Android-Emulator: die Sammlung, dann drei
+     Rezepte im Detail. Die Datei ist 1280x720, das Handy darin steht aber
+     nur zwischen Pixel 478 und 800 — der Rest ist schwarz. Darum der
+     Zuschnitt; sollte die Aufnahme einmal im Hochformat neu exportiert
+     werden, kann er ersatzlos weg.
+
+     Was die Aufnahme nicht zeigt, sind Suche, Filter und die Validierung
+     der Eingabemaske. Genau darueber redet der Text auf der Karte, also
+     waere eine zweite, laengere Aufnahme hier gut angelegt. */
+  rezeptbuch:{
+    video:{src:'media/rezeptbuch.mp4',
+           titel:'Mein Rezeptbuch im Android-Emulator', dauer:'0:18',
+           zuschnitt:{x:478, breite:322, quelle:[1280,720], hoehe:440}}
+  },
   kobui:{platzhalter:{anzahl:2}},
   webshop:{format:'quer', platzhalter:{anzahl:2}},
   bookloan:{format:'quer', platzhalter:{anzahl:2}},
@@ -546,6 +607,179 @@ function renderAudio(){
   });
 }
 
+/* Zeitangabe fuer die Spurleiste: 7 Sekunden werden zu "0:07". */
+function zeitText(s){
+  if(!isFinite(s))s=0;
+  const m=Math.floor(s/60);
+  return m+':'+String(Math.floor(s%60)).padStart(2,'0');
+}
+
+/* Baut einen kleinen Abspieler um ein zugeschnittenes Video.
+
+   Warum nicht die eingebaute Steuerleiste: Der Zuschnitt schiebt das Video
+   im Rahmen nach links, und die Leiste des Browsers sitzt am Video, wandert
+   also mit. Der Abspielknopf landete dadurch ausserhalb des sichtbaren
+   Ausschnitts. Die Leiste hier haengt stattdessen unter dem Rahmen und ist
+   so breit wie die Karte, nicht so schmal wie der Ausschnitt.
+
+   Vollbild geht auf den ganzen Abspieler, damit die Leiste mitkommt. Der
+   Zuschnitt wird dabei aufgehoben — auf einem grossen Bildschirm ist Platz
+   genug fuer das ganze Bild, und die schwarzen Raender stoeren dort nicht,
+   weil das Video ohnehin 16:9 ist. */
+function baueVideoPlayer(v,zs){
+  const skala=zs.hoehe/zs.quelle[1];
+  const player=el('div','video-player');
+  const rahmen=el('div','video-crop');
+  v.classList.remove('hoch');
+  v.controls=false;
+
+  /* Setzt den Ausschnitt auf eine bestimmte Anzeigehoehe. Der Zuschnitt
+     bleibt auch in der Grossansicht bestehen — dort wird er nur groesser
+     gerechnet. Wuerde man ihn stattdessen aufheben, saehe man auf einem
+     grossen Bildschirm vor allem den schwarzen Rand in Gross, und das Handy
+     bliebe ein Streifen in der Mitte. */
+  function zuschnittSetzen(hoehe){
+    const s=hoehe/zs.quelle[1];
+    const b=Math.round(zs.breite*s);
+    /* Auch der Abspieler selbst wird auf die Breite des Ausschnitts
+       festgelegt. Sonst zieht ihn die Steuerleiste auf ihre eigene
+       Wunschbreite auseinander und steht rechts unter dem Bild hervor.
+       In der Grossansicht darf er die volle Breite nehmen, damit die
+       Leiste ueber den ganzen Bildschirm laeuft. */
+    player.style.width=player.classList.contains('voll')?'':b+'px';
+    rahmen.style.width=b+'px';
+    rahmen.style.height=Math.round(hoehe)+'px';
+    v.style.width=Math.round(zs.quelle[0]*s)+'px';
+    v.style.height=Math.round(hoehe)+'px';
+    v.style.marginLeft=Math.round(-zs.x*s)+'px';
+  }
+
+  /* Anzeigehoehe in der Grossansicht: so hoch wie der Platz ueber der
+     Leiste hergibt, aber hoechstens doppelt so hoch wie die Aufnahme
+     selbst. Weiter hochgerechnet wird die Schrift auf dem Handy nur
+     matschig — dieselbe Grenze wie bei den Screenshots in der
+     Vollansicht. */
+  function grossHoehe(){
+    const leisteH=leiste.offsetHeight||30;
+    return Math.min(zs.quelle[1]*2, window.innerHeight-leisteH-8);
+  }
+
+  // Grossflaechiger Knopf ueber dem Bild: startet und haelt an.
+  const overlay=document.createElement('button');
+  overlay.type='button';
+  overlay.className='video-play';
+  overlay.setAttribute('aria-label','Aufnahme abspielen');
+  overlay.innerHTML='<span aria-hidden="true">▶</span>';
+
+  const leiste=el('div','video-bar');
+  const btnPlay=document.createElement('button');
+  btnPlay.type='button';btnPlay.className='vb-btn';
+  btnPlay.setAttribute('aria-label','Abspielen');
+  btnPlay.innerHTML='<span aria-hidden="true">▶</span>';
+
+  const spur=document.createElement('input');
+  spur.type='range';spur.className='vb-seek';
+  spur.min=0;spur.max=100;spur.step=0.1;spur.value=0;
+  spur.setAttribute('aria-label','Position in der Aufnahme');
+
+  const zeit=el('span','vb-time','0:00 / 0:00');
+
+  const btnVoll=document.createElement('button');
+  btnVoll.type='button';btnVoll.className='vb-btn';
+  btnVoll.setAttribute('aria-label','Vollbild');
+  btnVoll.innerHTML='<span aria-hidden="true">⛶</span>';
+
+  leiste.append(btnPlay,spur,zeit,btnVoll);
+  rahmen.append(v,overlay);
+  player.append(rahmen,leiste);
+  zuschnittSetzen(zs.hoehe);
+
+  const umschalten=()=>{if(v.paused)v.play();else v.pause();};
+  overlay.addEventListener('click',umschalten);
+  btnPlay.addEventListener('click',umschalten);
+
+  function zustand(laeuft){
+    rahmen.classList.toggle('laeuft',laeuft);
+    overlay.setAttribute('aria-label',laeuft?'Aufnahme anhalten':'Aufnahme abspielen');
+    btnPlay.setAttribute('aria-label',laeuft?'Anhalten':'Abspielen');
+    btnPlay.firstChild.textContent=laeuft?'❚❚':'▶';
+  }
+  v.addEventListener('play',()=>zustand(true));
+  v.addEventListener('pause',()=>zustand(false));
+  v.addEventListener('ended',()=>zustand(false));
+
+  /* Waehrend am Regler gezogen wird, darf timeupdate ihn nicht
+     zurueckspringen lassen. */
+  let zieht=false;
+  spur.addEventListener('pointerdown',()=>{zieht=true;});
+  spur.addEventListener('input',()=>{
+    if(isFinite(v.duration))v.currentTime=v.duration*(spur.value/100);
+  });
+  const losLassen=()=>{zieht=false;};
+  spur.addEventListener('pointerup',losLassen);
+  spur.addEventListener('pointercancel',losLassen);
+  spur.addEventListener('blur',losLassen);
+
+  function zeitAnzeigen(){
+    zeit.textContent=zeitText(v.currentTime)+' / '+zeitText(v.duration);
+    if(!zieht&&isFinite(v.duration)&&v.duration>0){
+      spur.value=(v.currentTime/v.duration)*100;
+    }
+  }
+  v.addEventListener('loadedmetadata',zeitAnzeigen);
+  v.addEventListener('timeupdate',zeitAnzeigen);
+  if(v.readyState>=1)zeitAnzeigen();
+
+  /* Grossansicht.
+
+     Der erste Versuch ist echtes Vollbild ueber den ganzen Bildschirm. Das
+     klappt aber nicht ueberall: Auf dem iPhone kennt Safari die Funktion
+     nur am Video selbst, nicht an einem Kasten drumherum, und eingebettete
+     Ansichten duerfen sie teils gar nicht aufrufen. Wenn also etwas dagegen
+     spricht, legt sich der Abspieler stattdessen ueber die Seite. Das
+     Ergebnis ist fuer den Betrachter praktisch dasselbe und funktioniert
+     immer — besser als ein Knopf, der auf manchen Geraeten nichts tut. */
+  function ansichtSetzen(gross){
+    player.classList.toggle('voll',gross);
+    zuschnittSetzen(gross?grossHoehe():zs.hoehe);
+    btnVoll.setAttribute('aria-label',gross?'Grossansicht verlassen':'Grossansicht');
+  }
+  /* Wird das Fenster in der Grossansicht kleiner, muss der Ausschnitt mit. */
+  window.addEventListener('resize',()=>{
+    if(player.classList.contains('voll'))zuschnittSetzen(grossHoehe());
+  });
+  function ueberlagernAn(){
+    player.classList.add('fix');
+    document.body.classList.add('voll-offen');
+    ansichtSetzen(true);
+    btnVoll.focus();
+  }
+  function ueberlagernAus(){
+    player.classList.remove('fix');
+    document.body.classList.remove('voll-offen');
+    ansichtSetzen(false);
+  }
+  btnVoll.addEventListener('click',()=>{
+    if(player.classList.contains('fix')){ueberlagernAus();return;}
+    if(document.fullscreenElement===player){document.exitFullscreen();return;}
+    const versuch=player.requestFullscreen&&player.requestFullscreen();
+    if(versuch&&versuch.catch)versuch.catch(ueberlagernAn);
+    else if(!versuch)ueberlagernAn();
+  });
+  document.addEventListener('fullscreenchange',()=>{
+    if(player.classList.contains('fix'))return;
+    ansichtSetzen(document.fullscreenElement===player);
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&player.classList.contains('fix')){
+      e.preventDefault();
+      ueberlagernAus();
+    }
+  });
+
+  return player;
+}
+
 function renderProjectMedia(){
   document.querySelectorAll('[data-media]').forEach(box=>{
     const cfg=MEDIA[box.dataset.media];
@@ -560,7 +794,26 @@ function renderProjectMedia(){
       v.src=cfg.video.src;
       v.textContent='Ihr Browser kann dieses Video nicht abspielen.';
       const fig=el('figure','media-figure');
-      fig.appendChild(v);
+
+      /* Zuschnitt fuer Aufnahmen, bei denen das Bild breiter ist als das,
+         was darauf zu sehen ist. Der Emulator nimmt in 1280x720 auf, das
+         Handy darin ist aber nur 322 Pixel breit — drei Viertel der Datei
+         sind schwarzer Rand. Ohne Zuschnitt waere die App auf der Karte
+         daumennagelgross.
+
+         Geschnitten wird per CSS, nicht in der Datei: Ein Rahmen mit fester
+         Groesse blendet aus, das Video wird darin auf Hoehe gerechnet und
+         so weit nach links geschoben, dass der gewuenschte Ausschnitt im
+         Rahmen steht. Das Video bleibt unangetastet und laesst sich
+         jederzeit gegen eine sauber exportierte Fassung tauschen — dann
+         faellt einfach diese Angabe weg.
+
+         zuschnitt: {x, breite, quelle:[vollBreite, vollHoehe], hoehe} —
+         alle Werte in Pixeln des Originals ausser hoehe, das die
+         Darstellungshoehe auf der Karte ist. */
+      const zs=cfg.video.zuschnitt;
+      if(zs)fig.appendChild(baueVideoPlayer(v,zs));
+      else fig.appendChild(v);
       if(cfg.video.titel){
         fig.appendChild(el('figcaption','media-cap',
           esc(cfg.video.titel)+(cfg.video.dauer?' <span class="media-dur">'+esc(cfg.video.dauer)+'</span>':'')));
@@ -620,7 +873,7 @@ function renderProjectMedia(){
         b.dataset.group=box.dataset.media;
         b.dataset.index=String(i);
         const img=document.createElement('img');
-        img.src=s.src;img.alt=s.alt||'';img.loading='lazy';img.decoding='async';
+        img.dataset.src=s.src;img.alt=s.alt||'';img.loading='lazy';img.decoding='async';
         b.appendChild(img);
         grid.appendChild(b);
       });
@@ -689,7 +942,7 @@ function renderSliders(){
       btn.dataset.index=String(i);
       btn.setAttribute('aria-label','Bild vergrössern: '+(b.alt||('Bild '+(i+1))));
       const img=document.createElement('img');
-      img.src=b.src;img.alt=b.alt||'';img.loading='lazy';img.decoding='async';
+      img.dataset.src=b.src;img.alt=b.alt||'';img.loading='lazy';img.decoding='async';
       // Die Kachel ist immer gleich gross, die Bilder sind es nicht. Steht
       // das Wichtige nicht in der Mitte, verschiebt ausschnitt den
       // sichtbaren Bereich — 0% ganz nach links, 100% ganz nach rechts.
@@ -1491,14 +1744,35 @@ function downloadNotenCsv(){
   triggerDownload(new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'}),'noten-luis-rosado.csv');
 }
 
+/* jsPDF wird erst geholt, wenn jemand den Lebenslauf als PDF speichert —
+   eine drittel Megabyte, die sonst niemand braucht.
+
+   Das ist der einzige fremde Code, der auf dieser Seite ausgefuehrt wird, und
+   er laeuft genau dort, wo die geschuetzten Daten liegen. Deshalb haengt am
+   Skript eine Pruefsumme: Der Browser rechnet nach dem Laden selbst nach und
+   fuehrt die Datei nur aus, wenn sie Byte fuer Byte die erwartete ist. Wird
+   die Fassung auf dem CDN je ausgetauscht — versehentlich oder nicht —,
+   bleibt sie liegen, statt hier Zugriff auf Noten und Lebenslauf zu bekommen.
+
+   Wird die Version gewechselt, muss die Pruefsumme mit:
+   curl -s <URL> | openssl dgst -sha384 -binary | openssl base64 -A */
+const JSPDF_URL='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+const JSPDF_SRI='sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk';
+
 let jsPdfLoading=null;
 function loadJsPdf(){
   if(window.jspdf)return Promise.resolve();
   if(jsPdfLoading)return jsPdfLoading;
   jsPdfLoading=new Promise((resolve,reject)=>{
     const s=document.createElement('script');
-    s.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-    s.onload=resolve;s.onerror=reject;
+    s.src=JSPDF_URL;
+    s.integrity=JSPDF_SRI;
+    s.crossOrigin='anonymous';   // ohne das prueft der Browser die Summe nicht
+    s.onload=resolve;
+    s.onerror=()=>{
+      jsPdfLoading=null;   // ein spaeterer Versuch soll es neu probieren duerfen
+      reject(new Error('jsPDF konnte nicht geladen oder nicht geprueft werden.'));
+    };
     document.head.appendChild(s);
   });
   return jsPdfLoading;
@@ -1568,6 +1842,11 @@ function startApp(){
   else{token=null;sessionStorage.removeItem('lr_token');}
 
   renderAudio();
+  /* Die Zahl an der Projekt-Schaltfläche in der Aktivitätsleiste zählt die
+     Karten selbst ab. Sie stand vorher von Hand im HTML und war nach dem
+     Nachtragen eines Projekts prompt falsch. */
+  const projZahl=document.getElementById('actProjCount');
+  if(projZahl)projZahl.textContent=document.querySelectorAll('#panel-projekte .proj-card').length;
   renderProjectMedia();
   renderSliders();
   beobachteStatsfm();

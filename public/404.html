@@ -3,42 +3,108 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="robots" content="noindex"/>
-<meta name="theme-color" content="#0D1117"/>
+<meta name="description" content="Diese Seite gibt es auf dem Portfolio von Luis Rosado nicht. Zurück zur Startseite, zu den Projekten oder zum Kontakt."/>
+<meta name="robots" content="noindex, follow"/>
+<meta name="theme-color" content="#1e1e1e"/>
 <title>404 — Datei nicht gefunden · Luis Rosado</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+
+<!-- Nur die Farbwerte werden von aussen geholt, damit die Seite im gewaehlten
+     Design erscheint. Das Layout steht unten im Dokument.
+
+     Bewusst ohne style.css, vscode.css und Google Fonts: Eine Fehlerseite soll
+     auch dann noch lesbar sein, wenn mit den uebrigen Dateien etwas nicht
+     stimmt, und sie soll schnell da sein. Genau daran ist die vorherige
+     Fassung gescheitert — sie band style.css ein, aber nicht themes.css, und
+     stand deshalb ohne einen einzigen Farbwert da: schwarze Schrift auf
+     schwarzem Grund. Was hier gebraucht wird, steht jetzt im Dokument selbst,
+     und die Farben haben Rueckfallwerte. -->
+<link rel="stylesheet" href="/css/themes.css">
+
+<script>
+  // Gewaehltes Farbdesign setzen, bevor die Seite zeichnet — wie im Portfolio.
+  (function () {
+    try {
+      var t = localStorage.getItem('lr_theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch (e) { /* privater Modus: dann gilt das Standarddesign */ }
+  })();
+</script>
+
 <style>
-  body{overflow:auto}
-  .nf{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-      gap:1.4rem;padding:2rem;text-align:center}
-  .nf-code{font-family:var(--mono);font-size:clamp(3.5rem,12vw,7rem);font-weight:700;
-      line-height:1;color:var(--text);letter-spacing:-.03em}
-  .nf-code span{color:var(--red)}
-  .nf-box{background:var(--sb);border:1px solid var(--border);padding:1.1rem 1.4rem;
-      font-family:var(--mono);font-size:.8rem;line-height:2;text-align:left;
-      max-width:min(520px,92vw);overflow-x:auto}
-  .nf-txt{font-family:var(--mono);font-size:.85rem;color:var(--muted);max-width:46ch}
+  /* Rueckfallwerte fuer den Fall, dass themes.css nicht geladen werden kann.
+     Dann sieht die Seite zwar nicht nach dem gewaehlten Design aus, ist aber
+     lesbar — und darum geht es hier. */
+  :root{
+    --nf-bg: var(--bg, #1e1e1e);
+    --nf-panel: var(--sb, #252526);
+    --nf-line: var(--border, #3c3c3c);
+    --nf-text: var(--text, #cccccc);
+    --nf-muted: var(--muted, #9d9d9d);
+    --nf-akzent: var(--blue, #4daafc);
+    --nf-rot: var(--red, #f14c4c);
+    --nf-mono: var(--mono, ui-monospace, 'JetBrains Mono', Consolas, monospace);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:2rem 1.25rem;min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--nf-bg);color:var(--nf-text);font-family:var(--nf-mono);
+    font-size:15px;line-height:1.6}
+  main{width:100%;max-width:560px}
+
+  .nf-code{font-size:clamp(3.5rem,13vw,6rem);font-weight:700;line-height:1;
+    letter-spacing:-.04em;margin:0 0 .6rem}
+  .nf-code span{color:var(--nf-rot)}
+  .nf-lead{margin:0 0 1.6rem;color:var(--nf-muted);font-size:.9rem}
+
+  /* Terminalausgabe: zeigt die Adresse, die nicht gefunden wurde. Sie wird
+     unten per Skript eingesetzt und dabei als Text behandelt, nie als HTML. */
+  .nf-term{background:var(--nf-panel);border:1px solid var(--nf-line);
+    border-radius:3px;padding:.9rem 1rem;font-size:.78rem;line-height:1.9;
+    overflow-x:auto;margin:0 0 1.6rem}
+  .nf-prompt{color:var(--nf-akzent)}
+  .nf-err{color:var(--nf-rot)}
+  .nf-cmt{color:var(--nf-muted)}
+  .nf-pfad{color:var(--nf-text);word-break:break-all}
+
+  .nf-links{display:flex;flex-wrap:wrap;gap:.6rem;margin:0;padding:0;list-style:none}
+  .nf-links a{display:inline-block;padding:.5rem .9rem;font-size:.78rem;
+    color:var(--nf-text);text-decoration:none;
+    border:1px solid var(--nf-line);border-radius:3px;background:var(--nf-panel)}
+  .nf-links a:hover,.nf-links a:focus-visible{border-color:var(--nf-akzent);
+    color:var(--nf-akzent)}
+  .nf-links a:focus-visible{outline:2px solid var(--nf-akzent);outline-offset:2px}
 </style>
 </head>
 <body>
-  <main class="nf">
-    <div class="nf-code">4<span>0</span>4</div>
-    <p class="nf-txt">Diese Datei existiert nicht im Projekt.</p>
+  <main>
+    <h1 class="nf-code">4<span>0</span>4</h1>
+    <p class="nf-lead">Diese Datei existiert nicht im Projekt.</p>
 
-    <div class="nf-box">
-      <div><span class="kw-r">Error</span><span class="punct">: </span><span class="str">ENOENT</span></div>
-      <div class="cmt">// no such file or directory</div>
-      <div><span class="kw">const</span> <span class="kw-b">zurueck</span> <span class="punct">=</span> <span class="str">"/"</span><span class="punct">;</span></div>
+    <div class="nf-term">
+      <div><span class="nf-prompt">~/luis-rosado</span> $ cat <span class="nf-pfad" id="nfPfad">.</span></div>
+      <div><span class="nf-err">cat: ENOENT</span> — no such file or directory</div>
+      <div class="nf-cmt">// Vertippt, oder der Verweis ist veraltet.</div>
     </div>
 
-    <div class="cta-row" style="justify-content:center">
-      <a class="cta cta-primary" href="/">← Zurück zum Portfolio</a>
-      <a class="cta" href="/#kontakt">Kontakt</a>
-    </div>
+    <ul class="nf-links">
+      <li><a href="/">← Zurück zum Portfolio</a></li>
+      <li><a href="/#projekte">Projekte</a></li>
+      <li><a href="/#kontakt">Kontakt</a></li>
+    </ul>
   </main>
+
+<script>
+  /* Die angefragte Adresse in die Terminalzeile setzen. Ueber textContent,
+     damit ein Pfad wie /<script>… als Text ankommt und nicht ausgefuehrt
+     wird: Die Adresse stammt vom Besucher und ist damit nichts, dem man
+     trauen darf. Gekuerzt, damit eine sehr lange Adresse das Layout nicht
+     auseinanderzieht. */
+  (function () {
+    var pfad = location.pathname + location.search;
+    if (pfad.length > 120) pfad = pfad.slice(0, 120) + '…';
+    document.getElementById('nfPfad').textContent = pfad;
+  })();
+</script>
 </body>
 </html>

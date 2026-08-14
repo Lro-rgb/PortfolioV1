@@ -172,7 +172,7 @@
     <button type="button" class="act-btn" data-open="projekte" title="Projekte">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><circle cx="18" cy="9" r="2.6"/><path d="M6 8.6v6.8M8.6 6H14a2 2 0 0 1 2 2v.6"/></svg>
       <span class="vh">Projekte</span>
-      <span class="act-badge" id="actProjCount">9</span>
+      <span class="act-badge" id="actProjCount">10</span>
     </button>
 
     <button type="button" class="act-btn" data-cmd="terminal" title="Terminal (Strg+^)">
@@ -374,6 +374,9 @@
                 <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
                   <span class="sk-name"><i class="devicon-react-original colored skill-ic"></i>React / React Native<span class="vh"> — in einem Projekt eingesetzt</span></span>
                   <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">Askel</button><button type="button" class="sk-chip" data-open="projekte">Kobui</button></span></li>
+                <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
+                  <span class="sk-name"><i class="devicon-csharp-plain colored skill-ic"></i>C# / .NET MAUI<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">Mein Rezeptbuch</button></span></li>
                 <li class="sk"><span class="sk-dot d-base" aria-hidden="true"></span>
                   <span class="sk-name"><i class="devicon-jest-plain colored skill-ic"></i>Jest<span class="vh"> — Grundlagen aus dem Unterricht</span></span>
                   <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">Askel</button></span></li>
@@ -449,7 +452,7 @@
                 <div class="cl"><span class="punct">}</span></div>
                 <br>
                 <div class="cl"><span class="kw">const</span> <span class="kw-b">luis</span><span class="punct">:</span> <span class="type">TechStack</span> <span class="punct">= {</span></div>
-                <div class="cl i1"><span class="kw-b">languages</span><span class="punct">: [</span><span class="str">"Python"</span><span class="punct">,</span> <span class="str">"JavaScript"</span><span class="punct">,</span> <span class="str">"SQL"</span><span class="punct">,</span> <span class="str">"HTML/CSS"</span><span class="punct">],</span></div>
+                <div class="cl i1"><span class="kw-b">languages</span><span class="punct">: [</span><span class="str">"Python"</span><span class="punct">,</span> <span class="str">"JavaScript"</span><span class="punct">,</span> <span class="str">"C#"</span><span class="punct">,</span> <span class="str">"SQL"</span><span class="punct">,</span> <span class="str">"HTML/CSS"</span><span class="punct">],</span></div>
                 <div class="cl i1"><span class="kw-b">databases</span><span class="punct">: [</span><span class="str">"MariaDB"</span><span class="punct">,</span> <span class="str">"Redis (NoSQL)"</span><span class="punct">],</span></div>
                 <div class="cl i1"><span class="kw-b">tools</span><span class="punct">: [</span><span class="str">"Git"</span><span class="punct">,</span> <span class="str">"GitHub"</span><span class="punct">,</span> <span class="str">"GitLab"</span><span class="punct">,</span> <span class="str">"VS Code"</span><span class="punct">],</span></div>
                 <div class="cl i1"><span class="kw-b">os</span><span class="punct">: [</span><span class="str">"Windows 11"</span><span class="punct">,</span> <span class="str">"Arch Linux"</span><span class="punct">]</span><span class="punct">,</span></div>
@@ -463,6 +466,8 @@
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-html5-plain colored"></i></span><div class="tech-name">HTML5</div><div class="tech-cat">Frontend</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-css3-plain colored"></i></span><div class="tech-name">CSS3</div><div class="tech-cat">Frontend</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-javascript-plain colored"></i></span><div class="tech-name">JavaScript</div><div class="tech-cat">Frontend / Logic</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-csharp-plain colored"></i></span><div class="tech-name">C#</div><div class="tech-cat">Programmierung</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-dotnetcore-plain colored"></i></span><div class="tech-name">.NET MAUI</div><div class="tech-cat">Mobile / UI</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-mysql-plain colored"></i></span><div class="tech-name">MariaDB</div><div class="tech-cat">Datenbank</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-redis-plain colored"></i></span><div class="tech-name">Redis</div><div class="tech-cat">NoSQL / Key-Value</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-flask-original"></i></span><div class="tech-name">Flask</div><div class="tech-cat">Backend</div></div>
@@ -628,6 +633,36 @@
                   <div class="chips"><span class="chip">React Native</span><span class="chip">Expo</span><span class="chip">TypeScript</span><span class="chip">expo-location</span><span class="chip">Jest</span></div>
                   <div class="proj-links">
                     <a href="https://github.com/Lro-rgb/Askel" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                  </div>
+                </article>
+
+                <article class="proj-card" id="proj-rezeptbuch">
+                  <div class="proj-type">// Schulprojekt · Modul 322 · eigenständig</div>
+                  <h4 class="proj-t">Mein Rezeptbuch</h4>
+                  <p class="proj-abstract"><strong>Abstract</strong>Eine Android-App zum Verwalten von Rezepten, geschrieben in C# mit .NET MAUI. Vier Bereiche über eine Tab-Leiste: die Sammlung mit Suche und Vegetarisch-Filter, eine Eingabemaske mit Validierung, eine FAQ-Seite und eine Info-Seite. Auftrag im Modul 322 für einen fiktiven Kunden, von der Oberfläche bis zur Logik allein umgesetzt.</p>
+                  <div class="proj-media" data-media="rezeptbuch"></div>
+                  <div class="proj-body">
+                    <strong>Aufbau.</strong> Die App folgt MVVM, also der Trennung von Oberfläche und Logik. Die Views sind XAML-Dateien und enthalten keine Logik, der Zustand liegt in den ViewModels, und ein <code>RezeptService</code> als Singleton hält die Rezepte. Eine <code>BaseViewModel</code> mit <code>SetProperty</code> und <code>INotifyPropertyChanged</code> sorgt dafür, dass die Oberfläche jede Änderung von selbst mitbekommt: Ich setze eine Eigenschaft im Code, und das Feld auf dem Bildschirm aktualisiert sich, ohne dass ich es anfasse. Das war der Punkt, an dem Datenbindung für mich zum ersten Mal Sinn ergeben hat.
+                    <br><br>
+                    <strong>Validierung.</strong> Titel und Beschreibung sind Pflichtfelder und werden beim Tippen geprüft, nicht erst beim Speichern. Der Titel braucht mindestens drei Zeichen, die Beschreibung zehn; die Meldung steht direkt am Feld statt in einem Dialog, der erst nach dem Absenden aufgeht. Die Navigation läuft über die Shell mit benannten Routen, das Detail einer Karte wird als <code>RezeptDetailPage?RezeptId=…</code> aufgerufen.
+                    <br><br>
+                    <strong>Was sie nicht kann.</strong> Die Rezepte liegen nur im Arbeitsspeicher. Schliesst man die App, sind die selbst angelegten wieder weg und nur die vier Beispielrezepte da. Bilder gibt es ebenfalls keine, nur Platzhalter. Beides war im Auftrag nicht verlangt — es ging um Oberfläche und Datenbindung — aber es ist die erste Sache, die ich nachziehen würde: eine SQLite-Datei hinter denselben <code>RezeptService</code> hängen, damit der Rest der App unverändert bleibt.
+                  </div>
+                  <dl class="proj-meta">
+                    <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt: Oberfläche, ViewModels und Datenhaltung</dd></div>
+                    <div><dt>Gelernt</dt><dd>
+                      <ul class="proj-ul">
+                        <li>C# in einem echten Projekt statt in Übungsaufgaben</li>
+                        <li>MVVM: warum die Oberfläche nichts über die Datenhaltung wissen soll</li>
+                        <li>Datenbindung mit <code>INotifyPropertyChanged</code> statt Felder von Hand nachzuführen</li>
+                        <li>Oberflächen in XAML aufbauen und über Styles zentral gestalten</li>
+                        <li>Eingaben prüfen, während getippt wird, nicht erst beim Absenden</li>
+                      </ul>
+                    </dd></div>
+                  </dl>
+                  <div class="chips"><span class="chip">C#</span><span class="chip">.NET MAUI</span><span class="chip">XAML</span><span class="chip">MVVM</span><span class="chip">Android</span></div>
+                  <div class="proj-links">
+                    <a href="https://github.com/Lro-rgb/MeinRezeptbuch" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
                   </div>
                 </article>
 
@@ -858,14 +893,17 @@
                 <div class="fold-body" id="impressumBody">
                   <dl class="imp-list">
                     <div><dt>Verantwortlich</dt><dd>Luis Rosado</dd></div>
-                    <div><dt>Anschrift</dt><dd>Pleerweg 13D, 3400 Burgdorf, Schweiz</dd></div>
+                    <!-- Anschrift als Verweis auf die Karte: Wer schaut, wie weit
+                         der Weg zum Betrieb waere, kommt mit einem Klick hin,
+                         statt die Adresse abzutippen. -->
+                    <div><dt>Anschrift</dt><dd><a href="https://www.google.com/maps/search/?api=1&amp;query=Pleerweg+13D%2C+3400+Burgdorf%2C+Schweiz" target="_blank" rel="noopener noreferrer" title="Auf Google Maps ansehen">Pleerweg 13D, 3400 Burgdorf, Schweiz</a></dd></div>
                     <div><dt>E-Mail</dt><dd><a href="mailto:luisrosado008@gmail.com">luisrosado008@gmail.com</a></dd></div>
                     <div><dt>Zweck</dt><dd>Persönliche Portfolio- und Bewerbungswebsite im Rahmen der Ausbildung an der IMS an der BWD Bern. Keine kommerzielle Nutzung.</dd></div>
                     <div><dt>Hosting</dt><dd>Vercel Inc.</dd></div>
                     <div><dt>Quellcode</dt><dd><a href="https://github.com/Lro-rgb/PortfolioV1" target="_blank" rel="noopener noreferrer">github.com/Lro-rgb/PortfolioV1</a></dd></div>
                     <div><dt>Schriften</dt><dd>JetBrains Mono und Inter über Google Fonts (SIL Open Font License)</dd></div>
                     <div><dt>Bildnachweis</dt><dd>Technologie-Logos von <a href="https://devicon.dev" target="_blank" rel="noopener noreferrer">Devicon</a> (MIT-Lizenz). Key-Art der Spiele von Steam, Album- und Bandcover aus dem Angebot von Apple und der Open Library — Rechte bei den jeweiligen Studios, Labels und Verlagen. Alle übrigen Inhalte stammen von mir.</dd></div>
-                    <div><dt>Externe Daten</dt><dd>Die Hörstatistiken auf der Interessen-Seite werden beim Aufruf von <a href="https://stats.fm" target="_blank" rel="noopener noreferrer">stats.fm</a> geladen. Dabei erfährt stats.fm Ihre IP-Adresse.</dd></div>
+                    <div><dt>Externe Daten</dt><dd>Die Hörstatistiken auf der Interessen-Seite werden beim Aufruf von <a href="https://stats.fm" target="_blank" rel="noopener noreferrer">stats.fm</a> geladen. Dabei erfährt stats.fm Ihre IP-Adresse. Der Verweis auf die Anschrift führt zu Google Maps — dorthin gelangen Ihre Daten aber erst, wenn Sie ihn anklicken.</dd></div>
                   </dl>
                 </div>
               </div>

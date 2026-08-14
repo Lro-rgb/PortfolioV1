@@ -370,6 +370,59 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
    dem Video doppelt so hoch wie ihre Nachbarn und das Raster wirkte
    ausgefranst. */
 .proj-video.hoch{width:auto;height:340px;max-width:100%}
+/* Zuschnitt-Rahmen: blendet den schwarzen Rand einer Emulator-Aufnahme aus,
+   indem er das Video ueberlaufen laesst. Die Masse setzt app.js aus dem
+   MEDIA-Eintrag, hier steht nur, was unabhaengig vom einzelnen Video gilt.
+   Der Abspielknopf liegt darueber und verschwindet, sobald es laeuft. */
+.video-player{display:inline-block;max-width:100%}
+.video-crop{position:relative;overflow:hidden;background:#000;
+  border:1px solid var(--border);border-radius:3px 3px 0 0;max-width:100%}
+.video-crop .proj-video{border:0;border-radius:0;display:block}
+.video-play{position:absolute;inset:0;width:100%;height:100%;padding:0;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  background:rgba(0,0,0,.35);border:0;color:#fff;font-size:1.6rem;
+  transition:opacity .18s}
+.video-play:hover{background:rgba(0,0,0,.2)}
+.video-crop.laeuft .video-play{opacity:0;background:transparent}
+.video-crop.laeuft .video-play:hover,
+.video-play:focus-visible{opacity:1;background:rgba(0,0,0,.35)}
+@media (prefers-reduced-motion:reduce){.video-play{transition:none}}
+
+/* Eigene Steuerleiste, buendig unter dem Ausschnitt. Sie nimmt dessen
+   Breite an, statt darueber hinauszustehen — ein Kasten, der breiter ist
+   als das Bild darueber, sieht nach Versehen aus. Damit die vier Teile in
+   die schmale Zeile passen, ist alles knapp gehalten: die Spurleiste darf
+   schrumpfen, Knoepfe und Zeit bleiben. */
+.video-bar{display:flex;align-items:center;gap:.3rem;
+  padding:.3rem .35rem;background:var(--sb);
+  border:1px solid var(--border);border-top:0;border-radius:0 0 3px 3px}
+.vb-btn{flex:none;padding:.1rem .25rem;background:none;border:0;cursor:pointer;
+  color:var(--text);font-size:.72rem;line-height:1;border-radius:2px}
+.vb-btn:hover{color:var(--blue);background:var(--list-hover)}
+.vb-time{flex:none;font-family:var(--mono);font-size:.6rem;color:var(--muted);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.vb-seek{flex:1;min-width:34px;height:3px;-webkit-appearance:none;appearance:none;
+  background:var(--border);border-radius:2px;cursor:pointer}
+.vb-seek::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+  width:11px;height:11px;border-radius:50%;background:var(--blue);border:0;cursor:pointer}
+.vb-seek::-moz-range-thumb{width:11px;height:11px;border-radius:50%;
+  background:var(--blue);border:0;cursor:pointer}
+.vb-seek:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+/* Grossansicht: der Zuschnitt wird in app.js aufgehoben, hier bekommt das
+   Video den ganzen Platz ueber der Leiste. Gilt fuer echtes Vollbild und
+   fuer die Rueckfallebene, die sich nur ueber die Seite legt. */
+.video-player.voll{display:flex;flex-direction:column;width:100%;height:100%;
+  background:#000}
+/* margin:auto zentriert den Ausschnitt im Platz, der ueber der Leiste
+   uebrig bleibt — waagrecht und senkrecht zugleich. */
+.video-player.voll .video-crop{margin:auto;border:0;border-radius:0}
+.video-player.voll .video-bar{flex:none;border:0;border-radius:0}
+/* Ueber allem der Seite, aber unter Login-Dialog (900) und Vollansicht der
+   Screenshots (950) — die duerfen die Grossansicht ueberdecken. */
+.video-player.fix{position:fixed;inset:0;z-index:890;max-width:none}
+/* Solange die Grossansicht liegt, soll die Seite darunter nicht mitrollen. */
+body.voll-offen{overflow:hidden}
 .media-cap{font-family:var(--mono);font-size:.68rem;color:var(--dim);margin-top:.45rem;
   display:flex;gap:.6rem;align-items:baseline}
 .media-dur{color:var(--blue)}
