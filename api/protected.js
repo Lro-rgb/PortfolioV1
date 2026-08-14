@@ -62,7 +62,7 @@ const DATA = {
         zeitraum: '2024 – 2028',
         titel: 'Informatikmittelschule (IMS), Informatiker EFZ Applikationsentwicklung',
         ort: 'bwd Bern',
-        notiz: 'Drei Jahre Vollzeitschule mit Berufsmaturitaet Wirtschaft, danach ein Jahr Praktikum.'
+        notiz: 'Drei Jahre Vollzeitschule mit Berufsmaturität Wirtschaft, danach ein Jahr Praktikum.'
       },
       {
         zeitraum: '2015 – 2024',
@@ -71,13 +71,25 @@ const DATA = {
         notiz: 'Abschluss Sekundarstufe I.'
       }
     ],
-    erfahrung: [],
+    /* Dieselbe Stelle steht bewusst zweimal: unter Berufserfahrung, weil sie
+       meine einzige ist und die Spalte sonst leer bliebe, und unter
+       Nebenjobs, weil die IMS-Checkliste beides ausdruecklich verlangt. Die
+       Beschreibung ist verschieden — oben die Aufgaben, unten die Art des
+       Einsatzes. */
+    erfahrung: [
+      {
+        zeitraum: '04/2023 – heute',
+        titel: 'Aushilfe / Springer',
+        ort: 'Bahnhof Apotheke Achillea, Burgdorf',
+        notiz: 'Auslieferung von Medikamenten an Kundinnen und Kunden, Verwaltung und fachgerechte Entsorgung vertraulicher Unterlagen, Ordnung und Sauberkeit in den Apothekenräumen.'
+      }
+    ],
     nebenjobs: [
       {
         zeitraum: 'seit 2023, jeweils in den Schulferien',
         titel: 'Aushilfe / Ferienvertretung',
         ort: 'Bahnhof Apotheke Achillea, Burgdorf',
-        notiz: 'Auslieferung von Medikamenten an Kundinnen und Kunden, Reinigung der Apothekenraeume sowie Entsorgung und Aktenvernichtung. Einsatz als Vertretung fuer Mitarbeitende, die in den Ferien sind.'
+        notiz: 'Einsatz als Vertretung für Mitarbeitende, die in den Ferien sind. Neben der Schule und während der Ferien, mit selbstständig erledigten Aufträgen.'
       }
     ],
     zertifikate: [],

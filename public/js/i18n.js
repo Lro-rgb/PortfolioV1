@@ -17,8 +17,8 @@
   var translations = {
     de: {
       "meta.title": "Luis Rosado · Informatiker EFZ Applikationsentwicklung",
-      "meta.description": "Portfolio von Luis Rosado · Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt.",
-      "meta.twitterDescription": "Portfolio von Luis Rosado · Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern.",
+      "meta.description": "Portfolio von Luis Rosado · Informatiker EFZ Applikationsentwicklung, IMS an der bwd Bern. Skills, Projekte, Tech Stack und Kontakt.",
+      "meta.twitterDescription": "Portfolio von Luis Rosado · Informatiker EFZ Applikationsentwicklung, IMS an der bwd Bern.",
 
       "chrome.skipLink": "Zum Inhalt springen",
       "splash.ariaLabel": "Seite wird geladen",
@@ -177,7 +177,7 @@
       "term.fileNotFound": "Datei nicht gefunden: ",
       "term.opening": "Öffne ",
       "term.projectsLoading": "Projekte werden geladen — <code>open projekte</code>.",
-      "term.whoami": "Luis Rosado — Informatiker EFZ, Applikationsentwicklung<br>IMS an der BWD Bern, 3. Ausbildungsjahr, Burgdorf BE<br>Status: auf der Suche nach einer Praktikumsstelle",
+      "term.whoami": "Luis Rosado — Informatiker EFZ, Applikationsentwicklung<br>IMS an der bwd Bern, 3. Ausbildungsjahr, Burgdorf BE<br>Status: auf der Suche nach einer Praktikumsstelle",
       "term.contact": "E-Mail:  <code>luisrosado008@gmail.com</code><br>GitHub:  <code>github.com/Lro-rgb</code><br>Schreiben: <code>open kontakt</code>",
       "term.design.current": "Aktuell: ",
       "term.design.available": "Verfügbar: ",
@@ -193,7 +193,7 @@
       "lightbox.close": "Vollansicht schliessen",
 
       "home.role": "Informatiker EFZ Applikationsentwicklung&nbsp;<span class=\"blink\" aria-hidden=\"true\"></span>",
-      "home.intro": "<p>Ich mache die IMS an der BWD Bern und bin im dritten Jahr auf dem Weg zum Informatiker EFZ, Fachrichtung Applikationsentwicklung.</p><p>Wenn mich etwas interessiert, baue ich es meistens einmal selbst nach, bis ich verstehe, warum es funktioniert. Aus dieser Angewohnheit sind die meisten Projekte auf dieser Seite entstanden.</p><p>Jetzt suche ich ein Praktikum, in dem ich in einem Team an Anwendungen mitarbeite, die auch wirklich jemand benutzt.</p>",
+      "home.intro": "<p>Ich mache die IMS an der bwd Bern und bin im dritten Jahr auf dem Weg zum Informatiker EFZ, Fachrichtung Applikationsentwicklung.</p><p>Wenn mich etwas interessiert, baue ich es meistens einmal selbst nach, bis ich verstehe, warum es funktioniert. Aus dieser Angewohnheit sind die meisten Projekte auf dieser Seite entstanden.</p><p>Jetzt suche ich ein Praktikum, in dem ich in einem Team an Anwendungen mitarbeite, die auch wirklich jemand benutzt.</p>",
       "home.cta.mail": "E-Mail schreiben",
       "home.cta.github": "GitHub ansehen",
       "home.cta.projects": "Projekte ansehen",
@@ -341,7 +341,7 @@
       "kontakt.access": "<p>Noten und Lebenslauf liegen im Ordner <code>unterlagen</code> hinter einem Passwort. Die Zugangsdaten bekommen die Schulleitung, die betreuenden Lehrpersonen und Betriebe, bei denen ich mich bewerbe. Falls Sie den Zugang brauchen und noch nicht haben, genügt eine kurze Mail.</p>",
       "kontakt.loginOpen": "Anmelden und öffnen",
       "kontakt.legal": "Impressum",
-      "kontakt.legalContent": "<div><dt>Verantwortlich</dt><dd>Luis Rosado</dd></div><div><dt>Anschrift</dt><dd><a href=\"https://www.google.com/maps/search/?api=1&amp;query=Pleerweg+13D%2C+3400+Burgdorf%2C+Schweiz\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Auf Google Maps ansehen\">Pleerweg 13D, 3400 Burgdorf, Schweiz</a></dd></div><div><dt>E-Mail</dt><dd><a href=\"mailto:luisrosado008@gmail.com\">luisrosado008@gmail.com</a></dd></div><div><dt>Zweck</dt><dd>Persönliche Portfolio- und Bewerbungswebsite im Rahmen der Ausbildung an der IMS an der BWD Bern. Keine kommerzielle Nutzung.</dd></div><div><dt>Hosting</dt><dd>Vercel Inc.</dd></div><div><dt>Quellcode</dt><dd><a href=\"https://github.com/Lro-rgb/PortfolioV1\" target=\"_blank\" rel=\"noopener noreferrer\">github.com/Lro-rgb/PortfolioV1</a></dd></div><div><dt>Schriften</dt><dd>JetBrains Mono und Inter über Google Fonts (SIL Open Font License)</dd></div><div><dt>Bildnachweis</dt><dd>Technologie-Logos von <a href=\"https://devicon.dev\" target=\"_blank\" rel=\"noopener noreferrer\">Devicon</a> (MIT-Lizenz). Key-Art der Spiele von Steam, Album- und Bandcover aus dem Angebot von Apple und der Open Library — Rechte bei den jeweiligen Studios, Labels und Verlagen. Alle übrigen Inhalte stammen von mir.</dd></div><div><dt>Externe Daten</dt><dd>Die Hörstatistiken auf der Interessen-Seite werden beim Aufruf von <a href=\"https://stats.fm\" target=\"_blank\" rel=\"noopener noreferrer\">stats.fm</a> geladen. Dabei erfährt stats.fm Ihre IP-Adresse. Der Verweis auf die Anschrift führt zu Google Maps — dorthin gelangen Ihre Daten aber erst, wenn Sie ihn anklicken.</dd></div>",
+      "kontakt.legalContent": "<div><dt>Verantwortlich</dt><dd>Luis Rosado</dd></div><div><dt>Anschrift</dt><dd><a href=\"https://www.google.com/maps/search/?api=1&amp;query=Pleerweg+13D%2C+3400+Burgdorf%2C+Schweiz\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Auf Google Maps ansehen\">Pleerweg 13D, 3400 Burgdorf, Schweiz</a></dd></div><div><dt>E-Mail</dt><dd><a href=\"mailto:luisrosado008@gmail.com\">luisrosado008@gmail.com</a></dd></div><div><dt>Zweck</dt><dd>Persönliche Portfolio- und Bewerbungswebsite im Rahmen der IMS-Ausbildung am bwd Bern. Keine kommerzielle Nutzung.</dd></div><div><dt>Hosting</dt><dd>Vercel Inc.</dd></div><div><dt>Quellcode</dt><dd><a href=\"https://github.com/Lro-rgb/PortfolioV1\" target=\"_blank\" rel=\"noopener noreferrer\">github.com/Lro-rgb/PortfolioV1</a></dd></div><div><dt>Schriften</dt><dd>JetBrains Mono und Inter über Google Fonts (SIL Open Font License)</dd></div><div><dt>Bildnachweis</dt><dd>Technologie-Logos von <a href=\"https://devicon.dev\" target=\"_blank\" rel=\"noopener noreferrer\">Devicon</a> (MIT-Lizenz). Key-Art der Spiele von Steam, Album- und Bandcover aus dem Angebot von Apple und der Open Library — Rechte bei den jeweiligen Studios, Labels und Verlagen. Alle übrigen Inhalte stammen von mir.</dd></div><div><dt>Externe Daten</dt><dd>Die Hörstatistiken auf der Interessen-Seite werden beim Aufruf von <a href=\"https://stats.fm\" target=\"_blank\" rel=\"noopener noreferrer\">stats.fm</a> geladen. Dabei erfährt stats.fm Ihre IP-Adresse. Der Verweis auf die Anschrift führt zu Google Maps — dorthin gelangen Ihre Daten aber erst, wenn Sie ihn anklicken.</dd></div>",
 
       "readme.h.about": "Über diese Seite",
       "readme.about": "<p>Diese Seite ist meine persönliche Website im Rahmen der IMS-Ausbildung und gleichzeitig Teil meiner Bewerbungsunterlagen. Ich habe sie von Hand gebaut, ohne Baukasten und ohne Framework.</p><p>Hier steht, warum sie so aussieht und funktioniert, wie sie es tut. Gestalterische Entscheidungen sind nachvollziehbar oder sie sind Zufall; ich möchte, dass meine nachvollziehbar sind.</p>",
@@ -366,8 +366,8 @@
     },
     en: {
       "meta.title": "Luis Rosado · Application Development Apprentice (EFZ)",
-      "meta.description": "Portfolio of Luis Rosado · Application Development Apprentice (EFZ), IMS at BWD Bern. Skills, projects, tech stack and contact.",
-      "meta.twitterDescription": "Portfolio of Luis Rosado · Application Development Apprentice (EFZ), IMS at BWD Bern.",
+      "meta.description": "Portfolio of Luis Rosado · Application Development Apprentice (EFZ), IMS at bwd Bern. Skills, projects, tech stack and contact.",
+      "meta.twitterDescription": "Portfolio of Luis Rosado · Application Development Apprentice (EFZ), IMS at bwd Bern.",
 
       "chrome.skipLink": "Skip to content",
       "splash.ariaLabel": "Page is loading",
@@ -526,7 +526,7 @@
       "term.fileNotFound": "File not found: ",
       "term.opening": "Opening ",
       "term.projectsLoading": "Projects are still loading — <code>open projekte</code>.",
-      "term.whoami": "Luis Rosado — Application Development Apprentice (EFZ)<br>IMS at BWD Bern, 3rd year of apprenticeship, Burgdorf BE<br>Status: looking for an internship",
+      "term.whoami": "Luis Rosado — Application Development Apprentice (EFZ)<br>IMS at bwd Bern, 3rd year of apprenticeship, Burgdorf BE<br>Status: looking for an internship",
       "term.contact": "Email:  <code>luisrosado008@gmail.com</code><br>GitHub:  <code>github.com/Lro-rgb</code><br>Write to me: <code>open kontakt</code>",
       "term.design.current": "Current: ",
       "term.design.available": "Available: ",
@@ -542,7 +542,7 @@
       "lightbox.close": "Close full view",
 
       "home.role": "Application Development Apprentice (EFZ)&nbsp;<span class=\"blink\" aria-hidden=\"true\"></span>",
-      "home.intro": "<p>I attend the IMS at BWD Bern and am in my third year working toward a federal VET diploma (EFZ) in application development.</p><p>When something interests me, I usually build my own version of it until I understand why it works. Most of the projects on this site started that way.</p><p>Right now I'm looking for an internship where I can work on a team building applications that real people actually use.</p>",
+      "home.intro": "<p>I attend the IMS at bwd Bern and am in my third year working toward a federal VET diploma (EFZ) in application development.</p><p>When something interests me, I usually build my own version of it until I understand why it works. Most of the projects on this site started that way.</p><p>Right now I'm looking for an internship where I can work on a team building applications that real people actually use.</p>",
       "home.cta.mail": "Send email",
       "home.cta.github": "View GitHub",
       "home.cta.projects": "View projects",
@@ -690,7 +690,7 @@
       "kontakt.access": "<p>Grades and CV sit behind a password in the <code>unterlagen</code> folder. Access is given to the school administration, supervising teachers, and companies I'm applying to. If you need access and don't have it yet, a short email is enough.</p>",
       "kontakt.loginOpen": "Log in and open",
       "kontakt.legal": "Legal Notice",
-      "kontakt.legalContent": "<div><dt>Responsible</dt><dd>Luis Rosado</dd></div><div><dt>Address</dt><dd><a href=\"https://www.google.com/maps/search/?api=1&amp;query=Pleerweg+13D%2C+3400+Burgdorf%2C+Schweiz\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"View on Google Maps\">Pleerweg 13D, 3400 Burgdorf, Switzerland</a></dd></div><div><dt>Email</dt><dd><a href=\"mailto:luisrosado008@gmail.com\">luisrosado008@gmail.com</a></dd></div><div><dt>Purpose</dt><dd>Personal portfolio and application website as part of my training at the IMS at BWD Bern. No commercial use.</dd></div><div><dt>Hosting</dt><dd>Vercel Inc.</dd></div><div><dt>Source code</dt><dd><a href=\"https://github.com/Lro-rgb/PortfolioV1\" target=\"_blank\" rel=\"noopener noreferrer\">github.com/Lro-rgb/PortfolioV1</a></dd></div><div><dt>Fonts</dt><dd>JetBrains Mono and Inter via Google Fonts (SIL Open Font License)</dd></div><div><dt>Image credits</dt><dd>Technology logos from <a href=\"https://devicon.dev\" target=\"_blank\" rel=\"noopener noreferrer\">Devicon</a> (MIT license). Game key art from Steam, album and manga covers from Apple's catalog and the Open Library — rights belong to the respective studios, labels and publishers. All other content is mine.</dd></div><div><dt>External data</dt><dd>The listening stats on the Interests page are loaded from <a href=\"https://stats.fm\" target=\"_blank\" rel=\"noopener noreferrer\">stats.fm</a> when the page opens. This lets stats.fm see your IP address. The address link goes to Google Maps — your data only reaches Google once you click it.</dd></div>",
+      "kontakt.legalContent": "<div><dt>Responsible</dt><dd>Luis Rosado</dd></div><div><dt>Address</dt><dd><a href=\"https://www.google.com/maps/search/?api=1&amp;query=Pleerweg+13D%2C+3400+Burgdorf%2C+Schweiz\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"View on Google Maps\">Pleerweg 13D, 3400 Burgdorf, Switzerland</a></dd></div><div><dt>Email</dt><dd><a href=\"mailto:luisrosado008@gmail.com\">luisrosado008@gmail.com</a></dd></div><div><dt>Purpose</dt><dd>Personal portfolio and application website as part of my training at the IMS at bwd Bern. No commercial use.</dd></div><div><dt>Hosting</dt><dd>Vercel Inc.</dd></div><div><dt>Source code</dt><dd><a href=\"https://github.com/Lro-rgb/PortfolioV1\" target=\"_blank\" rel=\"noopener noreferrer\">github.com/Lro-rgb/PortfolioV1</a></dd></div><div><dt>Fonts</dt><dd>JetBrains Mono and Inter via Google Fonts (SIL Open Font License)</dd></div><div><dt>Image credits</dt><dd>Technology logos from <a href=\"https://devicon.dev\" target=\"_blank\" rel=\"noopener noreferrer\">Devicon</a> (MIT license). Game key art from Steam, album and manga covers from Apple's catalog and the Open Library — rights belong to the respective studios, labels and publishers. All other content is mine.</dd></div><div><dt>External data</dt><dd>The listening stats on the Interests page are loaded from <a href=\"https://stats.fm\" target=\"_blank\" rel=\"noopener noreferrer\">stats.fm</a> when the page opens. This lets stats.fm see your IP address. The address link goes to Google Maps — your data only reaches Google once you click it.</dd></div>",
 
       "readme.h.about": "About This Site",
       "readme.about": "<p>This site is my personal website as part of my IMS education, and at the same time part of my application materials. I built it by hand, with no site builder and no framework.</p><p>This page explains why it looks and works the way it does. Design decisions are either traceable or they're arbitrary; I want mine to be traceable.</p>",
