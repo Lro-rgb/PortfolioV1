@@ -3,43 +3,35 @@
   "trailingSlash": false,
   "headers": [
     {
-      "//": "Sicherheitskopfzeilen fuer die ganze Seite. Sie kosten nichts und nehmen dem Browser die Entscheidung ab, wo er ueberall mitspielen darf.",
       "source": "/(.*)",
       "headers": [
         {
-          "//": "Content-Security-Policy: sagt dem Browser, von wo er ueberhaupt etwas laden darf. Alles, was nicht hier steht, wird abgewiesen — auch dann, wenn es jemand ueber eine Luecke in die Seite geschrieben haette. script-src erlaubt neben der eigenen Herkunft nur cdnjs, von wo jsPDF fuer den Lebenslauf-Export kommt; dieses Skript ist zusaetzlich mit einer Pruefsumme abgesichert. 'unsafe-inline' ist bei Skripten noetig, weil das Farbdesign vor dem ersten Zeichnen gesetzt wird, und bei Stilen, weil einzelne Masse zur Laufzeit gesetzt werden. Die Bild-Hosts sind die, von denen stats.fm seine Cover ausliefert — fehlt dort spaeter einmal ein Bild, ist wahrscheinlich ein Host dazugekommen und gehoert hier ergaenzt.",
           "key": "Content-Security-Policy",
           "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https://i.scdn.co https://p.scdn.co https://is1-ssl.mzstatic.com https://f003.backblazeb2.com; media-src 'self'; connect-src 'self' https://api.stats.fm; frame-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests"
         },
         {
-          "//": "Verhindert, dass die Seite in einem fremden Rahmen steckt und jemand Klicks darauf umleitet. Doppelt zu frame-ancestors, fuer aeltere Browser.",
           "key": "X-Frame-Options",
           "value": "DENY"
         },
         {
-          "//": "Der Browser soll Dateien so behandeln, wie sie ausgezeichnet sind, und nicht selbst raten. Sonst kann ein hochgeladenes Bild als Skript ausgefuehrt werden.",
           "key": "X-Content-Type-Options",
           "value": "nosniff"
         },
         {
-          "//": "Beim Weggehen erfaehrt die Zielseite nur die Herkunft, nicht die genaue Adresse.",
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
         },
         {
-          "//": "Kamera, Mikrofon und Standort braucht die Seite nicht — also gar nicht erst erlauben.",
           "key": "Permissions-Policy",
           "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
         },
         {
-          "//": "Zwei Jahre lang nur noch verschluesselt aufrufen.",
           "key": "Strict-Transport-Security",
           "value": "max-age=63072000; includeSubDomains; preload"
         }
       ]
     },
     {
-      "//": "HTML, CSS und JS immer frisch pruefen: die Seite aendert sich haeufiger als der Rest.",
       "source": "/(.*)\\.(html|css|js)",
       "headers": [
         {
@@ -58,7 +50,6 @@
       ]
     },
     {
-      "//": "Bilder, Video und Schriften aendern sich praktisch nie. Ein Jahr im Zwischenspeicher spart bei jedem weiteren Besuch die gesamte Uebertragung — das ist der groesste Hebel fuer die Ladezeit, denn hier liegen mehrere Megabyte.",
       "source": "/(.*)\\.(jpg|jpeg|png|webp|svg|gif|ico|mp4|mp3|m4a|woff|woff2|ttf|pdf)",
       "headers": [
         {
@@ -68,7 +59,6 @@
       ]
     },
     {
-      "//": "Antworten des geschuetzten Bereichs gehoeren in keinen Zwischenspeicher.",
       "source": "/api/(.*)",
       "headers": [
         {

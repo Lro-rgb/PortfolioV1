@@ -115,3 +115,44 @@ Mehr zu den Inhalten: siehe [`CONTENT-GUIDE.md`](CONTENT-GUIDE.md).
   nicht in Zwischenspeichern liegen bleiben.
 - Kein Wildcard-CORS: Frontend und API liegen auf derselben Herkunft, fremde
   Seiten haben keinen Grund, diese Endpunkte anzusprechen.
+
+## Was in `vercel.json` steht
+
+JSON kennt keine Kommentare, und Vercel weist die sonst übliche Behelfslösung
+mit einem `"//"`-Schlüssel beim Import zurück. Darum stehen die Begründungen
+für die Einträge hier.
+
+**Sicherheitskopfzeilen** (gelten für die ganze Seite, `source: "/(.*)"`):
+
+- `Content-Security-Policy` sagt dem Browser, von wo er überhaupt etwas laden
+  darf. Alles, was dort nicht steht, wird abgewiesen — auch dann, wenn es
+  jemand über eine Lücke in die Seite geschrieben hätte. `script-src` erlaubt
+  neben der eigenen Herkunft nur cdnjs, von wo jsPDF für den
+  Lebenslauf-Export kommt. `'unsafe-inline'` ist bei Skripten nötig, weil das
+  Farbdesign vor dem ersten Zeichnen gesetzt wird, und bei Stilen, weil
+  einzelne Masse zur Laufzeit gesetzt werden. Die Bild-Hosts sind die, von
+  denen stats.fm seine Cover ausliefert — fehlt dort später einmal ein Bild,
+  ist wahrscheinlich ein Host dazugekommen und gehört hier ergänzt.
+- `X-Frame-Options: DENY` verhindert, dass die Seite in einem fremden Rahmen
+  steckt und jemand Klicks darauf umleitet. Doppelt zu `frame-ancestors`, für
+  ältere Browser.
+- `X-Content-Type-Options: nosniff` — der Browser soll Dateien so behandeln,
+  wie sie ausgezeichnet sind, und nicht selbst raten. Sonst kann ein
+  hochgeladenes Bild als Skript ausgeführt werden.
+- `Referrer-Policy` — beim Weggehen erfährt die Zielseite nur die Herkunft,
+  nicht die genaue Adresse.
+- `Permissions-Policy` — Kamera, Mikrofon und Standort braucht die Seite
+  nicht, also gar nicht erst erlauben.
+- `Strict-Transport-Security` — zwei Jahre lang nur noch verschlüsselt
+  aufrufen.
+
+**Zwischenspeicher** (die drei übrigen `source`-Regeln):
+
+- HTML, CSS und JS werden immer frisch geprüft: die Seite ändert sich
+  häufiger als der Rest.
+- Bilder, Video und Schriften ändern sich praktisch nie. Ein Jahr im
+  Zwischenspeicher spart bei jedem weiteren Besuch die gesamte Übertragung —
+  das ist der grösste Hebel für die Ladezeit, denn dort liegen mehrere
+  Megabyte.
+- Antworten des geschützten Bereichs gehören in keinen Zwischenspeicher und
+  nicht in den Suchindex.

@@ -443,13 +443,22 @@ const MEDIA={
      mit "Bild folgt" an der auffaelligsten Stelle — das ist genau die
      Unruhe, die eine Uebersicht kaputt macht. Die Eintraege bleiben
      stehen, damit ein einziges Wort sie wieder einschaltet. */
+  /* Vier Aufnahmen der laufenden Seite, aufgenommen bei 1600x1000. Der
+     Text der Karte nennt Kommandopalette, Terminal und sechs Farbdesigns —
+     das eine Bild der Startseite hat davon nichts gezeigt. Jetzt steht
+     hinter jeder dieser Behauptungen ein Bild. */
   portfolio:{
     format:'quer',
     shots:[
       {src:'media/portfolio-home.png',
-       alt:'Die Startseite dieses Portfolios im VS-Code-Design: Explorer links, luis.json offen im Editor'}
-    ],
-    platzhalter:{anzahl:1}
+       alt:'Die Startseite dieses Portfolios im VS-Code-Design: Explorer links, luis.json offen im Editor'},
+      {src:'media/portfolio-palette.png',
+       alt:'Die Kommandopalette mit der Befehlsliste: Farbdesign wechseln, Terminal, Explorer, drucken — jeder Eintrag mit seinem Tastenkürzel'},
+      {src:'media/portfolio-terminal.png',
+       alt:'Das eingeblendete Terminal, darin der Befehl whoami mit seiner Ausgabe'},
+      {src:'media/portfolio-hell.jpg',
+       alt:'Dieselbe Seite im hellen Design Light+, offen ist die Projektübersicht mit zwei Karten'}
+    ]
   },
   /* Eigene Aufnahmen der beiden Geraete, oben und unten leicht
      zugeschnitten — der dunkle Tisch drumherum nahm sonst mehr Platz ein
