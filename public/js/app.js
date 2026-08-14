@@ -1850,18 +1850,22 @@ async function loadProtected(panel){
               lv.sprachen.map(s=>'<tr><td>'+esc(s.sprache)+'</td><td><span class="badge bb">'+esc(s.niveau)+'</span></td></tr>').join('')+
               '</table>'
             : EMPTY_MSG)+
-          '<h3 class="ed-h2">Zertifikate</h3>'+
+          /* Zertifikate erscheinen erst, wenn welche eingetragen sind — eine
+             Ueberschrift mit "noch keine Daten" darunter sagt einem Betrieb
+             nur, was fehlt. */
           (lv.zertifikate.length
-            ? '<table class="ed-table"><tr><th>Jahr</th><th>Titel</th><th>Anbieter</th></tr>'+
+            ? '<h3 class="ed-h2">Zertifikate</h3>'+
+              '<table class="ed-table"><tr><th>Jahr</th><th>Titel</th><th>Anbieter</th></tr>'+
               lv.zertifikate.map(z=>'<tr><td>'+esc(z.jahr)+'</td><td>'+esc(z.titel)+'</td><td>'+esc(z.anbieter)+'</td></tr>').join('')+
               '</table>'
-            : EMPTY_MSG);
+            : '');
         /* Die abgetippten Angaben oben und die unterschriebenen Unterlagen
            unten: derselbe Weg wie bei den Kompetenznachweisen, die Dateien
            kommen erst nach der Tokenpruefung aus /api/zeugnis. */
         box.innerHTML=(hasAny?inhalt:EMPTY_MSG)+
           '<h3 class="ed-h2" style="margin-top:2rem">Lebenslauf als PDF</h3>'+
           dokKnoepfe('cv')+
+          '<div class="zeugnis-vorschau" hidden></div>'+
           '<h3 class="ed-h2" style="margin-top:2rem">Arbeitsbestätigung</h3>'+
           '<p class="cv-dok-notiz">Bahnhof Apotheke Achillea, Burgdorf — Aushilfe / Springer.</p>'+
           dokKnoepfe('arbeitsbestaetigung')+
@@ -1935,9 +1939,17 @@ const DOKUMENTE={
 const dokTitel=k=>DOKUMENTE[k]?I18N.t(DOKUMENTE[k].titel):I18N.t('noten.previewTitle')+' '+k;
 const dokDatei=k=>DOKUMENTE[k]?DOKUMENTE[k].datei:'uek-modul-'+k+'-luis-rosado.pdf';
 
-/* Beide Bereiche — Noten und Lebenslauf — haben ein eigenes Vorschaufeld.
-   Das richtige ist das im selben Reiter wie die angeklickte Schaltflaeche. */
+/* Welches Vorschaufeld zu einer Schaltflaeche gehoert, in dieser Reihenfolge:
+   das Feld, in dem die Schaltflaeche selbst steht (der Schliessen-Knopf),
+   dann das Feld direkt unter dem Knopfpaar — so schiebt die Vorschau im
+   Lebenslauf die Arbeitsbestaetigung nach unten, statt ganz unten
+   aufzugehen —, und zuletzt das gemeinsame Feld des Reiters, das unter dem
+   Notenraster steht. */
 const vorschaufeld=el=>{
+  const drin=el.closest('.zeugnis-vorschau');
+  if(drin)return drin;
+  const akt=el.closest('.note-akt'),nach=akt&&akt.nextElementSibling;
+  if(nach&&nach.classList.contains('zeugnis-vorschau'))return nach;
   const p=el.closest('.editor-panel');
   return p?p.querySelector('.zeugnis-vorschau'):null;
 };
