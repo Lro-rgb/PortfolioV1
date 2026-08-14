@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Portfolio von Luis Rosado · Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt."/>
+<meta name="description" content="Portfolio von Luis Rosado · Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt." data-i18n-content="meta.description"/>
 <meta name="author" content="Luis Rosado"/>
 <meta name="theme-color" content="#1e1e1e"/>
-<title>Luis Rosado · Informatiker EFZ Applikationsentwicklung</title>
+<title data-i18n="meta.title">Luis Rosado · Informatiker EFZ Applikationsentwicklung</title>
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
@@ -15,17 +15,17 @@
 <meta property="og:type" content="website"/>
 <meta property="og:locale" content="de_CH"/>
 <meta property="og:site_name" content="Luis Rosado · Portfolio"/>
-<meta property="og:title" content="Luis Rosado · Informatiker EFZ Applikationsentwicklung"/>
-<meta property="og:description" content="Portfolio von Luis Rosado · Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt."/>
+<meta property="og:title" content="Luis Rosado · Informatiker EFZ Applikationsentwicklung" data-i18n-content="meta.title"/>
+<meta property="og:description" content="Portfolio von Luis Rosado · Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern. Skills, Projekte, Tech Stack und Kontakt." data-i18n-content="meta.description"/>
 <meta property="og:image" content="og-image.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
-<meta property="og:image:alt" content="Luis Rosado · Informatiker EFZ Applikationsentwicklung"/>
+<meta property="og:image:alt" content="Luis Rosado · Informatiker EFZ Applikationsentwicklung" data-i18n-content="meta.title"/>
 
 <!-- Twitter Card (nutzt dieselben Werte wie Open Graph) -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Luis Rosado · Informatiker EFZ Applikationsentwicklung"/>
-<meta name="twitter:description" content="Portfolio von Luis Rosado · Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern."/>
+<meta name="twitter:title" content="Luis Rosado · Informatiker EFZ Applikationsentwicklung" data-i18n-content="meta.title"/>
+<meta name="twitter:description" content="Portfolio von Luis Rosado · Informatiker EFZ Applikationsentwicklung, IMS an der BWD Bern." data-i18n-content="meta.twitterDescription"/>
 <meta name="twitter:image" content="og-image.png"/>
 
 <!-- Fonts -->
@@ -81,10 +81,10 @@
 </head>
 <body>
 
-<a class="skip-link" href="#editorScroll">Zum Inhalt springen</a>
+<a class="skip-link" href="#editorScroll" data-i18n="chrome.skipLink">Zum Inhalt springen</a>
 
 <!-- ══════════════ SPLASH ══════════════ -->
-<div id="splash" role="status" aria-live="polite" aria-label="Seite wird geladen">
+<div id="splash" role="status" aria-live="polite" aria-label="Seite wird geladen" data-i18n-aria-label="splash.ariaLabel">
   <div class="splash-logo">
     <div class="splash-icon" aria-hidden="true">⌨</div>
     <div class="splash-name">luis<span aria-hidden="true">.</span>dev</div>
@@ -92,13 +92,13 @@
   <div class="splash-files" id="splashFiles" aria-hidden="true"></div>
   <div class="splash-bar-wrap">
     <div class="splash-bar-label">
-      <span id="splashLabel">Initialisiere...</span>
+      <span id="splashLabel" data-i18n="splash.init">Initialisiere...</span>
       <span id="splashPct">0%</span>
     </div>
     <div class="splash-bar-track"><div class="splash-bar-fill" id="splashFill"></div></div>
   </div>
   <div class="splash-version" aria-hidden="true">Portfolio v1.0 · Luis Rosado</div>
-  <button type="button" class="splash-skip" id="splashSkip">Überspringen ↵</button>
+  <button type="button" class="splash-skip" id="splashSkip" data-i18n="splash.skip">Überspringen ↵</button>
 </div>
 
 <!-- ══════════════ LOGIN ══════════════ -->
@@ -106,22 +106,22 @@
   <div class="login-box">
     <div class="login-head">
       <div class="lh-dots">
-        <button type="button" class="lh-dot lh-close" style="background:#FF5F57" onclick="closeLogin()" aria-label="Dialog schliessen"></button>
+        <button type="button" class="lh-dot lh-close" style="background:#FF5F57" onclick="closeLogin()" aria-label="Dialog schliessen" data-i18n-aria-label="login.close"></button>
         <span class="lh-dot" style="background:#FFBD2E" aria-hidden="true"></span>
         <span class="lh-dot" style="background:#28CA41" aria-hidden="true"></span>
       </div>
-      <span class="login-title" id="loginTitle">authentication.js · Zugang erforderlich</span>
+      <span class="login-title" id="loginTitle" data-i18n="login.title">authentication.js · Zugang erforderlich</span>
     </div>
     <div class="login-body">
-      <p class="login-cmt">// Diese Datei ist passwortgeschützt.<br>// Nur für berechtigte Personen.</p>
-      <label class="login-label" for="loginInput">const password =</label>
+      <p class="login-cmt" data-i18n="login.comment">// Diese Datei ist passwortgeschützt.<br>// Nur für berechtigte Personen.</p>
+      <label class="login-label" for="loginInput" data-i18n="login.label">const password =</label>
       <div class="login-iw">
         <input class="login-in" id="loginInput" type="password" placeholder="••••••••" autocomplete="current-password" aria-describedby="loginErr"/>
-        <button type="button" class="login-tog" onclick="togglePw()" id="loginTog" aria-label="Passwort anzeigen">👁</button>
+        <button type="button" class="login-tog" onclick="togglePw()" id="loginTog" aria-label="Passwort anzeigen" data-i18n-aria-label="login.showPw">👁</button>
       </div>
-      <button type="button" class="login-btn" id="loginBtn" onclick="doLogin()">ENTER ↵</button>
-      <p class="login-err" id="loginErr" role="alert">Falsches Passwort.</p>
-      <button type="button" class="login-cancel" onclick="closeLogin()">Abbrechen (ESC)</button>
+      <button type="button" class="login-btn" id="loginBtn" onclick="doLogin()" data-i18n="login.enter">ENTER ↵</button>
+      <p class="login-err" id="loginErr" role="alert" data-i18n="login.error">Falsches Passwort.</p>
+      <button type="button" class="login-cancel" onclick="closeLogin()" data-i18n="login.cancel">Abbrechen (ESC)</button>
     </div>
   </div>
 </div>
@@ -134,23 +134,24 @@
        Kommandopalette, genau wie Strg+P), rechts der Anmeldestatus. -->
   <div class="titlebar">
     <button type="button" class="sb-toggle" id="sbToggle" aria-expanded="false" aria-controls="sidebar">
-      <span aria-hidden="true">☰</span><span class="vh">Explorer öffnen</span>
+      <span aria-hidden="true">☰</span><span class="vh" data-i18n="chrome.explorerOpen">Explorer öffnen</span>
     </button>
 
     <div class="tb-menu" aria-hidden="true">
-      <button type="button" data-cmd="palette">Gehe zu</button>
-      <button type="button" data-cmd="terminal">Terminal</button>
-      <button type="button" data-cmd="theme">Design</button>
+      <button type="button" data-cmd="palette" data-i18n="menu.goto">Gehe zu</button>
+      <button type="button" data-cmd="terminal" data-i18n="menu.terminal">Terminal</button>
+      <button type="button" data-cmd="theme" data-i18n="menu.theme">Design</button>
     </div>
 
     <button type="button" class="tb-search" id="tbSearch">
       <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></svg>
-      Dateien und Befehle durchsuchen
+      <span data-i18n="chrome.searchPlaceholder">Dateien und Befehle durchsuchen</span>
       <kbd>Strg P</kbd>
     </button>
 
     <div class="tb-right">
-      <div class="tb-auth" id="sbAuth">🔒 Nicht eingeloggt</div>
+      <button type="button" class="tb-lang" id="langToggle" aria-label="Sprache wechseln / Switch language">DE</button>
+      <div class="tb-auth" id="sbAuth" data-i18n="chrome.notLoggedIn">🔒 Nicht eingeloggt</div>
     </div>
   </div>
 
@@ -158,70 +159,70 @@
        Die Icon-Leiste ganz links. Explorer klappt die Seitenleiste auf und
        zu, die uebrigen Symbole springen an die passende Stelle, sie sind
        also keine Attrappe. -->
-  <nav class="activitybar" aria-label="Aktivitätsleiste">
-    <button type="button" class="act-btn" id="actExplorer" aria-pressed="true" title="Explorer (Strg+Umschalt+E)">
+  <nav class="activitybar" aria-label="Aktivitätsleiste" data-i18n-aria-label="chrome.activityBar">
+    <button type="button" class="act-btn" id="actExplorer" aria-pressed="true" title="Explorer (Strg+Umschalt+E)" data-i18n-title="chrome.explorerShortcut">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 5h-8l-2-2H3.5A1.5 1.5 0 0 0 2 4.5v15A1.5 1.5 0 0 0 3.5 21h17a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 20.5 5Zm0 14.5h-17v-13h6.38l2 2h8.62Z"/></svg>
-      <span class="vh">Explorer ein- und ausblenden</span>
+      <span class="vh" data-i18n="chrome.explorerToggle">Explorer ein- und ausblenden</span>
     </button>
 
-    <button type="button" class="act-btn" data-cmd="palette" title="Suchen (Strg+P)">
+    <button type="button" class="act-btn" data-cmd="palette" title="Suchen (Strg+P)" data-i18n-title="chrome.searchShortcut">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.7-4.7"/></svg>
-      <span class="vh">Suchen</span>
+      <span class="vh" data-i18n="chrome.search">Suchen</span>
     </button>
 
-    <button type="button" class="act-btn" data-open="projekte" title="Projekte">
+    <button type="button" class="act-btn" data-open="projekte" title="Projekte" data-i18n-title="nav.projects">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><circle cx="18" cy="9" r="2.6"/><path d="M6 8.6v6.8M8.6 6H14a2 2 0 0 1 2 2v.6"/></svg>
-      <span class="vh">Projekte</span>
+      <span class="vh" data-i18n="nav.projects">Projekte</span>
       <span class="act-badge" id="actProjCount">10</span>
     </button>
 
-    <button type="button" class="act-btn" data-cmd="terminal" title="Terminal (Strg+^)">
+    <button type="button" class="act-btn" data-cmd="terminal" title="Terminal (Strg+^)" data-i18n-title="chrome.terminalShortcut">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m6.5 9.5 3 2.5-3 2.5M13 15h5"/></svg>
       <span class="vh">Terminal</span>
     </button>
 
-    <button type="button" class="act-btn" data-open="cv" title="Unterlagen (passwortgeschützt)">
+    <button type="button" class="act-btn" data-open="cv" title="Unterlagen (passwortgeschützt)" data-i18n-title="chrome.documentsLocked">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>
-      <span class="vh">Geschützte Unterlagen</span>
+      <span class="vh" data-i18n="chrome.protectedDocuments">Geschützte Unterlagen</span>
     </button>
 
     <div class="act-bottom">
-      <button type="button" class="act-btn" data-cmd="theme" title="Farbdesign wechseln">
+      <button type="button" class="act-btn" data-cmd="theme" title="Farbdesign wechseln" data-i18n-title="chrome.switchTheme">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor" stroke="none"/></svg>
-        <span class="vh">Farbdesign wechseln</span>
+        <span class="vh" data-i18n="chrome.switchTheme">Farbdesign wechseln</span>
       </button>
     </div>
   </nav>
 
   <!-- TABBAR -->
-  <div class="tabbar" id="tabbar" role="tablist" aria-label="Dateien">
+  <div class="tabbar" id="tabbar" role="tablist" aria-label="Dateien" data-i18n-aria-label="chrome.files">
     <div class="tab active" role="tab" tabindex="0" id="tab-home" aria-controls="panel-home" aria-selected="true" data-panel="home">
       <span class="file-ic ic-json" aria-hidden="true">{ }</span> luis.json
-      <button type="button" class="tab-x" aria-label="luis.json schliessen">×</button>
+      <button type="button" class="tab-x" aria-label="luis.json schliessen" data-i18n-aria-label="tabbar.close.home">×</button>
     </div>
     <div class="tab" role="tab" tabindex="-1" id="tab-skills" aria-controls="panel-skills" aria-selected="false" data-panel="skills">
       <span class="file-ic" aria-hidden="true"><i class="devicon-python-plain colored"></i></span> skills.py
-      <button type="button" class="tab-x" aria-label="skills.py schliessen">×</button>
+      <button type="button" class="tab-x" aria-label="skills.py schliessen" data-i18n-aria-label="tabbar.close.skills">×</button>
     </div>
     <div class="tab" role="tab" tabindex="-1" id="tab-techstack" aria-controls="panel-techstack" aria-selected="false" data-panel="techstack">
       <span class="file-ic" aria-hidden="true"><i class="devicon-typescript-plain colored"></i></span> techstack.ts
-      <button type="button" class="tab-x" aria-label="techstack.ts schliessen">×</button>
+      <button type="button" class="tab-x" aria-label="techstack.ts schliessen" data-i18n-aria-label="tabbar.close.techstack">×</button>
     </div>
     <div class="tab" role="tab" tabindex="-1" id="tab-projekte" aria-controls="panel-projekte" aria-selected="false" data-panel="projekte">
       <span class="file-ic" aria-hidden="true"><i class="devicon-html5-plain colored"></i></span> projekte.html
-      <button type="button" class="tab-x" aria-label="projekte.html schliessen">×</button>
+      <button type="button" class="tab-x" aria-label="projekte.html schliessen" data-i18n-aria-label="tabbar.close.projekte">×</button>
     </div>
     <div class="tab" role="tab" tabindex="-1" id="tab-interessen" aria-controls="panel-interessen" aria-selected="false" data-panel="interessen">
       <span class="file-ic ic-json" aria-hidden="true">{ }</span> interessen.json
-      <button type="button" class="tab-x" aria-label="interessen.json schliessen">×</button>
+      <button type="button" class="tab-x" aria-label="interessen.json schliessen" data-i18n-aria-label="tabbar.close.interessen">×</button>
     </div>
     <div class="tab" role="tab" tabindex="-1" id="tab-kontakt" aria-controls="panel-kontakt" aria-selected="false" data-panel="kontakt">
       <span class="file-ic ic-sql" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="5" rx="8" ry="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" stroke="currentColor" stroke-width="1.8"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" stroke="currentColor" stroke-width="1.8"/></svg></span> kontakt.sql
-      <button type="button" class="tab-x" aria-label="kontakt.sql schliessen">×</button>
+      <button type="button" class="tab-x" aria-label="kontakt.sql schliessen" data-i18n-aria-label="tabbar.close.kontakt">×</button>
     </div>
     <div class="tab" role="tab" tabindex="-1" id="tab-readme" aria-controls="panel-readme" aria-selected="false" data-panel="readme">
       <span class="file-ic ic-md-wrap" aria-hidden="true"><i class="devicon-markdown-original"></i></span> README.md
-      <button type="button" class="tab-x" aria-label="README.md schliessen">×</button>
+      <button type="button" class="tab-x" aria-label="README.md schliessen" data-i18n-aria-label="tabbar.close.readme">×</button>
     </div>
     <div class="tab locked-tab" role="tab" tabindex="-1" id="tab-noten" aria-controls="panel-noten" aria-selected="false" data-panel="noten" data-locked="true">
       <span class="file-ic ic-lock" aria-hidden="true">🔒</span> noten.csv <span class="lock" aria-hidden="true">🔒</span>
@@ -238,7 +239,7 @@
     <div class="sb-backdrop" id="sbBackdrop" hidden></div>
 
     <!-- SIDEBAR -->
-    <nav class="sidebar" id="sidebar" aria-label="Datei-Explorer">
+    <nav class="sidebar" id="sidebar" aria-label="Datei-Explorer" data-i18n-aria-label="chrome.fileExplorer">
       <div class="sb-title">
         Explorer
         <div class="sb-title-icons" aria-hidden="true"><span>⊞</span><span>↺</span></div>
@@ -287,8 +288,8 @@
         <!-- Sichtbar, sobald wirklich alle Tabs geschlossen sind -->
         <div class="editor-empty" id="editorEmpty" hidden>
           <div class="ee-key" aria-hidden="true">{ }</div>
-          <p class="ee-txt">Keine Datei geöffnet.</p>
-          <button type="button" class="cta" id="reopenAll">Alle Dateien wieder öffnen</button>
+          <p class="ee-txt" data-i18n="chrome.noFileOpen">Keine Datei geöffnet.</p>
+          <button type="button" class="cta" id="reopenAll" data-i18n="chrome.reopenAll">Alle Dateien wieder öffnen</button>
         </div>
 
         <!-- ── HOME ── -->
@@ -299,13 +300,9 @@
           <div class="code-view">
             <div class="code-content" id="cc-home">
               <div class="cmt">// luis.json</div><br>
-              <p class="status-line reveal">
-                <span class="status-dot" aria-hidden="true"></span>
-                Praktikum gesucht · Applikationsentwicklung EFZ
-              </p>
               <h1 class="hero-name reveal">Luis<br><span class="acc">Rosado</span></h1>
-              <p class="hero-role reveal">Informatiker EFZ Applikationsentwicklung&nbsp;<span class="blink" aria-hidden="true"></span></p>
-              <div class="prose reveal">
+              <p class="hero-role reveal" data-i18n="home.role">Informatiker EFZ Applikationsentwicklung&nbsp;<span class="blink" aria-hidden="true"></span></p>
+              <div class="prose reveal" data-i18n="home.intro">
                 <p>Ich mache die IMS an der BWD Bern und bin im dritten Jahr auf dem Weg zum Informatiker EFZ, Fachrichtung Applikationsentwicklung.</p>
                 <p>Wenn mich etwas interessiert, baue ich es meistens einmal selbst nach, bis ich verstehe, warum es funktioniert. Aus dieser Angewohnheit sind die meisten Projekte auf dieser Seite entstanden.</p>
                 <p>Jetzt suche ich ein Praktikum, in dem ich in einem Team an Anwendungen mitarbeite, die auch wirklich jemand benutzt.</p>
@@ -313,13 +310,13 @@
 
               <div class="cta-row reveal">
                 <a class="cta cta-primary" href="mailto:luisrosado008@gmail.com?subject=Praktikumsstelle%20Applikationsentwicklung">
-                  <span aria-hidden="true">✉</span> E-Mail schreiben
+                  <span aria-hidden="true">✉</span> <span data-i18n="home.cta.mail">E-Mail schreiben</span>
                 </a>
                 <a class="cta" href="https://github.com/Lro-rgb" target="_blank" rel="noopener noreferrer">
-                  <span aria-hidden="true">🐙</span> GitHub ansehen
+                  <span aria-hidden="true">🐙</span> <span data-i18n="home.cta.github">GitHub ansehen</span>
                 </a>
                 <button type="button" class="cta" data-open="projekte">
-                  <span aria-hidden="true">▸</span> Projekte ansehen
+                  <span aria-hidden="true">▸</span> <span data-i18n="home.cta.projects">Projekte ansehen</span>
                 </button>
               </div>
 
@@ -327,12 +324,12 @@
               <div class="media-audio reveal" data-audio="intro"></div>
 
               <dl class="fact-row reveal">
-                <div class="fact"><dt>Wohnort</dt><dd>Burgdorf BE</dd></div>
-                <div class="fact"><dt>Schule</dt><dd>IMS an der BWD Bern</dd></div>
-                <div class="fact"><dt>Stand</dt><dd>3. Ausbildungsjahr</dd></div>
-                <div class="fact"><dt>Schwerpunkt</dt><dd>Web und Backend</dd></div>
-                <div class="fact"><dt>Arbeitet gern mit</dt><dd>TypeScript, React, Python</dd></div>
-                <div class="fact"><dt>Erreichbar</dt><dd><a href="mailto:luisrosado008@gmail.com">luisrosado008@gmail.com</a></dd></div>
+                <div class="fact"><dt data-i18n="home.fact.location">Wohnort</dt><dd>Burgdorf BE</dd></div>
+                <div class="fact"><dt data-i18n="home.fact.school">Schule</dt><dd>IMS an der BWD Bern</dd></div>
+                <div class="fact"><dt data-i18n="home.fact.status">Stand</dt><dd data-i18n="home.fact.statusValue">3. Ausbildungsjahr</dd></div>
+                <div class="fact"><dt data-i18n="home.fact.focus">Schwerpunkt</dt><dd data-i18n="home.fact.focusValue">Web und Backend</dd></div>
+                <div class="fact"><dt data-i18n="home.fact.likes">Arbeitet gern mit</dt><dd>TypeScript, React, Python</dd></div>
+                <div class="fact"><dt data-i18n="home.fact.reachable">Erreichbar</dt><dd><a href="mailto:luisrosado008@gmail.com">luisrosado008@gmail.com</a></dd></div>
               </dl>
             </div>
           </div>
@@ -345,7 +342,7 @@
             <div class="code-content">
               <div class="cmt"># skills.py · Technische Fähigkeiten</div><br>
               <h2 class="ed-h1 reveal">Skills</h2>
-              <div class="prose reveal" style="margin-bottom:.9rem">
+              <div class="prose reveal" style="margin-bottom:.9rem" data-i18n="skills.intro">
                 <p>Neben jeder Technologie steht das Projekt, in dem ich sie eingesetzt habe — ein Klick darauf führt hin. Was ich dort genau gebaut habe, steht bei den Projekten.</p>
               </div>
 
@@ -355,82 +352,82 @@
                    Satz pro Zeile war zwanzigmal Fliesstext und liess sich
                    nicht ueberfliegen. -->
               <ul class="legend reveal">
-                <li><span class="sk-dot d-proj" aria-hidden="true"></span>in einem Projekt eingesetzt</li>
-                <li><span class="sk-dot d-base" aria-hidden="true"></span>Grundlagen aus dem Unterricht</li>
-                <li><span class="sk-dot d-new" aria-hidden="true"></span>arbeite ich mich gerade ein</li>
+                <li><span class="sk-dot d-proj" aria-hidden="true"></span><span data-i18n="skills.legend.proj">in einem Projekt eingesetzt</span></li>
+                <li><span class="sk-dot d-base" aria-hidden="true"></span><span data-i18n="skills.legend.base">Grundlagen aus dem Unterricht</span></li>
+                <li><span class="sk-dot d-new" aria-hidden="true"></span><span data-i18n="skills.legend.new">arbeite ich mich gerade ein</span></li>
               </ul>
 
               <h3 class="ed-h2 reveal">Web &amp; Frontend</h3>
               <ul class="sk-list reveal">
                 <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-html5-plain colored skill-ic"></i>HTML5 / CSS3<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-name"><i class="devicon-html5-plain colored skill-ic"></i>HTML5 / CSS3<span class="vh" data-i18n="skills.vh.proj"> — in einem Projekt eingesetzt</span></span>
                   <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">Portfolio</button></span></li>
                 <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-javascript-plain colored skill-ic"></i>JavaScript<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-name"><i class="devicon-javascript-plain colored skill-ic"></i>JavaScript<span class="vh" data-i18n="skills.vh.proj"> — in einem Projekt eingesetzt</span></span>
                   <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">Portfolio</button></span></li>
                 <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-typescript-plain colored skill-ic"></i>TypeScript<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-name"><i class="devicon-typescript-plain colored skill-ic"></i>TypeScript<span class="vh" data-i18n="skills.vh.proj"> — in einem Projekt eingesetzt</span></span>
                   <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">Askel</button></span></li>
                 <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-react-original colored skill-ic"></i>React / React Native<span class="vh"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-name"><i class="devicon-react-original colored skill-ic"></i>React / React Native<span class="vh" data-i18n="skills.vh.proj"> — in einem Projekt eingesetzt</span></span>
                   <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">Askel</button><button type="button" class="sk-chip" data-open="projekte">Kobui</button></span></li>
                 <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-csharp-plain colored skill-ic"></i>C# / .NET MAUI<span class="vh"> — in einem Projekt eingesetzt</span></span>
-                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">Mein Rezeptbuch</button></span></li>
+                  <span class="sk-name"><i class="devicon-csharp-plain colored skill-ic"></i>C# / .NET MAUI<span class="vh" data-i18n="skills.vh.proj"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte" data-i18n="skills.chip.rezeptbuch">Mein Rezeptbuch</button></span></li>
                 <li class="sk"><span class="sk-dot d-base" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-jest-plain colored skill-ic"></i>Jest<span class="vh"> — Grundlagen aus dem Unterricht</span></span>
+                  <span class="sk-name"><i class="devicon-jest-plain colored skill-ic"></i>Jest<span class="vh" data-i18n="skills.vh.base"> — Grundlagen aus dem Unterricht</span></span>
                   <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">Askel</button></span></li>
               </ul>
 
-              <h3 class="ed-h2 reveal">Backend &amp; Daten</h3>
+              <h3 class="ed-h2 reveal" data-i18n="skills.h.backend">Backend &amp; Daten</h3>
               <ul class="sk-list reveal">
                 <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-python-plain colored skill-ic"></i>Python<span class="vh"> — in einem Projekt eingesetzt</span></span>
-                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">Redis-Webshop</button></span></li>
+                  <span class="sk-name"><i class="devicon-python-plain colored skill-ic"></i>Python<span class="vh" data-i18n="skills.vh.proj"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte" data-i18n="skills.chip.webshop">Redis-Webshop</button></span></li>
                 <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-flask-original skill-ic"></i>Flask<span class="vh"> — in einem Projekt eingesetzt</span></span>
-                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">Redis-Webshop</button></span></li>
+                  <span class="sk-name"><i class="devicon-flask-original skill-ic"></i>Flask<span class="vh" data-i18n="skills.vh.proj"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte" data-i18n="skills.chip.webshop">Redis-Webshop</button></span></li>
                 <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-nestjs-plain colored skill-ic"></i>NestJS<span class="vh"> — in einem Projekt eingesetzt</span></span>
-                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">URL-Shortener</button></span></li>
+                  <span class="sk-name"><i class="devicon-nestjs-plain colored skill-ic"></i>NestJS<span class="vh" data-i18n="skills.vh.proj"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte" data-i18n="skills.chip.urlshortener">URL-Shortener</button></span></li>
                 <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-redis-plain colored skill-ic"></i>Redis (NoSQL)<span class="vh"> — in einem Projekt eingesetzt</span></span>
-                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">Redis-Webshop</button></span></li>
+                  <span class="sk-name"><i class="devicon-redis-plain colored skill-ic"></i>Redis (NoSQL)<span class="vh" data-i18n="skills.vh.proj"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte" data-i18n="skills.chip.webshop">Redis-Webshop</button></span></li>
                 <li class="sk"><span class="sk-dot d-base" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-nodejs-plain colored skill-ic"></i>Node.js / Serverless<span class="vh"> — Grundlagen aus dem Unterricht</span></span>
+                  <span class="sk-name"><i class="devicon-nodejs-plain colored skill-ic"></i>Node.js / Serverless<span class="vh" data-i18n="skills.vh.base"> — Grundlagen aus dem Unterricht</span></span>
                   <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">Portfolio</button></span></li>
                 <li class="sk"><span class="sk-dot d-base" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-mysql-plain colored skill-ic"></i>SQL / MariaDB<span class="vh"> — Grundlagen aus dem Unterricht</span></span>
-                  <span class="sk-wo"><span class="sk-chip sk-chip-still">Unterricht</span></span></li>
+                  <span class="sk-name"><i class="devicon-mysql-plain colored skill-ic"></i>SQL / MariaDB<span class="vh" data-i18n="skills.vh.base"> — Grundlagen aus dem Unterricht</span></span>
+                  <span class="sk-wo"><span class="sk-chip sk-chip-still" data-i18n="skills.chip.class">Unterricht</span></span></li>
               </ul>
 
-              <h3 class="ed-h2 reveal">Betrieb &amp; Werkzeuge</h3>
+              <h3 class="ed-h2 reveal" data-i18n="skills.h.ops">Betrieb &amp; Werkzeuge</h3>
               <ul class="sk-list reveal">
                 <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-git-plain colored skill-ic"></i>Git / GitHub / GitLab<span class="vh"> — in einem Projekt eingesetzt</span></span>
-                  <span class="sk-wo"><span class="sk-chip sk-chip-still">alle Projekte</span></span></li>
+                  <span class="sk-name"><i class="devicon-git-plain colored skill-ic"></i>Git / GitHub / GitLab<span class="vh" data-i18n="skills.vh.proj"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-wo"><span class="sk-chip sk-chip-still" data-i18n="skills.chip.allProjects">alle Projekte</span></span></li>
                 <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-docker-plain colored skill-ic"></i>Docker / Compose<span class="vh"> — in einem Projekt eingesetzt</span></span>
-                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">Redis-Webshop</button><button type="button" class="sk-chip" data-open="projekte">URL-Shortener</button></span></li>
+                  <span class="sk-name"><i class="devicon-docker-plain colored skill-ic"></i>Docker / Compose<span class="vh" data-i18n="skills.vh.proj"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte" data-i18n="skills.chip.webshop">Redis-Webshop</button><button type="button" class="sk-chip" data-open="projekte" data-i18n="skills.chip.urlshortener">URL-Shortener</button></span></li>
                 <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-kubernetes-plain colored skill-ic"></i>Kubernetes / ArgoCD<span class="vh"> — in einem Projekt eingesetzt</span></span>
-                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">URL-Shortener</button></span></li>
+                  <span class="sk-name"><i class="devicon-kubernetes-plain colored skill-ic"></i>Kubernetes / ArgoCD<span class="vh" data-i18n="skills.vh.proj"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte" data-i18n="skills.chip.urlshortener">URL-Shortener</button></span></li>
                 <li class="sk"><span class="sk-dot d-proj" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-gitlab-plain colored skill-ic"></i>CI-Pipeline<span class="vh"> — in einem Projekt eingesetzt</span></span>
-                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte">URL-Shortener</button></span></li>
+                  <span class="sk-name"><i class="devicon-gitlab-plain colored skill-ic"></i><span data-i18n="skills.name.ci">CI-Pipeline</span><span class="vh" data-i18n="skills.vh.proj"> — in einem Projekt eingesetzt</span></span>
+                  <span class="sk-wo"><button type="button" class="sk-chip" data-open="projekte" data-i18n="skills.chip.urlshortener">URL-Shortener</button></span></li>
                 <li class="sk"><span class="sk-dot d-base" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-linux-plain colored skill-ic"></i>Linux / Bash<span class="vh"> — Grundlagen aus dem Unterricht</span></span>
+                  <span class="sk-name"><i class="devicon-linux-plain colored skill-ic"></i>Linux / Bash<span class="vh" data-i18n="skills.vh.base"> — Grundlagen aus dem Unterricht</span></span>
                   <span class="sk-wo"><span class="sk-chip sk-chip-still">Arch Linux</span></span></li>
                 <li class="sk"><span class="sk-dot d-base" aria-hidden="true"></span>
-                  <span class="sk-name"><i class="devicon-azure-plain colored skill-ic"></i>Azure / Betrieb<span class="vh"> — Grundlagen aus dem Unterricht</span></span>
-                  <span class="sk-wo"><span class="sk-chip sk-chip-still">DevOps-Modul</span></span></li>
+                  <span class="sk-name"><i class="devicon-azure-plain colored skill-ic"></i><span data-i18n="skills.name.azure">Azure / Betrieb</span><span class="vh" data-i18n="skills.vh.base"> — Grundlagen aus dem Unterricht</span></span>
+                  <span class="sk-wo"><span class="sk-chip sk-chip-still" data-i18n="skills.chip.devopsModule">DevOps-Modul</span></span></li>
                 <li class="sk"><span class="sk-dot d-base" aria-hidden="true"></span>
-                  <span class="sk-name">Netzwerke / TCP-IP<span class="vh"> — Grundlagen aus dem Unterricht</span></span>
-                  <span class="sk-wo"><span class="sk-chip sk-chip-still">Unterricht</span></span></li>
+                  <span class="sk-name"><span data-i18n="skills.name.network">Netzwerke / TCP-IP</span><span class="vh" data-i18n="skills.vh.base"> — Grundlagen aus dem Unterricht</span></span>
+                  <span class="sk-wo"><span class="sk-chip sk-chip-still" data-i18n="skills.chip.class">Unterricht</span></span></li>
               </ul>
 
               <p class="sk-next reveal"><span class="sk-dot d-new" aria-hidden="true"></span>
-                Als Nächstes: REST-APIs von Grund auf, nach den zwei Endpunkten dieser Website.</p>
+                <span data-i18n="skills.next">Als Nächstes: REST-APIs von Grund auf, nach den zwei Endpunkten dieser Website.</span></p>
             </div>
           </div>
         </div>
@@ -462,29 +459,29 @@
 
               <h2 class="ed-h1 reveal" style="margin-top:2rem">Tech Stack</h2>
               <div class="tech-grid reveal">
-                <div class="tech-card"><span class="tech-icon"><i class="devicon-python-plain colored"></i></span><div class="tech-name">Python</div><div class="tech-cat">Programmierung</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-python-plain colored"></i></span><div class="tech-name">Python</div><div class="tech-cat" data-i18n="techstack.cat.programming">Programmierung</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-html5-plain colored"></i></span><div class="tech-name">HTML5</div><div class="tech-cat">Frontend</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-css3-plain colored"></i></span><div class="tech-name">CSS3</div><div class="tech-cat">Frontend</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-javascript-plain colored"></i></span><div class="tech-name">JavaScript</div><div class="tech-cat">Frontend / Logic</div></div>
-                <div class="tech-card"><span class="tech-icon"><i class="devicon-csharp-plain colored"></i></span><div class="tech-name">C#</div><div class="tech-cat">Programmierung</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-csharp-plain colored"></i></span><div class="tech-name">C#</div><div class="tech-cat" data-i18n="techstack.cat.programming">Programmierung</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-dotnetcore-plain colored"></i></span><div class="tech-name">.NET MAUI</div><div class="tech-cat">Mobile / UI</div></div>
-                <div class="tech-card"><span class="tech-icon"><i class="devicon-mysql-plain colored"></i></span><div class="tech-name">MariaDB</div><div class="tech-cat">Datenbank</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-mysql-plain colored"></i></span><div class="tech-name">MariaDB</div><div class="tech-cat" data-i18n="techstack.cat.database">Datenbank</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-redis-plain colored"></i></span><div class="tech-name">Redis</div><div class="tech-cat">NoSQL / Key-Value</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-flask-original"></i></span><div class="tech-name">Flask</div><div class="tech-cat">Backend</div></div>
-                <div class="tech-card"><span class="tech-icon"><i class="devicon-docker-plain colored"></i></span><div class="tech-name">Docker</div><div class="tech-cat">Ausliefern</div></div>
-                <div class="tech-card"><span class="tech-icon"><i class="devicon-kubernetes-plain colored"></i></span><div class="tech-name">Kubernetes</div><div class="tech-cat">Betrieb</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-docker-plain colored"></i></span><div class="tech-name">Docker</div><div class="tech-cat" data-i18n="techstack.cat.deploy">Ausliefern</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-kubernetes-plain colored"></i></span><div class="tech-name">Kubernetes</div><div class="tech-cat" data-i18n="techstack.cat.ops">Betrieb</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-nestjs-plain colored"></i></span><div class="tech-name">NestJS</div><div class="tech-cat">Backend</div></div>
-                <div class="tech-card"><span class="tech-icon"><i class="devicon-git-plain colored"></i></span><div class="tech-name">Git</div><div class="tech-cat">Versionierung</div></div>
-                <div class="tech-card"><span class="tech-icon"><i class="devicon-github-original" style="color:#E6EDF3"></i></span><div class="tech-name">GitHub</div><div class="tech-cat">Kollaboration</div></div>
-                <div class="tech-card"><span class="tech-icon"><i class="devicon-gitlab-plain colored"></i></span><div class="tech-name">GitLab</div><div class="tech-cat">Schule</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-git-plain colored"></i></span><div class="tech-name">Git</div><div class="tech-cat" data-i18n="techstack.cat.vcs">Versionierung</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-github-original" style="color:#E6EDF3"></i></span><div class="tech-name">GitHub</div><div class="tech-cat" data-i18n="techstack.cat.collab">Kollaboration</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-gitlab-plain colored"></i></span><div class="tech-name">GitLab</div><div class="tech-cat" data-i18n="techstack.cat.school">Schule</div></div>
                 <div class="tech-card"><span class="tech-icon"><i class="devicon-vscode-plain colored"></i></span><div class="tech-name">VS Code</div><div class="tech-cat">Editor</div></div>
-                <div class="tech-card"><span class="tech-icon"><i class="devicon-windows8-original colored"></i></span><div class="tech-name">Windows 11</div><div class="tech-cat">Hauptsystem</div></div>
-                <div class="tech-card"><span class="tech-icon"><i class="devicon-archlinux-plain colored"></i></span><div class="tech-name">Arch Linux</div><div class="tech-cat">Dev-Setup</div></div>
-                <div class="tech-card"><span class="tech-icon"><i class="devicon-bash-plain colored"></i></span><div class="tech-name">Bash</div><div class="tech-cat">Terminal / Skripte</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-windows8-original colored"></i></span><div class="tech-name">Windows 11</div><div class="tech-cat" data-i18n="techstack.cat.mainsystem">Hauptsystem</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-archlinux-plain colored"></i></span><div class="tech-name">Arch Linux</div><div class="tech-cat" data-i18n="techstack.cat.devsetup">Dev-Setup</div></div>
+                <div class="tech-card"><span class="tech-icon"><i class="devicon-bash-plain colored"></i></span><div class="tech-name">Bash</div><div class="tech-cat" data-i18n="techstack.cat.terminal">Terminal / Skripte</div></div>
               </div>
 
               <h3 class="ed-h2 reveal">Setup</h3>
-              <div class="prose reveal" style="margin-bottom:1.5rem">
+              <div class="prose reveal" style="margin-bottom:1.5rem" data-i18n="techstack.setup">
                 <p>Für die Schule nutze ich ein Lenovo ThinkPad mit Dual-Boot: Windows 11 für den Alltag, Arch Linux fürs Programmieren. Entwickelt wird in VS Code, versioniert über GitLab. Zuhause steht zusätzlich ein Desktop-PC mit Windows.</p>
               </div>
             </div>
@@ -497,77 +494,77 @@
           <div class="code-view">
             <div class="code-content">
               <div class="cmt">&lt;!-- projekte.html --&gt;</div><br>
-              <h2 class="ed-h1 reveal">Projekte</h2>
-              <div class="prose reveal" style="margin-bottom:.5rem">
+              <h2 class="ed-h1 reveal" data-i18n="projekte.title">Projekte</h2>
+              <div class="prose reveal" style="margin-bottom:.5rem" data-i18n="projekte.intro">
                 <p>Jedes Projekt beginnt mit einem Abstract, also der Kurzfassung in zwei bis drei Sätzen. Darunter stehen die Details, der eingesetzte Stack und, wo vorhanden, Quellcode und Demo.</p>
               </div>
 
-              <h3 class="ed-h2 reveal">Persönliche Projekte</h3>
+              <h3 class="ed-h2 reveal" data-i18n="projekte.h.personal">Persönliche Projekte</h3>
               <div class="proj-grid reveal">
 
                 <article class="proj-card" id="proj-portfolio">
-                  <div class="proj-type">// Persönlich · eigenständig · laufend</div>
+                  <div class="proj-type" data-i18n="proj.portfolio.type">// Persönlich · eigenständig · laufend</div>
                   <h4 class="proj-t">Portfolio</h4>
-                  <p class="proj-abstract"><strong>Abstract</strong>Diese Seite hier. Die Oberfläche ist einem Code-Editor nachgebaut, mit Tabs, Explorer, Terminal und Kommandopalette. Öffentlich sind Skills und Projekte, hinter einem Passwort liegen Noten und Lebenslauf. Alles von Hand geschrieben, ohne Framework und ohne eine einzige externe Abhängigkeit.</p>
+                  <p class="proj-abstract" data-i18n="proj.portfolio.abstract"><strong>Abstract</strong>Diese Seite hier. Die Oberfläche ist einem Code-Editor nachgebaut, mit Tabs, Explorer, Terminal und Kommandopalette. Öffentlich sind Skills und Projekte, hinter einem Passwort liegen Noten und Lebenslauf. Alles von Hand geschrieben, ohne Framework und ohne eine einzige externe Abhängigkeit.</p>
                   <div class="proj-media" data-media="portfolio"></div>
-                  <div class="proj-body">
+                  <div class="proj-body" data-i18n="proj.portfolio.body">
                     Drin steckt unter anderem eine Tabverwaltung mit Tastatursteuerung, ein Explorer, der auf dem Handy zur Schublade wird, sechs Farbdesigns und ein eigenes Druck-Stylesheet. Der Login geht an eine Serverless Function, die das Passwort gegen einen gesalzenen scrypt-Hash prüft und ein Token mit vier Stunden Laufzeit zurückgibt. Noten und Lebenslauf liegen auf dem Server und stehen nie im ausgelieferten HTML. Wer den Quelltext im Browser öffnet, findet dort nichts.
                   </div>
-                  <dl class="proj-meta">
+                  <dl class="proj-meta" data-i18n="proj.portfolio.meta">
                     <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt: Konzept, Gestaltung, Frontend und Backend</dd></div>
                     <div><dt>Besonderheit</dt><dd>Kein Framework, keine npm-Abhängigkeiten. Was im Browser ankommt, habe ich geschrieben.</dd></div>
                   </dl>
                   <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Node.js</span><span class="chip">Vercel</span></div>
-                  <div class="proj-links">
+                  <div class="proj-links" data-i18n="proj.portfolio.links">
                     <a href="https://github.com/Lro-rgb/PortfolioV1" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
                   </div>
                 </article>
 
                 <article class="proj-card" id="proj-wallpaper">
-                  <div class="proj-type">// Persönlich · eigenständig · eigenes Skript</div>
-                  <h4 class="proj-t">Wallpaper-Switcher mit automatischem Farbschema</h4>
-                  <p class="proj-abstract"><strong>Abstract</strong>Ein Bash-Skript, das aus meinem Hintergrundbild ein Farbschema errechnet und es auf das ganze System anwendet. Ein Bildwechsel färbt damit Fensterrahmen, Leiste, Menü und Terminal automatisch mit um, ohne dass ich eine Konfigurationsdatei anfassen muss.</p>
+                  <div class="proj-type" data-i18n="proj.wallpaper.type">// Persönlich · eigenständig · eigenes Skript</div>
+                  <h4 class="proj-t" data-i18n="proj.wallpaper.title">Wallpaper-Switcher mit automatischem Farbschema</h4>
+                  <p class="proj-abstract" data-i18n="proj.wallpaper.abstract"><strong>Abstract</strong>Ein Bash-Skript, das aus meinem Hintergrundbild ein Farbschema errechnet und es auf das ganze System anwendet. Ein Bildwechsel färbt damit Fensterrahmen, Leiste, Menü und Terminal automatisch mit um, ohne dass ich eine Konfigurationsdatei anfassen muss.</p>
                   <div class="proj-media" data-media="wallpaper"></div>
-                  <div class="proj-body">
+                  <div class="proj-body" data-i18n="proj.wallpaper.body">
                     Das Skript verkettet vier Werkzeuge: <code>waypaper</code> setzt das Bild, <code>matugen</code> leitet die Farbpalette daraus ab, <code>rofi</code> ist das Auswahlmenü und <code>waybar</code> die Statusleiste. Danach schreibt es die Konfigurationsdateien der beteiligten Programme neu und startet sie kontrolliert neu. Der knifflige Teil waren nicht die Farben, sondern die Reihenfolge: Lädt ein Programm zu früh neu, liest es noch die alte Palette.
                   </div>
-                  <dl class="proj-meta">
+                  <dl class="proj-meta" data-i18n="proj.wallpaper.meta">
                     <div><dt>Meine Rolle</dt><dd>Alleine geschrieben</dd></div>
                     <div><dt>Gelernt</dt><dd>Bash, Kommandozeilenwerkzeuge verketten, Konfigurationsdateien und Prozesse unter Linux</dd></div>
                   </dl>
                   <div class="chips"><span class="chip">Bash</span><span class="chip">Matugen</span><span class="chip">Waypaper</span><span class="chip">Rofi</span><span class="chip">Waybar</span><span class="chip">Hyprland</span></div>
-                  <div class="proj-links">
+                  <div class="proj-links" data-i18n="proj.wallpaper.links">
                     <a href="https://github.com/Lro-rgb/wallsync" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
                   </div>
                 </article>
 
                 <article class="proj-card" id="proj-arch">
-                  <div class="proj-type">// Persönlich · eigenständig</div>
+                  <div class="proj-type" data-i18n="proj.arch.type">// Persönlich · eigenständig</div>
                   <h4 class="proj-t">Arch Linux + Hyprland Dual-Boot</h4>
-                  <p class="proj-abstract"><strong>Abstract</strong>Ein selbst aufgesetztes Dual-Boot-System auf meinem ThinkPad: Windows 11 für den Alltag, Arch Linux mit dem Window Manager Hyprland fürs Programmieren. Eingerichtet, weil ich wissen wollte, wie ein Linux-System unter der Oberfläche zusammengesetzt ist.</p>
+                  <p class="proj-abstract" data-i18n="proj.arch.abstract"><strong>Abstract</strong>Ein selbst aufgesetztes Dual-Boot-System auf meinem ThinkPad: Windows 11 für den Alltag, Arch Linux mit dem Window Manager Hyprland fürs Programmieren. Eingerichtet, weil ich wissen wollte, wie ein Linux-System unter der Oberfläche zusammengesetzt ist.</p>
                   <div class="proj-media" data-media="arch"></div>
-                  <div class="proj-body">
+                  <div class="proj-body" data-i18n="proj.arch.body">
                     Arch über <code>archinstall</code> installiert und Hyprland von Grund auf konfiguriert. Bei Hyprland gibt es keine fertige Oberfläche: Jede Taste und jedes Fensterverhalten steht in einer Konfigurationsdatei. Dazu Alacritty als Terminal, die Fish-Shell, <code>waybar</code> als Statusleiste, <code>fuzzel</code> als Programmstarter und Nautilus als Dateimanager. Das Abmeldemenü ist kein fertiges Programm, sondern ein <code>rofi</code>-Skript, das aus der Leiste heraus aufgerufen wird. Aus diesem Setup ist auch der Wallpaper-Switcher entstanden, der inzwischen ein eigenes Repository hat.
                   </div>
-                  <dl class="proj-meta">
+                  <dl class="proj-meta" data-i18n="proj.arch.meta">
                     <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt</dd></div>
                     <div><dt>Gelernt</dt><dd>Partitionierung und Bootloader, Konfigurationsverwaltung, Fehlersuche ohne grafische Oberfläche</dd></div>
                   </dl>
                   <div class="chips"><span class="chip">Arch Linux</span><span class="chip">Hyprland</span><span class="chip">Alacritty</span><span class="chip">Fish</span><span class="chip">Waybar</span><span class="chip">Nautilus</span><span class="chip">Dual-Boot</span></div>
-                  <div class="proj-links">
+                  <div class="proj-links" data-i18n="proj.arch.links">
                     <a href="https://github.com/Lro-rgb/arch-hyprland-rice" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Konfiguration auf GitHub</a>
                   </div>
                 </article>
 
                 <article class="proj-card" id="proj-modding">
-                  <div class="proj-type">// Persönlich · eigenständig</div>
-                  <h4 class="proj-t">Konsolen-Modding: Switch &amp; 3DS</h4>
-                  <p class="proj-abstract"><strong>Abstract</strong>Auf meiner eigenen Nintendo Switch und meinem 3DS eine Custom Firmware eingerichtet. Mich hat interessiert, wie ein Bootvorgang abläuft und an welcher Stelle ein System seine Signaturen prüft.</p>
+                  <div class="proj-type" data-i18n="proj.modding.type">// Persönlich · eigenständig</div>
+                  <h4 class="proj-t" data-i18n="proj.modding.title">Konsolen-Modding: Switch &amp; 3DS</h4>
+                  <p class="proj-abstract" data-i18n="proj.modding.abstract"><strong>Abstract</strong>Auf meiner eigenen Nintendo Switch und meinem 3DS eine Custom Firmware eingerichtet. Mich hat interessiert, wie ein Bootvorgang abläuft und an welcher Stelle ein System seine Signaturen prüft.</p>
                   <div class="proj-media" data-media="modding"></div>
-                  <div class="proj-body">
+                  <div class="proj-body" data-i18n="proj.modding.body">
                     Bei der Switch über ein RCM-Jig im Recovery-Modus den Payload Hekate geladen und ein EmuMMC aufgesetzt, also eine abgetrennte Systemkopie, damit das Originalsystem unangetastet bleibt. Das ging nur, weil die Firmware noch nicht gepatcht war. Auf dem 3DS läuft Luma3DS. Beide Geräte gehören mir, und es ging um die Boot-Kette, nicht um Inhalte.
                   </div>
-                  <dl class="proj-meta">
+                  <dl class="proj-meta" data-i18n="proj.modding.meta">
                     <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt</dd></div>
                     <div><dt>Gelernt</dt><dd>Bootvorgang, Recovery-Modi, Signaturprüfung und der Umgang mit englischer Fachdokumentation</dd></div>
                   </dl>
@@ -576,22 +573,22 @@
 
               </div>
 
-              <h3 class="ed-h2 reveal">Schulprojekte</h3>
+              <h3 class="ed-h2 reveal" data-i18n="projekte.h.school">Schulprojekte</h3>
               <div class="proj-grid reveal">
 
                 <article class="proj-card" id="proj-urlshortener">
-                  <div class="proj-type">// Schulprojekt · Modul 210 · eigenständig</div>
-                  <h4 class="proj-t">URL-Shortener mit GitOps-Kette</h4>
-                  <p class="proj-abstract"><strong>Abstract</strong>Ein URL-Shortener aus zwei NestJS-Diensten und einer MariaDB, der nicht nur läuft, sondern auch ausgeliefert wird: containerisiert, über eine CI-Pipeline gebaut und von ArgoCD automatisch in einen Kubernetes-Cluster deployt. Das Interessante war weniger das Kürzen von Links als der Weg vom Commit bis in den laufenden Cluster.</p>
+                  <div class="proj-type" data-i18n="proj.urlshortener.type">// Schulprojekt · Modul 210 · eigenständig</div>
+                  <h4 class="proj-t" data-i18n="proj.urlshortener.title">URL-Shortener mit GitOps-Kette</h4>
+                  <p class="proj-abstract" data-i18n="proj.urlshortener.abstract"><strong>Abstract</strong>Ein URL-Shortener aus zwei NestJS-Diensten und einer MariaDB, der nicht nur läuft, sondern auch ausgeliefert wird: containerisiert, über eine CI-Pipeline gebaut und von ArgoCD automatisch in einen Kubernetes-Cluster deployt. Das Interessante war weniger das Kürzen von Links als der Weg vom Commit bis in den laufenden Cluster.</p>
                   <div class="proj-media" data-media="urlshortener"></div>
-                  <div class="proj-body">
+                  <div class="proj-body" data-i18n="proj.urlshortener.body">
                     <strong>Die Anwendung.</strong> <code>shorty</code> nimmt lange URLs entgegen, gibt einen Kurzcode zurück und leitet beim Aufruf per 302 weiter. <code>keeper</code> ist der einzige Dienst, der die Datenbank sieht, und ist per API-Key geschützt. Von aussen erreichbar ist nur <code>shorty</code> über den Ingress, <code>keeper</code> hängt als ClusterIP dahinter. Ein Angreifer, der von aussen kommt, hat also keinen direkten Weg zur Datenbank.
                     <br><br>
                     <strong>Der Weg in den Cluster.</strong> Beide Dienste laufen in Containern, gebaut über eine GitLab-Pipeline. Die Kubernetes-Manifeste liegen bewusst in einem <em>zweiten</em> Repo: Anwendungscode und gewünschter Cluster-Zustand sind getrennt. ArgoCD beobachtet dieses GitOps-Repo und gleicht den Cluster automatisch an. Ein Deployment ist damit ein Commit, kein <code>kubectl</code>-Befehl von Hand. Wer den Zustand ändern will, muss durch Git, und dort ist jede Änderung nachvollziehbar.
                     <br><br>
                     Dazu kam schriftliche Arbeit, die ich sonst nirgends gemacht habe: ein Rollenkonzept mit IAM und RBAC, ein Sicherheitskonzept und eine Kostenanalyse für einen Betrieb in AWS. Alle drei theoretisch, aber sie haben mich zum ersten Mal darüber nachdenken lassen, was der Betrieb einer Anwendung tatsächlich kostet und wer worauf zugreifen darf.
                   </div>
-                  <dl class="proj-meta">
+                  <dl class="proj-meta" data-i18n="proj.urlshortener.meta">
                     <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt. Der Kurs stellte ein leeres Grundgerüst mit den ersten sechs Commits, alles ab der Containerisierung stammt von mir: 17 der 23 Commits.</dd></div>
                     <div><dt>Gelernt</dt><dd>
                       <ul class="proj-ul">
@@ -603,21 +600,21 @@
                     </dd></div>
                   </dl>
                   <div class="chips"><span class="chip">NestJS</span><span class="chip">TypeScript</span><span class="chip">MariaDB</span><span class="chip">Docker</span><span class="chip">GitLab CI</span><span class="chip">Kubernetes</span><span class="chip">ArgoCD</span></div>
-                  <div class="proj-links">
+                  <div class="proj-links" data-i18n="proj.urlshortener.links">
                     <a href="https://github.com/Lro-rgb/url-shortener" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Anwendung</a>
                     <a href="https://github.com/Lro-rgb/url-shortener-gitops" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 GitOps-Repo</a>
                   </div>
                 </article>
 
                 <article class="proj-card" id="proj-askel">
-                  <div class="proj-type">// Schulprojekt · Modul 335 · Dreierteam</div>
+                  <div class="proj-type" data-i18n="proj.askel.type">// Schulprojekt · Modul 335 · Dreierteam</div>
                   <h4 class="proj-t">Askel</h4>
-                  <p class="proj-abstract"><strong>Abstract</strong>Askel heisst auf Finnisch «Schritt» und ist eine mobile App, die eine Fahrt per GPS aufzeichnet: Position, Höhe und Geschwindigkeit. Routen lassen sich speichern, benennen, farblich markieren und auf einer Karte anzeigen. Alle Daten bleiben auf dem Gerät, ein Backend gibt es nicht.</p>
+                  <p class="proj-abstract" data-i18n="proj.askel.abstract"><strong>Abstract</strong>Askel heisst auf Finnisch «Schritt» und ist eine mobile App, die eine Fahrt per GPS aufzeichnet: Position, Höhe und Geschwindigkeit. Routen lassen sich speichern, benennen, farblich markieren und auf einer Karte anzeigen. Alle Daten bleiben auf dem Gerät, ein Backend gibt es nicht.</p>
                   <div class="proj-media" data-media="askel"></div>
-                  <div class="proj-body">
+                  <div class="proj-body" data-i18n="proj.askel.body">
                     Umgesetzt mit React Native und Expo. Die Standortdaten kommen über <code>expo-location</code>, die Aufzeichnung läuft während der Fahrt weiter und die Routen werden lokal gespeichert. Dass es kein Backend gibt, war eine bewusste Entscheidung: Bewegungsprofile sind heikle Daten, und was das Gerät nie verlässt, kann auch nicht abfliessen.
                   </div>
-                  <dl class="proj-meta">
+                  <dl class="proj-meta" data-i18n="proj.askel.meta">
                     <div><dt>Meine Rolle</dt><dd>Co-Developer im Dreierteam. Von mir stammen unter anderem:</dd></div>
                     <div><dt>Umgesetzt</dt><dd>
                       <ul class="proj-ul">
@@ -631,24 +628,24 @@
                     </dd></div>
                   </dl>
                   <div class="chips"><span class="chip">React Native</span><span class="chip">Expo</span><span class="chip">TypeScript</span><span class="chip">expo-location</span><span class="chip">Jest</span></div>
-                  <div class="proj-links">
+                  <div class="proj-links" data-i18n="proj.askel.links">
                     <a href="https://github.com/Lro-rgb/Askel" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
                   </div>
                 </article>
 
                 <article class="proj-card" id="proj-rezeptbuch">
-                  <div class="proj-type">// Schulprojekt · Modul 322 · eigenständig</div>
-                  <h4 class="proj-t">Mein Rezeptbuch</h4>
-                  <p class="proj-abstract"><strong>Abstract</strong>Eine Android-App zum Verwalten von Rezepten, geschrieben in C# mit .NET MAUI. Vier Bereiche über eine Tab-Leiste: die Sammlung mit Suche und Vegetarisch-Filter, eine Eingabemaske mit Validierung, eine FAQ-Seite und eine Info-Seite. Auftrag im Modul 322 für einen fiktiven Kunden, von der Oberfläche bis zur Logik allein umgesetzt.</p>
+                  <div class="proj-type" data-i18n="proj.rezeptbuch.type">// Schulprojekt · Modul 322 · eigenständig</div>
+                  <h4 class="proj-t" data-i18n="proj.rezeptbuch.title">Mein Rezeptbuch</h4>
+                  <p class="proj-abstract" data-i18n="proj.rezeptbuch.abstract"><strong>Abstract</strong>Eine Android-App zum Verwalten von Rezepten, geschrieben in C# mit .NET MAUI. Vier Bereiche über eine Tab-Leiste: die Sammlung mit Suche und Vegetarisch-Filter, eine Eingabemaske mit Validierung, eine FAQ-Seite und eine Info-Seite. Auftrag im Modul 322 für einen fiktiven Kunden, von der Oberfläche bis zur Logik allein umgesetzt.</p>
                   <div class="proj-media" data-media="rezeptbuch"></div>
-                  <div class="proj-body">
+                  <div class="proj-body" data-i18n="proj.rezeptbuch.body">
                     <strong>Aufbau.</strong> Die App folgt MVVM, also der Trennung von Oberfläche und Logik. Die Views sind XAML-Dateien und enthalten keine Logik, der Zustand liegt in den ViewModels, und ein <code>RezeptService</code> als Singleton hält die Rezepte. Eine <code>BaseViewModel</code> mit <code>SetProperty</code> und <code>INotifyPropertyChanged</code> sorgt dafür, dass die Oberfläche jede Änderung von selbst mitbekommt: Ich setze eine Eigenschaft im Code, und das Feld auf dem Bildschirm aktualisiert sich, ohne dass ich es anfasse. Das war der Punkt, an dem Datenbindung für mich zum ersten Mal Sinn ergeben hat.
                     <br><br>
                     <strong>Validierung.</strong> Titel und Beschreibung sind Pflichtfelder und werden beim Tippen geprüft, nicht erst beim Speichern. Der Titel braucht mindestens drei Zeichen, die Beschreibung zehn; die Meldung steht direkt am Feld statt in einem Dialog, der erst nach dem Absenden aufgeht. Die Navigation läuft über die Shell mit benannten Routen, das Detail einer Karte wird als <code>RezeptDetailPage?RezeptId=…</code> aufgerufen.
                     <br><br>
                     <strong>Was sie nicht kann.</strong> Die Rezepte liegen nur im Arbeitsspeicher. Schliesst man die App, sind die selbst angelegten wieder weg und nur die vier Beispielrezepte da. Bilder gibt es ebenfalls keine, nur Platzhalter. Beides war im Auftrag nicht verlangt — es ging um Oberfläche und Datenbindung — aber es ist die erste Sache, die ich nachziehen würde: eine SQLite-Datei hinter denselben <code>RezeptService</code> hängen, damit der Rest der App unverändert bleibt.
                   </div>
-                  <dl class="proj-meta">
+                  <dl class="proj-meta" data-i18n="proj.rezeptbuch.meta">
                     <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt: Oberfläche, ViewModels und Datenhaltung</dd></div>
                     <div><dt>Gelernt</dt><dd>
                       <ul class="proj-ul">
@@ -661,36 +658,36 @@
                     </dd></div>
                   </dl>
                   <div class="chips"><span class="chip">C#</span><span class="chip">.NET MAUI</span><span class="chip">XAML</span><span class="chip">MVVM</span><span class="chip">Android</span></div>
-                  <div class="proj-links">
+                  <div class="proj-links" data-i18n="proj.rezeptbuch.links">
                     <a href="https://github.com/Lro-rgb/MeinRezeptbuch" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
                   </div>
                 </article>
 
                 <article class="proj-card" id="proj-kobui">
-                  <div class="proj-type">// Schulprojekt · überbetrieblicher Kurs (ÜK) · Dreierteam</div>
+                  <div class="proj-type" data-i18n="proj.kobui.type">// Schulprojekt · überbetrieblicher Kurs (ÜK) · Dreierteam</div>
                   <h4 class="proj-t">Kobui</h4>
-                  <p class="proj-abstract"><strong>Abstract</strong>Kobui ist eine Web-App, die ein lokal laufendes Sprachmodell (KoboldCpp) an ein eigenes React-Frontend anbindet. Gedacht als datenschutzfreundliche Alternative zu Cloud-Diensten: Weil das Modell auf dem eigenen Rechner läuft, verlässt keine Eingabe das Gerät.</p>
+                  <p class="proj-abstract" data-i18n="proj.kobui.abstract"><strong>Abstract</strong>Kobui ist eine Web-App, die ein lokal laufendes Sprachmodell (KoboldCpp) an ein eigenes React-Frontend anbindet. Gedacht als datenschutzfreundliche Alternative zu Cloud-Diensten: Weil das Modell auf dem eigenen Rechner läuft, verlässt keine Eingabe das Gerät.</p>
                   <div class="proj-media" data-media="kobui"></div>
-                  <div class="proj-body">
+                  <div class="proj-body" data-i18n="proj.kobui.body">
                     Frontend mit TypeScript, React und Vite, gestaltet über CSS Modules. Die Anwendung spricht die lokale Schnittstelle von KoboldCpp an und bringt eine eigene Anleitung mit, damit man sie auch ohne Vorwissen aufsetzen kann.
                   </div>
-                  <dl class="proj-meta">
+                  <dl class="proj-meta" data-i18n="proj.kobui.meta">
                     <div><dt>Meine Rolle</dt><dd>Organisation und Gestaltung im Dreierteam. Ich habe Aufgaben verteilt, den Zeitplan im Blick behalten und bin eingesprungen, wo es gegen Ende knapp wurde.</dd></div>
                     <div><dt>Beigetragen</dt><dd>Installationsanleitung für das lokale Backend, Ergänzung alternativer Modelle und Korrekturen an der Bedienoberfläche</dd></div>
                     <div><dt>Gelernt</dt><dd>Wie viel Abstimmung ein Dreierteam braucht. Und dass ein realistischer Zeitplan mehr wert ist als ein ehrgeiziger.</dd></div>
                   </dl>
                   <div class="chips"><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Vite</span><span class="chip">CSS Modules</span></div>
-                  <div class="proj-links">
+                  <div class="proj-links" data-i18n="proj.kobui.links">
                     <a href="https://github.com/kiraa1q/kobui" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
                   </div>
                 </article>
 
                 <article class="proj-card" id="proj-webshop">
-                  <div class="proj-type">// Schulprojekt · über drei Module gewachsen · laufend</div>
+                  <div class="proj-type" data-i18n="proj.webshop.type">// Schulprojekt · über drei Module gewachsen · laufend</div>
                   <h4 class="proj-t">Redis-Webshop</h4>
-                  <p class="proj-abstract"><strong>Abstract</strong>Ein Webshop, der seine Daten nicht in einer Tabellendatenbank hält, sondern komplett in Redis. Entstanden ist er im NoSQL-Modul als ziemlich leeres Grundgerüst. Seither ist er mein Übungsprojekt: In jedem folgenden Modul, in dem es gepasst hat, habe ich ihn um das erweitert, was gerade dran war.</p>
+                  <p class="proj-abstract" data-i18n="proj.webshop.abstract"><strong>Abstract</strong>Ein Webshop, der seine Daten nicht in einer Tabellendatenbank hält, sondern komplett in Redis. Entstanden ist er im NoSQL-Modul als ziemlich leeres Grundgerüst. Seither ist er mein Übungsprojekt: In jedem folgenden Modul, in dem es gepasst hat, habe ich ihn um das erweitert, was gerade dran war.</p>
                   <div class="proj-media" data-media="webshop"></div>
-                  <div class="proj-body">
+                  <div class="proj-body" data-i18n="proj.webshop.body">
                     <strong>NoSQL-Modul: das Datenmodell.</strong> Jeder Datensatz liegt als Hash unter einem sprechenden Schlüssel, also <code>product:12</code>, <code>user:3</code>, <code>cart:3</code>. Redis kennt kein <code>WHERE</code>, deshalb braucht jede Suche einen eigenen Index. Die Kategorien liegen als Mengen unter <code>idx:kategorie:*</code> und enthalten die Produkt-IDs. Genau das war der Lerneffekt: In SQL wäre es eine einzige Abfrage gewesen, hier muss ich den Index beim Speichern von Hand mitschreiben. Vergesse ich das an einer Stelle, findet die Suche das Produkt nie wieder.
                     <br><br>
                     <strong>Docker-Modul: das Ausliefern.</strong> Anwendung und Datenbank starten seither zusammen über Docker Compose, damit der Shop auch auf einem fremden Rechner ohne Einrichtung läuft. Aus derselben Zeit stammt eine Kleinigkeit, über die ich mich immer noch freue: Die Verbindung sucht sich ihren Port selbst. Steht keine Umgebungsvariable, probiert sie 6379 und 6380 durch. In der Schule lief Redis auf einem anderen Port als zuhause, und statt die Datei jedes Mal zu ändern, klärt das Programm es eben selbst.
@@ -699,7 +696,7 @@
                     <br><br>
                     Heute kann der Shop: Anmeldung mit Rollen für Admins und Kundschaft, Produkte anlegen, bearbeiten und löschen, einen Warenkorb pro Benutzer und Skripte, die alles mit Testdaten füllen.
                   </div>
-                  <dl class="proj-meta">
+                  <dl class="proj-meta" data-i18n="proj.webshop.meta">
                     <div><dt>Meine Rolle</dt><dd>Eigenes Repository, von mir umgesetzt und über die Module hinweg weiterentwickelt</dd></div>
                     <div><dt>Warum immer dasselbe Projekt</dt><dd>Ein neues Thema an bekanntem Code zu lernen zeigt den Unterschied deutlicher als ein frisches Beispielprojekt. Nebenbei sieht man an der Historie, wie sich derselbe Shop über ein Jahr verändert hat.</dd></div>
                     <div><dt>Gelernt</dt><dd>
@@ -713,47 +710,22 @@
                     </dd></div>
                   </dl>
                   <div class="chips"><span class="chip">Python</span><span class="chip">Flask</span><span class="chip">Redis</span><span class="chip">Docker Compose</span><span class="chip">Jinja2</span><span class="chip">Azure</span></div>
-                  <div class="proj-links">
+                  <div class="proj-links" data-i18n="proj.webshop.links">
                     <a href="https://github.com/Lro-rgb/redis-webshop" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
                   </div>
                 </article>
 
-                <article class="proj-card" id="proj-bookloan">
-                  <div class="proj-type">// Schulprojekt · überbetrieblicher Kurs · Modul LBV 294 · Dreierteam</div>
-                  <h4 class="proj-t">BookLoan</h4>
-                  <p class="proj-abstract"><strong>Abstract</strong>BookLoan ist eine Webanwendung zur Verwaltung von Bibliotheken, Büchern und Ausleihen: Bestände anlegen und pflegen, Bücher ausleihen und zurücknehmen, Benutzerkonten verwalten. Die Anwendung ist mehrsprachig, hat einen hellen und einen dunklen Modus und führt neue Benutzer über eine kurze Einführung. Ich bin während des laufenden Projekts ins Team nachgerückt.</p>
-                  <div class="proj-media" data-media="bookloan"></div>
-                  <div class="proj-body">
-                    Getrennte Anwendungen für Frontend und Backend: vorne React 19 mit TypeScript, Vite und React Router, hinten NestJS mit Prisma als Zugriffsschicht auf eine MySQL-Datenbank. Die Anmeldung läuft über JWT. Beide Teile starten zusammen über Docker Compose, sodass die Anwendung auf einem fremden Rechner ohne Einrichtung von Hand läuft.
-                  </div>
-                  <dl class="proj-meta">
-                    <div><dt>Meine Rolle</dt><dd>Nachgerückt: Ich bin für einen ausgeschiedenen Kollegen ins bestehende Dreierteam gekommen, als das Projekt schon lief. Mein Schwerpunkt lag beim Sammeln und Ausarbeiten von Ideen für Funktionen und Gestaltung; dazu kam Mitarbeit dort, wo gerade Hände gebraucht wurden.</dd></div>
-                    <div><dt>Ehrlich gesagt</dt><dd>Der grössere Teil des Codes stammt nicht von mir, und im Repository steht noch das ursprüngliche Team. Ich führe das Projekt hier auf, weil das Einsteigen in eine fremde, schon laufende Codebasis eine eigene Erfahrung war, nicht wegen der Grösse meines Anteils.</dd></div>
-                    <div><dt>Gelernt</dt><dd>
-                      <ul class="proj-ul">
-                        <li>Sich in fremden Code einarbeiten, ohne das Team auszubremsen</li>
-                        <li>Dass man als Nachrücker zuerst zuhört und liest, bevor man Vorschläge macht</li>
-                        <li>Wie getrenntes Frontend und Backend zusammenspielen: React vorne, NestJS und Prisma hinten</li>
-                      </ul>
-                    </dd></div>
-                  </dl>
-                  <div class="chips"><span class="chip">React 19</span><span class="chip">TypeScript</span><span class="chip">NestJS</span><span class="chip">Prisma</span><span class="chip">MySQL</span><span class="chip">Docker</span></div>
-                  <div class="proj-links">
-                    <a href="https://github.com/etschwab/BookLoan" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
-                  </div>
-                </article>
-
                 <article class="proj-card" id="proj-erstewebsite">
-                  <div class="proj-type">// Schulprojekt · 1. Lehrjahr · eigenständig · mein erstes Projekt</div>
-                  <h4 class="proj-t">Erste eigene Website</h4>
-                  <p class="proj-abstract"><strong>Abstract</strong>Eine Info-Seite über mich mit fünf Unterseiten: Home, Über mich, Freizeit, Ausbildung und Kontakt. Reines HTML und CSS, ohne JavaScript, von Hand geschrieben und über FTP auf den Klassenserver geladen. Das war im ersten Lehrjahr meine erste Website überhaupt.</p>
+                  <div class="proj-type" data-i18n="proj.erstewebsite.type">// Schulprojekt · 1. Lehrjahr · eigenständig · mein erstes Projekt</div>
+                  <h4 class="proj-t" data-i18n="proj.erstewebsite.title">Erste eigene Website</h4>
+                  <p class="proj-abstract" data-i18n="proj.erstewebsite.abstract"><strong>Abstract</strong>Eine Info-Seite über mich mit fünf Unterseiten: Home, Über mich, Freizeit, Ausbildung und Kontakt. Reines HTML und CSS, ohne JavaScript, von Hand geschrieben und über FTP auf den Klassenserver geladen. Das war im ersten Lehrjahr meine erste Website überhaupt.</p>
                   <div class="proj-media" data-media="erstewebsite"></div>
-                  <div class="proj-body">
+                  <div class="proj-body" data-i18n="proj.erstewebsite.body">
                     Inhaltlich ging es um mich selbst, technisch um die Grundlagen: eine gemeinsame Navigation auf jeder Seite, ein durchgehendes Layout, eingebundene Bilder und eine Quellenseite für alles, was nicht von mir stammt. Die Seite liegt bis heute unverändert auf dem Schulserver; eine Kopie davon liegt als Unterseite hier, damit sie erreichbar bleibt, wenn der Schulserver es irgendwann nicht mehr ist.
                     <br><br>
                     Ich zeige sie bewusst im Originalzustand. Die Rechtschreibung ist stellenweise daneben, jede Unterseite wiederholt dieselbe Navigation als Kopie, und es gibt kein Layout fürs Handy. Genau daran sehe ich den Abstand zu dem, was ich heute baue: Das Portfolio, auf dem Sie gerade sind, ist dasselbe Vorhaben — eine Seite über mich — nur ein Jahr später.
                   </div>
-                  <dl class="proj-meta">
+                  <dl class="proj-meta" data-i18n="proj.erstewebsite.meta">
                     <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt: Inhalt, Layout und Umsetzung</dd></div>
                     <div><dt>Gelernt</dt><dd>
                       <ul class="proj-ul">
@@ -766,7 +738,7 @@
                     <div><dt>Was ich heute anders mache</dt><dd>Navigation nicht mehr in jede Datei kopieren, Layout von Anfang an fürs Handy mitdenken und den Text vor dem Veröffentlichen gegenlesen</dd></div>
                   </dl>
                   <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">FTP</span></div>
-                  <div class="proj-links">
+                  <div class="proj-links" data-i18n="proj.erstewebsite.links">
                     <a href="erste-website" class="proj-link" target="_blank" rel="noopener noreferrer">🌐 Kopie hier ansehen</a>
                     <a href="http://datastaff.com.br/rosado/" class="proj-link" target="_blank" rel="noopener noreferrer">🏫 Original auf dem Schulserver</a>
                   </div>
@@ -783,29 +755,29 @@
           <div class="code-view">
             <div class="code-content">
               <div class="cmt">// interessen.json</div><br>
-              <h2 class="ed-h1 reveal">Interessen</h2>
-              <div class="prose reveal" style="margin-bottom:1.4rem">
+              <h2 class="ed-h1 reveal" data-i18n="interessen.title">Interessen</h2>
+              <div class="prose reveal" style="margin-bottom:1.4rem" data-i18n="interessen.intro">
                 <p>Was ich neben der Schule mache.</p>
               </div>
 
-              <h3 class="ed-h2 reveal">Hardware und Softmods</h3>
-              <div class="prose reveal">
+              <h3 class="ed-h2 reveal" data-i18n="interessen.h.hardware">Hardware und Softmods</h3>
+              <div class="prose reveal" data-i18n="interessen.hardware">
                 <p>Ich habe einen PC selbst zusammengebaut und zwei Konsolen mit Custom Firmware versehen.</p>
               </div>
               <div class="slider reveal" data-slider="hardware"></div>
 
               <h3 class="ed-h2 reveal">Gaming</h3>
-              <div class="prose reveal">
+              <div class="prose reveal" data-i18n="interessen.gaming">
                 <p>Ich habe über hundert Spiele gespielt. Wenn mir eines gefällt, spiele ich es auf 100 Prozent: alle Trophäen, alle Nebenaufgaben, alle Sammelobjekte. Die meiste Zeit habe ich in Persona 3 FES, Palworld und Elden Ring verbracht.</p>
               </div>
               <div class="slider reveal" data-slider="gaming"></div>
 
-              <h3 class="ed-h2 reveal">Musik</h3>
-              <div class="prose reveal">
+              <h3 class="ed-h2 reveal" data-i18n="interessen.h.music">Musik</h3>
+              <div class="prose reveal" data-i18n="interessen.music">
                 <p>Ich höre den ganzen Tag Musik und sammle Alben auch physisch. Das sind meine liebsten:</p>
               </div>
               <div class="slider reveal" data-slider="musik"></div>
-              <div class="prose reveal">
+              <div class="prose reveal" data-i18n="interessen.music2">
                 <p>Dazu The Smiths, bei denen ich mich auf kein einzelnes Album festlegen kann. Was ich tatsächlich höre, steht in meinen Hörstatistiken:</p>
               </div>
               <!-- Live aus der stats.fm-API. Bis die Daten da sind (oder
@@ -814,20 +786,20 @@
               <div class="statsfm reveal" id="statsfm" data-user="31otkarr5nhbkw2wldfglezk6ehu">
                 <a class="ext-card" href="https://stats.fm/31otkarr5nhbkw2wldfglezk6ehu" target="_blank" rel="noopener noreferrer">
                   <span class="ext-label">stats.fm</span>
-                  <span class="ext-text">Meine Hörstatistiken, direkt aus Spotify: meistgehörte Künstler, Alben und Titel</span>
+                  <span class="ext-text" data-i18n="interessen.statsfm.text">Meine Hörstatistiken, direkt aus Spotify: meistgehörte Künstler, Alben und Titel</span>
                   <span class="ext-host">stats.fm/31otkarr5nhbkw2wldfglezk6ehu</span>
                 </a>
               </div>
 
-              <h3 class="ed-h2 reveal">Lesen</h3>
-              <div class="prose reveal">
+              <h3 class="ed-h2 reveal" data-i18n="interessen.h.reading">Lesen</h3>
+              <div class="prose reveal" data-i18n="interessen.reading">
                 <p>Ich lese hauptsächlich Mangas und sammle die Reihen bis zum letzten Band. Zu einigen davon habe ich auch Figuren.</p>
               </div>
               <div class="slider reveal" data-slider="lesen"></div>
 
               <!-- Kurze Herkunftsangabe zu den Bildern. Bewusst eine Zeile
                    am Seitenende und kein eigener Abschnitt. -->
-              <p class="quellen reveal">
+              <p class="quellen reveal" data-i18n="interessen.credits">
                 Bildnachweis: Key-Art der Spiele von Steam, Album- und Bandcover aus dem
                 Angebot von Apple und der Open Library. Die Rechte liegen bei den jeweiligen
                 Studios, Labels und Verlagen; die Bilder stehen hier als Hinweis auf das Werk.
@@ -842,8 +814,8 @@
           <div class="code-view">
             <div class="code-content">
               <div class="cmt">-- kontakt.sql</div><br>
-              <h2 class="ed-h1 reveal">Kontakt</h2>
-              <div class="prose reveal" style="margin-bottom:1.4rem">
+              <h2 class="ed-h1 reveal" data-i18n="kontakt.title">Kontakt</h2>
+              <div class="prose reveal" style="margin-bottom:1.4rem" data-i18n="kontakt.intro">
                 <p>Ich suche eine Praktikumsstelle in der Applikationsentwicklung. Bei Fragen oder wenn Sie Unterlagen brauchen, schreiben Sie mir. Ich antworte meistens am gleichen Tag.</p>
               </div>
 
@@ -856,31 +828,31 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m3 6 9 6.5L21 6"/></svg>
                   </span>
                   <span class="kk-txt">
-                    <span class="kk-t">E-Mail schreiben</span>
+                    <span class="kk-t" data-i18n="home.cta.mail">E-Mail schreiben</span>
                     <span class="kk-s">luisrosado008@gmail.com</span>
                   </span>
                 </a>
                 <a class="kk" href="https://github.com/Lro-rgb" target="_blank" rel="noopener noreferrer">
                   <span class="kk-ic" aria-hidden="true"><i class="devicon-github-original"></i></span>
                   <span class="kk-txt">
-                    <span class="kk-t">Quellcode ansehen</span>
+                    <span class="kk-t" data-i18n="kontakt.viewSource">Quellcode ansehen</span>
                     <span class="kk-s">github.com/Lro-rgb</span>
                   </span>
                 </a>
               </div>
 
               <div class="kk-neben reveal">
-                <button type="button" class="btn btn-klein" id="mailKopieren"
+                <button type="button" class="btn btn-klein" id="mailKopieren" data-i18n="kontakt.copyAddress"
                         data-adresse="luisrosado008@gmail.com">Adresse kopieren</button>
-                <span class="kk-hinweis">Burgdorf BE · erreichbar auch über die Schule</span>
+                <span class="kk-hinweis" data-i18n="kontakt.hint">Burgdorf BE · erreichbar auch über die Schule</span>
               </div>
 
-              <h3 class="ed-h2 reveal">Zugang zum geschützten Bereich</h3>
-              <div class="prose reveal">
+              <h3 class="ed-h2 reveal" data-i18n="kontakt.h.access">Zugang zum geschützten Bereich</h3>
+              <div class="prose reveal" data-i18n="kontakt.access">
                 <p>Noten und Lebenslauf liegen im Ordner <code>unterlagen</code> hinter einem Passwort. Die Zugangsdaten bekommen die Schulleitung, die betreuenden Lehrpersonen und Betriebe, bei denen ich mich bewerbe. Falls Sie den Zugang brauchen und noch nicht haben, genügt eine kurze Mail.</p>
               </div>
               <div class="kk-neben reveal" style="margin-bottom:2.4rem">
-                <button type="button" class="btn" data-open="cv">Anmelden und öffnen</button>
+                <button type="button" class="btn" data-open="cv" data-i18n="kontakt.loginOpen">Anmelden und öffnen</button>
               </div>
 
               <!-- Impressum steht offen da. Es ist eine Pflichtangabe; wer
@@ -888,10 +860,10 @@
                    Zuklappen geht trotzdem. -->
               <div class="fold impressum reveal">
                 <button type="button" class="fold-btn" aria-expanded="true" aria-controls="impressumBody">
-                  <span class="fold-arrow" aria-hidden="true">▸</span> Impressum
+                  <span class="fold-arrow" aria-hidden="true">▸</span> <span data-i18n="kontakt.legal">Impressum</span>
                 </button>
                 <div class="fold-body" id="impressumBody">
-                  <dl class="imp-list">
+                  <dl class="imp-list" data-i18n="kontakt.legalContent">
                     <div><dt>Verantwortlich</dt><dd>Luis Rosado</dd></div>
                     <!-- Anschrift als Verweis auf die Karte: Wer schaut, wie weit
                          der Weg zum Betrieb waere, kommt mit einem Klick hin,
@@ -918,20 +890,20 @@
             <div class="code-content">
               <div class="cmt"># README.md · Wie diese Seite gebaut ist</div><br>
 
-              <h2 class="ed-h1 reveal">Über diese Seite</h2>
-              <div class="prose reveal">
+              <h2 class="ed-h1 reveal" data-i18n="readme.h.about">Über diese Seite</h2>
+              <div class="prose reveal" data-i18n="readme.about">
                 <p>Diese Seite ist meine persönliche Website im Rahmen der IMS-Ausbildung und gleichzeitig Teil meiner Bewerbungsunterlagen. Ich habe sie von Hand gebaut, ohne Baukasten und ohne Framework.</p>
                 <p>Hier steht, warum sie so aussieht und funktioniert, wie sie es tut. Gestalterische Entscheidungen sind nachvollziehbar oder sie sind Zufall; ich möchte, dass meine nachvollziehbar sind.</p>
               </div>
 
-              <h3 class="ed-h2 reveal">Warum ein Code-Editor als Oberfläche</h3>
-              <div class="prose reveal">
+              <h3 class="ed-h2 reveal" data-i18n="readme.h.editor">Warum ein Code-Editor als Oberfläche</h3>
+              <div class="prose reveal" data-i18n="readme.editor">
                 <p>Die Seite richtet sich an Betriebe, die Applikationsentwicklung ausbilden. Deshalb ist die Oberfläche selbst eine Arbeitsprobe: Sie ist einem Code-Editor nachempfunden, also der Umgebung, in der ich täglich arbeite.</p>
                 <p>Jeder Abschnitt ist eine Datei, deren Endung zum Inhalt passt: <code>skills.py</code>, <code>techstack.ts</code>, <code>kontakt.sql</code>. Das ist kein Selbstzweck: Die Endung sagt schon vor dem Lesen, worum es geht, und der Explorer links zeigt die ganze Struktur auf einen Blick. Wer lieber klassisch navigiert, benutzt die Tableiste oben; beides führt zum selben Inhalt.</p>
               </div>
 
-              <h3 class="ed-h2 reveal">Schrift</h3>
-              <table class="ed-table reveal">
+              <h3 class="ed-h2 reveal" data-i18n="readme.h.fonts">Schrift</h3>
+              <table class="ed-table reveal" data-i18n="readme.fontsTable">
                 <tr><th>Schrift</th><th>Eingesetzt für</th><th>Begründung</th></tr>
                 <tr>
                   <td>JetBrains&nbsp;Mono</td>
@@ -944,31 +916,31 @@
                   <td>Eine Monospace-Schrift ermüdet über mehrere Sätze. Inter ist für Bildschirme optimiert und auch in kleinen Graden gut lesbar.</td>
                 </tr>
               </table>
-              <div class="prose reveal">
+              <div class="prose reveal" data-i18n="readme.fonts2">
                 <p>Zwei Schriften mit klarer Aufgabenteilung: Monospace für Struktur und Daten, Inter für Sprache. Der Wechsel ist kein Stilmittel, sondern ein Hinweis darauf, welche Art von Information gerade folgt.</p>
               </div>
 
-              <h3 class="ed-h2 reveal">Farben</h3>
-              <div class="prose reveal">
+              <h3 class="ed-h2 reveal" data-i18n="readme.h.colors">Farben</h3>
+              <div class="prose reveal" data-i18n="readme.colors">
                 <p>Die Farben stammen aus den echten VS-Code-Themes. Ein einziger Akzentton führt durch die ganze Seite: aktiver Tab, Links, Schaltflächen, Fokusrahmen. Wer ihn einmal zugeordnet hat, findet sich überall zurecht.</p>
                 <p>Grün, Orange und Rot sind für Bedeutung reserviert, nicht für Dekoration: Einstufungen bei den Skills, Notenwerte, Fehlermeldungen. Farbe ist dabei nie der einzige Träger einer Information. Überall steht auch der Text dabei, damit die Seite bei einer Farbsehschwäche verständlich bleibt.</p>
               </div>
               <div class="cb reveal">
                 <span class="cb-lang">css</span>
-                <div class="cl"><span class="cmt">/* Dark+, das Standarddesign von VS Code */</span></div>
+                <div class="cl"><span class="cmt" data-i18n="readme.colorsComment">/* Dark+, das Standarddesign von VS Code */</span></div>
                 <div class="cl"><span class="punct">:root {</span></div>
                 <div class="cl i1"><span class="kw-b">--bg</span><span class="punct">:</span> <span class="str">#1e1e1e</span><span class="punct">;</span>  <span class="cmt">/* editor.background */</span></div>
                 <div class="cl i1"><span class="kw-b">--sb</span><span class="punct">:</span> <span class="str">#252526</span><span class="punct">;</span>  <span class="cmt">/* sideBar.background */</span></div>
                 <div class="cl i1"><span class="kw-b">--act-bg</span><span class="punct">:</span> <span class="str">#333333</span><span class="punct">;</span>  <span class="cmt">/* activityBar */</span></div>
-                <div class="cl i1"><span class="kw-b">--status-bg</span><span class="punct">:</span> <span class="str">#2d5876</span><span class="punct">;</span>  <span class="cmt">/* statusBar, gedämpft */</span></div>
+                <div class="cl i1"><span class="kw-b">--status-bg</span><span class="punct">:</span> <span class="str">#2d5876</span><span class="punct">;</span>  <span class="cmt" data-i18n="readme.statusBarComment">/* statusBar, gedämpft */</span></div>
                 <div class="cl"><span class="punct">}</span></div>
               </div>
 
-              <h3 class="ed-h2 reveal">Grafische Elemente</h3>
-              <div class="prose reveal">
+              <h3 class="ed-h2 reveal" data-i18n="readme.h.graphics">Grafische Elemente</h3>
+              <div class="prose reveal" data-i18n="readme.graphics">
                 <p>Es gibt bewusst keine Schmuckbilder und keine Symbolfotos. Jedes grafische Element hat eine Aufgabe:</p>
               </div>
-              <table class="ed-table reveal">
+              <table class="ed-table reveal" data-i18n="readme.graphicsTable">
                 <tr><th>Element</th><th>Warum es da ist</th></tr>
                 <tr><td>Technologie-Icons</td><td>Originallogos der jeweiligen Technologie. Ein Stack ist damit auf einen Blick erfassbar, ohne jede Zeile zu lesen.</td></tr>
                 <tr><td>Tableiste &amp; Explorer</td><td>Tragen die Editor-Metapher und sind gleichzeitig die Navigation. Zwei Wege zum selben Ziel.</td></tr>
@@ -977,14 +949,14 @@
                 <tr><td>Ladebildschirm</td><td>Führt die Editor-Metapher ein, bevor der Inhalt erscheint. Überspringbar und läuft nur einmal pro Besuch.</td></tr>
               </table>
 
-              <h3 class="ed-h2 reveal">Bedienung und Barrierefreiheit</h3>
-              <div class="prose reveal">
+              <h3 class="ed-h2 reveal" data-i18n="readme.h.a11y">Bedienung und Barrierefreiheit</h3>
+              <div class="prose reveal" data-i18n="readme.a11y">
                 <p>Die ganze Seite lässt sich ohne Maus bedienen. In der Tableiste wechseln die Pfeiltasten zwischen den Dateien, <code>Pos1</code> und <code>Ende</code> springen an den Rand, <code>Entf</code> schliesst einen Tab. Jedes bedienbare Element hat einen sichtbaren Fokusrahmen, und ganz oben führt eine Sprungmarke direkt zum Inhalt.</p>
                 <p>Wer im Betriebssystem reduzierte Bewegung eingestellt hat, bekommt die Seite ohne Animationen und ohne Ladebildschirm. Jeder Abschnitt hat eine eigene Adresse: <code>#projekte</code> lässt sich zum Beispiel direkt verschicken.</p>
               </div>
 
-              <h2 class="ed-h1 reveal">Technische Angaben</h2>
-              <table class="ed-table reveal">
+              <h2 class="ed-h1 reveal" data-i18n="readme.h.tech">Technische Angaben</h2>
+              <table class="ed-table reveal" data-i18n="readme.techTable">
                 <tr><th>Bereich</th><th>Umsetzung</th></tr>
                 <tr><td>Frontend</td><td>HTML, CSS und JavaScript von Hand, ohne Framework und ohne Build-Schritt. Was im Browser ankommt, ist genau das, was ich geschrieben habe.</td></tr>
                 <tr><td>Backend</td><td>Serverless Functions (Node.js) für Login und geschützte Inhalte</td></tr>
@@ -995,8 +967,8 @@
                 <tr><td>Browser</td><td>Getestet in Chrome, Edge und Firefox. Funktioniert in jedem aktuellen Browser; ältere bekommen dieselben Inhalte, nur ohne einzelne visuelle Effekte.</td></tr>
               </table>
 
-              <h3 class="ed-h2 reveal">Warum ohne Framework</h3>
-              <div class="prose reveal">
+              <h3 class="ed-h2 reveal" data-i18n="readme.h.noFramework">Warum ohne Framework</h3>
+              <div class="prose reveal" data-i18n="readme.noFramework">
                 <p>Ein Framework hätte mir Arbeit abgenommen, und genau deshalb habe ich darauf verzichtet. Tabverwaltung, Tastatursteuerung, Fokusverwaltung und der Login-Ablauf sind Dinge, die ich verstehen will, statt sie einzubinden.</p>
               </div>
             </div>
@@ -1045,14 +1017,14 @@
   <section class="panel" id="panelTerminal" hidden aria-label="Terminal">
     <div class="panel-head">
       <button type="button" class="panel-tab active">Terminal</button>
-      <button type="button" class="panel-close" id="panelClose" aria-label="Panel schliessen">✕</button>
+      <button type="button" class="panel-close" id="panelClose" aria-label="Panel schliessen" data-i18n-aria-label="chrome.closePanel">✕</button>
     </div>
     <div class="term" id="termOut" tabindex="0">
-      <div class="term-line out">Portfolio-Shell. <code>help</code> zeigt alle Befehle.</div>
+      <div class="term-line out" data-i18n="terminal.intro">Portfolio-Shell. <code>help</code> zeigt alle Befehle.</div>
       <div class="term-input-row">
         <span class="term-prompt">luis@portfolio</span><span class="term-path">~$</span>
         <input class="term-input" id="termInput" autocomplete="off" spellcheck="false"
-               aria-label="Terminal-Eingabe" />
+               aria-label="Terminal-Eingabe" data-i18n-aria-label="terminal.inputLabel" />
       </div>
     </div>
   </section>
@@ -1062,21 +1034,21 @@
        Oberflaeche die untere Kante, und einen guten Platz fuer Angaben, die
        sonst nirgends hinpassen. -->
   <div class="statusbar" id="statusbar">
-    <a class="st-item" href="https://github.com/Lro-rgb/PortfolioV1" target="_blank" rel="noopener noreferrer" title="Quellcode auf GitHub">
+    <a class="st-item" href="https://github.com/Lro-rgb/PortfolioV1" target="_blank" rel="noopener noreferrer" title="Quellcode auf GitHub" data-i18n-title="chrome.sourceOnGithub">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M11 3.5a2 2 0 1 1-2.6 1.9v5.2A2 2 0 1 1 5.8 12V4.4"/><circle cx="5" cy="3.5" r="1.6"/></svg>
       main
     </a>
-    <button type="button" class="st-item" data-cmd="terminal" title="Terminal ein- und ausblenden">
+    <button type="button" class="st-item" data-cmd="terminal" title="Terminal ein- und ausblenden" data-i18n-title="chrome.toggleTerminal">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m3 5 3 3-3 3M8.5 11H13"/></svg>
       Terminal
     </button>
-    <span class="st-item st-hide-sm" id="stProblems" title="Keine bekannten Probleme">0 Fehler, 0 Warnungen</span>
+    <span class="st-item st-hide-sm" id="stProblems" title="Keine bekannten Probleme" data-i18n-title="chrome.noProblems" data-i18n="chrome.problemsCount">0 Fehler, 0 Warnungen</span>
 
     <div class="st-right">
       <span class="st-item st-hide-sm" id="stLines">–</span>
-      <button type="button" class="st-item" data-cmd="theme" id="stTheme" title="Farbdesign wechseln">Dark+</button>
+      <button type="button" class="st-item" data-cmd="theme" id="stTheme" title="Farbdesign wechseln" data-i18n-title="chrome.switchTheme">Dark+</button>
       <span class="st-item" id="stLang">JSON</span>
-      <button type="button" class="st-item" id="stAuth" data-open="cv" title="Geschützte Unterlagen">🔒 Gast</button>
+      <button type="button" class="st-item" id="stAuth" data-open="cv" title="Geschützte Unterlagen" data-i18n-title="chrome.protectedDocuments" data-i18n="chrome.guest">🔒 Gast</button>
     </div>
   </div>
 
@@ -1084,22 +1056,22 @@
 
 <!-- ══════════════ KOMMANDOPALETTE (Strg+P) ══════════════ -->
 <div class="qi-backdrop" id="qiBackdrop" hidden>
-  <div class="qi" role="dialog" aria-modal="true" aria-label="Gehe zu Datei oder Befehl">
+  <div class="qi" role="dialog" aria-modal="true" aria-label="Gehe zu Datei oder Befehl" data-i18n-aria-label="palette.ariaLabel">
     <input class="qi-input" id="qiInput" type="text" autocomplete="off" spellcheck="false"
-           placeholder="Datei eingeben, oder > für Befehle" aria-controls="qiList" />
-    <ul class="qi-list" id="qiList" role="listbox" aria-label="Ergebnisse"></ul>
+           placeholder="Datei eingeben, oder > für Befehle" data-i18n-placeholder="palette.placeholder" aria-controls="qiList" />
+    <ul class="qi-list" id="qiList" role="listbox" aria-label="Ergebnisse" data-i18n-aria-label="palette.results"></ul>
   </div>
 </div>
 
 <!-- ══════════════ BILD-VOLLANSICHT ══════════════ -->
-<div class="overlay lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot in Vollansicht" aria-hidden="true">
+<div class="overlay lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot in Vollansicht" data-i18n-aria-label="lightbox.ariaLabel" aria-hidden="true">
   <figure class="lb-figure">
     <img class="lb-img" id="lbImg" alt=""/>
     <figcaption class="lb-cap" id="lbCap"></figcaption>
   </figure>
-  <button type="button" class="lb-nav lb-prev" id="lbPrev" aria-label="Vorheriges Bild">‹</button>
-  <button type="button" class="lb-nav lb-next" id="lbNext" aria-label="Nächstes Bild">›</button>
-  <button type="button" class="lb-close" id="lbClose" aria-label="Vollansicht schliessen">×</button>
+  <button type="button" class="lb-nav lb-prev" id="lbPrev" aria-label="Vorheriges Bild" data-i18n-aria-label="lightbox.prev">‹</button>
+  <button type="button" class="lb-nav lb-next" id="lbNext" aria-label="Nächstes Bild" data-i18n-aria-label="lightbox.next">›</button>
+  <button type="button" class="lb-close" id="lbClose" aria-label="Vollansicht schliessen" data-i18n-aria-label="lightbox.close">×</button>
   <div class="lb-count" id="lbCount" aria-hidden="true"></div>
 </div>
 
@@ -1109,6 +1081,7 @@
      vscode.js: Activity Bar, Statusleiste, Farbdesigns, Kommandopalette,
      Terminal. Baut auf den Funktionen aus app.js auf und muss deshalb
      danach geladen werden. -->
+<script src="js/i18n.js"></script>
 <script src="js/app.js"></script>
 <script src="js/vscode.js"></script>
 </body>

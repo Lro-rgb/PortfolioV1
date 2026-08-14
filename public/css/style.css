@@ -78,6 +78,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
   border:1px solid var(--border2);padding:.2rem .55rem;border-radius:2px;flex-shrink:0}
 .tb-auth.authed{color:var(--green);border-color:rgba(63,185,80,.4);background:rgba(63,185,80,.1)}
 
+/* DE/EN-Umschalter — gleiche Bauart wie der Login-Status daneben */
+.tb-lang{font-family:var(--mono);font-size:.64rem;font-weight:600;letter-spacing:.03em;
+  color:var(--muted);white-space:nowrap;border:1px solid var(--border2);
+  padding:.2rem .5rem;border-radius:2px;flex-shrink:0;cursor:pointer;
+  background:transparent;transition:background .15s,color .15s}
+.tb-lang:hover{background:rgba(255,255,255,.07);color:var(--text)}
+
 /* Explorer-Schalter — nur auf schmalen Bildschirmen sichtbar */
 .sb-toggle{display:none;font-size:1rem;line-height:1;color:var(--muted);padding:.3rem .5rem;
   border-radius:3px;flex-shrink:0;transition:background .15s,color .15s}
@@ -333,21 +340,17 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
 
 .proj-body{font-family:var(--sans);font-size:.83rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem}
 
-/* Rolle, Team, Gelerntes — Beschriftung links, Inhalt rechts. Als reine
-   Liste untereinander liefen Beschriftung und Text vorher ineinander;
-   die feste Spalte gibt dem Auge eine Kante zum Entlanglaufen. Eine
+/* Rolle, Team, Gelerntes — Beschriftung oben, Inhalt darunter. Bei
+   laengeren Texten (z.B. "Gelernt" mit einer ganzen Liste) lief der Inhalt
+   in der alten Zweispalten-Anordnung neben der Beschriftung her statt
+   darunter; als Block untereinander liest sich beides sauberer. Eine
    Haarlinie darueber trennt die Details vom Fliesstext. */
 .proj-meta{margin:0 0 .9rem;padding-top:.85rem;border-top:1px solid var(--border);
   display:flex;flex-direction:column;gap:.55rem}
-.proj-meta>div{display:grid;grid-template-columns:8.5rem minmax(0,1fr);gap:.15rem .9rem;align-items:baseline}
+.proj-meta>div{display:flex;flex-direction:column;gap:.15rem}
 .proj-meta dt{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
   color:var(--dim)}
 .proj-meta dd{font-family:var(--sans);font-size:.82rem;color:var(--muted);line-height:1.6}
-/* Auf schmalen Karten reicht es fuer zwei Spalten nicht mehr. */
-@media(max-width:1150px){
-  .proj-meta>div{grid-template-columns:minmax(0,1fr)}
-  .proj-meta dt{margin-bottom:.15rem}
-}
 .proj-ul{list-style:none;margin:.35rem 0 0;padding:0;display:flex;flex-direction:column;gap:.3rem}
 .proj-ul li{position:relative;padding-left:1rem}
 .proj-ul li::before{content:"›";position:absolute;left:0;color:var(--blue)}
@@ -650,6 +653,7 @@ body.voll-offen{overflow:hidden}
   /* Zeilennummern kosten hier nur Platz */
   .code-view{display:block}
   .tb-auth{font-size:.6rem;padding:.15rem .4rem}
+  .tb-lang{font-size:.6rem;padding:.15rem .4rem}
   .cta-row{flex-direction:column}
   .cta{width:100%}
   .fact-row{grid-template-columns:1fr}

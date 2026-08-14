@@ -49,8 +49,8 @@ const overlay=$('loginOverlay');
   if(alreadySeen||reduceMotion){finish(true);return;}
 
   const files=[
-    'Lade Erweiterungen...','luis.json','skills.py','techstack.ts','projekte.html',
-    'interessen.json','kontakt.sql','unterlagen/noten.csv','unterlagen/lebenslauf.md','Bereit.'
+    I18N.t('splash.loadingExtensions'),'luis.json','skills.py','techstack.ts','projekte.html',
+    'interessen.json','kontakt.sql','unterlagen/noten.csv','unterlagen/lebenslauf.md',I18N.t('splash.ready')
   ];
   const el=$('splashFiles'),fill=$('splashFill'),pct=$('splashPct'),lbl=$('splashLabel');
   let i=0,timer=null,done=false;
@@ -81,7 +81,7 @@ const overlay=$('loginOverlay');
     const p=Math.round((i/(files.length-1))*100);
     fill.style.width=p+'%';
     pct.textContent=p+'%';
-    lbl.textContent=i===0?'Initialisiere...':i===files.length-1?'Bereit':'Öffne '+files[i];
+    lbl.textContent=i===0?I18N.t('splash.init'):i===files.length-1?I18N.t('splash.readyLabel'):I18N.t('splash.opening')+files[i];
     i++;
     timer=setTimeout(step,i===1?400:180);
   }
@@ -338,7 +338,7 @@ function openDrawer(){
   sidebar.classList.add('open');
   backdrop.hidden=false;
   sbToggle.setAttribute('aria-expanded','true');
-  sbToggle.querySelector('.vh').textContent='Explorer schliessen';
+  sbToggle.querySelector('.vh').textContent=I18N.t('chrome.explorerClose');
   const first=sidebar.querySelector('.tree-folder, .tree-file');
   if(first)setTimeout(()=>first.focus(),reduceMotion?0:220);
 }
@@ -348,7 +348,7 @@ function closeDrawer(){
   sidebar.classList.remove('open');
   backdrop.hidden=true;
   sbToggle.setAttribute('aria-expanded','false');
-  sbToggle.querySelector('.vh').textContent='Explorer öffnen';
+  sbToggle.querySelector('.vh').textContent=I18N.t('chrome.explorerOpen');
   // Fokus nur zurückholen, wenn er noch in der Schublade steckt —
   // sonst würde ein Klick auf eine Datei den Fokus wieder wegreissen.
   if(sidebar.contains(document.activeElement)){
@@ -429,8 +429,6 @@ const MEDIA={
     shots:[
       {src:'media/arch-terminal.jpg',
        alt:'Alacritty mit der Fish-Shell, darüber die Waybar als Statusleiste'},
-      {src:'media/arch-file-explorer.jpg',
-       alt:'Nautilus als Dateimanager, eingefärbt in der Palette des Hintergrundbilds'},
       {src:'media/arch-logout-menu.jpg',
        alt:'Das Abmeldemenü, gebaut mit rofi und aus der Waybar heraus aufgerufen'}
     ]
@@ -445,7 +443,14 @@ const MEDIA={
      mit "Bild folgt" an der auffaelligsten Stelle — das ist genau die
      Unruhe, die eine Uebersicht kaputt macht. Die Eintraege bleiben
      stehen, damit ein einziges Wort sie wieder einschaltet. */
-  portfolio:{format:'quer', platzhalter:{anzahl:2}},
+  portfolio:{
+    format:'quer',
+    shots:[
+      {src:'media/portfolio-home.png',
+       alt:'Die Startseite dieses Portfolios im VS-Code-Design: Explorer links, luis.json offen im Editor'}
+    ],
+    platzhalter:{anzahl:1}
+  },
   /* Eigene Aufnahmen der beiden Geraete. Beide lagen quer im Foto und
      sind hier aufgerichtet; die Bildschirme sollen lesbar sein, das ist
      der ganze Zweck der Bilder. */
@@ -468,13 +473,11 @@ const MEDIA={
   urlshortener:{
     format:'frei',
     shots:[
-      /* Statt der Pipeline die Container Registry. Die Pipeline-Aufnahme
-         liegt weiter unter media/urlshortener-01-pipeline.png; zum
-         Zurücktauschen reicht es, die beiden Zeilen zu vertauschen:
+      /* Die Aufnahme der Container Registry ist raus. Die Pipeline-Aufnahme
+         liegt weiter unter media/urlshortener-01-pipeline.png, falls
+         stattdessen die wieder rein soll:
            {src:'media/urlshortener-01-pipeline.png',
             alt:'Die Pipeline in GitLab CI, alle Stufen grün'}, */
-      {src:'media/urlshortener-02-registry.png',
-       alt:'Die Container Registry mit den fertigen Abbildern von shorty und keeper'},
       {src:'media/urlshortener-05-argocd.png',
        alt:'ArgoCD meldet die Anwendung als Synced und Healthy'},
       {src:'media/urlshortener-03-pods.png',
@@ -506,9 +509,16 @@ const MEDIA={
            titel:'Mein Rezeptbuch im Android-Emulator', dauer:'0:18',
            zuschnitt:{x:478, breite:322, quelle:[1280,720], hoehe:440}}
   },
-  kobui:{platzhalter:{anzahl:2}},
+  kobui:{
+    format:'quer',
+    shots:[
+      {src:'media/kobui-docs.png',
+       alt:'Die eingebaute Dokumentation von kobui mit Beispielen für Charakterbeschreibung und erste Nachricht'},
+      {src:'media/kobui-chat.png',
+       alt:'Ein Chat mit einem selbst angelegten Charakter, die erste Nachricht ist schon zu sehen'}
+    ]
+  },
   webshop:{format:'quer', platzhalter:{anzahl:2}},
-  bookloan:{format:'quer', platzhalter:{anzahl:2}},
   // Die erste Website liegt als Kopie unter public/erste-website/ und wird
   // deshalb direkt eingebettet statt abfotografiert.
   erstewebsite:{einbettung:{src:'erste-website',
@@ -596,11 +606,11 @@ function renderAudio(){
     const wrap=el('div','audio-card');
     wrap.appendChild(el('div','audio-head',
       '<span class="audio-ic" aria-hidden="true">▶</span>'+
-      '<span class="audio-title">'+esc(cfg.titel||'Kurzvorstellung')+'</span>'+
+      '<span class="audio-title">'+esc(cfg.titel||I18N.t('media.introTitle'))+'</span>'+
       (cfg.dauer?'<span class="audio-dur">'+esc(cfg.dauer)+'</span>':'')));
     const a=document.createElement('audio');
     a.controls=true;a.preload='none';a.src=cfg.src;
-    a.textContent='Ihr Browser kann diese Audiodatei nicht abspielen.';
+    a.textContent=I18N.t('media.audioFallback');
     wrap.appendChild(a);
     if(cfg.text)wrap.appendChild(el('p','audio-text',esc(cfg.text)));
     box.appendChild(wrap);
@@ -668,25 +678,25 @@ function baueVideoPlayer(v,zs){
   const overlay=document.createElement('button');
   overlay.type='button';
   overlay.className='video-play';
-  overlay.setAttribute('aria-label','Aufnahme abspielen');
+  overlay.setAttribute('aria-label',I18N.t('media.playRecording'));
   overlay.innerHTML='<span aria-hidden="true">▶</span>';
 
   const leiste=el('div','video-bar');
   const btnPlay=document.createElement('button');
   btnPlay.type='button';btnPlay.className='vb-btn';
-  btnPlay.setAttribute('aria-label','Abspielen');
+  btnPlay.setAttribute('aria-label',I18N.t('media.play'));
   btnPlay.innerHTML='<span aria-hidden="true">▶</span>';
 
   const spur=document.createElement('input');
   spur.type='range';spur.className='vb-seek';
   spur.min=0;spur.max=100;spur.step=0.1;spur.value=0;
-  spur.setAttribute('aria-label','Position in der Aufnahme');
+  spur.setAttribute('aria-label',I18N.t('media.seekLabel'));
 
   const zeit=el('span','vb-time','0:00 / 0:00');
 
   const btnVoll=document.createElement('button');
   btnVoll.type='button';btnVoll.className='vb-btn';
-  btnVoll.setAttribute('aria-label','Vollbild');
+  btnVoll.setAttribute('aria-label',I18N.t('media.fullscreen'));
   btnVoll.innerHTML='<span aria-hidden="true">⛶</span>';
 
   leiste.append(btnPlay,spur,zeit,btnVoll);
@@ -700,8 +710,8 @@ function baueVideoPlayer(v,zs){
 
   function zustand(laeuft){
     rahmen.classList.toggle('laeuft',laeuft);
-    overlay.setAttribute('aria-label',laeuft?'Aufnahme anhalten':'Aufnahme abspielen');
-    btnPlay.setAttribute('aria-label',laeuft?'Anhalten':'Abspielen');
+    overlay.setAttribute('aria-label',laeuft?I18N.t('media.pauseRecording'):I18N.t('media.playRecording'));
+    btnPlay.setAttribute('aria-label',laeuft?I18N.t('media.pause'):I18N.t('media.play'));
     btnPlay.firstChild.textContent=laeuft?'❚❚':'▶';
   }
   v.addEventListener('play',()=>zustand(true));
@@ -742,7 +752,7 @@ function baueVideoPlayer(v,zs){
   function ansichtSetzen(gross){
     player.classList.toggle('voll',gross);
     zuschnittSetzen(gross?grossHoehe():zs.hoehe);
-    btnVoll.setAttribute('aria-label',gross?'Grossansicht verlassen':'Grossansicht');
+    btnVoll.setAttribute('aria-label',gross?I18N.t('media.exitLargeView'):I18N.t('media.largeView'));
   }
   /* Wird das Fenster in der Grossansicht kleiner, muss der Ausschnitt mit. */
   window.addEventListener('resize',()=>{
@@ -792,7 +802,7 @@ function renderProjectMedia(){
       v.className='proj-video'+(cfg.video.format==='hoch'?' hoch':'');
       if(cfg.video.poster)v.poster=cfg.video.poster;
       v.src=cfg.video.src;
-      v.textContent='Ihr Browser kann dieses Video nicht abspielen.';
+      v.textContent=I18N.t('media.videoFallback');
       const fig=el('figure','media-figure');
 
       /* Zuschnitt fuer Aufnahmen, bei denen das Bild breiter ist als das,
@@ -843,7 +853,7 @@ function renderProjectMedia(){
       const a=document.createElement('a');
       a.className='embed-open';a.href=cfg.einbettung.src;
       a.target='_blank';a.rel='noopener noreferrer';
-      a.textContent=cfg.einbettung.titel||'Seite öffnen';
+      a.textContent=cfg.einbettung.titel||I18N.t('media.openPage');
       fig.appendChild(rahmen);
       fig.appendChild(a);
       box.appendChild(fig);
@@ -869,7 +879,7 @@ function renderProjectMedia(){
       cfg.shots.forEach((s,i)=>{
         const b=el('button','shot');
         b.type='button';
-        b.setAttribute('aria-label','Screenshot vergrössern: '+(s.alt||('Bild '+(i+1))));
+        b.setAttribute('aria-label',I18N.t('media.enlargeScreenshot')+(s.alt||(I18N.t('media.imageFallback')+(i+1))));
         b.dataset.group=box.dataset.media;
         b.dataset.index=String(i);
         const img=document.createElement('img');
@@ -886,11 +896,11 @@ function renderProjectMedia(){
     const ph=PLATZHALTER_ZEIGEN?cfg.platzhalter:null;
     if(ph){
       if(ph.video&&!(cfg.video&&cfg.video.src)){
-        box.appendChild(el('div','video-ph','<span>Video folgt</span>'));
+        box.appendChild(el('div','video-ph','<span>'+I18N.t('media.videoComing')+'</span>'));
       }
       if(ph.anzahl&&!(cfg.shots&&cfg.shots.length)){
         const grid=el('div','shot-grid ph-grid'+(cfg.format==='quer'?' quer':''));
-        for(let i=0;i<ph.anzahl;i++)grid.appendChild(el('div','shot ph','<span>Bild folgt</span>'));
+        for(let i=0;i<ph.anzahl;i++)grid.appendChild(el('div','shot ph','<span>'+I18N.t('media.imageComing')+'</span>'));
         box.appendChild(grid);
       }
     }
@@ -925,7 +935,7 @@ function renderSliders(){
     // sobald oben in INTERESSEN die erste Zeile steht.
     if(!bilder.length){
       const track=el('div','sl-track');
-      for(let i=0;i<4;i++)track.appendChild(el('div','shot sl-ph','<span>Bild folgt</span>'));
+      for(let i=0;i<4;i++)track.appendChild(el('div','shot sl-ph','<span>'+I18N.t('media.imageComing')+'</span>'));
       box.appendChild(track);
       return;
     }
@@ -940,7 +950,7 @@ function renderSliders(){
       btn.type='button';
       btn.dataset.group=gruppe;
       btn.dataset.index=String(i);
-      btn.setAttribute('aria-label','Bild vergrössern: '+(b.alt||('Bild '+(i+1))));
+      btn.setAttribute('aria-label',I18N.t('media.enlargeImage')+(b.alt||(I18N.t('media.imageFallback')+(i+1))));
       const img=document.createElement('img');
       img.dataset.src=b.src;img.alt=b.alt||'';img.loading='lazy';img.decoding='async';
       // Die Kachel ist immer gleich gross, die Bilder sind es nicht. Steht
@@ -956,9 +966,9 @@ function renderSliders(){
     if(bilder.length>1){
       const nav=el('div','sl-nav');
       nav.innerHTML=
-        '<button type="button" class="sl-btn" data-dir="-1" aria-label="Weiter nach links">‹</button>'+
-        '<button type="button" class="sl-btn" data-dir="1" aria-label="Weiter nach rechts">›</button>'+
-        '<span class="sl-count">'+bilder.length+' Bilder</span>';
+        '<button type="button" class="sl-btn" data-dir="-1" aria-label="'+esc(I18N.t('media.scrollLeft'))+'">‹</button>'+
+        '<button type="button" class="sl-btn" data-dir="1" aria-label="'+esc(I18N.t('media.scrollRight'))+'">›</button>'+
+        '<span class="sl-count">'+bilder.length+esc(I18N.t('media.imagesSuffix'))+'</span>';
       box.appendChild(nav);
       dragbar(track);
       track.addEventListener('scroll',()=>randKnoepfe(box),{passive:true});
@@ -1096,7 +1106,7 @@ function zeigeStatsfm(box,profil,titel,kuenstler){
   }
   kopf.appendChild(el('div','sfm-ident',
     '<span class="sfm-name">'+esc(profil.displayName||'stats.fm')+'</span>'+
-    '<span class="sfm-sub">Letzte vier Wochen · stats.fm</span>'));
+    '<span class="sfm-sub">'+esc(I18N.t('statsfm.lastWeeks'))+'</span>'));
 
   const spalte=(titel2,eintraege,bild,zeile1,zeile2)=>{
     const s=el('div','sfm-col');
@@ -1119,13 +1129,13 @@ function zeigeStatsfm(box,profil,titel,kuenstler){
 
   const raster=el('div','sfm-cols');
   if(titel.length){
-    raster.appendChild(spalte('Titel',titel,
+    raster.appendChild(spalte(I18N.t('statsfm.tracks'),titel,
       e=>(e.track&&e.track.albums&&e.track.albums[0]||{}).image,
       e=>(e.track||{}).name||'',
       e=>((e.track||{}).artists||[]).map(a=>a.name).join(', ')));
   }
   if(kuenstler.length){
-    raster.appendChild(spalte('Künstler',kuenstler,
+    raster.appendChild(spalte(I18N.t('statsfm.artists'),kuenstler,
       e=>(e.artist||{}).image,
       e=>(e.artist||{}).name||'',
       ()=>''));
@@ -1134,7 +1144,7 @@ function zeigeStatsfm(box,profil,titel,kuenstler){
   const fuss=document.createElement('a');
   fuss.className='sfm-link';
   fuss.href=url;fuss.target='_blank';fuss.rel='noopener noreferrer';
-  fuss.textContent='Ganzes Profil auf stats.fm';
+  fuss.textContent=I18N.t('statsfm.fullProfile');
 
   box.innerHTML='';
   box.classList.add('sfm-geladen');
@@ -1281,14 +1291,19 @@ function buildOutline(panel){
   const bar = el('div','read-bar','<span></span>');
   const nav = document.createElement('nav');
   nav.className = 'outline';
-  nav.setAttribute('aria-label','Gliederung dieses Abschnitts');
-  nav.appendChild(el('span','outline-label','Abschnitt'));
+  nav.setAttribute('aria-label',I18N.t('outline.navLabel'));
+  nav.setAttribute('data-i18n-aria-label','outline.navLabel');
+  const outlineLabel = el('span','outline-label',I18N.t('outline.label'));
+  outlineLabel.setAttribute('data-i18n','outline.label');
+  nav.appendChild(outlineLabel);
 
   heads.forEach((h,i)=>{
     if(!h.id)h.id = panel.id.replace('panel-','') + '-' + slug(h.textContent, i);
     const a = document.createElement('a');
     a.href = '#' + h.id;
     a.textContent = h.textContent;
+    const hKey = h.getAttribute('data-i18n');
+    if(hKey) a.setAttribute('data-i18n', hKey);
     a.dataset.target = h.id;
     nav.appendChild(a);
   });
@@ -1394,7 +1409,7 @@ function buildFolds(panel){
     btn.className = 'fold-btn';
     btn.setAttribute('aria-expanded','false');
     btn.setAttribute('aria-controls',id);
-    btn.innerHTML = '<span class="fold-arrow" aria-hidden="true">▶</span>Ausführlich';
+    btn.innerHTML = '<span class="fold-arrow" aria-hidden="true">▶</span><span data-i18n="chrome.detailed">'+I18N.t('chrome.detailed')+'</span>';
 
     const holder = el('div','fold-body');
     holder.id = id;
@@ -1459,7 +1474,7 @@ document.addEventListener('click',async e=>{
   const ok=await inZwischenablage(btn.dataset.adresse);
   const alt=btn.dataset.text||btn.textContent;
   btn.dataset.text=alt;
-  btn.textContent=ok?'Kopiert':'Kopieren nicht möglich';
+  btn.textContent=ok?I18N.t('kontakt.copied'):I18N.t('kontakt.copyFailed');
   btn.classList.toggle('btn-ok',ok);
   clearTimeout(btn._zurueck);
   btn._zurueck=setTimeout(()=>{btn.textContent=alt;btn.classList.remove('btn-ok');},1800);
@@ -1573,16 +1588,24 @@ function togglePw(){
   const i=$('loginInput'),b=$('loginTog');
   const show=i.type==='password';
   i.type=show?'text':'password';
-  b.setAttribute('aria-label',show?'Passwort verbergen':'Passwort anzeigen');
+  b.setAttribute('aria-label',show?I18N.t('login.hidePw'):I18N.t('login.showPw'));
   i.focus();
 }
+
+// Beschriftung des Augensymbols haengt vom Feldzustand ab, nicht von
+// data-i18n-aria-label allein — beim Sprachwechsel deshalb nachziehen,
+// sonst faellt sie auf die im HTML hinterlegte Grundstellung zurueck.
+document.addEventListener('lr:langchange',()=>{
+  const i=$('loginInput'),b=$('loginTog');
+  if(i&&b)b.setAttribute('aria-label',i.type==='password'?I18N.t('login.showPw'):I18N.t('login.hidePw'));
+});
 
 async function doLogin(){
   const pw=$('loginInput').value;
   const btn=$('loginBtn');
   const err=$('loginErr');
   if(!pw)return;
-  btn.disabled=true;btn.textContent='Prüfe...';err.style.display='none';
+  btn.disabled=true;btn.textContent=I18N.t('login.checking');err.style.display='none';
   try{
     const res=await fetch('/api/login',{
       method:'POST',
@@ -1601,15 +1624,15 @@ async function doLogin(){
       updateAuth(true);
       if(target)openTab(target);
     }else{
-      err.textContent=data.error||'Falsches Passwort.';
+      err.textContent=data.error||I18N.t('login.error');
       err.style.display='flex';
       $('loginInput').focus();
     }
   }catch(e){
-    err.textContent='Verbindungsfehler.';
+    err.textContent=I18N.t('login.connectionError');
     err.style.display='flex';
   }
-  btn.disabled=false;btn.textContent='ENTER ↵';
+  btn.disabled=false;btn.textContent=I18N.t('login.enter');
 }
 
 function doLogout(){
@@ -1637,7 +1660,7 @@ function verifyToken(){
 function updateAuth(ok){
   const el=$('sbAuth');
   el.className='tb-auth'+(ok?' authed':'');
-  el.textContent=ok?'🔓 Eingeloggt':'🔒 Nicht eingeloggt';
+  el.textContent=ok?I18N.t('chrome.loggedIn'):I18N.t('chrome.notLoggedIn');
 }
 
 /* ═══════════════════════════════════
@@ -1782,7 +1805,7 @@ async function downloadCvPdf(){
   if(!lastLebenslauf)return;
   const btn=$('cv-dl');
   const orig=btn.textContent;
-  btn.textContent='Erstelle PDF…';btn.disabled=true;
+  btn.textContent=I18N.t('cv.generatingPdf');btn.disabled=true;
   try{
     await loadJsPdf();
     const {jsPDF}=window.jspdf;
@@ -1829,7 +1852,7 @@ async function downloadCvPdf(){
     doc.save('lebenslauf-luis-rosado.pdf');
   }catch(e){
     console.error(e);
-    alert('PDF konnte nicht erstellt werden. Bitte Internetverbindung prüfen.');
+    alert(I18N.t('cv.pdfError'));
   }
   btn.textContent=orig;btn.disabled=false;
 }

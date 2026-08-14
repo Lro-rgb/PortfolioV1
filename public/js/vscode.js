@@ -28,13 +28,19 @@
      ═══════════════════════════════════════════════════════════════════ */
 
   const THEMES = [
-    { id: 'dark-plus', name: 'Dark+ (Standard)' },
-    { id: 'github-dark', name: 'GitHub Dark' },
-    { id: 'dracula', name: 'Dracula' },
-    { id: 'one-dark', name: 'One Dark Pro' },
-    { id: 'nord', name: 'Nord' },
-    { id: 'light-plus', name: 'Light+ (hell)' }
+    { id: 'dark-plus' },
+    { id: 'github-dark' },
+    { id: 'dracula' },
+    { id: 'one-dark' },
+    { id: 'nord' },
+    { id: 'light-plus' }
   ];
+
+  // Name kommt aus dem Woerterbuch, damit "(Standard)"/"(hell)" beim
+  // Sprachwechsel mit uebersetzt werden.
+  function themeName(id) {
+    return I18N.t('theme.name.' + id);
+  }
 
   function currentTheme() {
     return document.documentElement.getAttribute('data-theme') || 'dark-plus';
@@ -52,7 +58,7 @@
     }
 
     const label = $('stTheme');
-    if (label) label.textContent = theme.name.replace(/ \(.*\)$/, '');
+    if (label) label.textContent = themeName(theme.id).replace(/ \(.*\)$/, '');
 
     // Die Farbe der Browserleiste auf dem Handy mitziehen.
     const meta = document.querySelector('meta[name="theme-color"]');
@@ -72,6 +78,9 @@
   }
 
   setTheme(currentTheme()); // Beschriftung beim Start angleichen
+  // Beim Sprachwechsel die Design-Beschriftung neu setzen, sie haengt nicht
+  // an data-i18n, weil sie den Klammerzusatz abschneidet.
+  document.addEventListener('lr:langchange', () => setTheme(currentTheme()));
 
   /* ═══════════════════════════════════════════════════════════════════
      2. ACTIVITY BAR UND SEITENLEISTE
@@ -170,7 +179,7 @@
     if (!stLines || !editorScroll) return;
     const max = editorScroll.scrollHeight - editorScroll.clientHeight;
     const pct = max > 8 ? Math.round((editorScroll.scrollTop / max) * 100) : 100;
-    stLines.textContent = 'Gelesen ' + pct + ' %';
+    stLines.textContent = I18N.t('status.readPrefix') + pct + I18N.t('status.readSuffix');
   }
 
   /* Kein eigener Scroll-Listener: app.js buendelt alle Scroll-Aufgaben in
@@ -184,7 +193,7 @@
     const original = window.updateAuth;
     window.updateAuth = function (ok) {
       original(ok);
-      if (stAuth) stAuth.textContent = ok ? '🔓 Angemeldet' : '🔒 Gast';
+      if (stAuth) stAuth.textContent = ok ? I18N.t('chrome.authed') : I18N.t('chrome.guest');
     };
   }
 
@@ -246,28 +255,28 @@
       // Der interne Name wird mitdurchsucht, ist aber nicht sichtbar:
       // Wer "projekte" tippt, findet damit auch projekte.html.
       search: tab.dataset.panel,
-      hint: tab.dataset.locked === 'true' ? 'passwortgeschützt' : '',
+      hint: tab.dataset.locked === 'true' ? I18N.t('palette.hint.locked') : '',
       run: () => openTab(tab.dataset.panel)
     }));
   }
 
   function commandEntries() {
     const list = [
-      { label: 'Design: nächstes Farbdesign', hint: 'Strg+K Strg+T', run: () => cycleTheme() },
-      { label: 'Ansicht: Terminal ein-/ausblenden', hint: 'Strg+^', run: CMD.terminal },
-      { label: 'Ansicht: Explorer ein-/ausblenden', hint: 'Strg+Umschalt+E', run: CMD.explorer },
-      { label: 'Ansicht: alle Dateien wieder öffnen', hint: '', run: CMD.reopen },
-      { label: 'Datei: Seite drucken oder als PDF sichern', hint: 'Strg+P im Browser', run: CMD.print },
-      { label: 'Kontakt: E-Mail schreiben', hint: 'luisrosado008@gmail.com', run: CMD.mail },
-      { label: 'Kontakt: GitHub-Profil öffnen', hint: 'Lro-rgb', run: CMD.github },
-      { label: 'Konto: abmelden', hint: '', run: CMD.logout }
+      { label: I18N.t('palette.cmd.theme'), hint: I18N.t('palette.hint.themeCycle'), run: () => cycleTheme() },
+      { label: I18N.t('palette.cmd.terminal'), hint: I18N.t('palette.hint.terminal'), run: CMD.terminal },
+      { label: I18N.t('palette.cmd.explorer'), hint: I18N.t('palette.hint.explorer'), run: CMD.explorer },
+      { label: I18N.t('palette.cmd.reopen'), hint: '', run: CMD.reopen },
+      { label: I18N.t('palette.cmd.print'), hint: I18N.t('palette.cmd.printHint'), run: CMD.print },
+      { label: I18N.t('palette.cmd.mail'), hint: 'luisrosado008@gmail.com', run: CMD.mail },
+      { label: I18N.t('palette.cmd.github'), hint: 'Lro-rgb', run: CMD.github },
+      { label: I18N.t('palette.cmd.logout'), hint: '', run: CMD.logout }
     ];
 
     // Jedes Design einzeln aufrufbar — so wie "Farbdesign" in VS Code.
     THEMES.forEach((t) => {
       list.push({
-        label: 'Design: ' + t.name,
-        hint: t.id === currentTheme() ? 'aktiv' : '',
+        label: I18N.t('palette.cmd.themePrefix') + themeName(t.id),
+        hint: t.id === currentTheme() ? I18N.t('palette.hint.active') : '',
         run: () => setTheme(t.id)
       });
     });
@@ -324,11 +333,11 @@
     if (qiIndex >= entries.length) qiIndex = 0;
 
     if (!entries.length) {
-      qiList.innerHTML = '<li class="qi-empty">Kein Treffer.</li>';
+      qiList.innerHTML = '<li class="qi-empty">' + esc(I18N.t('palette.noResults')) + '</li>';
       return;
     }
 
-    const head = isCmd ? 'Befehle' : 'Dateien';
+    const head = isCmd ? I18N.t('palette.group.commands') : I18N.t('palette.group.files');
     qiList.innerHTML =
       '<li class="qi-group">' + head + '</li>' +
       entries
@@ -446,17 +455,8 @@
 
   const COMMANDS = {
     help() {
-      print('Verfügbare Befehle:', 'ok');
-      print(
-        '  <b>ls</b>            Dateien auflisten<br>' +
-        '  <b>open</b> &lt;datei&gt;  Datei öffnen (z. B. <code>open projekte</code>)<br>' +
-        '  <b>projects</b>      Projekte kurz auflisten<br>' +
-        '  <b>whoami</b>        Kurzvorstellung<br>' +
-        '  <b>contact</b>       Kontaktdaten<br>' +
-        '  <b>design</b> [name] Farbdesign anzeigen oder wechseln<br>' +
-        '  <b>clear</b>         Terminal leeren<br>' +
-        '  <b>exit</b>          Terminal schliessen'
-      );
+      print(I18N.t('term.help.intro'), 'ok');
+      print(I18N.t('term.help.body'));
     },
 
     ls() {
@@ -468,48 +468,40 @@
     },
 
     open(arg) {
-      if (!arg) { print('Bitte einen Dateinamen angeben — <code>ls</code> zeigt alle.', 'err'); return; }
+      if (!arg) { print(I18N.t('term.openNeedsArg'), 'err'); return; }
       const q = arg.toLowerCase();
       const hit = FILE_NAMES().find(
         (f) => f.panel === q || f.name.toLowerCase().indexOf(q) !== -1
       );
-      if (!hit) { print('Datei nicht gefunden: ' + esc(arg), 'err'); return; }
-      print('Öffne ' + esc(hit.name) + ' …', 'ok');
+      if (!hit) { print(I18N.t('term.fileNotFound') + esc(arg), 'err'); return; }
+      print(I18N.t('term.opening') + esc(hit.name) + ' …', 'ok');
       openTab(hit.panel);
     },
 
     projects() {
       const cards = document.querySelectorAll('#panel-projekte .proj-t');
-      if (!cards.length) { print('Projekte werden geladen — <code>open projekte</code>.', 'err'); return; }
+      if (!cards.length) { print(I18N.t('term.projectsLoading'), 'err'); return; }
       print(Array.from(cards).map((c, i) => '  ' + (i + 1) + '. ' + esc(c.textContent)).join('<br>'));
       print('Details: <code>open projekte</code>');
     },
 
     whoami() {
-      print(
-        'Luis Rosado — Informatiker EFZ, Applikationsentwicklung<br>' +
-        'IMS an der BWD Bern, 3. Ausbildungsjahr, Burgdorf BE<br>' +
-        'Status: auf der Suche nach einer Praktikumsstelle'
-      );
+      print(I18N.t('term.whoami'));
     },
 
     contact() {
-      print(
-        'E-Mail:  <code>luisrosado008@gmail.com</code><br>' +
-        'GitHub:  <code>github.com/Lro-rgb</code><br>' +
-        'Schreiben: <code>open kontakt</code>'
-      );
+      print(I18N.t('term.contact'));
     },
 
     design(arg) {
       if (!arg) {
-        print('Aktuell: <b>' + esc(currentTheme()) + '</b>');
-        print('Verfügbar: ' + THEMES.map((t) => '<code>' + t.id + '</code>').join(', '));
-        print('Wechseln mit <code>design dracula</code> — oder ohne Namen mit dem Kreis links unten.');
+        print(I18N.t('term.design.current') + '<b>' + esc(currentTheme()) + '</b>');
+        print(I18N.t('term.design.available') + THEMES.map((t) => '<code>' + t.id + '</code>').join(', '));
+        print(I18N.t('term.design.switchHint'));
         return;
       }
-      if (setTheme(arg.toLowerCase())) print('Design gewechselt: ' + esc(arg), 'ok');
-      else print('Unbekanntes Design: ' + esc(arg), 'err');
+      if (setTheme(arg.toLowerCase())) print(I18N.t('term.design.changed') + esc(arg), 'ok');
+      else print(I18N.t('term.design.unknown') + esc(arg), 'err');
     },
 
     clear() {
@@ -540,7 +532,7 @@
     const arg = parts.slice(1).join(' ');
 
     if (COMMANDS[cmd]) COMMANDS[cmd](arg);
-    else print('Unbekannter Befehl: ' + esc(cmd) + ' — <code>help</code> zeigt alle.', 'err');
+    else print(I18N.t('term.unknownCommand') + esc(cmd) + I18N.t('term.unknownCommandSuffix'), 'err');
   }
 
   if (termInput) {
