@@ -39,20 +39,25 @@ luis-rosado-portfolio/
 │
 ├── api/                     # Backend — Vercel Serverless Functions
 │   ├── login.js             #   POST /api/login     → prüft Passwort, gibt Token zurück
-│   └── protected.js         #   GET  /api/protected → Noten + Lebenslauf (nur mit Token)
+│   ├── protected.js         #   GET  /api/protected → Noten + Lebenslauf (nur mit Token)
+│   └── zeugnis.js           #   GET  /api/zeugnis   → üK-Kompetenznachweis als PDF (nur mit Token)
 │
+├── unterlagen/              # Die Kompetenznachweise als PDF — nicht im Repository
+│                            # (siehe „Geschützter Bereich")
 ├── lib/
 │   └── auth.js              # Passwort-Hashing und Token-Signierung
 │
 ├── scripts/                 # Hilfsskripte
 │   ├── generate-password-hash.js
-│   └── generate-jwt-secret.js
+│   ├── generate-jwt-secret.js
+│   └── test-zeugnis.js      #   prüft den Zugriffsschutz von /api/zeugnis
 │
 ├── docs/
 │   ├── SETUP.md             # Einrichtung & Deployment
 │   └── CONTENT-GUIDE.md     # Wo trage ich welche Inhalte ein?
 │
 ├── .env.example
+├── .vercelignore            # damit unterlagen/ trotz .gitignore mit hochgeladen wird
 ├── package.json
 └── vercel.json
 ```
@@ -82,6 +87,12 @@ stats.fm. Alles andere, auch die Bilder unter `public/media/`, liegt im
 Repository. Die Herkunft der Bilder steht auf der Interessen-Seite und im
 Impressum.
 
+Was auf der Seite von anderen stammt — Bibliotheken, Schriften, die
+übernommenen Farbdesigns und die nachgebaute Editor-Oberfläche — ist am Fuss
+der Startseite unter „Quellen" aufgeführt. **Diese Liste gehört bei jeder
+grösseren Änderung mitgepflegt**, ebenso wie diese README; gepflegt wird sie
+über den Schlüssel `home.credits` in `public/js/i18n.js`, in beiden Sprachen.
+
 ---
 
 ## Geschützter Bereich
@@ -95,6 +106,22 @@ Der Ablauf:
    `sessionStorage` liegt.
 3. `/api/protected` liefert Noten und Lebenslauf nur gegen ein gültiges Token
    aus. Die Daten stehen serverseitig und tauchen nie im Frontend-Bundle auf.
+4. `/api/zeugnis?modul=187` liefert den zugehörigen üK-Kompetenznachweis als
+   PDF, ebenfalls nur gegen ein gültiges Token. Die Modulnummer wird gegen
+   eine feste Liste geprüft, statt daraus einen Pfad zu bauen.
+
+Die PDF-Dateien liegen in `unterlagen/` und bewusst **nicht** unter `public/`:
+alles dort liefert Vercel ohne jede Prüfung aus, ein Passwort davor wäre
+Dekoration. Aus demselben Grund stehen sie in `.gitignore` — dieses
+Repository ist öffentlich. Damit sie trotzdem auf den Server kommen, gibt es
+`.vercelignore`; das setzt allerdings voraus, dass mit `vercel --prod` aus
+dem Ordner deployt wird und nicht automatisch aus GitHub.
+
+Den Zugriffsschutz prüft ein Skript ohne laufenden Server:
+
+```bash
+node scripts/test-zeugnis.js
+```
 
 Passwort-Hash und Token-Schlüssel stehen **nicht** im Repository, sondern
 kommen aus den Umgebungsvariablen `APP_PASSWORD_HASH` und `JWT_SECRET`.

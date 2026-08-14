@@ -273,6 +273,10 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
   padding:.62rem 1.1rem;border:1px solid var(--border);background:#161B22;color:var(--text);
   text-decoration:none;transition:border-color .2s,background .2s,transform .15s}
 .cta:hover{border-color:var(--blue);background:#1C2333;transform:translateY(-2px)}
+/* Das GitHub-Zeichen kommt aus derselben Schrift wie die Technologie-Logos.
+   Ohne "colored" nimmt es die Farbe der Schaltflaeche an — die Originalfarbe
+   waere fast schwarz und auf dunklem Grund nicht zu sehen. */
+.cta-ic{font-size:1.05em;line-height:1}
 .cta-primary{background:var(--blue);border-color:var(--blue);color:#0D1117;font-weight:700}
 .cta-primary:hover{background:#79C0FF;border-color:#79C0FF;color:#0D1117}
 
@@ -645,6 +649,27 @@ body.voll-offen{overflow:hidden}
 .noten-avg{font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:1.2rem;padding:1rem 1.2rem;background:#161B22;border:1px solid var(--border);display:inline-flex;align-items:center;gap:1rem}
 .noten-avg strong{color:var(--blue);font-size:1.1rem}
 
+/* ═══ QUELLEN (Fuss der Startseite) ═══
+   Bewusst ruhig: das ist eine Pflichtangabe, kein Inhalt, mit dem die
+   Startseite endet. Zwei Spalten, damit die Liste nicht zur Kolonne wird. */
+.quellen{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--border)}
+.quellen-h{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--dim);font-weight:400;margin:0 0 .8rem}
+.quellen-intro{font-family:var(--sans);font-size:.76rem;color:var(--muted);margin:0 0 .9rem}
+.quellen-liste{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.7rem 2rem;margin:0}
+.q-e dt{font-family:var(--mono);font-size:.72rem;color:var(--text);margin-bottom:.15rem}
+/* --muted statt --dim: bei .72rem kommt --dim nur auf einen Kontrast von
+   3.5:1, das ist unter dem, was fuer Fliesstext verlangt wird. --muted
+   liegt bei 6.2:1 — in hellen wie dunklen Designs. */
+.q-e dd{font-family:var(--sans);font-size:.72rem;color:var(--muted);margin:0;line-height:1.55}
+.q-e a{color:var(--blue);text-decoration:none}
+.q-e a:hover{text-decoration:underline}
+.quellen-fuss{font-family:var(--sans);font-size:.72rem;color:var(--muted);
+  margin:1.2rem 0 0;line-height:1.6}
+.quellen-fuss a{color:var(--blue);text-decoration:none}
+.quellen-fuss a:hover{text-decoration:underline}
+
 /* SCROLLBAR */
 ::-webkit-scrollbar{width:8px;height:8px}
 ::-webkit-scrollbar-track{background:var(--bg)}
@@ -695,7 +720,7 @@ body.voll-offen{overflow:hidden}
   .tree-folder{padding-top:.55rem;padding-bottom:.55rem}
   .tab-x{opacity:1;padding:.35rem}
 
-  .proj-grid,.noten-grid,.tech-grid{grid-template-columns:1fr}
+  .proj-grid,.noten-grid,.tech-grid,.quellen-liste{grid-template-columns:1fr}
   .fact-row{grid-template-columns:1fr 1fr}
   .cta{flex:1 1 auto;justify-content:center}
   .code-view{grid-template-columns:32px 1fr}
