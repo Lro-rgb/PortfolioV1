@@ -1017,8 +1017,18 @@ function renderSliders(){
       box.appendChild(nav);
       dragbar(track);
       track.addEventListener('scroll',()=>randKnoepfe(box),{passive:true});
-      // Erst nach dem Layout messen, sonst ist die Breite noch 0.
-      requestAnimationFrame(()=>randKnoepfe(box));
+      /* Ob geblaettert werden muss, haengt allein an der Breite der Reihe.
+         Ein Beobachter darauf trifft jeden Fall: Fenster geaendert,
+         Explorer aus- oder eingeklappt, Bereich zum ersten Mal sichtbar
+         (vorher war die Breite null). Erst nach dem Layout messen, sonst
+         ist die Breite noch 0. */
+      if(window.ResizeObserver)new ResizeObserver(()=>randKnoepfe(box)).observe(track);
+      else requestAnimationFrame(()=>randKnoepfe(box));
+      /* Die Kacheln ohne festes Seitenverhaeltnis bekommen ihre Breite erst
+         mit dem geladenen Bild. Der Beobachter oben sieht das nicht — er
+         haengt am Rahmen, nicht am Inhalt. */
+      track.querySelectorAll('img').forEach(im=>
+        im.addEventListener('load',()=>randKnoepfe(box),{once:true}));
     }
   });
 }
@@ -1040,10 +1050,16 @@ function randKnoepfe(box){
   const links=box.querySelector('.sl-btn[data-dir="-1"]');
   const rechts=box.querySelector('.sl-btn[data-dir="1"]');
   if(!track||!links||!rechts)return;
+  /* Passt die ganze Reihe auf den Bildschirm, gibt es nichts zu blaettern —
+     dann verschwinden die Pfeile ganz statt abgeschaltet dazustehen. Auf
+     schmalen Bildschirmen kommen sie von selbst zurueck. Die Zahl daneben
+     bleibt, sie stimmt in beiden Faellen. */
+  box.classList.toggle('sl-passt',track.scrollWidth-track.clientWidth<2);
   const rest=track.scrollWidth-track.clientWidth-track.scrollLeft;
   links.disabled=track.scrollLeft<2;
   rechts.disabled=rest<2;
 }
+
 
 /* Ziehen mit der Maus, wie im Datei-Explorer. Am Ende des Ziehens wird der
    Klick verschluckt, sonst oeffnet jedes Ziehen die Vollansicht. */
@@ -1752,7 +1768,8 @@ function verifyToken(){
 function updateAuth(ok){
   const el=$('sbAuth');
   el.className='tb-auth'+(ok?' authed':'');
-  el.textContent=ok?I18N.t('chrome.loggedIn'):I18N.t('chrome.notLoggedIn');
+  // Die Beschriftung traegt das Schloss als Markup, deshalb innerHTML.
+  el.innerHTML=ok?I18N.t('chrome.loggedIn'):I18N.t('chrome.notLoggedIn');
 }
 
 /* ═══════════════════════════════════

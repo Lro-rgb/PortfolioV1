@@ -160,7 +160,7 @@
 
     <div class="tb-right">
       <button type="button" class="tb-lang" id="langToggle" aria-label="Sprache wechseln / Switch language">DE</button>
-      <div class="tb-auth" id="sbAuth" data-i18n="chrome.notLoggedIn">🔒 Nicht eingeloggt</div>
+      <div class="tb-auth" id="sbAuth" data-i18n="chrome.notLoggedIn"><span class="lock" aria-hidden="true"></span> Nicht eingeloggt</div>
     </div>
   </div>
 
@@ -234,10 +234,10 @@
       <button type="button" class="tab-x" aria-label="README.md schliessen" data-i18n-aria-label="tabbar.close.readme">×</button>
     </div>
     <div class="tab locked-tab" role="tab" tabindex="-1" id="tab-noten" aria-controls="panel-noten" aria-selected="false" data-panel="noten" data-locked="true">
-      <span class="file-ic ic-lock" aria-hidden="true">🔒</span> <span data-i18n="file.noten">noten.csv</span> <span class="lock" aria-hidden="true">🔒</span>
+      <span class="file-ic ic-csv" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M9 1.9H4.4A1.2 1.2 0 0 0 3.2 3.1v9.8a1.2 1.2 0 0 0 1.2 1.2h7.2a1.2 1.2 0 0 0 1.2-1.2V5.9z"/><path d="M9 1.9v4h3.8"/><path d="M5.4 8.6h5.2M5.4 11.1h5.2M8 8.6v4.7"/></svg></span> <span data-i18n="file.noten">noten.csv</span> <span class="lock" aria-hidden="true"></span>
     </div>
     <div class="tab locked-tab" role="tab" tabindex="-1" id="tab-cv" aria-controls="panel-cv" aria-selected="false" data-panel="cv" data-locked="true">
-      <span class="file-ic ic-md-wrap" aria-hidden="true"><i class="devicon-markdown-original"></i></span> <span data-i18n="file.lebenslauf">lebenslauf.md</span> <span class="lock" aria-hidden="true">🔒</span>
+      <span class="file-ic ic-md-wrap" aria-hidden="true"><i class="devicon-markdown-original"></i></span> <span data-i18n="file.lebenslauf">lebenslauf.md</span> <span class="lock" aria-hidden="true"></span>
     </div>
   </div>
 
@@ -276,10 +276,10 @@
           <span class="arrow" aria-hidden="true">▶</span>
           <span class="folder-icon" aria-hidden="true">📁</span>
           <span style="color:var(--dim)" data-i18n="folder.unterlagen">unterlagen</span>
-          <span style="font-size:.6rem;color:var(--dim);margin-left:.3rem" aria-hidden="true">🔒</span>
+          <span class="lock" style="font-size:.72rem;color:var(--dim);margin-left:.3rem" aria-hidden="true"></span>
         </button>
         <div class="tree-children" id="folder2-children">
-          <button type="button" class="tree-file locked-file" data-open="noten"><span class="file-ic ic-lock" style="font-size:.7rem" aria-hidden="true">🔒</span><span data-i18n="file.noten">noten.csv</span></button>
+          <button type="button" class="tree-file locked-file" data-open="noten"><span class="file-ic ic-csv" style="font-size:.85rem" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M9 1.9H4.4A1.2 1.2 0 0 0 3.2 3.1v9.8a1.2 1.2 0 0 0 1.2 1.2h7.2a1.2 1.2 0 0 0 1.2-1.2V5.9z"/><path d="M9 1.9v4h3.8"/><path d="M5.4 8.6h5.2M5.4 11.1h5.2M8 8.6v4.7"/></svg></span><span data-i18n="file.noten">noten.csv</span></button>
           <button type="button" class="tree-file locked-file" data-open="cv"><span class="file-ic" aria-hidden="true"><i class="devicon-markdown-original"></i></span><span data-i18n="file.lebenslauf">lebenslauf.md</span></button>
         </div>
 
@@ -1108,7 +1108,7 @@
       <span class="st-item st-hide-sm" id="stLines">–</span>
       <button type="button" class="st-item" data-cmd="theme" id="stTheme" title="Farbdesign wechseln" data-i18n-title="chrome.switchTheme">Dark+</button>
       <span class="st-item" id="stLang">JSON</span>
-      <button type="button" class="st-item" id="stAuth" data-open="cv" title="Geschützte Unterlagen" data-i18n-title="chrome.protectedDocuments" data-i18n="chrome.guest">🔒 Gast</button>
+      <button type="button" class="st-item" id="stAuth" data-open="cv" title="Geschützte Unterlagen" data-i18n-title="chrome.protectedDocuments" data-i18n="chrome.guest"><span class="lock" aria-hidden="true"></span> Gast</button>
     </div>
   </div>
 

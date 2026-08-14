@@ -193,7 +193,7 @@
     const original = window.updateAuth;
     window.updateAuth = function (ok) {
       original(ok);
-      if (stAuth) stAuth.textContent = ok ? I18N.t('chrome.authed') : I18N.t('chrome.guest');
+      if (stAuth) stAuth.innerHTML = ok ? I18N.t('chrome.authed') : I18N.t('chrome.guest');
     };
   }
 

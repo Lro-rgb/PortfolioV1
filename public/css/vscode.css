@@ -1110,6 +1110,10 @@ code {
 
 .sl-btn:hover { background: var(--list-hover); border-color: var(--accent); }
 
+/* Reihe passt vollstaendig ins Bild: die Pfeile haetten nichts zu tun. */
+.sl-passt .sl-btn { display: none; }
+.sl-passt .sl-count { margin-left: 0; }
+
 .sl-btn:disabled {
   opacity: 0.3;
   cursor: default;
