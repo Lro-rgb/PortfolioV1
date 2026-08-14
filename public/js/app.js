@@ -389,10 +389,6 @@ document.addEventListener('keydown',e=>{
    daran arbeitet, unruhig fuer jeden, der die Seite nur anschaut. */
 const PLATZHALTER_ZEIGEN=false;
 
-// Kurzvorstellung als Audio auf der Startseite.
-//   intro:{ src:'media/vorstellung.m4a', titel:'…', dauer:'0:45', text:'…' }
-const AUDIO={};
-
 /* Pro Projekt: video, shots (Screenshots), downloads.
      askel:{
        video:{src:'media/askel.mp4', poster:'media/askel-poster.jpg',
@@ -616,25 +612,6 @@ function el(tag,cls,html){
   if(cls)n.className=cls;
   if(html!=null)n.innerHTML=html;
   return n;
-}
-
-function renderAudio(){
-  document.querySelectorAll('[data-audio]').forEach(box=>{
-    const cfg=AUDIO[box.dataset.audio];
-    box.innerHTML='';
-    if(!cfg||!cfg.src)return;
-    const wrap=el('div','audio-card');
-    wrap.appendChild(el('div','audio-head',
-      '<span class="audio-ic" aria-hidden="true">▶</span>'+
-      '<span class="audio-title">'+esc(cfg.titel||I18N.t('media.introTitle'))+'</span>'+
-      (cfg.dauer?'<span class="audio-dur">'+esc(cfg.dauer)+'</span>':'')));
-    const a=document.createElement('audio');
-    a.controls=true;a.preload='none';a.src=cfg.src;
-    a.textContent=I18N.t('media.audioFallback');
-    wrap.appendChild(a);
-    if(cfg.text)wrap.appendChild(el('p','audio-text',esc(cfg.text)));
-    box.appendChild(wrap);
-  });
 }
 
 /* Zeitangabe fuer die Spurleiste: 7 Sekunden werden zu "0:07". */
@@ -1938,7 +1915,6 @@ function startApp(){
   if(token&&verifyToken())updateAuth(true);
   else{token=null;sessionStorage.removeItem('lr_token');}
 
-  renderAudio();
   /* Die Zahl an der Projekt-Schaltfläche in der Aktivitätsleiste zählt die
      Karten selbst ab. Sie stand vorher von Hand im HTML und war nach dem
      Nachtragen eines Projekts prompt falsch. */

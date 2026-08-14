@@ -105,9 +105,7 @@
       "cv.generatingPdf": "Erstelle PDF…",
       "cv.pdfError": "PDF konnte nicht erstellt werden. Bitte Internetverbindung prüfen.",
 
-      "media.audioFallback": "Ihr Browser kann diese Audiodatei nicht abspielen.",
       "media.videoFallback": "Ihr Browser kann dieses Video nicht abspielen.",
-      "media.introTitle": "Kurzvorstellung",
       "media.play": "Abspielen",
       "media.pause": "Anhalten",
       "media.playRecording": "Aufnahme abspielen",
@@ -438,9 +436,7 @@
       "cv.generatingPdf": "Generating PDF…",
       "cv.pdfError": "Could not create the PDF. Please check your internet connection.",
 
-      "media.audioFallback": "Your browser can't play this audio file.",
       "media.videoFallback": "Your browser can't play this video.",
-      "media.introTitle": "Introduction",
       "media.play": "Play",
       "media.pause": "Pause",
       "media.playRecording": "Play recording",

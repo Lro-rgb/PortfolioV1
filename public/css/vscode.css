@@ -852,7 +852,6 @@ code {
 /* Karten und Kacheln an die Themefarben angleichen */
 .proj-card,
 .tech-card,
-.audio-card,
 .dl-item,
 .shot {
   background: var(--sb);
