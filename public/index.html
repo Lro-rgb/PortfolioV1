@@ -934,6 +934,19 @@
                 <p>Hier steht, warum sie so aussieht und funktioniert, wie sie es tut. Gestalterische Entscheidungen sind nachvollziehbar oder sie sind Zufall; ich möchte, dass meine nachvollziehbar sind.</p>
               </div>
 
+              <!-- Kurzuebersicht. Der Text darunter begruendet jede dieser
+                   Angaben ausfuehrlich; wer nur wissen will, was die Seite
+                   ist, soll nicht erst alles lesen muessen. Gleiche Bauteile
+                   wie die Eckdaten auf der Startseite. -->
+              <dl class="fact-row reveal" data-i18n="readme.facts">
+                <div class="fact"><dt>Aufbau</dt><dd>Code-Editor als Oberfläche</dd></div>
+                <div class="fact"><dt>Technik</dt><dd>HTML, CSS, JavaScript von Hand</dd></div>
+                <div class="fact"><dt>Abhängigkeiten</dt><dd>keine</dd></div>
+                <div class="fact"><dt>Farbdesigns</dt><dd>sechs, umschaltbar</dd></div>
+                <div class="fact"><dt>Sprachen</dt><dd>Deutsch und Englisch</dd></div>
+                <div class="fact"><dt>Bedienung</dt><dd>vollständig per Tastatur</dd></div>
+              </dl>
+
               <h3 class="ed-h2 reveal" data-i18n="readme.h.editor">Warum ein Code-Editor als Oberfläche</h3>
               <div class="prose reveal" data-i18n="readme.editor">
                 <p>Die Seite richtet sich an Betriebe, die Applikationsentwicklung ausbilden. Deshalb ist die Oberfläche selbst eine Arbeitsprobe: Sie ist einem Code-Editor nachempfunden, also der Umgebung, in der ich täglich arbeite.</p>
@@ -963,6 +976,16 @@
                 <p>Die Farben stammen aus den echten VS-Code-Themes. Ein einziger Akzentton führt durch die ganze Seite: aktiver Tab, Links, Schaltflächen, Fokusrahmen. Wer ihn einmal zugeordnet hat, findet sich überall zurecht.</p>
                 <p>Grün, Orange und Rot sind für Bedeutung reserviert, nicht für Dekoration: Einstufungen bei den Skills, Notenwerte, Fehlermeldungen. Farbe ist dabei nie der einzige Träger einer Information. Überall steht auch der Text dabei, damit die Seite bei einer Farbsehschwäche verständlich bleibt.</p>
               </div>
+              <!-- Die Werte einmal als Flaeche statt nur als Hexzahl: in einem
+                   Text ueber Gestaltung sollte man die Farben auch sehen. -->
+              <ul class="farbfelder reveal" data-i18n="readme.colorChips">
+                <li><span class="farbfeld" style="background:#1e1e1e" aria-hidden="true"></span>Editor <code>#1e1e1e</code></li>
+                <li><span class="farbfeld" style="background:#252526" aria-hidden="true"></span>Seitenleiste <code>#252526</code></li>
+                <li><span class="farbfeld" style="background:#333333" aria-hidden="true"></span>Aktivitätsleiste <code>#333333</code></li>
+                <li><span class="farbfeld" style="background:#2d5876" aria-hidden="true"></span>Statusleiste <code>#2d5876</code></li>
+                <li><span class="farbfeld" style="background:#4FA3E3" aria-hidden="true"></span>Akzent <code>#4FA3E3</code></li>
+              </ul>
+
               <div class="cb reveal">
                 <span class="cb-lang">css</span>
                 <div class="cl"><span class="cmt" data-i18n="readme.colorsComment">/* Dark+, das Standarddesign von VS Code */</span></div>

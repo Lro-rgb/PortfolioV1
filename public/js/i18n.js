@@ -206,6 +206,9 @@
       "home.fact.likes": "Arbeitet gern mit",
       "home.fact.reachable": "Erreichbar",
 
+      "readme.facts": "<div class=\"fact\"><dt>Aufbau</dt><dd>Code-Editor als Oberfläche</dd></div><div class=\"fact\"><dt>Technik</dt><dd>HTML, CSS, JavaScript von Hand</dd></div><div class=\"fact\"><dt>Abhängigkeiten</dt><dd>keine</dd></div><div class=\"fact\"><dt>Farbdesigns</dt><dd>sechs, umschaltbar</dd></div><div class=\"fact\"><dt>Sprachen</dt><dd>Deutsch und Englisch</dd></div><div class=\"fact\"><dt>Bedienung</dt><dd>vollständig per Tastatur</dd></div>",
+      "readme.colorChips": "<li><span class=\"farbfeld\" style=\"background:#1e1e1e\" aria-hidden=\"true\"></span>Editor <code>#1e1e1e</code></li><li><span class=\"farbfeld\" style=\"background:#252526\" aria-hidden=\"true\"></span>Seitenleiste <code>#252526</code></li><li><span class=\"farbfeld\" style=\"background:#333333\" aria-hidden=\"true\"></span>Aktivitätsleiste <code>#333333</code></li><li><span class=\"farbfeld\" style=\"background:#2d5876\" aria-hidden=\"true\"></span>Statusleiste <code>#2d5876</code></li><li><span class=\"farbfeld\" style=\"background:#4FA3E3\" aria-hidden=\"true\"></span>Akzent <code>#4FA3E3</code></li>",
+
       "projekte.filter.label": "Projekte nach Art filtern",
       "projekte.filter.all": "Alle",
       "projekte.filter.school": "Schule",
@@ -551,6 +554,9 @@
       "home.fact.focusValue": "Web and backend",
       "home.fact.likes": "Enjoys working with",
       "home.fact.reachable": "Reach me at",
+
+      "readme.facts": "<div class=\"fact\"><dt>Structure</dt><dd>code editor as the interface</dd></div><div class=\"fact\"><dt>Technology</dt><dd>hand-written HTML, CSS, JavaScript</dd></div><div class=\"fact\"><dt>Dependencies</dt><dd>none</dd></div><div class=\"fact\"><dt>Colour themes</dt><dd>six, switchable</dd></div><div class=\"fact\"><dt>Languages</dt><dd>German and English</dd></div><div class=\"fact\"><dt>Operation</dt><dd>fully keyboard-driven</dd></div>",
+      "readme.colorChips": "<li><span class=\"farbfeld\" style=\"background:#1e1e1e\" aria-hidden=\"true\"></span>Editor <code>#1e1e1e</code></li><li><span class=\"farbfeld\" style=\"background:#252526\" aria-hidden=\"true\"></span>Side bar <code>#252526</code></li><li><span class=\"farbfeld\" style=\"background:#333333\" aria-hidden=\"true\"></span>Activity bar <code>#333333</code></li><li><span class=\"farbfeld\" style=\"background:#2d5876\" aria-hidden=\"true\"></span>Status bar <code>#2d5876</code></li><li><span class=\"farbfeld\" style=\"background:#4FA3E3\" aria-hidden=\"true\"></span>Accent <code>#4FA3E3</code></li>",
 
       "projekte.filter.label": "Filter projects by kind",
       "projekte.filter.all": "All",

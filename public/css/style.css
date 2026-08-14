@@ -649,6 +649,18 @@ body.voll-offen{overflow:hidden}
 .noten-avg{font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:1.2rem;padding:1rem 1.2rem;background:#161B22;border:1px solid var(--border);display:inline-flex;align-items:center;gap:1rem}
 .noten-avg strong{color:var(--blue);font-size:1.1rem}
 
+/* ═══ FARBFELDER IM README ═══
+   Die Werte des Standarddesigns als Flaeche. Feste Farben im HTML, weil hier
+   ausdruecklich Dark+ gezeigt wird — sie duerfen nicht mitwechseln, wenn der
+   Besucher ein anderes Design waehlt. */
+.farbfelder{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem .9rem;
+  margin:1rem 0 .9rem;padding:0}
+.farbfelder li{display:flex;align-items:center;gap:.45rem;
+  font-family:var(--mono);font-size:.68rem;color:var(--muted)}
+.farbfelder code{font-size:.64rem;color:var(--dim);background:none;padding:0}
+.farbfeld{width:1.15rem;height:1.15rem;border-radius:3px;
+  border:1px solid var(--border2);flex-shrink:0}
+
 /* ═══ PROJEKTFILTER ═══ */
 .proj-filter{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin:1.1rem 0 .2rem}
 .pf-btn{font-family:var(--mono);font-size:.68rem;color:var(--muted);background:var(--sb);
