@@ -1357,6 +1357,10 @@ function slug(text, i){
 function buildOutline(panel){
   const content = panel.querySelector('.code-content');
   if(!content || content.querySelector('.outline'))return;
+  /* Bereiche, die ihre Gliederung nicht brauchen. Bei den Skills sind die drei
+     Zwischentitel ohnehin auf einen Blick zu sehen — die Leiste darueber war
+     eine Bedienung, die nichts erschliesst. */
+  if(panel.dataset.outline === 'aus')return;
 
   const heads = Array.from(content.querySelectorAll('h3.ed-h2'));
   if(heads.length < OUTLINE_MIN)return;
