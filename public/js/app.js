@@ -313,25 +313,52 @@ document.addEventListener('click',e=>{
   const karte=$(chip.dataset.ziel);
   if(!karte)return;
   projekteFiltern('alle');
-  // Nach openTab: das setzt den Scrollstand zuerst auf null zurueck.
+  /* Bewusst ohne weiches Scrollen. Vorher wurde weich gescrollt und
+     gleichzeitig bei jedem eintreffenden Bild nachgefasst — jeder dieser
+     zweiten Befehle bricht die laufende Animation ab, und man blieb
+     irgendwo dazwischen stehen, oft mitten in einer fremden Karte. Ueber
+     das Netz treffen die Bilder genau waehrend der Animation ein, auf der
+     Platte schon davor: darum war lokal nichts zu sehen. Ein sofortiger
+     Sprung laesst sich nicht unterbrechen, und die Hervorhebung zeigt
+     ohnehin an, wo man gelandet ist.
+
+     Nach openTab: das setzt den Scrollstand zuerst auf null zurueck. */
   requestAnimationFrame(()=>{
-    karte.scrollIntoView({block:'start',behavior:reduceMotion?'auto':'smooth'});
+    const hin=()=>{
+      const versatz=karte.getBoundingClientRect().top-editorScroll.getBoundingClientRect().top;
+      if(Math.abs(versatz)>1)editorScroll.scrollTop+=versatz;
+    };
+    hin();
     karte.classList.remove('karte-hervor');
     void karte.offsetWidth;            // Neustart der Hervorhebung erzwingen
     karte.classList.add('karte-hervor');
 
-    /* Die Projektbilder werden erst beim Oeffnen des Bereichs geholt. Waehrend
-       sie eintreffen, waechst der Inhalt ueber der Zielkarte und schiebt sie
-       weg — der Sprung landete zuletzt vierzehnhundert Pixel daneben. Also
-       nachfassen, solange noch Bilder ankommen. */
-    let vorbei=false;
-    setTimeout(()=>{vorbei=true;},4000);
-    document.querySelectorAll('#panel-projekte img').forEach(bild=>{
-      if(bild.complete)return;
-      bild.addEventListener('load',()=>{
-        if(!vorbei)karte.scrollIntoView({block:'start',behavior:'auto'});
-      },{once:true});
-    });
+    /* Bis hierher ist die Karte oben — nur bleibt sie es nicht unbedingt.
+       Beim ersten Oeffnen des Bereichs kommen Bilder, Videometadaten und
+       Schriften nach und ordnen den Inhalt um. Statt auf gut Glueck ein paar
+       Mal nachzufassen, wird die Karte neu verankert, sooft sich die Hoehe
+       des Inhalts wirklich aendert — und in Ruhe gelassen, sobald der
+       Besucher selbst scrollt. Nach acht Sekunden ist Schluss. */
+    let fertig=false;
+    const loslassen=()=>{
+      if(fertig)return;
+      fertig=true;
+      if(beobachter)beobachter.disconnect();
+      clearInterval(takt);
+      clearTimeout(schluss);
+    };
+    ['wheel','touchstart','pointerdown','keydown'].forEach(art=>
+      editorScroll.addEventListener(art,loslassen,{passive:true,once:true}));
+
+    const inhalt=document.querySelector('#panel-projekte .code-content');
+    let beobachter=null;
+    if(window.ResizeObserver&&inhalt){
+      beobachter=new ResizeObserver(()=>{ if(!fertig)hin(); });
+      beobachter.observe(inhalt);
+    }
+    // Rueckfall fuer alles, was keine Groessenaenderung ausloest.
+    const takt=setInterval(()=>{ if(!fertig)hin(); },250);
+    const schluss=setTimeout(loslassen,8000);
   });
 });
 
@@ -1946,32 +1973,13 @@ async function zeugnisUrl(modul){
   return url;
 }
 
-/* Ob eine PDF im Rahmen wirklich erscheint, entscheidet der Browser des
-   Besuchers, nicht diese Seite: ohne eingebaute PDF-Anzeige (iOS, abgeschaltet,
-   manche Firmenrechner) bleibt der Rahmen einfach leer — ein grauer Kasten
-   ohne Erklaerung, ausgerechnet bei den Zeugnissen. Darum wird kurz nach dem
-   Laden nachgesehen, ob etwas darin steht, und sonst ehrlich umgeschaltet auf
-   einen deutlichen Verweis. Wirft der Zugriff einen Fehler, ist das Dokument
-   fremd — dann hat der Browser es sehr wohl angezeigt. */
-function pruefeVorschau(feld,url){
-  const rahmen=feld.querySelector('iframe');
-  if(!rahmen)return;
-  setTimeout(()=>{
-    if(!rahmen.isConnected)return;
-    let leer=false;
-    try{
-      const doc=rahmen.contentDocument;
-      leer=!!doc&&!doc.querySelector('embed')&&(!doc.body||doc.body.childElementCount===0);
-    }catch(e){ leer=false; }
-    if(!leer)return;
-    rahmen.remove();
-    const hinweis=el('div','zeugnis-ersatz',
-      '<p>'+esc(I18N.t('noten.noEmbed'))+'</p>'+
-      '<a class="cta" href="'+url+'" target="_blank" rel="noopener noreferrer">'+
-        esc(I18N.t('noten.openTab'))+'</a>');
-    feld.appendChild(hinweis);
-  },1200);
-}
+/* Frueher stand hier eine Pruefung, ob der Browser die PDF im Rahmen wirklich
+   anzeigt — und falls nicht, wurde auf einen Verweis umgeschaltet. Die
+   Erkennung war nicht zu trauen: Chromes eingebaute PDF-Anzeige meldet einen
+   leeren Koerper, obwohl sie anzeigt. Die Vorschau ging auf und verschwand
+   eine Sekunde spaeter wieder. Jetzt bleibt der Rahmen einfach stehen; wer
+   lieber eine ganze Seite will, nimmt "In neuem Tab oeffnen" in der
+   Kopfzeile. Lieber eindeutig als klug. */
 
 /* Ein Klickfaenger fuer alle Karten statt eines Zuhoerers je Schaltflaeche —
    die Karten werden nach jeder Anmeldung neu gebaut. */
@@ -2011,7 +2019,6 @@ document.addEventListener('click',async e=>{
           '</div>'+
           '<iframe src="'+url+'" title="'+esc(I18N.t('noten.previewTitle'))+' '+esc(modul)+'"></iframe>';
         feld.hidden=false;
-        pruefeVorschau(feld,url);
         feld.scrollIntoView({block:'nearest',behavior:reduceMotion?'auto':'smooth'});
       }
     }

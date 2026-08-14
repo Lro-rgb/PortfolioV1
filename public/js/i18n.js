@@ -99,7 +99,6 @@
       "noten.preview": "Vorschau",
       "noten.previewTitle": "Kompetenznachweis Modul",
       "noten.openTab": "In neuem Tab öffnen",
-      "noten.noEmbed": "Dieser Browser zeigt PDF-Dateien nicht direkt in der Seite an.",
       "noten.close": "Schliessen",
       "noten.fileError": "Der Kompetenznachweis konnte nicht geladen werden. Bitte erneut anmelden und nochmals versuchen.",
 
@@ -446,7 +445,6 @@
       "noten.preview": "Preview",
       "noten.previewTitle": "Certificate of competence, module",
       "noten.openTab": "Open in new tab",
-      "noten.noEmbed": "This browser doesn't display PDF files inline.",
       "noten.close": "Close",
       "noten.fileError": "The certificate could not be loaded. Please sign in again and retry.",
 
