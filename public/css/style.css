@@ -636,6 +636,9 @@ body.voll-offen{overflow:hidden}
    Drittel der Breite ist ein A4-Blatt nicht zu lesen. */
 .zeugnis-vorschau{margin:1.2rem 0;border:1px solid var(--border);
   border-radius:3px;background:#161B22;overflow:hidden}
+/* Steht sie zwischen den Notenkarten, laeuft sie ueber alle Spalten und
+   schiebt die restlichen Karten nach unten. */
+.noten-grid>.zeugnis-vorschau{grid-column:1/-1;margin:.2rem 0 .6rem}
 .zeugnis-kopf{display:flex;align-items:center;gap:.6rem;padding:.5rem .8rem;
   border-bottom:1px solid var(--border);background:var(--sb)}
 .zeugnis-titel{font-family:var(--mono);font-size:.66rem;color:var(--muted)}

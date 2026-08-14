@@ -2000,6 +2000,12 @@ document.addEventListener('click',async e=>{
       if(!feld.hidden&&feld.dataset.modul===modul){
         feld.hidden=true;feld.innerHTML='';feld.dataset.modul='';
       }else{
+        /* Im Notenraster wandert das Vorschaufeld unter die angeklickte
+           Karte und laeuft dort ueber alle Spalten — in einem Drittel der
+           Breite waere ein A4-Blatt nicht zu lesen, ganz unten am Ende des
+           Rasters sucht man es. */
+        const karte=btn.closest('.note-card');
+        if(karte&&karte.nextElementSibling!==feld)karte.after(feld);
         /* Kopfzeile mit Ausweichweg: manche Browser zeigen eingebettete PDF
            nicht an (Anzeige abgeschaltet, iOS). Dann bliebe ohne den Verweis
            nur eine leere Flaeche stehen. */
