@@ -4,3 +4,9 @@ node_modules/
 .env.local
 *.log
 .DS_Store
+
+# Die Kompetenznachweise als PDF. Dieses Repository ist oeffentlich — dort
+# eingecheckt waeren die Noten fuer jeden lesbar, und der Passwortschutz vor
+# dem Notenbereich waere umsonst. Die Dateien liegen nur lokal und werden
+# ueber .vercelignore trotzdem mit "vercel --prod" hochgeladen.
+unterlagen/

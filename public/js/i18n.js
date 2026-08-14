@@ -96,8 +96,13 @@
       "chrome.noProblems": "Keine bekannten Probleme",
       "chrome.problemsCount": "0 Fehler, 0 Warnungen",
 
+      "noten.preview": "Vorschau",
+      "noten.previewTitle": "Kompetenznachweis Modul",
+      "noten.openTab": "In neuem Tab öffnen",
+      "noten.close": "Schliessen",
+      "noten.fileError": "Der Kompetenznachweis konnte nicht geladen werden. Bitte erneut anmelden und nochmals versuchen.",
+
       "outline.navLabel": "Gliederung dieses Abschnitts",
-      "outline.label": "Abschnitt",
       "chrome.detailed": "Ausführlich",
       "kontakt.copied": "Kopiert",
       "kontakt.copyFailed": "Kopieren nicht möglich",
@@ -427,8 +432,13 @@
       "chrome.noProblems": "No known problems",
       "chrome.problemsCount": "0 errors, 0 warnings",
 
+      "noten.preview": "Preview",
+      "noten.previewTitle": "Certificate of competence, module",
+      "noten.openTab": "Open in new tab",
+      "noten.close": "Close",
+      "noten.fileError": "The certificate could not be loaded. Please sign in again and retry.",
+
       "outline.navLabel": "Outline of this section",
-      "outline.label": "Section",
       "chrome.detailed": "Details",
       "kontakt.copied": "Copied",
       "kontakt.copyFailed": "Copy failed",

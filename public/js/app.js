@@ -188,6 +188,12 @@ function openTab(name,opts){
   buildFolds(panel);
   buildOutline(panel);
   editorScroll.scrollTop=0;
+  /* Die Blaetterpfeile der Bilderreihen wurden bisher einmal beim Aufbau
+     gemessen — da war das Panel noch ausgeblendet, clientWidth also null und
+     beide Pfeile blieben abgeschaltet. Sie wachten erst auf, wenn man die
+     Reihe von Hand verschoben hatte. Jetzt wird nachgemessen, sobald der
+     Bereich wirklich sichtbar ist. */
+  requestAnimationFrame(()=>panel.querySelectorAll('.sl-nav').forEach(nav=>randKnoepfe(nav.parentElement)));
   updateOutlineState();
   initReveals();
   setHash(name);
@@ -243,18 +249,21 @@ $('tabbar').addEventListener('click',e=>{
   if(tab)openTab(tab.dataset.panel);
 });
 
-/* Das Mausrad ueber der Leiste schiebt die Tabs seitwaerts, wie in VS Code.
-   Sonst sind auf einem etwas schmaleren Bildschirm die hinteren Dateien gar
-   nicht erreichbar: das Rad meldet nur eine senkrechte Bewegung, die Leiste
-   laeuft aber waagrecht — gescrollt wurde also der Inhalt darunter.
-   deltaMode 1 heisst "in Zeilen" (Firefox unter Windows); ungerechnet waeren
-   das drei Pixel pro Umdrehung. */
-$('tabbar').addEventListener('wheel',e=>{
-  const leiste=e.currentTarget;
-  if(leiste.scrollWidth<=leiste.clientWidth)return; // passt alles: Seite scrollt weiter
-  leiste.scrollLeft+=(e.deltaY||e.deltaX)*(e.deltaMode?16:1);
-  e.preventDefault();
-},{passive:false});
+/* Waagrechte Leisten mit dem Mausrad bedienbar machen — die Tableiste hier,
+   die Gliederung in buildOutline. Beide laufen waagrecht, das Rad meldet aber
+   nur eine senkrechte Bewegung: ohne Umrechnung scrollt der Inhalt darunter
+   und die hinteren Eintraege sind auf einem schmaleren Bildschirm gar nicht
+   erreichbar. deltaMode 1 heisst "in Zeilen" (Firefox unter Windows);
+   ungerechnet waeren das drei Pixel pro Umdrehung. */
+function radSeitwaerts(leiste){
+  if(!leiste)return;
+  leiste.addEventListener('wheel',e=>{
+    if(leiste.scrollWidth<=leiste.clientWidth)return; // passt alles: Seite scrollt weiter
+    leiste.scrollLeft+=(e.deltaY||e.deltaX)*(e.deltaMode?16:1);
+    e.preventDefault();
+  },{passive:false});
+}
+radSeitwaerts($('tabbar'));
 
 $('tabbar').addEventListener('keydown',e=>{
   const tab=e.target.closest('.tab');
@@ -1357,9 +1366,12 @@ function buildOutline(panel){
   nav.className = 'outline';
   nav.setAttribute('aria-label',I18N.t('outline.navLabel'));
   nav.setAttribute('data-i18n-aria-label','outline.navLabel');
-  const outlineLabel = el('span','outline-label',I18N.t('outline.label'));
-  outlineLabel.setAttribute('data-i18n','outline.label');
-  nav.appendChild(outlineLabel);
+  /* Die Leiste bleibt eine einzige Zeile und laeuft bei Bedarf seitwaerts.
+     Mit Umbruch wuchs sie auf schmaleren Bildschirmen auf drei Zeilen und
+     nahm oben dauerhaft ueber hundert Pixel Lesebereich weg. Die Beschriftung
+     "Abschnitt" faellt weg; die Titel darunter sagen von selbst, was sie
+     sind, und fuer Vorleseprogramme steht es weiterhin im aria-label. */
+  radSeitwaerts(nav);
 
   heads.forEach((h,i)=>{
     if(!h.id)h.id = panel.id.replace('panel-','') + '-' + slug(h.textContent, i);
@@ -1444,6 +1456,13 @@ function updateOutlineState(){
     });
   }
   links.forEach(a=>a.classList.toggle('current', a.dataset.target === currentId));
+
+  /* Die Leiste ist eine einzige Zeile: bei vielen Titeln liegt die gerade
+     gelesene Marke leicht ausserhalb des sichtbaren Streifens. Sie wird
+     nachgezogen — aber nur waagrecht, "nearest" haelt den Text darunter in
+     Ruhe. */
+  panel.querySelector('.outline a.current')
+    ?.scrollIntoView({block:'nearest',inline:'nearest'});
 }
 // Der Scroll-Listener dazu steht weiter unten gebuendelt (onEditorScroll).
 
@@ -1710,6 +1729,11 @@ function doLogout(){
     if(dl)dl.style.display='none';
   });
   lastNoten=null;lastLebenslauf=null;
+  /* Die geholten Zeugnisse liegen als oertliche Adressen im Speicher des
+     Tabs. Beim Abmelden gehoeren sie weg, sonst sind sie ueber die alte
+     blob:-Adresse weiter lesbar. */
+  zeugnisse.forEach(u=>URL.revokeObjectURL(u));
+  zeugnisse.clear();
   openTab('home');
 }
 
@@ -1761,8 +1785,19 @@ async function loadProtected(panel){
           lastNoten.map(n=>
             '<div class="note-card"><div class="note-fach">'+esc(n.fach)+'</div>'+
             '<div class="note-val '+cc(n.note)+'">'+Number(n.note).toFixed(1)+'</div>'+
-            '<div class="note-sem">'+esc(n.semester)+'</div></div>').join('')+
-          '</div><p class="noten-avg">Durchschnitt: <strong>'+avg+'</strong></p>';
+            '<div class="note-sem">'+esc(n.semester)+'</div>'+
+            (n.datei
+              ? '<div class="note-akt">'+
+                  '<button type="button" class="note-btn" data-zeugnis="'+esc(n.datei)+'" data-tun="vorschau">'+
+                    '<span aria-hidden="true">▤</span> '+esc(I18N.t('noten.preview'))+'</button>'+
+                  '<button type="button" class="note-btn" data-zeugnis="'+esc(n.datei)+'" data-tun="laden">'+
+                    '<span aria-hidden="true">⭳</span> PDF</button>'+
+                '</div>'
+              : '')+
+            '</div>').join('')+
+          '</div>'+
+          '<div id="zeugnis-vorschau" class="zeugnis-vorschau" hidden></div>'+
+          '<p class="noten-avg">Durchschnitt: <strong>'+avg+'</strong></p>';
         if(dl)dl.style.display='inline-flex';
       }
     }
@@ -1823,6 +1858,80 @@ function triggerDownload(blob,filename){
   document.body.appendChild(a);a.click();
   document.body.removeChild(a);URL.revokeObjectURL(url);
 }
+
+/* ── Kompetenznachweise (PDF hinter dem Login) ──
+   Die Dateien liegen nicht unter public/, sondern kommen von /api/zeugnis —
+   und zwar nur gegen ein gueltiges Token. Ein einfaches <a href> nuetzt hier
+   nichts: das Token steht im sessionStorage und muss als Kopfzeile mit, also
+   wird die Datei geholt und daraus eine oertliche Adresse gemacht.
+   Einmal geholt, bleibt sie liegen — Vorschau und Download teilen sie sich. */
+const zeugnisse=new Map();
+
+async function zeugnisUrl(modul){
+  if(zeugnisse.has(modul))return zeugnisse.get(modul);
+  const res=await fetch('/api/zeugnis?modul='+encodeURIComponent(modul),
+    {headers:{'Authorization':'Bearer '+token}});
+  if(!res.ok){
+    if(res.status===401)doLogout();
+    throw new Error('Zeugnis nicht erhalten ('+res.status+')');
+  }
+  const url=URL.createObjectURL(await res.blob());
+  zeugnisse.set(modul,url);
+  return url;
+}
+
+/* Ein Klickfaenger fuer alle Karten statt eines Zuhoerers je Schaltflaeche —
+   die Karten werden nach jeder Anmeldung neu gebaut. */
+document.addEventListener('click',async e=>{
+  const zu=e.target.closest('[data-zu]');
+  if(zu){
+    const feld=$('zeugnis-vorschau');
+    if(feld){feld.hidden=true;feld.innerHTML='';feld.dataset.modul='';}
+    return;
+  }
+  const btn=e.target.closest('.note-btn');
+  if(!btn)return;
+  const modul=btn.dataset.zeugnis, feld=$('zeugnis-vorschau');
+  const beschriftung=btn.innerHTML;
+  btn.disabled=true;
+  try{
+    const url=await zeugnisUrl(modul);
+    if(btn.dataset.tun==='laden'){
+      const a=document.createElement('a');
+      a.href=url;a.download='uek-modul-'+modul+'-luis-rosado.pdf';
+      document.body.appendChild(a);a.click();document.body.removeChild(a);
+    }else if(feld){
+      // Nochmal auf dieselbe Schaltflaeche: wieder zuklappen.
+      if(!feld.hidden&&feld.dataset.modul===modul){
+        feld.hidden=true;feld.innerHTML='';feld.dataset.modul='';
+      }else{
+        /* Kopfzeile mit Ausweichweg: manche Browser zeigen eingebettete PDF
+           nicht an (Anzeige abgeschaltet, iOS). Dann bliebe ohne den Verweis
+           nur eine leere Flaeche stehen. */
+        feld.dataset.modul=modul;
+        feld.innerHTML=
+          '<div class="zeugnis-kopf">'+
+            '<span class="zeugnis-titel">'+esc(I18N.t('noten.previewTitle'))+' '+esc(modul)+'</span>'+
+            '<a class="zeugnis-link" href="'+url+'" target="_blank" rel="noopener noreferrer">'+
+              esc(I18N.t('noten.openTab'))+'</a>'+
+            '<button type="button" class="zeugnis-link" data-zu="1">'+esc(I18N.t('noten.close'))+'</button>'+
+          '</div>'+
+          '<iframe src="'+url+'" title="'+esc(I18N.t('noten.previewTitle'))+' '+esc(modul)+'"></iframe>';
+        feld.hidden=false;
+        feld.scrollIntoView({block:'nearest',behavior:reduceMotion?'auto':'smooth'});
+      }
+    }
+  }catch(err){
+    console.error(err);
+    if(feld){
+      feld.dataset.modul='';
+      feld.innerHTML='<p class="zeugnis-fehler">'+esc(I18N.t('noten.fileError'))+'</p>';
+      feld.hidden=false;
+    }
+  }finally{
+    btn.disabled=false;btn.innerHTML=beschriftung;
+  }
+});
 
 function downloadNotenCsv(){
   if(!lastNoten||!lastNoten.length)return;

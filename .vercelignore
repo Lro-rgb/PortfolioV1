@@ -1,0 +1,12 @@
+# Was Vercel beim Hochladen auslassen soll.
+#
+# Diese Datei ist noetig, weil Vercel sonst .gitignore heranzieht — und dort
+# steht "unterlagen/", damit die Kompetenznachweise nicht im oeffentlichen
+# Repository landen. Sie sollen aber sehr wohl auf den Server, sonst findet
+# /api/zeugnis nichts. Darum hier dieselbe Liste ohne diesen Eintrag.
+node_modules/
+.vercel
+.env
+.env.local
+*.log
+.DS_Store

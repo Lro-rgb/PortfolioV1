@@ -844,11 +844,6 @@ code {
   border-color: transparent;
 }
 
-.outline-label {
-  font-family: var(--sans);
-  font-size: 10.5px;
-}
-
 /* Karten und Kacheln an die Themefarben angleichen */
 .proj-card,
 .tech-card,
@@ -1106,10 +1101,10 @@ code {
 }
 
 .sl-btn {
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   line-height: 1;
-  font-size: 15px;
+  font-size: 19px;
   color: var(--text);
   background: var(--sb);
   border: 1px solid var(--border);

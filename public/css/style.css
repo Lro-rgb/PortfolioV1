@@ -186,14 +186,18 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
 /* z-index bewusst hoch: ein Bild, ueber dem die Maus steht, bekommt durch
    die Hervorhebung eine eigene Zeichenebene und schob sich sonst vor die
    Leiste, sobald es beim Scrollen darunter durchlief. */
+/* Eine Zeile, die bei Bedarf seitwaerts laeuft. Mit Umbruch wurde die Leiste
+   auf schmaleren Bildschirmen drei Zeilen hoch und nahm dem Text oben
+   dauerhaft ueber hundert Pixel weg. */
 .outline{position:sticky;top:0;z-index:40;background:var(--bg);
   border-bottom:1px solid var(--border2);padding:.55rem 2.5rem;
-  display:flex;flex-wrap:wrap;align-items:center;gap:.3rem .5rem}
-.outline-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--dim);margin-right:.4rem}
+  display:flex;flex-wrap:nowrap;align-items:center;gap:.3rem .5rem;
+  overflow-x:auto;scrollbar-width:none}
+.outline::-webkit-scrollbar{display:none}
 .outline a{font-family:var(--mono);font-size:.7rem;color:var(--muted);
   text-decoration:none;padding:.2rem .55rem;border:1px solid transparent;
-  border-radius:2px;transition:color .15s,background .15s,border-color .15s}
+  border-radius:2px;transition:color .15s,background .15s,border-color .15s;
+  flex-shrink:0;white-space:nowrap}
 .outline a:hover{color:var(--text);background:rgba(255,255,255,.05)}
 .outline a.current{color:var(--blue);border-color:var(--border);background:#161B22}
 
@@ -611,6 +615,33 @@ body.voll-offen{overflow:hidden}
 .note-val{font-family:var(--mono);font-size:2rem;font-weight:700;line-height:1}
 .note-sem{font-family:var(--mono);font-size:.62rem;color:var(--dim);margin-top:.3rem}
 .note-5{color:var(--green)}.note-4{color:var(--blue)}.note-3{color:var(--orange)}.note-2{color:var(--red)}
+
+/* Kompetenznachweis je Karte: Vorschau und Download */
+.note-akt{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem;
+  padding-top:.8rem;border-top:1px solid var(--border)}
+.note-btn{font-family:var(--mono);font-size:.62rem;color:var(--muted);
+  background:var(--sb);border:1px solid var(--border);border-radius:2px;
+  padding:.32rem .6rem;cursor:pointer;display:inline-flex;align-items:center;
+  gap:.35rem;transition:color .15s,background .15s,border-color .15s}
+.note-btn:hover{color:var(--text);background:#161B22;border-color:var(--blue)}
+.note-btn:disabled{opacity:.5;cursor:default}
+
+/* Die Vorschau steht unter dem Raster und nicht in der Karte: in einem
+   Drittel der Breite ist ein A4-Blatt nicht zu lesen. */
+.zeugnis-vorschau{margin:1.2rem 0;border:1px solid var(--border);
+  border-radius:3px;background:#161B22;overflow:hidden}
+.zeugnis-kopf{display:flex;align-items:center;gap:.6rem;padding:.5rem .8rem;
+  border-bottom:1px solid var(--border);background:var(--sb)}
+.zeugnis-titel{font-family:var(--mono);font-size:.66rem;color:var(--muted)}
+.zeugnis-link{margin-left:auto;font-family:var(--mono);font-size:.62rem;
+  color:var(--muted);text-decoration:none;background:none;border:1px solid var(--border);
+  border-radius:2px;padding:.24rem .55rem;cursor:pointer}
+.zeugnis-link:hover{color:var(--text);border-color:var(--blue)}
+.zeugnis-link+.zeugnis-link{margin-left:0}
+.zeugnis-vorschau iframe{width:100%;height:min(78vh,760px);border:0;display:block;
+  background:#fff}
+.zeugnis-fehler{font-family:var(--mono);font-size:.72rem;color:var(--orange);
+  padding:1.2rem;margin:0}
 .noten-avg{font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:1.2rem;padding:1rem 1.2rem;background:#161B22;border:1px solid var(--border);display:inline-flex;align-items:center;gap:1rem}
 .noten-avg strong{color:var(--blue);font-size:1.1rem}
 
@@ -748,6 +779,9 @@ body.voll-offen{overflow:hidden}
   .cb::before,.proj-card::before,.tech-card::after{display:none}
   .proj-grid,.tech-grid,.noten-grid,.fact-row{background:#fff!important;gap:.3cm;border:none}
   .proj-card,.tech-card,.note-card,.cb,.fact{page-break-inside:avoid}
+  /* Schaltflaechen und die eingebettete Vorschau haben auf Papier nichts
+     verloren — der Nachweis selbst wird als eigene Datei mitgeschickt. */
+  .note-akt,.zeugnis-vorschau{display:none!important}
   .chip,.badge{border:1px solid #bbb;background:#fff!important}
   .ed-table td,.ed-table th{border-color:#ccc}
 

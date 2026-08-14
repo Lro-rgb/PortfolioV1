@@ -14,12 +14,39 @@ const { verifyToken, requireConfig } = require('../lib/auth.js');
 //
 // "nebenjobs" deckt bezahlte Nebenjobs und Freiwilligenarbeit ab — die
 // IMS-Checkliste verlangt beides ausdruecklich im Lebenslauf.
+// "datei" ist die Modulnummer, unter der /api/zeugnis den Kompetenznachweis
+// herausgibt. Ohne diesen Eintrag zeigt die Karte einfach keine Schaltflaechen.
 const DATA = {
   noten: [
     {
       fach: 'üK-Modul 187 — ICT-Arbeitsplatz mit Betriebssystem in Betrieb nehmen',
       note: 5.0,
-      semester: 'September 2024'
+      semester: 'September 2024',
+      datei: '187'
+    },
+    {
+      fach: 'üK-Modul 106 — Datenbanken abfragen, bearbeiten und warten',
+      note: 4.5,
+      semester: 'März 2025',
+      datei: '106'
+    },
+    {
+      fach: 'üK-Modul 294 — Frontend einer interaktiven Webapplikation realisieren',
+      note: 5.5,
+      semester: 'April 2026',
+      datei: '294'
+    },
+    {
+      fach: 'üK-Modul 210 — Public Cloud für Anwendungen nutzen',
+      note: 5.0,
+      semester: 'Juni 2026',
+      datei: '210'
+    },
+    {
+      fach: 'üK-Modul 335 — Mobile-Applikation realisieren',
+      note: 5.0,
+      semester: 'Juni/Juli 2026',
+      datei: '335'
     }
   ],
   lebenslauf: {
