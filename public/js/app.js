@@ -302,66 +302,6 @@ document.addEventListener('click',e=>{
   if(trigger)openTab(trigger.dataset.open);
 });
 
-/* Die Schaltflaechen bei den Skills nennen ein Projekt — dann sollen sie auch
-   dorthin fuehren. Vorher landeten alle gleichermassen oben auf der
-   Projektseite: "Askel" und "Redis-Webshop" taten dasselbe, obwohl die
-   Einleitung "ein Klick darauf fuehrt hin" verspricht. Der Filter wird dabei
-   zurueckgesetzt, sonst zeigt der Sprung auf eine ausgeblendete Karte. */
-document.addEventListener('click',e=>{
-  const chip=e.target.closest('[data-ziel]');
-  if(!chip)return;
-  const karte=$(chip.dataset.ziel);
-  if(!karte)return;
-  projekteFiltern('alle');
-  /* Bewusst ohne weiches Scrollen. Vorher wurde weich gescrollt und
-     gleichzeitig bei jedem eintreffenden Bild nachgefasst — jeder dieser
-     zweiten Befehle bricht die laufende Animation ab, und man blieb
-     irgendwo dazwischen stehen, oft mitten in einer fremden Karte. Ueber
-     das Netz treffen die Bilder genau waehrend der Animation ein, auf der
-     Platte schon davor: darum war lokal nichts zu sehen. Ein sofortiger
-     Sprung laesst sich nicht unterbrechen, und die Hervorhebung zeigt
-     ohnehin an, wo man gelandet ist.
-
-     Nach openTab: das setzt den Scrollstand zuerst auf null zurueck. */
-  requestAnimationFrame(()=>{
-    const hin=()=>{
-      const versatz=karte.getBoundingClientRect().top-editorScroll.getBoundingClientRect().top;
-      if(Math.abs(versatz)>1)editorScroll.scrollTop+=versatz;
-    };
-    hin();
-    karte.classList.remove('karte-hervor');
-    void karte.offsetWidth;            // Neustart der Hervorhebung erzwingen
-    karte.classList.add('karte-hervor');
-
-    /* Bis hierher ist die Karte oben — nur bleibt sie es nicht unbedingt.
-       Beim ersten Oeffnen des Bereichs kommen Bilder, Videometadaten und
-       Schriften nach und ordnen den Inhalt um. Statt auf gut Glueck ein paar
-       Mal nachzufassen, wird die Karte neu verankert, sooft sich die Hoehe
-       des Inhalts wirklich aendert — und in Ruhe gelassen, sobald der
-       Besucher selbst scrollt. Nach acht Sekunden ist Schluss. */
-    let fertig=false;
-    const loslassen=()=>{
-      if(fertig)return;
-      fertig=true;
-      if(beobachter)beobachter.disconnect();
-      clearInterval(takt);
-      clearTimeout(schluss);
-    };
-    ['wheel','touchstart','pointerdown','keydown'].forEach(art=>
-      editorScroll.addEventListener(art,loslassen,{passive:true,once:true}));
-
-    const inhalt=document.querySelector('#panel-projekte .code-content');
-    let beobachter=null;
-    if(window.ResizeObserver&&inhalt){
-      beobachter=new ResizeObserver(()=>{ if(!fertig)hin(); });
-      beobachter.observe(inhalt);
-    }
-    // Rueckfall fuer alles, was keine Groessenaenderung ausloest.
-    const takt=setInterval(()=>{ if(!fertig)hin(); },250);
-    const schluss=setTimeout(loslassen,8000);
-  });
-});
-
 $('reopenAll').addEventListener('click',reopenAll);
 
 /* ═══════════════════════════════════
