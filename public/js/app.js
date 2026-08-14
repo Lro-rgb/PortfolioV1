@@ -451,12 +451,12 @@ const MEDIA={
     ],
     platzhalter:{anzahl:1}
   },
-  /* Eigene Aufnahmen der beiden Geraete. Beide lagen quer im Foto und
-     sind hier aufgerichtet; die Bildschirme sollen lesbar sein, das ist
-     der ganze Zweck der Bilder. */
+  /* Eigene Aufnahmen der beiden Geraete, oben und unten leicht
+     zugeschnitten — der dunkle Tisch drumherum nahm sonst mehr Platz ein
+     als die Geraete selbst. format:'frei' bleibt: die Kachel nimmt die
+     eigene Proportion des Bildes an, statt sie in einen festen 16:10-
+     Rahmen zu zwingen und dabei Balken zu riskieren. */
   modding:{
-    // 4:3 statt 16:10 — in einer festen Kachel bekaemen die Fotos sonst
-    // schwarze Balken an den Seiten.
     format:'frei',
     shots:[
       {src:'media/modding-switch.jpg',
