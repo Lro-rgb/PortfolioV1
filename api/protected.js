@@ -7,50 +7,70 @@ const { verifyToken, requireConfig } = require('../lib/auth.js');
 // ─── Geschützte Daten ─────────────────────────────────────────────────────
 // Bewusst serverseitig: diese Inhalte gehören nicht ins Frontend-Bundle,
 // sondern werden nur gegen ein gültiges Token ausgeliefert.
-//   noten:       { fach, note, semester }
+//   noten:       { fach, note, semester, art }   art: 'uek' | 'zeugnis'
 //   ausbildung / erfahrung / nebenjobs: { zeitraum, titel, ort, notiz }
 //   zertifikate: { jahr, titel, anbieter }
 //   sprachen:    { sprache, niveau }
 //
 // "nebenjobs" deckt bezahlte Nebenjobs und Freiwilligenarbeit ab — die
 // IMS-Checkliste verlangt beides ausdruecklich im Lebenslauf.
-// "datei" ist die Modulnummer, unter der /api/zeugnis den Kompetenznachweis
-// herausgibt. Ohne diesen Eintrag zeigt die Karte einfach keine Schaltflaechen.
+// "datei" ist der Schluessel, unter dem /api/zeugnis die PDF herausgibt.
+// Ohne diesen Eintrag zeigt die Karte einfach keine Schaltflaechen.
+// "art" bestimmt, in welcher der beiden Klappgruppen die Karte landet:
+// 'uek' fuer Kompetenznachweise, 'zeugnis' fuer Schulzeugnisse.
 const DATA = {
   noten: [
     {
       fach: 'üK-Modul 187 — ICT-Arbeitsplatz mit Betriebssystem in Betrieb nehmen',
       note: 5.0,
       semester: 'September 2024',
-      datei: '187'
+      datei: '187',
+      art: 'uek'
     },
     {
       fach: 'üK-Modul 106 — Datenbanken abfragen, bearbeiten und warten',
       note: 4.5,
       semester: 'März 2025',
-      datei: '106'
+      datei: '106',
+      art: 'uek'
     },
     {
       fach: 'üK-Modul 294 — Frontend einer interaktiven Webapplikation realisieren',
       note: 5.5,
       semester: 'April 2026',
-      datei: '294'
+      datei: '294',
+      art: 'uek'
     },
     {
       fach: 'üK-Modul 210 — Public Cloud für Anwendungen nutzen',
       note: 5.0,
       semester: 'Juni 2026',
-      datei: '210'
+      datei: '210',
+      art: 'uek'
     },
     {
       fach: 'üK-Modul 335 — Mobile-Applikation realisieren',
       note: 5.0,
       semester: 'Juni/Juli 2026',
-      datei: '335'
+      datei: '335',
+      art: 'uek'
     }
   ],
   lebenslauf: {
-    ausbildung: [],
+    ausbildung: [
+      {
+        zeitraum: '2024 – 2028',
+        titel: 'Informatikmittelschule (IMS), Informatiker EFZ Applikationsentwicklung',
+        ort: 'bwd Bern',
+        notiz: 'Drei Jahre Vollzeitschule mit Berufsmaturitaet Wirtschaft, danach ein Jahr Praktikum.'
+      },
+      {
+        zeitraum: '2015 – 2024',
+        titel: 'Primar- und Sekundarschule',
+        ort: 'Schule Gsteighof, Burgdorf',
+        notiz: 'Abschluss Sekundarstufe I.'
+      }
+    ],
     erfahrung: [],
     nebenjobs: [
       {
@@ -61,7 +81,12 @@ const DATA = {
       }
     ],
     zertifikate: [],
-    sprachen: []
+    sprachen: [
+      { sprache: 'Deutsch', niveau: 'Muttersprache' },
+      { sprache: 'Englisch', niveau: 'B2' },
+      { sprache: 'Italienisch', niveau: 'B2' },
+      { sprache: 'Französisch', niveau: 'B1' }
+    ]
   }
 };
 // ────────────────────────────────────────────────────────────────────────

@@ -53,9 +53,9 @@ luis-rosado-portfolio/
 ├── api/                     # Backend — Vercel Serverless Functions
 │   ├── login.js             #   POST /api/login     → prüft Passwort, gibt Token zurück
 │   ├── protected.js         #   GET  /api/protected → Noten + Lebenslauf (nur mit Token)
-│   └── zeugnis.js           #   GET  /api/zeugnis   → üK-Kompetenznachweis als PDF (nur mit Token)
+│   └── zeugnis.js           #   GET  /api/zeugnis   → geschützte PDF (Nachweise, Lebenslauf, nur mit Token)
 │
-├── unterlagen/                  # Kompetenznachweise als PDF — nur lokal, nicht im Repo
+├── unterlagen/                  # Nachweise, Lebenslauf, Arbeitsbestätigung als PDF — nur lokal
 ├── unterlagen-verschluesselt/   # dieselben Dateien verschlüsselt — die kommen mit
 │
 ├── lib/
@@ -122,7 +122,15 @@ Der Ablauf:
    aus. Die Daten stehen serverseitig und tauchen nie im Frontend-Bundle auf.
 4. `/api/zeugnis?modul=187` liefert den zugehörigen üK-Kompetenznachweis als
    PDF, ebenfalls nur gegen ein gültiges Token. Die Modulnummer wird gegen
-   eine feste Liste geprüft, statt daraus einen Pfad zu bauen.
+   eine feste Liste geprüft, statt daraus einen Pfad zu bauen. Über dieselbe
+   Liste kommen auch `modul=cv` (der unterschriebene Lebenslauf) und
+   `modul=arbeitsbestaetigung` (Arbeitsbestätigung der Apotheke).
+
+Im Notenbereich stehen die Karten in zwei Klappgruppen — üK-Kompetenznachweise
+und Zeugnisse; welche Gruppe eine Karte bekommt, steht im Feld `art` in
+`api/protected.js`. Der Lebenslauf zeigt zusätzlich die beiden PDF mit
+Vorschau und Download; die abgetippten Angaben darüber bleiben, damit der
+Inhalt auch ohne PDF-Anzeige lesbar ist.
 
 Die PDF-Dateien liegen bewusst **nicht** unter `public/`: alles dort liefert
 Vercel ohne jede Prüfung aus, ein Passwort davor wäre Dekoration.

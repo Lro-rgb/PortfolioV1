@@ -70,7 +70,10 @@ for (const boese of ['../lib/auth.js', '../../.env', '187/../../lib/auth.js', ''
 process.chdir(os.tmpdir());
 
 // ── Mit gueltigem Token kommt die richtige Datei ──
-for (const modul of ['187', '106', '294', '210', '335']) {
+/* Neben den Modulnummern auch der Lebenslauf: er kommt seit dem Wegfall
+   von jsPDF ueber denselben Endpunkt. Die Arbeitsbestaetigung steht hier
+   nicht, solange die Datei noch fehlt. */
+for (const modul of ['187', '106', '294', '210', '335', 'cv']) {
   const a = ruf(mitToken(gueltig), { modul });
   assert.strictEqual(a.code, 200, 'Modul ' + modul + ' muss ausgeliefert werden');
   assert.ok(Buffer.isBuffer(a.koerper), 'Modul ' + modul + ' muss eine Datei liefern');
@@ -87,4 +90,4 @@ assert.strictEqual(mitFalschem.code, 503, 'falscher Schluessel darf keine Datei 
 assert.ok(!Buffer.isBuffer(mitFalschem.koerper), 'bei falschem Schluessel darf keine Datei herauskommen');
 process.env.UNTERLAGEN_KEY = echterSchluessel;
 
-console.log('OK — Zugriffsschutz, Verschluesselung und alle fuenf Kompetenznachweise in Ordnung.');
+console.log('OK — Zugriffsschutz, Verschluesselung, fuenf Kompetenznachweise und der Lebenslauf in Ordnung.');

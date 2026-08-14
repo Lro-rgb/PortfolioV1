@@ -127,8 +127,8 @@ für die Einträge hier.
 - `Content-Security-Policy` sagt dem Browser, von wo er überhaupt etwas laden
   darf. Alles, was dort nicht steht, wird abgewiesen — auch dann, wenn es
   jemand über eine Lücke in die Seite geschrieben hätte. `script-src` erlaubt
-  neben der eigenen Herkunft nur cdnjs, von wo jsPDF für den
-  Lebenslauf-Export kommt. `'unsafe-inline'` ist bei Skripten nötig, weil das
+  nur die eigene Herkunft — fremden Code führt die Seite keinen mehr aus.
+  `'unsafe-inline'` ist bei Skripten nötig, weil das
   Farbdesign vor dem ersten Zeichnen gesetzt wird, und bei Stilen, weil
   einzelne Masse zur Laufzeit gesetzt werden. Die Bild-Hosts sind die, von
   denen stats.fm seine Cover ausliefert — fehlt dort später einmal ein Bild,

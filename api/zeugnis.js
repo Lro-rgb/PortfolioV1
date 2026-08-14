@@ -21,7 +21,11 @@ const DATEIEN = {
   '106': 'uek-106-datenbanken.pdf',
   '294': 'uek-294-frontend.pdf',
   '210': 'uek-210-public-cloud.pdf',
-  '335': 'uek-335-mobile-applikation.pdf'
+  '335': 'uek-335-mobile-applikation.pdf',
+  // Nicht nur Modulnachweise: derselbe Weg traegt auch die Unterlagen zur
+  // Bewerbung. Der Schluessel ist hier ein Name statt einer Modulnummer.
+  'cv': 'lebenslauf.pdf',
+  'arbeitsbestaetigung': 'arbeitsbestaetigung-apotheke.pdf'
 };
 
 module.exports = function handler(req, res) {

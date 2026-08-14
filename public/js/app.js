@@ -1768,6 +1768,17 @@ function esc(v){
     .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
+/* Vorschau und Download fuer eine geschuetzte PDF. Denselben Knopfsatz
+   tragen die Notenkarten und die Unterlagen im Lebenslauf. */
+function dokKnoepfe(schluessel){
+  return '<div class="note-akt">'+
+    '<button type="button" class="note-btn" data-zeugnis="'+esc(schluessel)+'" data-tun="vorschau">'+
+      '<span aria-hidden="true">▤</span> '+esc(I18N.t('noten.preview'))+'</button>'+
+    '<button type="button" class="note-btn" data-zeugnis="'+esc(schluessel)+'" data-tun="laden">'+
+      '<span aria-hidden="true">⭳</span> PDF</button>'+
+  '</div>';
+}
+
 async function loadProtected(panel){
   if(!token)return;
   try{
@@ -1782,26 +1793,30 @@ async function loadProtected(panel){
         box.innerHTML=EMPTY_MSG;
         if(dl)dl.style.display='none';
       }else{
-        const avg=(lastNoten.reduce((s,n)=>s+n.note,0)/lastNoten.length).toFixed(2);
         const cc=n=>n>=5?'note-5':n>=4?'note-4':n>=3?'note-3':'note-2';
-        box.innerHTML=
-          '<div class="noten-grid">'+
-          lastNoten.map(n=>
+        const karte=n=>
             '<div class="note-card"><div class="note-fach">'+esc(n.fach)+'</div>'+
             '<div class="note-val '+cc(n.note)+'">'+Number(n.note).toFixed(1)+'</div>'+
             '<div class="note-sem">'+esc(n.semester)+'</div>'+
-            (n.datei
-              ? '<div class="note-akt">'+
-                  '<button type="button" class="note-btn" data-zeugnis="'+esc(n.datei)+'" data-tun="vorschau">'+
-                    '<span aria-hidden="true">▤</span> '+esc(I18N.t('noten.preview'))+'</button>'+
-                  '<button type="button" class="note-btn" data-zeugnis="'+esc(n.datei)+'" data-tun="laden">'+
-                    '<span aria-hidden="true">⭳</span> PDF</button>'+
-                '</div>'
-              : '')+
-            '</div>').join('')+
-          '</div>'+
-          '<div id="zeugnis-vorschau" class="zeugnis-vorschau" hidden></div>'+
-          '<p class="noten-avg">Durchschnitt: <strong>'+avg+'</strong></p>';
+            (n.datei?dokKnoepfe(n.datei):'')+
+            '</div>';
+        /* Zwei Klappgruppen statt einer durchgehenden Liste: oben die
+           Kompetenznachweise der ueberbetrieblichen Kurse, darunter die
+           Schulzeugnisse. Das Auf- und Zuklappen kann <details> selbst,
+           dafuer braucht es kein eigenes Javascript. */
+        const gruppe=(titel,list)=>
+          '<details class="doc-gruppe" open><summary>'+esc(titel)+
+            '<span class="dg-zahl">'+list.length+'</span></summary>'+
+          (list.length
+            ? '<div class="noten-grid">'+list.map(karte).join('')+'</div>'+
+              '<p class="noten-avg">Durchschnitt: <strong>'+
+                (list.reduce((s,n)=>s+n.note,0)/list.length).toFixed(2)+'</strong></p>'
+            : EMPTY_MSG)+
+          '</details>';
+        box.innerHTML=
+          gruppe('üK-Kompetenznachweise',lastNoten.filter(n=>n.art!=='zeugnis'))+
+          gruppe('Zeugnisse',lastNoten.filter(n=>n.art==='zeugnis'))+
+          '<div class="zeugnis-vorschau" hidden></div>';
         if(dl)dl.style.display='inline-flex';
       }
     }
@@ -1814,16 +1829,13 @@ async function loadProtected(panel){
       const box=$('cv-content'),dl=$('cv-dl');
       const hasAny=lv.ausbildung.length||lv.erfahrung.length||lv.nebenjobs.length||
                    lv.zertifikate.length||lv.sprachen.length;
-      if(!hasAny){
-        box.innerHTML=EMPTY_MSG;
-        if(dl)dl.style.display='none';
-      }else{
+      {
         const tl=list=>list.length
           ? list.map(e=>'<div class="tl-e in"><div class="tl-date">'+esc(e.zeitraum)+'</div>'+
               '<div class="tl-title">'+esc(e.titel)+'</div>'+
               '<div class="tl-sub">'+esc(e.ort)+'<br>'+esc(e.notiz)+'</div></div>').join('')
           : EMPTY_MSG;
-        box.innerHTML=
+        const inhalt=
           '<div class="cv-cols">'+
             '<div><h3 class="ed-h2">Ausbildung</h3><div class="tl">'+tl(lv.ausbildung)+'</div></div>'+
             '<div><h3 class="ed-h2">Berufserfahrung</h3><div class="tl">'+tl(lv.erfahrung)+'</div></div>'+
@@ -1844,6 +1856,16 @@ async function loadProtected(panel){
               lv.zertifikate.map(z=>'<tr><td>'+esc(z.jahr)+'</td><td>'+esc(z.titel)+'</td><td>'+esc(z.anbieter)+'</td></tr>').join('')+
               '</table>'
             : EMPTY_MSG);
+        /* Die abgetippten Angaben oben und die unterschriebenen Unterlagen
+           unten: derselbe Weg wie bei den Kompetenznachweisen, die Dateien
+           kommen erst nach der Tokenpruefung aus /api/zeugnis. */
+        box.innerHTML=(hasAny?inhalt:EMPTY_MSG)+
+          '<h3 class="ed-h2" style="margin-top:2rem">Lebenslauf als PDF</h3>'+
+          dokKnoepfe('cv')+
+          '<h3 class="ed-h2" style="margin-top:2rem">Arbeitsbestätigung</h3>'+
+          '<p class="cv-dok-notiz">Bahnhof Apotheke Achillea, Burgdorf — Aushilfe / Springer.</p>'+
+          dokKnoepfe('arbeitsbestaetigung')+
+          '<div class="zeugnis-vorschau" hidden></div>';
         if(dl)dl.style.display='inline-flex';
       }
     }
@@ -1904,6 +1926,22 @@ document.addEventListener('lr:langchange',()=>{
    Einmal geholt, bleibt sie liegen — Vorschau und Download teilen sie sich. */
 const zeugnisse=new Map();
 
+/* Unterlagen, die kein Modulnachweis sind: gleicher Weg, nur mit eigenem
+   Titel und eigenem Dateinamen beim Speichern. */
+const DOKUMENTE={
+  cv:{titel:'dok.cv',datei:'lebenslauf-luis-rosado.pdf'},
+  arbeitsbestaetigung:{titel:'dok.arbeitsbestaetigung',datei:'arbeitsbestaetigung-luis-rosado.pdf'}
+};
+const dokTitel=k=>DOKUMENTE[k]?I18N.t(DOKUMENTE[k].titel):I18N.t('noten.previewTitle')+' '+k;
+const dokDatei=k=>DOKUMENTE[k]?DOKUMENTE[k].datei:'uek-modul-'+k+'-luis-rosado.pdf';
+
+/* Beide Bereiche — Noten und Lebenslauf — haben ein eigenes Vorschaufeld.
+   Das richtige ist das im selben Reiter wie die angeklickte Schaltflaeche. */
+const vorschaufeld=el=>{
+  const p=el.closest('.editor-panel');
+  return p?p.querySelector('.zeugnis-vorschau'):null;
+};
+
 async function zeugnisUrl(modul){
   if(zeugnisse.has(modul))return zeugnisse.get(modul);
   const res=await fetch('/api/zeugnis?modul='+encodeURIComponent(modul),
@@ -1930,20 +1968,20 @@ async function zeugnisUrl(modul){
 document.addEventListener('click',async e=>{
   const zu=e.target.closest('[data-zu]');
   if(zu){
-    const feld=$('zeugnis-vorschau');
+    const feld=vorschaufeld(zu);
     if(feld){feld.hidden=true;feld.innerHTML='';feld.dataset.modul='';}
     return;
   }
   const btn=e.target.closest('.note-btn');
   if(!btn)return;
-  const modul=btn.dataset.zeugnis, feld=$('zeugnis-vorschau');
+  const modul=btn.dataset.zeugnis, feld=vorschaufeld(btn);
   const beschriftung=btn.innerHTML;
   btn.disabled=true;
   try{
     const url=await zeugnisUrl(modul);
     if(btn.dataset.tun==='laden'){
       const a=document.createElement('a');
-      a.href=url;a.download='uek-modul-'+modul+'-luis-rosado.pdf';
+      a.href=url;a.download=dokDatei(modul);
       document.body.appendChild(a);a.click();document.body.removeChild(a);
     }else if(feld){
       // Nochmal auf dieselbe Schaltflaeche: wieder zuklappen.
@@ -1956,12 +1994,12 @@ document.addEventListener('click',async e=>{
         feld.dataset.modul=modul;
         feld.innerHTML=
           '<div class="zeugnis-kopf">'+
-            '<span class="zeugnis-titel">'+esc(I18N.t('noten.previewTitle'))+' '+esc(modul)+'</span>'+
+            '<span class="zeugnis-titel">'+esc(dokTitel(modul))+'</span>'+
             '<a class="zeugnis-link" href="'+url+'" target="_blank" rel="noopener noreferrer">'+
               esc(I18N.t('noten.openTab'))+'</a>'+
             '<button type="button" class="zeugnis-link" data-zu="1">'+esc(I18N.t('noten.close'))+'</button>'+
           '</div>'+
-          '<iframe src="'+url+'" title="'+esc(I18N.t('noten.previewTitle'))+' '+esc(modul)+'"></iframe>';
+          '<iframe src="'+url+'" title="'+esc(dokTitel(modul))+'"></iframe>';
         feld.hidden=false;
         feld.scrollIntoView({block:'nearest',behavior:reduceMotion?'auto':'smooth'});
       }
@@ -1985,94 +2023,22 @@ function downloadNotenCsv(){
   triggerDownload(new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'}),'noten-luis-rosado.csv');
 }
 
-/* jsPDF wird erst geholt, wenn jemand den Lebenslauf als PDF speichert —
-   eine drittel Megabyte, die sonst niemand braucht.
-
-   Das ist der einzige fremde Code, der auf dieser Seite ausgefuehrt wird, und
-   er laeuft genau dort, wo die geschuetzten Daten liegen. Deshalb haengt am
-   Skript eine Pruefsumme: Der Browser rechnet nach dem Laden selbst nach und
-   fuehrt die Datei nur aus, wenn sie Byte fuer Byte die erwartete ist. Wird
-   die Fassung auf dem CDN je ausgetauscht — versehentlich oder nicht —,
-   bleibt sie liegen, statt hier Zugriff auf Noten und Lebenslauf zu bekommen.
-
-   Wird die Version gewechselt, muss die Pruefsumme mit:
-   curl -s <URL> | openssl dgst -sha384 -binary | openssl base64 -A */
-const JSPDF_URL='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-const JSPDF_SRI='sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk';
-
-let jsPdfLoading=null;
-function loadJsPdf(){
-  if(window.jspdf)return Promise.resolve();
-  if(jsPdfLoading)return jsPdfLoading;
-  jsPdfLoading=new Promise((resolve,reject)=>{
-    const s=document.createElement('script');
-    s.src=JSPDF_URL;
-    s.integrity=JSPDF_SRI;
-    s.crossOrigin='anonymous';   // ohne das prueft der Browser die Summe nicht
-    s.onload=resolve;
-    s.onerror=()=>{
-      jsPdfLoading=null;   // ein spaeterer Versuch soll es neu probieren duerfen
-      reject(new Error('jsPDF konnte nicht geladen oder nicht geprueft werden.'));
-    };
-    document.head.appendChild(s);
-  });
-  return jsPdfLoading;
-}
-
+/* Der Lebenslauf liegt als fertige PDF hinter dem Login — die Schaltflaeche
+   in der Brotkrumenleiste holt genau die Datei, die auch die Vorschau zeigt.
+   Frueher wurde hier mit jsPDF eine eigene PDF aus den Daten gebaut; das war
+   eine zweite, schlechtere Fassung desselben Dokuments. */
 async function downloadCvPdf(){
-  if(!lastLebenslauf)return;
   const btn=$('cv-dl');
-  const orig=btn.textContent;
-  btn.textContent=I18N.t('cv.generatingPdf');btn.disabled=true;
+  btn.disabled=true;
   try{
-    await loadJsPdf();
-    const {jsPDF}=window.jspdf;
-    const doc=new jsPDF({unit:'mm',format:'a4'});
-    const marginX=18;let y=22;
-    const lineGap=6.5,pageBottom=280;
-    function ensureSpace(extra){if(y+extra>pageBottom){doc.addPage();y=22;}}
-    function h1(t){ensureSpace(10);doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text(t,marginX,y);y+=10;}
-    function h2(t){ensureSpace(9);doc.setFont('helvetica','bold');doc.setFontSize(12);doc.setTextColor(30,80,160);doc.text(t,marginX,y);doc.setTextColor(20,20,20);y+=7;}
-    function body(t){ensureSpace(lineGap);doc.setFont('helvetica','normal');doc.setFontSize(10);doc.text(t,marginX,y);y+=lineGap;}
-    function sub(t){ensureSpace(5.5);doc.setFont('helvetica','italic');doc.setFontSize(9);doc.setTextColor(100,100,100);doc.text(t,marginX,y);doc.setTextColor(20,20,20);y+=5.5;}
-
-    h1('Lebenslauf — Luis Rosado');
-    y+=2;
-    doc.setFont('helvetica','normal');doc.setFontSize(10);
-    doc.text('luisrosado008@gmail.com  ·  github.com/Lro-rgb  ·  Burgdorf BE',marginX,y);
-    y+=9;
-
-    const lv=lastLebenslauf;
-    if(lv.ausbildung.length){
-      h2('Ausbildung');
-      lv.ausbildung.forEach(e=>{body(e.zeitraum+'  —  '+e.titel);sub(e.ort+(e.notiz?' · '+e.notiz:''));y+=1;});
-      y+=3;
-    }
-    if(lv.erfahrung.length){
-      h2('Berufserfahrung');
-      lv.erfahrung.forEach(e=>{body(e.zeitraum+'  —  '+e.titel);sub(e.ort+(e.notiz?' · '+e.notiz:''));y+=1;});
-      y+=3;
-    }
-    if(lv.nebenjobs&&lv.nebenjobs.length){
-      h2('Nebenjobs & Freiwilligenarbeit');
-      lv.nebenjobs.forEach(e=>{body(e.zeitraum+'  —  '+e.titel);sub(e.ort+(e.notiz?' · '+e.notiz:''));y+=1;});
-      y+=3;
-    }
-    if(lv.sprachen.length){
-      h2('Sprachen');
-      lv.sprachen.forEach(s=>body(s.sprache+': '+s.niveau));
-      y+=3;
-    }
-    if(lv.zertifikate.length){
-      h2('Zertifikate');
-      lv.zertifikate.forEach(z=>body(z.jahr+' — '+z.titel+' ('+z.anbieter+')'));
-    }
-    doc.save('lebenslauf-luis-rosado.pdf');
+    const a=document.createElement('a');
+    a.href=await zeugnisUrl('cv');a.download=dokDatei('cv');
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
   }catch(e){
     console.error(e);
-    alert(I18N.t('cv.pdfError'));
+    alert(I18N.t('noten.fileError'));
   }
-  btn.textContent=orig;btn.disabled=false;
+  btn.disabled=false;
 }
 
 /* ═══════════════════════════════════
