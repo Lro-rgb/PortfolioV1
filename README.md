@@ -55,14 +55,16 @@ luis-rosado-portfolio/
 │   ├── protected.js         #   GET  /api/protected → Noten + Lebenslauf (nur mit Token)
 │   └── zeugnis.js           #   GET  /api/zeugnis   → üK-Kompetenznachweis als PDF (nur mit Token)
 │
-├── unterlagen/              # Die Kompetenznachweise als PDF — nicht im Repository
-│                            # (siehe „Geschützter Bereich")
+├── unterlagen/                  # Kompetenznachweise als PDF — nur lokal, nicht im Repo
+├── unterlagen-verschluesselt/   # dieselben Dateien verschlüsselt — die kommen mit
+│
 ├── lib/
 │   └── auth.js              # Passwort-Hashing und Token-Signierung
 │
 ├── scripts/                 # Hilfsskripte
 │   ├── generate-password-hash.js
 │   ├── generate-jwt-secret.js
+│   ├── unterlagen-verschluesseln.js  # PDF → verschlüsselte Fassung fürs Repo
 │   └── test-zeugnis.js      #   prüft den Zugriffsschutz von /api/zeugnis
 │
 ├── docs/
@@ -70,7 +72,6 @@ luis-rosado-portfolio/
 │   └── CONTENT-GUIDE.md     # Wo trage ich welche Inhalte ein?
 │
 ├── .env.example
-├── .vercelignore            # damit unterlagen/ trotz .gitignore mit hochgeladen wird
 ├── package.json
 └── vercel.json
 ```
@@ -123,12 +124,21 @@ Der Ablauf:
    PDF, ebenfalls nur gegen ein gültiges Token. Die Modulnummer wird gegen
    eine feste Liste geprüft, statt daraus einen Pfad zu bauen.
 
-Die PDF-Dateien liegen in `unterlagen/` und bewusst **nicht** unter `public/`:
-alles dort liefert Vercel ohne jede Prüfung aus, ein Passwort davor wäre
-Dekoration. Aus demselben Grund stehen sie in `.gitignore` — dieses
-Repository ist öffentlich. Damit sie trotzdem auf den Server kommen, gibt es
-`.vercelignore`; das setzt allerdings voraus, dass mit `vercel --prod` aus
-dem Ordner deployt wird und nicht automatisch aus GitHub.
+Die PDF-Dateien liegen bewusst **nicht** unter `public/`: alles dort liefert
+Vercel ohne jede Prüfung aus, ein Passwort davor wäre Dekoration.
+
+Weil dieses Repository öffentlich ist, sind sie dort ausserdem
+**verschlüsselt** abgelegt (AES-256-GCM). Eingecheckt wird nur
+`unterlagen-verschluesselt/`, die Klartext-PDF in `unterlagen/` bleiben lokal
+und stehen in `.gitignore`. Den Schlüssel hält `UNTERLAGEN_KEY`; ohne ihn
+antwortet `/api/zeugnis` mit 503. So kommen die Dateien mit jedem Bau aus
+GitHub auf den Server, ohne dass jemand die Noten im Repository lesen kann.
+
+Nach dem Hinzufügen oder Austauschen einer PDF:
+
+```bash
+node scripts/unterlagen-verschluesseln.js
+```
 
 Den Zugriffsschutz prüft ein Skript ohne laufenden Server:
 

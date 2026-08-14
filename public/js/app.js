@@ -1859,6 +1859,39 @@ function triggerDownload(blob,filename){
   document.body.removeChild(a);URL.revokeObjectURL(url);
 }
 
+/* ── Projekte nach Art filtern ──
+   Die Seite ist lang: wer nur wissen will, was aus der Schule stammt und was
+   aus eigenem Antrieb, soll nicht an allen zehn Karten vorbeiscrollen
+   muessen. Geblendet werden die beiden Abschnitte samt Zwischentitel, nicht
+   die Karten einzeln — die Trennung steht ohnehin schon im Markup. */
+function projekteFiltern(art){
+  document.querySelectorAll('.pf-btn').forEach(b=>{
+    const an=b.dataset.filter===art;
+    b.classList.toggle('aktiv',an);
+    b.setAttribute('aria-pressed',an?'true':'false');
+  });
+  document.querySelectorAll('#panel-projekte [data-art]').forEach(teil=>{
+    teil.classList.toggle('is-aus',art!=='alle'&&teil.dataset.art!==art);
+  });
+  const zahl=$('pfZahl');
+  if(zahl){
+    const sichtbar=document.querySelectorAll('#panel-projekte .proj-grid:not(.is-aus) .proj-card').length;
+    zahl.textContent=sichtbar+' '+I18N.t(sichtbar===1?'projekte.filter.countOne':'projekte.filter.count');
+  }
+}
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.pf-btn');
+  if(b)projekteFiltern(b.dataset.filter);
+});
+
+/* Die Zahl daneben ist der einzige Text, den nicht das Woerterbuch setzt —
+   beim Sprachwechsel also selbst nachziehen, mit der gerade gewaehlten Art. */
+document.addEventListener('lr:langchange',()=>{
+  const an=document.querySelector('.pf-btn.aktiv');
+  if(an)projekteFiltern(an.dataset.filter);
+});
+
 /* ── Kompetenznachweise (PDF hinter dem Login) ──
    Die Dateien liegen nicht unter public/, sondern kommen von /api/zeugnis —
    und zwar nur gegen ein gueltiges Token. Ein einfaches <a href> nuetzt hier
@@ -1878,6 +1911,33 @@ async function zeugnisUrl(modul){
   const url=URL.createObjectURL(await res.blob());
   zeugnisse.set(modul,url);
   return url;
+}
+
+/* Ob eine PDF im Rahmen wirklich erscheint, entscheidet der Browser des
+   Besuchers, nicht diese Seite: ohne eingebaute PDF-Anzeige (iOS, abgeschaltet,
+   manche Firmenrechner) bleibt der Rahmen einfach leer — ein grauer Kasten
+   ohne Erklaerung, ausgerechnet bei den Zeugnissen. Darum wird kurz nach dem
+   Laden nachgesehen, ob etwas darin steht, und sonst ehrlich umgeschaltet auf
+   einen deutlichen Verweis. Wirft der Zugriff einen Fehler, ist das Dokument
+   fremd — dann hat der Browser es sehr wohl angezeigt. */
+function pruefeVorschau(feld,url){
+  const rahmen=feld.querySelector('iframe');
+  if(!rahmen)return;
+  setTimeout(()=>{
+    if(!rahmen.isConnected)return;
+    let leer=false;
+    try{
+      const doc=rahmen.contentDocument;
+      leer=!!doc&&!doc.querySelector('embed')&&(!doc.body||doc.body.childElementCount===0);
+    }catch(e){ leer=false; }
+    if(!leer)return;
+    rahmen.remove();
+    const hinweis=el('div','zeugnis-ersatz',
+      '<p>'+esc(I18N.t('noten.noEmbed'))+'</p>'+
+      '<a class="cta" href="'+url+'" target="_blank" rel="noopener noreferrer">'+
+        esc(I18N.t('noten.openTab'))+'</a>');
+    feld.appendChild(hinweis);
+  },1200);
 }
 
 /* Ein Klickfaenger fuer alle Karten statt eines Zuhoerers je Schaltflaeche —
@@ -1918,6 +1978,7 @@ document.addEventListener('click',async e=>{
           '</div>'+
           '<iframe src="'+url+'" title="'+esc(I18N.t('noten.previewTitle'))+' '+esc(modul)+'"></iframe>';
         feld.hidden=false;
+        pruefeVorschau(feld,url);
         feld.scrollIntoView({block:'nearest',behavior:reduceMotion?'auto':'smooth'});
       }
     }
@@ -2040,6 +2101,7 @@ function startApp(){
   /* Die Zahl an der Projekt-Schaltfläche in der Aktivitätsleiste zählt die
      Karten selbst ab. Sie stand vorher von Hand im HTML und war nach dem
      Nachtragen eines Projekts prompt falsch. */
+  projekteFiltern('alle');
   const projZahl=document.getElementById('actProjCount');
   if(projZahl)projZahl.textContent=document.querySelectorAll('#panel-projekte .proj-card').length;
   renderProjectMedia();

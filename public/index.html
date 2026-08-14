@@ -527,8 +527,18 @@
                 <p>Jedes Projekt beginnt mit einem Abstract, also der Kurzfassung in zwei bis drei Sätzen. Darunter stehen die Details, der eingesetzte Stack und, wo vorhanden, Quellcode und Demo.</p>
               </div>
 
-              <h3 class="ed-h2 reveal" data-i18n="projekte.h.personal">Persönliche Projekte</h3>
-              <div class="proj-grid reveal">
+              <!-- Filter. Die beiden Abschnitte tragen data-art, die
+                   Schaltflaechen data-filter — sonst wuerde der Filter beim
+                   Umschalten sich selbst ausblenden. -->
+              <div class="proj-filter reveal" role="group" aria-label="Projekte filtern" data-i18n-aria-label="projekte.filter.label">
+                <button type="button" class="pf-btn aktiv" data-filter="alle" aria-pressed="true" data-i18n="projekte.filter.all">Alle</button>
+                <button type="button" class="pf-btn" data-filter="schule" aria-pressed="false" data-i18n="projekte.filter.school">Schule</button>
+                <button type="button" class="pf-btn" data-filter="privat" aria-pressed="false" data-i18n="projekte.filter.personal">Persönlich</button>
+                <span class="pf-zahl" id="pfZahl" aria-live="polite"></span>
+              </div>
+
+              <h3 class="ed-h2 reveal" data-art="privat" data-i18n="projekte.h.personal">Persönliche Projekte</h3>
+              <div class="proj-grid reveal" data-art="privat">
 
                 <article class="proj-card" id="proj-portfolio">
                   <div class="proj-type" data-i18n="proj.portfolio.type">// Persönlich · eigenständig · laufend</div>
@@ -601,8 +611,8 @@
 
               </div>
 
-              <h3 class="ed-h2 reveal" data-i18n="projekte.h.school">Schulprojekte</h3>
-              <div class="proj-grid reveal">
+              <h3 class="ed-h2 reveal" data-art="schule" data-i18n="projekte.h.school">Schulprojekte</h3>
+              <div class="proj-grid reveal" data-art="schule">
 
                 <article class="proj-card" id="proj-urlshortener">
                   <div class="proj-type" data-i18n="proj.urlshortener.type">// Schulprojekt · Modul 210 · eigenständig</div>

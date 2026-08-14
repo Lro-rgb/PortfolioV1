@@ -5,8 +5,9 @@ node_modules/
 *.log
 .DS_Store
 
-# Die Kompetenznachweise als PDF. Dieses Repository ist oeffentlich — dort
+# Die Kompetenznachweise im Klartext. Dieses Repository ist oeffentlich — hier
 # eingecheckt waeren die Noten fuer jeden lesbar, und der Passwortschutz vor
-# dem Notenbereich waere umsonst. Die Dateien liegen nur lokal und werden
-# ueber .vercelignore trotzdem mit "vercel --prod" hochgeladen.
+# dem Notenbereich waere umsonst. Eingecheckt wird stattdessen der Ordner
+# unterlagen-verschluesselt/; den Schluessel dazu haelt UNTERLAGEN_KEY.
+#   node scripts/unterlagen-verschluesseln.js
 unterlagen/

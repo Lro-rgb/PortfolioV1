@@ -9,6 +9,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { verifyToken, requireConfig } = require('../lib/auth.js');
 
 /* Feste Zuordnung Modulnummer → Datei. Kein aus der Anfrage
@@ -54,13 +55,33 @@ module.exports = function handler(req, res) {
      Verzeichnis, aus dem der Prozess gestartet wurde, und liegt beim
      Entwicklungsserver eine Ebene daneben. Die Datei war dann nicht zu
      finden, obwohl sie da war. */
-  const pfad = path.join(__dirname, '..', 'unterlagen', datei);
-  let inhalt;
+  const pfad = path.join(__dirname, '..', 'unterlagen-verschluesselt', datei + '.bin');
+  let roh;
   try {
-    inhalt = fs.readFileSync(pfad);
+    roh = fs.readFileSync(pfad);
   } catch (e) {
     console.error('Zeugnis nicht lesbar:', pfad, e.message);
     return res.status(404).json({ error: 'Datei nicht gefunden.' });
+  }
+
+  /* Die Dateien liegen verschluesselt im Repository — es ist oeffentlich.
+     Der Schluessel steht nur in der Umgebung, wie schon JWT_SECRET. */
+  const hex = (process.env.UNTERLAGEN_KEY || '').trim();
+  if (!/^[0-9a-f]{64}$/i.test(hex)) {
+    console.error('UNTERLAGEN_KEY fehlt oder hat nicht 64 Hexzeichen.');
+    return res.status(503).json({ error: 'Der geschuetzte Bereich ist derzeit nicht verfuegbar.' });
+  }
+
+  let inhalt;
+  try {
+    // Aufbau: iv (12) + Pruefsumme (16) + Inhalt
+    const entschluessler = crypto.createDecipheriv('aes-256-gcm', Buffer.from(hex, 'hex'), roh.subarray(0, 12));
+    entschluessler.setAuthTag(roh.subarray(12, 28));
+    inhalt = Buffer.concat([entschluessler.update(roh.subarray(28)), entschluessler.final()]);
+  } catch (e) {
+    // Falscher Schluessel oder veraenderte Datei — beides darf nicht durchgehen.
+    console.error('Zeugnis nicht entschluesselbar:', datei, e.message);
+    return res.status(503).json({ error: 'Der geschuetzte Bereich ist derzeit nicht verfuegbar.' });
   }
 
   res.setHeader('Content-Type', 'application/pdf');

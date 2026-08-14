@@ -646,8 +646,21 @@ body.voll-offen{overflow:hidden}
   background:#fff}
 .zeugnis-fehler{font-family:var(--mono);font-size:.72rem;color:var(--orange);
   padding:1.2rem;margin:0}
+/* Ersatz, wenn der Browser keine PDF einbetten kann */
+.zeugnis-ersatz{padding:2.5rem 1.2rem;text-align:center}
+.zeugnis-ersatz p{font-family:var(--sans);font-size:.78rem;color:var(--muted);margin:0 0 1rem}
 .noten-avg{font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:1.2rem;padding:1rem 1.2rem;background:#161B22;border:1px solid var(--border);display:inline-flex;align-items:center;gap:1rem}
 .noten-avg strong{color:var(--blue);font-size:1.1rem}
+
+/* ═══ PROJEKTFILTER ═══ */
+.proj-filter{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin:1.1rem 0 .2rem}
+.pf-btn{font-family:var(--mono);font-size:.68rem;color:var(--muted);background:var(--sb);
+  border:1px solid var(--border);border-radius:2px;padding:.3rem .7rem;cursor:pointer;
+  transition:color .15s,background .15s,border-color .15s}
+.pf-btn:hover{color:var(--text);border-color:var(--blue)}
+.pf-btn.aktiv{color:var(--blue);border-color:var(--blue);background:#161B22}
+.pf-zahl{font-family:var(--mono);font-size:.62rem;color:var(--dim);margin-left:.4rem}
+.is-aus{display:none}
 
 /* ═══ QUELLEN (Fuss der Startseite) ═══
    Bewusst ruhig: das ist eine Pflichtangabe, kein Inhalt, mit dem die
@@ -806,7 +819,9 @@ body.voll-offen{overflow:hidden}
   .proj-card,.tech-card,.note-card,.cb,.fact{page-break-inside:avoid}
   /* Schaltflaechen und die eingebettete Vorschau haben auf Papier nichts
      verloren — der Nachweis selbst wird als eigene Datei mitgeschickt. */
-  .note-akt,.zeugnis-vorschau{display:none!important}
+  .note-akt,.zeugnis-vorschau,.proj-filter{display:none!important}
+  /* Auf Papier gehoeren alle Projekte hin, egal was am Bildschirm gefiltert war */
+  .is-aus{display:revert!important}
   .chip,.badge{border:1px solid #bbb;background:#fff!important}
   .ed-table td,.ed-table th{border-color:#ccc}
 

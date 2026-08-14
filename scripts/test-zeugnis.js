@@ -8,6 +8,23 @@
 
 process.env.JWT_SECRET = 'nur-fuer-diesen-test-mindestens-32-zeichen-lang';
 
+/* Der Schluessel der verschluesselten Nachweise kommt aus .env — ohne ihn
+   koennte der Test nicht pruefen, ob wirklich eine PDF herauskommt. */
+try {
+  const fs0 = require('fs'), p0 = require('path');
+  for (const z of fs0.readFileSync(p0.join(__dirname, '..', '.env'), 'utf8').split('\n')) {
+    const t = z.trim();
+    if (!t || t.startsWith('#')) continue;
+    const i = t.indexOf('=');
+    if (i > 0 && !(t.slice(0, i).trim() in process.env)) process.env[t.slice(0, i).trim()] = t.slice(i + 1).trim();
+  }
+} catch { /* keine .env */ }
+
+if (!/^[0-9a-f]{64}$/i.test(process.env.UNTERLAGEN_KEY || '')) {
+  console.error('UNTERLAGEN_KEY fehlt — erst "node scripts/unterlagen-verschluesseln.js" ausfuehren.');
+  process.exit(1);
+}
+
 const assert = require('assert');
 const os = require('os');
 
@@ -62,4 +79,12 @@ for (const modul of ['187', '106', '294', '210', '335']) {
   assert.ok(/no-store/.test(a.kopf['cache-control']), 'geschuetzte Datei darf nicht zwischengespeichert werden');
 }
 
-console.log('OK — Zugriffsschutz und alle fuenf Kompetenznachweise in Ordnung.');
+// ── Mit falschem Schluessel darf nichts herauskommen ──
+const echterSchluessel = process.env.UNTERLAGEN_KEY;
+process.env.UNTERLAGEN_KEY = 'a'.repeat(64);
+const mitFalschem = ruf(mitToken(gueltig), { modul: '187' });
+assert.strictEqual(mitFalschem.code, 503, 'falscher Schluessel darf keine Datei liefern');
+assert.ok(!Buffer.isBuffer(mitFalschem.koerper), 'bei falschem Schluessel darf keine Datei herauskommen');
+process.env.UNTERLAGEN_KEY = echterSchluessel;
+
+console.log('OK — Zugriffsschutz, Verschluesselung und alle fuenf Kompetenznachweise in Ordnung.');
