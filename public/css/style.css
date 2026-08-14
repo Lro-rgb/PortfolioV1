@@ -652,6 +652,13 @@ body.voll-offen{overflow:hidden}
 .noten-avg{font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:1.2rem;padding:1rem 1.2rem;background:#161B22;border:1px solid var(--border);display:inline-flex;align-items:center;gap:1rem}
 .noten-avg strong{color:var(--blue);font-size:1.1rem}
 
+/* Kurz aufleuchten, wenn man von den Skills auf eine Karte springt — sonst
+   weiss man nach dem Sprung nicht, welche der zehn Karten gemeint war. */
+@keyframes karte-hervor{from{border-color:var(--blue);box-shadow:0 0 0 2px var(--blue)}
+  to{border-color:var(--border);box-shadow:none}}
+.karte-hervor{animation:karte-hervor 1.8s ease-out}
+@media (prefers-reduced-motion:reduce){.karte-hervor{animation:none;border-color:var(--blue)}}
+
 /* ═══ PROJEKTFILTER ═══ */
 .proj-filter{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin:1.1rem 0 .2rem}
 .pf-btn{font-family:var(--mono);font-size:.68rem;color:var(--muted);background:var(--sb);

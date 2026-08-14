@@ -302,6 +302,39 @@ document.addEventListener('click',e=>{
   if(trigger)openTab(trigger.dataset.open);
 });
 
+/* Die Schaltflaechen bei den Skills nennen ein Projekt — dann sollen sie auch
+   dorthin fuehren. Vorher landeten alle gleichermassen oben auf der
+   Projektseite: "Askel" und "Redis-Webshop" taten dasselbe, obwohl die
+   Einleitung "ein Klick darauf fuehrt hin" verspricht. Der Filter wird dabei
+   zurueckgesetzt, sonst zeigt der Sprung auf eine ausgeblendete Karte. */
+document.addEventListener('click',e=>{
+  const chip=e.target.closest('[data-ziel]');
+  if(!chip)return;
+  const karte=$(chip.dataset.ziel);
+  if(!karte)return;
+  projekteFiltern('alle');
+  // Nach openTab: das setzt den Scrollstand zuerst auf null zurueck.
+  requestAnimationFrame(()=>{
+    karte.scrollIntoView({block:'start',behavior:reduceMotion?'auto':'smooth'});
+    karte.classList.remove('karte-hervor');
+    void karte.offsetWidth;            // Neustart der Hervorhebung erzwingen
+    karte.classList.add('karte-hervor');
+
+    /* Die Projektbilder werden erst beim Oeffnen des Bereichs geholt. Waehrend
+       sie eintreffen, waechst der Inhalt ueber der Zielkarte und schiebt sie
+       weg — der Sprung landete zuletzt vierzehnhundert Pixel daneben. Also
+       nachfassen, solange noch Bilder ankommen. */
+    let vorbei=false;
+    setTimeout(()=>{vorbei=true;},4000);
+    document.querySelectorAll('#panel-projekte img').forEach(bild=>{
+      if(bild.complete)return;
+      bild.addEventListener('load',()=>{
+        if(!vorbei)karte.scrollIntoView({block:'start',behavior:'auto'});
+      },{once:true});
+    });
+  });
+});
+
 $('reopenAll').addEventListener('click',reopenAll);
 
 /* ═══════════════════════════════════
