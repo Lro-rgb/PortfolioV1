@@ -518,7 +518,18 @@ const MEDIA={
        alt:'Ein Chat mit einem selbst angelegten Charakter, die erste Nachricht ist schon zu sehen'}
     ]
   },
-  webshop:{format:'quer', platzhalter:{anzahl:2}},
+  // Zwei Aufnahmen der laufenden Anwendung: die Produktübersicht und der
+  // gefüllte Warenkorb mit Summe, aufgenommen von einer lokal gestarteten
+  // Instanz (eigener Redis + Flask, mit den Testdaten aus seed.py).
+  webshop:{
+    format:'quer',
+    shots:[
+      {src:'media/webshop-produkte.png',
+       alt:'Die Produktübersicht des Redis-Webshops mit 20 Artikeln in Kacheln, Preis, Lager und Bewertung'},
+      {src:'media/webshop-warenkorb.png',
+       alt:'Der Warenkorb mit drei Artikeln, Einzelpreisen und berechneter Gesamtsumme'}
+    ]
+  },
   // Die erste Website liegt als Kopie unter public/erste-website/ und wird
   // deshalb direkt eingebettet statt abfotografiert.
   erstewebsite:{einbettung:{src:'erste-website',
@@ -874,20 +885,46 @@ function renderProjectMedia(){
       if(window.ResizeObserver)new ResizeObserver(massstab).observe(rahmen);
     }
 
+    /* Karussell statt Raster: nur ein Bild ist zu sehen, Pfeile und Punkte
+       blaettern durch die uebrigen. Bei nur einem Screenshot bleiben Pfeile
+       und Punkte weg — da gibt es nichts zum Durchklicken. Ein Klick auf
+       das Bild selbst oeffnet weiterhin die Vollansicht (dieselbe
+       .shot-Klasse, dieselbe Klick-Delegation wie vorher). */
     if(cfg.shots&&cfg.shots.length){
-      const grid=el('div','shot-grid'+(cfg.format?' '+cfg.format:''));
-      cfg.shots.forEach((s,i)=>{
-        const b=el('button','shot');
-        b.type='button';
-        b.setAttribute('aria-label',I18N.t('media.enlargeScreenshot')+(s.alt||(I18N.t('media.imageFallback')+(i+1))));
-        b.dataset.group=box.dataset.media;
-        b.dataset.index=String(i);
-        const img=document.createElement('img');
-        img.dataset.src=s.src;img.alt=s.alt||'';img.loading='lazy';img.decoding='async';
-        b.appendChild(img);
-        grid.appendChild(b);
-      });
-      box.appendChild(grid);
+      const mehrere=cfg.shots.length>1;
+      const carousel=el('div','shot-carousel'+(cfg.format?' '+cfg.format:''));
+      carousel.dataset.group=box.dataset.media;
+
+      const slide=el('button','shot sc-slide');
+      slide.type='button';
+      slide.dataset.group=box.dataset.media;
+      slide.dataset.index='0';
+      slide.setAttribute('aria-label',I18N.t('media.enlargeScreenshot')+(cfg.shots[0].alt||(I18N.t('media.imageFallback')+1)));
+      const img=document.createElement('img');
+      img.dataset.src=cfg.shots[0].src;img.alt=cfg.shots[0].alt||'';img.loading='lazy';img.decoding='async';
+      slide.appendChild(img);
+      carousel.appendChild(slide);
+
+      if(mehrere){
+        const prev=el('button','sc-nav sc-prev','‹');
+        prev.type='button';prev.setAttribute('aria-label',I18N.t('media.prevScreenshot'));
+        const next=el('button','sc-nav sc-next','›');
+        next.type='button';next.setAttribute('aria-label',I18N.t('media.nextScreenshot'));
+        carousel.appendChild(prev);
+        carousel.appendChild(next);
+
+        const dots=el('div','sc-dots');
+        cfg.shots.forEach((s,i)=>{
+          const dot=el('button','sc-dot'+(i===0?' active':''));
+          dot.type='button';
+          dot.dataset.index=String(i);
+          dot.setAttribute('aria-label',I18N.t('media.gotoScreenshot')+(i+1));
+          dots.appendChild(dot);
+        });
+        carousel.appendChild(dots);
+      }
+
+      box.appendChild(carousel);
     }
 
     /* Platzhalter: nur, solange fuer diese Sorte nichts Echtes vorliegt.
@@ -1164,6 +1201,34 @@ function beobachteStatsfm(){
   },{rootMargin:'200px'});
   beob.observe(box);
 }
+
+/* ── Karussell-Vorschau in den Projektkarten ──
+   Wechselt nur das eine sichtbare Bild aus, statt alle Screenshots als
+   Raster gleichzeitig zu zeigen. Ein Klick auf das Bild oeffnet weiterhin
+   die Vollansicht unten — dort steckt schon die Pfeiltasten-Navigation. */
+function setCarouselSlide(carousel,index){
+  const cfg=MEDIA[carousel.dataset.group];
+  if(!cfg||!cfg.shots||!cfg.shots.length)return;
+  const n=cfg.shots.length;
+  index=(index+n)%n;
+  const s=cfg.shots[index];
+  const slide=carousel.querySelector('.sc-slide');
+  const img=slide.querySelector('img');
+  slide.dataset.index=String(index);
+  slide.setAttribute('aria-label',I18N.t('media.enlargeScreenshot')+(s.alt||(I18N.t('media.imageFallback')+(index+1))));
+  img.src=s.src;
+  img.alt=s.alt||'';
+  carousel.querySelectorAll('.sc-dot').forEach((d,i)=>d.classList.toggle('active',i===index));
+}
+document.addEventListener('click',e=>{
+  const nav=e.target.closest('.sc-prev,.sc-next,.sc-dot');
+  if(!nav)return;
+  const carousel=nav.closest('.shot-carousel');
+  if(!carousel)return;
+  const aktuell=Number(carousel.querySelector('.sc-slide').dataset.index);
+  if(nav.classList.contains('sc-dot'))setCarouselSlide(carousel,Number(nav.dataset.index));
+  else setCarouselSlide(carousel,aktuell+(nav.classList.contains('sc-prev')?-1:1));
+});
 
 /* ── Screenshots in Vollansicht ── */
 const lightbox=$('lightbox');

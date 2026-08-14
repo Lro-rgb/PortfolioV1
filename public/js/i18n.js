@@ -125,6 +125,9 @@
       "media.scrollLeft": "Weiter nach links",
       "media.scrollRight": "Weiter nach rechts",
       "media.imagesSuffix": " Bilder",
+      "media.prevScreenshot": "Vorheriger Screenshot",
+      "media.nextScreenshot": "Nächster Screenshot",
+      "media.gotoScreenshot": "Zu Screenshot ",
 
       "statsfm.lastWeeks": "Letzte vier Wochen · stats.fm",
       "statsfm.tracks": "Titel",
@@ -455,6 +458,9 @@
       "media.scrollLeft": "Scroll left",
       "media.scrollRight": "Scroll right",
       "media.imagesSuffix": " images",
+      "media.prevScreenshot": "Previous screenshot",
+      "media.nextScreenshot": "Next screenshot",
+      "media.gotoScreenshot": "Go to screenshot ",
 
       "statsfm.lastWeeks": "Last four weeks · stats.fm",
       "statsfm.tracks": "Tracks",
