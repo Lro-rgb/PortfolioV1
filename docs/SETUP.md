@@ -10,7 +10,7 @@ Das Projekt hat keine npm-Abhängigkeiten — `npm install` ist nicht nötig.
 
 ## 1. Zugangsdaten erzeugen
 
-Beide Werte sind Pflicht — ohne sie verweigert der geschützte Bereich
+Alle drei Werte sind Pflicht — ohne sie verweigert der geschützte Bereich
 bewusst den Dienst (HTTP 503), statt auf einen im Code hinterlegten
 Standardwert zurückzufallen.
 
@@ -23,17 +23,37 @@ Beide Skripte geben eine fertige `NAME=wert`-Zeile aus.
 
 ## 2. Lokal hinterlegen
 
-`.env.example` nach `.env` kopieren und die beiden Zeilen eintragen:
+`.env.example` nach `.env` kopieren und die drei Zeilen eintragen:
 
 ```
 JWT_SECRET=…
 APP_PASSWORD_HASH=…
+UNTERLAGEN_KEY=…
 ```
 
 `.env` ist über `.gitignore` ausgeschlossen und gehört **nie** ins
 Repository.
 
+`UNTERLAGEN_KEY` verschlüsselt die PDF in `unterlagen/` (Lebenslauf,
+Arbeitsbestätigung, Kompetenznachweise). Einen Schlüssel schlägt das
+Skript selbst vor, wenn noch keiner gesetzt ist:
+
+```bash
+node scripts/unterlagen-verschluesseln.js
+```
+
+Ohne diese Variable antwortet `/api/zeugnis` mit 503 — die Unterlagen
+bleiben dann verschlossen, auch nach erfolgreicher Anmeldung.
+
 ## 3. Lokal testen
+
+```bash
+node scripts/dev-server.js
+```
+
+→ Läuft auf `http://localhost:4175`, ohne Installation und ohne Konto; der
+Server bedient auch `api/` und liest die `.env`. Mit der Vercel-CLI geht es
+ebenso:
 
 ```bash
 vercel dev
@@ -55,6 +75,7 @@ die Standardwerte passen.
 ```bash
 vercel env add JWT_SECRET
 vercel env add APP_PASSWORD_HASH
+vercel env add UNTERLAGEN_KEY
 ```
 
 → Jeweils den in Schritt 1 erzeugten Wert einfügen (nur den Teil nach dem
@@ -64,7 +85,7 @@ Gleichheitszeichen). Danach erneut deployen, damit die Variablen greifen:
 vercel --prod
 ```
 
-**Ohne diese beiden Variablen antwortet der geschützte Bereich mit 503.**
+**Ohne diese Variablen antwortet der geschützte Bereich mit 503.**
 Das ist Absicht: Ein Rückfall auf einen im Repository stehenden Standardwert
 wäre kein Schutz, weil ihn jeder nachlesen und damit selbst ein gültiges
 Token erzeugen könnte.
@@ -84,13 +105,16 @@ luis-rosado-portfolio/
 ├── public/              ← Frontend (statische Dateien)
 │   ├── index.html
 │   ├── css/               ← themes.css, style.css, vscode.css
-│   ├── js/                ← app.js, vscode.js
-│   └── media/             ← Bilder der Interessen-Seite
+│   ├── js/                ← i18n.js, app.js, vscode.js
+│   └── media/             ← Bilder und Videos der Projekte und Interessen
 ├── api/                 ← Backend (Vercel Serverless Functions)
 │   ├── login.js         ← Login-Endpoint
-│   └── protected.js     ← Geschützte Daten (Noten, Lebenslauf)
+│   ├── protected.js     ← Geschützte Daten (Noten, Lebenslauf)
+│   └── zeugnis.js       ← Geschützte PDF (Nachweise, Lebenslauf)
+├── unterlagen/          ← die PDF im Klartext (nur lokal, nicht im Repo)
+├── unterlagen-verschluesselt/  ← dieselben Dateien verschlüsselt
 ├── lib/auth.js          ← Hashing & Token-Signierung
-├── scripts/             ← Hilfsskripte (Passwort-Hash, Token-Secret)
+├── scripts/             ← Hilfsskripte und Tests
 ├── docs/                ← Dokumentation
 ├── vercel.json          ← Routing-Konfiguration
 └── package.json

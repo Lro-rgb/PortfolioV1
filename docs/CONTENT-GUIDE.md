@@ -17,10 +17,10 @@ werden.
 | Videos, Screenshots, Downloads | `public/js/app.js` | `MEDIA` |
 | Bilder der Interessen-Seite | `public/js/app.js` | `INTERESSEN` |
 | Hörstatistiken (Profil, Zeitraum) | `public/index.html` / `public/js/app.js` | `#statsfm[data-user]`, `SFM_ZEITRAUM` |
-| Audio-Kurzvorstellung | `public/js/app.js` | `AUDIO` |
 | **Noten (geschützt)** | `api/protected.js` | `DATA.noten` |
 | **Lebenslauf (geschützt)** | `api/protected.js` | `DATA.lebenslauf` |
-| Login-Passwort | `api/login.js` | `PASSWORD_HASH` |
+| **PDF (geschützt)** | `unterlagen/` + `api/zeugnis.js` | `DATEIEN` |
+| Login-Passwort | Umgebung | `APP_PASSWORD_HASH` |
 
 ## 1. Öffentliche Inhalte (`public/index.html`)
 
@@ -43,7 +43,8 @@ Noten und Lebenslauf stehen **nicht** im Frontend, sondern serverseitig in
 ```js
 const DATA = {
   noten: [
-    { fach: "Applikationsentwicklung", note: 5.5, semester: "HS 2025" }
+    { fach: "üK-Modul 294 — Frontend …", note: 5.5, semester: "April 2026",
+      datei: "294", art: "uek" }
   ],
   lebenslauf: {
     ausbildung:  [{ zeitraum, titel, ort, notiz }],
@@ -56,13 +57,20 @@ const DATA = {
 ```
 
 `nebenjobs` deckt bezahlte Nebenjobs **und** Freiwilligenarbeit ab — die
-IMS-Checkliste verlangt beides ausdrücklich. Der Abschnitt erscheint auf
-der Seite und im PDF nur, wenn Einträge vorhanden sind.
+IMS-Checkliste verlangt beides ausdrücklich. `nebenjobs` und `zertifikate`
+erscheinen nur, wenn Einträge vorhanden sind; eine Überschrift mit „noch
+keine Daten" darunter sagt einem Betrieb nur, was fehlt.
 
-Diese Daten gehen nur an eingeloggte Besucher raus. Sobald Einträge
-vorhanden sind, erscheinen im geschützten Bereich automatisch die
-Download-Buttons „⭳ CSV" (Noten) und „⭳ PDF" (Lebenslauf). Sind die
-Listen leer, bleiben die Buttons ausgeblendet.
+Bei den Noten steuern zwei Felder die Anzeige: `art` entscheidet, in
+welcher der beiden Klappgruppen die Karte landet (`uek` für die
+Kompetenznachweise, `zeugnis` für Schulzeugnisse), und `datei` ist der
+Schlüssel, unter dem `/api/zeugnis` die zugehörige PDF herausgibt. Ohne
+`datei` zeigt die Karte einfach keine Schaltflächen.
+
+Diese Daten gehen nur an eingeloggte Besucher raus. Der Knopf „⭳ CSV"
+über den Noten erscheint, sobald Noten eingetragen sind. Der Knopf
+„⭳ PDF" über dem Lebenslauf lädt die echte Datei aus `unterlagen/` und ist
+unabhängig von diesen Angaben da.
 
 ## 3. Login-Passwort ändern
 
@@ -70,7 +78,10 @@ Listen leer, bleiben die Buttons ausgeblendet.
 node scripts/generate-password-hash.js NEUES_PASSWORT
 ```
 
-Den Output in `api/login.js` bei `PASSWORD_HASH` einsetzen.
+Die ausgegebene Zeile ersetzt `APP_PASSWORD_HASH` in `.env` (lokal). Für
+die veröffentlichte Fassung zusätzlich `vercel env add APP_PASSWORD_HASH`
+und neu deployen. Im Code steht das Passwort nirgends — das Repository ist
+öffentlich.
 
 ## 4. Videos, Screenshots und Downloads
 
@@ -92,31 +103,40 @@ const MEDIA = {
 };
 ```
 
-Die Schlüssel (`askel`, `kobui`, `portfolio`, `wallpaper`, `arch`,
-`modding`) entsprechen dem `data-media`-Attribut der jeweiligen
+Die Schlüssel (`wallpaper`, `arch`, `portfolio`, `modding`,
+`urlshortener`, `askel`, `rezeptbuch`, `kobui`, `webshop`,
+`erstewebsite`) entsprechen dem `data-media`-Attribut der jeweiligen
 Projektkarte im HTML.
+
+Bilder vor dem Einchecken komprimieren — JPEG bei Qualität 80 reicht für
+die Vollansicht und spart gegenüber der Kameraeinstellung gut ein Drittel.
 
 Screenshots lassen sich anklicken und öffnen sich in einer Vollansicht mit
 Pfeiltasten-Navigation. Der `alt`-Text ist dabei Pflicht — er ist zugleich
 die Bildunterschrift.
 
-Für die Audio-Kurzvorstellung auf der Startseite:
+## 5. Geschützte PDF (`unterlagen/`)
 
-```js
-const AUDIO = {
-  intro: { src: 'media/vorstellung.m4a', titel: 'Kurzvorstellung',
-           dauer: '0:45', text: 'Worum es im Audio geht.' }
-};
+Lebenslauf, Arbeitsbestätigung und die üK-Kompetenznachweise liegen als
+PDF in `unterlagen/` — nicht unter `public/`, sonst lägen sie ohne jede
+Prüfung im Netz. Eine neue Datei ablegen, in `api/zeugnis.js` unter
+`DATEIEN` eintragen und verschlüsseln:
+
+```bash
+node scripts/unterlagen-verschluesseln.js
 ```
 
-## 5. Favicon & Link-Vorschau
+Eingecheckt wird nur `unterlagen-verschluesselt/`. Einzelheiten stehen in
+der README unter „Geschützter Bereich".
+
+## 6. Favicon & Link-Vorschau
 
 - `public/favicon.svg` — „L."-Monogramm im Farbschema der Seite.
 - `public/og-image.png` — Bild für die Link-Vorschau (LinkedIn, WhatsApp,
   E-Mail-Clients), empfohlen 1200 × 630 px. Liegt die Datei nicht vor,
   zeigt die Vorschau nur Titel und Beschreibung.
 
-## 6. Icons
+## 7. Icons
 
 Die Technologie-Icons kommen von [Devicon](https://devicon.dev). Neues
 Icon einbinden:
@@ -127,7 +147,7 @@ Icon einbinden:
 
 Die Namen der verfügbaren Icons stehen auf devicon.dev.
 
-## 7. Bilder der Interessen-Seite (`public/js/app.js`)
+## 8. Bilder der Interessen-Seite (`public/js/app.js`)
 
 Jedes Thema auf `interessen.json` hat eine Bilderstrecke. Die Listen stehen
 in `INTERESSEN`:
@@ -149,7 +169,7 @@ leere Rahmen mit dem Hinweis „Bild folgt".
 Bilder, die nicht von dir stammen, gehören in den Bildnachweis am Ende der
 Interessen-Seite und ins Impressum auf `kontakt.sql`.
 
-## 8. Hörstatistiken (stats.fm)
+## 9. Hörstatistiken (stats.fm)
 
 Das Profil steht als `data-user` am Element `#statsfm` im HTML, der Zeitraum
 in `SFM_ZEITRAUM` in `app.js` (`weeks`, `months` oder `lifetime`). Antwortet
