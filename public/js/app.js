@@ -743,6 +743,7 @@ function baueVideoPlayer(v,zs){
     overlay.setAttribute('aria-label',laeuft?I18N.t('media.pauseRecording'):I18N.t('media.playRecording'));
     btnPlay.setAttribute('aria-label',laeuft?I18N.t('media.pause'):I18N.t('media.play'));
     btnPlay.firstChild.textContent=laeuft?'❚❚':'▶';
+    overlay.firstChild.textContent=laeuft?'❚❚':'▶';
   }
   v.addEventListener('play',()=>zustand(true));
   v.addEventListener('pause',()=>zustand(false));
