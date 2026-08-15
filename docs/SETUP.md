@@ -157,9 +157,11 @@ für die Einträge hier.
   einzelne Masse zur Laufzeit gesetzt werden. Die Bild-Hosts sind die, von
   denen stats.fm seine Cover ausliefert — fehlt dort später einmal ein Bild,
   ist wahrscheinlich ein Host dazugekommen und gehört hier ergänzt.
-- `X-Frame-Options: DENY` verhindert, dass die Seite in einem fremden Rahmen
-  steckt und jemand Klicks darauf umleitet. Doppelt zu `frame-ancestors`, für
-  ältere Browser.
+- `X-Frame-Options: SAMEORIGIN` verhindert, dass die Seite in einem **fremden**
+  Rahmen steckt und jemand Klicks darauf umleitet. Doppelt zu
+  `frame-ancestors: 'self'`, für ältere Browser. Nicht `DENY`, weil die
+  Projektkarte der ersten Website diese als Vorschau in einem eigenen Rahmen
+  zeigt — bei `DENY` bleibt dieser Rahmen leer.
 - `X-Content-Type-Options: nosniff` — der Browser soll Dateien so behandeln,
   wie sie ausgezeichnet sind, und nicht selbst raten. Sonst kann ein
   hochgeladenes Bild als Skript ausgeführt werden.
