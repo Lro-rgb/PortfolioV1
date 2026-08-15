@@ -526,8 +526,14 @@ const MEDIA={
      Die Aufnahme zeigt die Sammlung, die Suche, den Vegetarisch-Filter,
      die Eingabemaske und ein Rezept im Detail.
 
-     Die ersten vierzehn Sekunden der Rohaufnahme waren ein Standbild der
-     Sammlung, sie sind aus der Datei herausgeschnitten.
+     Die Rohaufnahme begann mit fünfzehn Sekunden Standbild der Sammlung,
+     bevor die erste Eingabe kam; dieser Vorlauf ist herausgeschnitten. Das
+     Video setzt jetzt kurz vor der Suche ein.
+
+     Der Dateiname traegt eine Nummer, weil Browser eine bereits geladene
+     Aufnahme sonst aus ihrem Zwischenspeicher zeigen und der neue Schnitt
+     nicht ankommt. Wird das Video noch einmal ersetzt, gehoert die Nummer
+     hochgezaehlt.
 
      Der zuschnitt-Eintrag steht trotzdem da: Er ist zugleich der Schalter
      fuer die eigene Steuerleiste mit dem Vollbild-Knopf. x:0 und die volle
@@ -537,8 +543,8 @@ const MEDIA={
      einem Hochformat bleiben darunter sonst keine 160 Pixel fuer Knoepfe,
      Regler und Zeitangabe. */
   rezeptbuch:{
-    video:{src:'media/rezeptbuch-demo.mp4',
-           titel:'Mein Rezeptbuch im Android-Emulator', dauer:'0:51',
+    video:{src:'media/rezeptbuch-demo-v2.mp4',
+           titel:'Mein Rezeptbuch im Android-Emulator', dauer:'0:50',
            zuschnitt:{x:0, breite:720, quelle:[720,1600], hoehe:400}}
   },
   kobui:{
@@ -723,19 +729,8 @@ function baueVideoPlayer(v,zs){
   btnVoll.setAttribute('aria-label',I18N.t('media.fullscreen'));
   btnVoll.innerHTML='<span aria-hidden="true">⛶</span>';
 
-  /* Derselbe Knopf noch einmal in der Ecke des Bildes. In der Leiste ist
-     er zwischen Regler und Zeitangabe kaum zu sehen — bei einer Aufnahme
-     im Hochformat ist die Leiste nur gut 150 Pixel breit, entsprechend
-     klein bleibt dort alles. Oben rechts im Bild liegt er dagegen dort, wo
-     man ihn von Videoseiten kennt, und ist auch auf dem Handy gross genug
-     zum Treffen. */
-  const eckVoll=document.createElement('button');
-  eckVoll.type='button';eckVoll.className='video-full';
-  eckVoll.setAttribute('aria-label',I18N.t('media.fullscreen'));
-  eckVoll.innerHTML='<span aria-hidden="true">⛶</span>';
-
   leiste.append(btnPlay,spur,zeit,btnVoll);
-  rahmen.append(v,overlay,eckVoll);
+  rahmen.append(v,overlay);
   player.append(rahmen,leiste);
   zuschnittSetzen(zs.hoehe);
 
@@ -787,9 +782,7 @@ function baueVideoPlayer(v,zs){
   function ansichtSetzen(gross){
     player.classList.toggle('voll',gross);
     zuschnittSetzen(gross?grossHoehe():zs.hoehe);
-    const beschriftung=gross?I18N.t('media.exitLargeView'):I18N.t('media.largeView');
-    btnVoll.setAttribute('aria-label',beschriftung);
-    eckVoll.setAttribute('aria-label',beschriftung);
+    btnVoll.setAttribute('aria-label',gross?I18N.t('media.exitLargeView'):I18N.t('media.largeView'));
   }
   /* Wird das Fenster in der Grossansicht kleiner, muss der Ausschnitt mit. */
   window.addEventListener('resize',()=>{
@@ -806,15 +799,13 @@ function baueVideoPlayer(v,zs){
     document.body.classList.remove('voll-offen');
     ansichtSetzen(false);
   }
-  function vollUmschalten(){
+  btnVoll.addEventListener('click',()=>{
     if(player.classList.contains('fix')){ueberlagernAus();return;}
     if(document.fullscreenElement===player){document.exitFullscreen();return;}
     const versuch=player.requestFullscreen&&player.requestFullscreen();
     if(versuch&&versuch.catch)versuch.catch(ueberlagernAn);
     else if(!versuch)ueberlagernAn();
-  }
-  btnVoll.addEventListener('click',vollUmschalten);
-  eckVoll.addEventListener('click',vollUmschalten);
+  });
   document.addEventListener('fullscreenchange',()=>{
     if(player.classList.contains('fix'))return;
     ansichtSetzen(document.fullscreenElement===player);
