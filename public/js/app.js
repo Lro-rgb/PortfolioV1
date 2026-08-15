@@ -543,7 +543,9 @@ const MEDIA={
               dauer:'0:11', format:'hoch'}
      format:'hoch' stellt das Video auf 340px Hoehe, statt es ueber die
      halbe Karte laufen zu lassen. */
-  askel:{platzhalter:{video:true}},
+  askel:{platzhalter:{video:true},
+         downloads:[{href:'https://github.com/Lro-rgb/Askel/archive/HEAD.zip',
+                     label:'Askel.zip', meta:'GitHub'}]},
   /* Bildschirmaufnahme aus dem Android-Emulator, im Hochformat und ohne
      schwarzen Rand — abgeschnitten werden muss hier also nichts mehr.
      Die Aufnahme zeigt die Sammlung, die Suche, den Vegetarisch-Filter,
