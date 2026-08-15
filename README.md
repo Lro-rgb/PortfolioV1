@@ -48,7 +48,7 @@ luis-rosado-portfolio/
 │   ├── css/vscode.css       #   Editor-Oberfläche und alles, was darauf aufbaut
 │   ├── js/app.js            #   Tabs, Login, Medien, Bilderstrecken, Hörstatistiken
 │   ├── js/vscode.js         #   Activity Bar, Statusleiste, Kommandopalette, Terminal
-│   └── media/               #   Bilder der Interessen-Seite
+│   └── media/               #   Bilder, Videos und das Archiv der ersten Website
 │
 ├── api/                     # Backend — Vercel Serverless Functions
 │   ├── login.js             #   POST /api/login     → prüft Passwort, gibt Token zurück

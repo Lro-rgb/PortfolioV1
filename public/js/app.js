@@ -427,6 +427,15 @@ const PLATZHALTER_ZEIGEN=false;
    bisher die beiden Linux-Projekte; die übrigen Zeilen stehen als
    Vorlage bereit und werden erst angezeigt, wenn die Datei wirklich in
    public/media/ liegt. */
+/* Die ZIP-Verweise bei den Projekten zeigen auf GitHub, nicht auf eine
+   Datei unter public/media/. Der Pfad /archive/HEAD.zip packt immer den
+   aktuellen Stand des Standardzweigs — es liegt also kein Archiv im
+   Repository herum, das nach dem naechsten Commit veraltet ist, und die
+   Seite wird davon kein Megabyte groesser.
+
+   Die Beschriftung ist bewusst der Dateiname und nicht ein Satz: so
+   braucht sie keine Uebersetzung, denn MEDIA kennt das Woerterbuch
+   nicht. */
 const MEDIA={
   // Eigene Bildschirmfotos aus dem wallsync-Repo. Dasselbe Hintergrundbild
   // einmal vor und einmal nach dem Durchlauf: erst Standardfarben, dann die
@@ -438,7 +447,9 @@ const MEDIA={
        alt:'Der Desktop vor dem Durchlauf: Leiste, Terminal und Menü noch in den Standardfarben'},
       {src:'media/wallsync-after.jpg',
        alt:'Derselbe Desktop nach dem Durchlauf: alle Farben stammen jetzt aus dem Hintergrundbild'}
-    ]
+    ],
+    downloads:[{href:'https://github.com/Lro-rgb/wallsync/archive/HEAD.zip',
+                label:'wallsync.zip', meta:'GitHub'}]
   },
   // Bildschirmfotos meines Arch-Setups, ebenfalls aus dem eigenen Repo.
   arch:{
@@ -448,7 +459,9 @@ const MEDIA={
        alt:'Alacritty mit der Fish-Shell, darüber die Waybar als Statusleiste'},
       {src:'media/arch-logout-menu.jpg',
        alt:'Das Abmeldemenü, gebaut mit rofi und aus der Waybar heraus aufgerufen'}
-    ]
+    ],
+    downloads:[{href:'https://github.com/Lro-rgb/arch-hyprland-rice/archive/HEAD.zip',
+                label:'arch-hyprland-rice.zip', meta:'GitHub'}]
   },
   /* Noch ohne Datei: platzhalter reserviert den Platz, damit jede Karte
      gleich aufgebaut ist. Sobald daneben shots oder video steht, ver-
@@ -475,7 +488,9 @@ const MEDIA={
        alt:'Das eingeblendete Terminal, darin der Befehl whoami mit seiner Ausgabe'},
       {src:'media/portfolio-hell.jpg',
        alt:'Dieselbe Seite im hellen Design Light+, offen ist die Projektübersicht mit zwei Karten'}
-    ]
+    ],
+    downloads:[{href:'https://github.com/Lro-rgb/PortfolioV1/archive/HEAD.zip',
+                label:'PortfolioV1.zip', meta:'GitHub'}]
   },
   /* Eigene Aufnahmen der beiden Geraete, oben und unten leicht
      zugeschnitten — der dunkle Tisch drumherum nahm sonst mehr Platz ein
@@ -510,6 +525,14 @@ const MEDIA={
        alt:'kubectl get pods: beide Dienste laufen mit 1/1'},
       {src:'media/urlshortener-04-curl.png',
        alt:'Ein Aufruf über den Ingress: der gekürzte Link leitet weiter'}
+    ],
+    // Zwei Archive, weil das Projekt auf zwei Repos liegt: die Anwendung
+    // selbst und daneben die GitOps-Beschreibung, aus der ArgoCD ausrollt.
+    downloads:[
+      {href:'https://github.com/Lro-rgb/url-shortener/archive/HEAD.zip',
+       label:'url-shortener.zip', meta:'GitHub'},
+      {href:'https://github.com/Lro-rgb/url-shortener-gitops/archive/HEAD.zip',
+       label:'url-shortener-gitops.zip', meta:'GitHub'}
     ]
   },
   /* Askel laeuft auf dem Handy, darum kommt hier eine Bildschirmaufnahme
@@ -545,7 +568,9 @@ const MEDIA={
   rezeptbuch:{
     video:{src:'media/rezeptbuch-demo-v2.mp4',
            titel:'Mein Rezeptbuch im Android-Emulator', dauer:'0:50',
-           zuschnitt:{x:0, breite:720, quelle:[720,1600], hoehe:400}}
+           zuschnitt:{x:0, breite:720, quelle:[720,1600], hoehe:400}},
+    downloads:[{href:'https://github.com/Lro-rgb/MeinRezeptbuch/archive/HEAD.zip',
+                label:'MeinRezeptbuch.zip', meta:'GitHub'}]
   },
   kobui:{
     format:'quer',
@@ -554,7 +579,9 @@ const MEDIA={
        alt:'Die eingebaute Dokumentation von kobui mit Beispielen für Charakterbeschreibung und erste Nachricht'},
       {src:'media/kobui-chat.png',
        alt:'Ein Chat mit einem selbst angelegten Charakter, die erste Nachricht ist schon zu sehen'}
-    ]
+    ],
+    downloads:[{href:'https://github.com/kiraa1q/kobui/archive/HEAD.zip',
+                label:'kobui.zip', meta:'GitHub'}]
   },
   // Zwei Aufnahmen der laufenden Anwendung: die Produktübersicht und der
   // gefüllte Warenkorb mit Summe, aufgenommen von einer lokal gestarteten
@@ -566,12 +593,19 @@ const MEDIA={
        alt:'Die Produktübersicht des Redis-Webshops mit 20 Artikeln in Kacheln, Preis, Lager und Bewertung'},
       {src:'media/webshop-warenkorb.png',
        alt:'Der Warenkorb mit drei Artikeln, Einzelpreisen und berechneter Gesamtsumme'}
-    ]
+    ],
+    downloads:[{href:'https://github.com/Lro-rgb/redis-webshop/archive/HEAD.zip',
+                label:'redis-webshop.zip', meta:'GitHub'}]
   },
   // Die erste Website liegt als Kopie unter public/erste-website/ und wird
   // deshalb direkt eingebettet statt abfotografiert.
+  // Fuer die erste Website gibt es kein Repository — sie lag nur per FTP auf
+  // dem Schulserver. Ihr Archiv ist deshalb das einzige, das wirklich unter
+  // public/media/ liegt und beim Aendern der Kopie neu gepackt gehoert.
   erstewebsite:{einbettung:{src:'erste-website',
-                            titel:'Die Seite von 2024 öffnen'}}
+                            titel:'Die Seite von 2024 öffnen'},
+                downloads:[{href:'media/erste-website.zip',
+                            label:'erste-website.zip', meta:'2,8 MB'}]}
 };
 
 /* Interessen: pro Bereich eine Bilderstrecke.

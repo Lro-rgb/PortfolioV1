@@ -544,7 +544,7 @@ body.voll-offen{overflow:hidden}
   background:var(--sb);border:1px solid var(--border);border-radius:3px;
   font-family:var(--mono);font-size:.74rem;color:var(--text);text-decoration:none;
   transition:border-color .18s,background .18s}
-.dl-item:hover{border-color:var(--blue);background:#1C2333}
+.dl-item:hover{border-color:var(--blue);background:var(--list-hover)}
 .dl-ic{color:var(--blue);font-size:.9rem}
 .dl-meta{margin-left:auto;color:var(--dim);font-size:.66rem;white-space:nowrap}
 
