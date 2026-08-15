@@ -531,9 +531,8 @@ const MEDIA={
      der Eingabemaske. Genau darueber redet der Text auf der Karte, also
      waere eine zweite, laengere Aufnahme hier gut angelegt. */
   rezeptbuch:{
-    video:{src:'media/rezeptbuch.mp4',
-           titel:'Mein Rezeptbuch im Android-Emulator', dauer:'0:18',
-           zuschnitt:{x:478, breite:322, quelle:[1280,720], hoehe:440}}
+    video:{src:'media/rezeptbuch.mp4', format:'hoch',
+           titel:'Mein Rezeptbuch im Android-Emulator', dauer:'1:05'}
   },
   kobui:{
     format:'quer',
