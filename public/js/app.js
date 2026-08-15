@@ -521,18 +521,25 @@ const MEDIA={
      format:'hoch' stellt das Video auf 340px Hoehe, statt es ueber die
      halbe Karte laufen zu lassen. */
   askel:{platzhalter:{video:true}},
-  /* Bildschirmaufnahme aus dem Android-Emulator: die Sammlung, dann drei
-     Rezepte im Detail. Die Datei ist 1280x720, das Handy darin steht aber
-     nur zwischen Pixel 478 und 800 — der Rest ist schwarz. Darum der
-     Zuschnitt; sollte die Aufnahme einmal im Hochformat neu exportiert
-     werden, kann er ersatzlos weg.
+  /* Bildschirmaufnahme aus dem Android-Emulator, im Hochformat und ohne
+     schwarzen Rand — abgeschnitten werden muss hier also nichts mehr.
+     Die Aufnahme zeigt die Sammlung, die Suche, den Vegetarisch-Filter,
+     die Eingabemaske und ein Rezept im Detail.
 
-     Was die Aufnahme nicht zeigt, sind Suche, Filter und die Validierung
-     der Eingabemaske. Genau darueber redet der Text auf der Karte, also
-     waere eine zweite, laengere Aufnahme hier gut angelegt. */
+     Die ersten vierzehn Sekunden der Rohaufnahme waren ein Standbild der
+     Sammlung, sie sind aus der Datei herausgeschnitten.
+
+     Der zuschnitt-Eintrag steht trotzdem da: Er ist zugleich der Schalter
+     fuer die eigene Steuerleiste mit dem Vollbild-Knopf. x:0 und die volle
+     Quellbreite heissen, dass nichts weggeblendet wird — nur die Hoehe von
+     400 Pixeln legt fest, wie gross das Video auf der Karte steht. Weniger
+     duerfen es nicht sein: Die Leiste ist so breit wie das Bild, und bei
+     einem Hochformat bleiben darunter sonst keine 160 Pixel fuer Knoepfe,
+     Regler und Zeitangabe. */
   rezeptbuch:{
-    video:{src:'media/rezeptbuch-demo.mp4', format:'hoch',
-           titel:'Mein Rezeptbuch im Android-Emulator', dauer:'1:05'}
+    video:{src:'media/rezeptbuch-demo.mp4',
+           titel:'Mein Rezeptbuch im Android-Emulator', dauer:'0:51',
+           zuschnitt:{x:0, breite:720, quelle:[720,1600], hoehe:400}}
   },
   kobui:{
     format:'quer',
@@ -716,8 +723,19 @@ function baueVideoPlayer(v,zs){
   btnVoll.setAttribute('aria-label',I18N.t('media.fullscreen'));
   btnVoll.innerHTML='<span aria-hidden="true">⛶</span>';
 
+  /* Derselbe Knopf noch einmal in der Ecke des Bildes. In der Leiste ist
+     er zwischen Regler und Zeitangabe kaum zu sehen — bei einer Aufnahme
+     im Hochformat ist die Leiste nur gut 150 Pixel breit, entsprechend
+     klein bleibt dort alles. Oben rechts im Bild liegt er dagegen dort, wo
+     man ihn von Videoseiten kennt, und ist auch auf dem Handy gross genug
+     zum Treffen. */
+  const eckVoll=document.createElement('button');
+  eckVoll.type='button';eckVoll.className='video-full';
+  eckVoll.setAttribute('aria-label',I18N.t('media.fullscreen'));
+  eckVoll.innerHTML='<span aria-hidden="true">⛶</span>';
+
   leiste.append(btnPlay,spur,zeit,btnVoll);
-  rahmen.append(v,overlay);
+  rahmen.append(v,overlay,eckVoll);
   player.append(rahmen,leiste);
   zuschnittSetzen(zs.hoehe);
 
@@ -769,7 +787,9 @@ function baueVideoPlayer(v,zs){
   function ansichtSetzen(gross){
     player.classList.toggle('voll',gross);
     zuschnittSetzen(gross?grossHoehe():zs.hoehe);
-    btnVoll.setAttribute('aria-label',gross?I18N.t('media.exitLargeView'):I18N.t('media.largeView'));
+    const beschriftung=gross?I18N.t('media.exitLargeView'):I18N.t('media.largeView');
+    btnVoll.setAttribute('aria-label',beschriftung);
+    eckVoll.setAttribute('aria-label',beschriftung);
   }
   /* Wird das Fenster in der Grossansicht kleiner, muss der Ausschnitt mit. */
   window.addEventListener('resize',()=>{
@@ -786,13 +806,15 @@ function baueVideoPlayer(v,zs){
     document.body.classList.remove('voll-offen');
     ansichtSetzen(false);
   }
-  btnVoll.addEventListener('click',()=>{
+  function vollUmschalten(){
     if(player.classList.contains('fix')){ueberlagernAus();return;}
     if(document.fullscreenElement===player){document.exitFullscreen();return;}
     const versuch=player.requestFullscreen&&player.requestFullscreen();
     if(versuch&&versuch.catch)versuch.catch(ueberlagernAn);
     else if(!versuch)ueberlagernAn();
-  });
+  }
+  btnVoll.addEventListener('click',vollUmschalten);
+  eckVoll.addEventListener('click',vollUmschalten);
   document.addEventListener('fullscreenchange',()=>{
     if(player.classList.contains('fix'))return;
     ansichtSetzen(document.fullscreenElement===player);
