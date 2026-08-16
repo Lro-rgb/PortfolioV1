@@ -24,6 +24,7 @@ bei mir melden, bekommen das Passwort von mir.
 - [Was die Seite kann](#was-die-seite-kann)
 - [Schnellstart](#schnellstart)
 - [Tech Stack](#tech-stack)
+- [Hilfsmittel](#hilfsmittel)
 - [Projektstruktur](#projektstruktur)
 - [Die Oberfläche](#die-oberfläche)
 - [Auf dem Handy](#auf-dem-handy)
@@ -100,6 +101,24 @@ Zur Laufzeit werden drei Dinge von fremden Servern geholt: die Schriften und
 die Technologie-Logos jeweils von einem CDN, und die Hörstatistiken von
 stats.fm. Alles andere, auch die Bilder unter `public/media/`, liegt im
 Repository.
+
+---
+
+## Hilfsmittel
+
+Ein Teil dieser Seite berührt Themen, die im Unterricht bisher nicht
+vorkamen — allen voran die Absicherung der Daten im geschützten Bereich:
+Passwörter als scrypt-Hash statt im Klartext, signierte Tokens mit Ablauf,
+die verschlüsselten Unterlagen im Repository und die Sicherheitskopfzeilen
+in `vercel.json`. Dazu kommt das Suchen hartnäckiger Fehler, für das mir in
+der Schule bisher nur das Ausprobieren beigebracht wurde.
+
+Für beides habe ich mit **Claude Code** gearbeitet und in Blogs und
+Dokumentationen nachgelesen, vor allem MDN und der Node-Dokumentation. Was
+ich dabei übernommen habe, habe ich vorher nachvollzogen — sonst könnte ich
+in diesem Dokument nicht aufschreiben, warum die Seite so gebaut ist, wie
+sie gebaut ist. Der Inhalt, der Aufbau und die Entscheidungen darüber, was
+in die Seite kommt und was nicht, sind meine.
 
 ---
 
