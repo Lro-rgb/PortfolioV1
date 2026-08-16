@@ -44,7 +44,7 @@ bei mir melden, bekommen das Passwort von mir.
 | **Terminal** | `Strg+^` klappt eine Shell auf. Die Befehle sind echt: `help`, `whoami`, `open projekte` |
 | **Sechs Farbdesigns** | Dark+, Light+, Dracula, Nord, One Dark, GitHub Dark — die Wahl bleibt gespeichert |
 | **Zwei Sprachen** | Deutsch und Englisch, umschaltbar oben rechts, ohne Neuladen |
-| **Zehn Projekte** | Mit Bildern, einem Video, Quellcode-Archiven und zwei Vorführungen zum Selberbedienen |
+| **Zehn Projekte** | Mit Bildern, zwei Bildschirmaufnahmen, Quellcode-Archiven und zwei Vorführungen zum Selberbedienen |
 | **Geschützter Bereich** | Noten, Kompetenznachweise, Lebenslauf und Arbeitsbestätigung — nur mit Passwort |
 | **Druckansicht** | Beim Ausdrucken fällt die Editor-Kulisse weg, übrig bleibt der Text auf Weiss |
 | **Ohne Maus bedienbar** | Tastaturkürzel, Fokusrahmen, Sprungmarke zum Inhalt, beschriftete Bedienelemente |

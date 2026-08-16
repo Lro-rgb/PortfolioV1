@@ -547,17 +547,35 @@ const MEDIA={
        label:'url-shortener-gitops.zip', meta:'GitHub'}
     ]
   },
-  /* Askel läuft auf dem Handy, darum kommt hier eine Bildschirmaufnahme
-     im Hochformat hin, kein Bild. Die alte Aufnahme ist raus, die neue
-     folgt — dann diese Zeilen wieder einkommentieren und den Dateinamen
-     anpassen:
-       video:{src:'media/askel.mp4', titel:'Askel auf dem Handy',
-              dauer:'0:11', format:'hoch'}
-     format:'hoch' stellt das Video auf 340px Höhe, statt es über die
-     halbe Karte laufen zu lassen. */
-  askel:{platzhalter:{video:true},
-         downloads:[{href:'https://github.com/Lro-rgb/Askel/archive/HEAD.zip',
-                     label:'Askel.zip', meta:'GitHub'}]},
+  /* Askel läuft auf dem Handy, darum steht hier eine Bildschirmaufnahme
+     im Hochformat statt eines Bildes. Sie zeigt den ganzen Ablauf: Start
+     der Aufzeichnung, die laufende Fahrt auf der Karte, das Speichern
+     unter Namen und Farbe, die fertige Route mit ihren Messpunkten und
+     zum Schluss die Einstellungen.
+
+     Beschleunigt sind nur die beiden Stellen, an denen ausser dem Zähler
+     nichts passiert: die ersten Sekunden nach dem Start auf doppeltes
+     Tempo, die lange Strecke vor dem Stopp auf zweieinhalbfaches. Alles
+     andere läuft in Echtzeit — die Karte, auf der sich die Route zeichnet,
+     das Speichern, die fertige Route und die Einstellungen. Damit hetzt
+     die Aufnahme an keiner Stelle, an der man etwas mitlesen muss.
+
+     Zwei weitere Schnitte ohne Tempowechsel: Der Standbild-Moment nach dem
+     Speichern ist um zwei Sekunden gekürzt, und der Schluss endet auf den
+     Einstellungen. In der Rohaufnahme kamen danach noch das Löschen aller
+     Daten und die eingeblendete Schaltfläche des Bildschirmrekorders — als
+     letzter Eindruck einer Vorführung beides das Falsche.
+
+     Der zuschnitt-Eintrag ist zugleich der Schalter für die eigene
+     Steuerleiste mit dem Vollbild-Knopf; x:0 und die volle Quellbreite
+     heissen, dass nichts weggeblendet wird — siehe die längere
+     Begründung beim Rezeptbuch weiter unten. */
+  askel:{
+    video:{src:'media/askel-demo.mp4',
+           titel:'Askel zeichnet eine Route auf', dauer:'0:51',
+           zuschnitt:{x:0, breite:720, quelle:[720,1606], hoehe:400}},
+    downloads:[{href:'https://github.com/Lro-rgb/Askel/archive/HEAD.zip',
+                label:'Askel.zip', meta:'GitHub'}]},
   /* Bildschirmaufnahme aus dem Android-Emulator, im Hochformat und ohne
      schwarzen Rand — abgeschnitten werden muss hier also nichts mehr.
      Die Aufnahme zeigt die Sammlung, die Suche, den Vegetarisch-Filter,
