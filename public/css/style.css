@@ -350,10 +350,13 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
    Bild schiebt margin-top:auto stattdessen proj-links ganz nach unten. */
 /* Mehr Luft zwischen und in den Karten: bei zehn Projekten mit Abstract,
    Klapptext und Bild lief sonst alles ineinander. */
-/* align-items:start, damit jede Karte ihre eigene Höhe behält. Ohne das
-   teilen sich zwei Karten nebeneinander die Zeilenhöhe: Wer eine davon über
-   „Ausführlich" aufklappt, zieht den Kasten daneben mit in die Länge. */
-.proj-grid{display:grid;grid-template-columns:1fr 1fr;align-items:start;gap:2.4rem;margin:1.4rem 0 3.2rem}
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;margin:1.4rem 0 3.2rem}
+/* Zwei Karten nebeneinander sind gleich hoch — das ist der ruhigere Anblick.
+   Sobald aber eine davon über „Ausführlich" aufgeklappt ist, zöge sie den
+   Kasten daneben auf ihre neue Länge mit. Dann behält jede Karte ihre eigene
+   Höhe. Browser ohne :has() bleiben beim alten Verhalten; kaputt geht dabei
+   nichts, die Nachbarin ist dort nur wieder zu lang. */
+.proj-grid:has(.fold-btn[aria-expanded='true']){align-items:start}
 .proj-card{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:2rem;
   transition:background .2s,border-color .2s;position:relative;overflow:hidden;
   display:flex;flex-direction:column}
