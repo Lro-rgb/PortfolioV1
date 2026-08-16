@@ -407,6 +407,13 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
 .proj-media{display:flex;flex-direction:column;justify-content:center;flex:1}
 
 .media-figure{margin:1rem 0 .8rem}
+/* Bei einem Video nimmt der ganze Rahmen die Breite des Bildes an, statt
+   über die volle Kartenbreite zu laufen. Eine Aufnahme vom Handy ist
+   hochkant und damit schmal; die Beschriftung darunter lief vorher weit
+   über das Bild hinaus und liess die halbe Karte leer aussehen. Der
+   Ausschluss der Einbettung ist nötig, weil die denselben Rahmen benutzt,
+   aber die volle Breite braucht. */
+.media-figure:has(.video-player){width:min-content;max-width:100%}
 .proj-video{width:100%;height:auto;display:block;background:#000;
   border:1px solid var(--border);border-radius:3px}
 /* Aufnahme vom Handy: hochkant und schmal, sonst füllt sie die halbe Karte.
@@ -965,6 +972,12 @@ body.voll-offen{overflow:hidden}
   /* Schaltflächen und die eingebettete Vorschau haben auf Papier nichts
      verloren — der Nachweis selbst wird als eigene Datei mitgeschickt. */
   .note-akt,.zeugnis-vorschau,.proj-filter{display:none!important}
+  /* Ein Video ist auf Papier ein schwarzer Kasten über eine halbe Seite.
+     Der Abspieler fällt weg, die Beschriftung darunter bleibt stehen —
+     sie sagt, dass es zu diesem Projekt eine Aufnahme gibt und wie lang
+     sie ist. */
+  .video-player{display:none!important}
+  .media-figure:has(.video-player){width:auto}
   /* Auf Papier gehören alle Projekte hin, egal was am Bildschirm gefiltert war */
   .is-aus{display:revert!important}
   .chip,.badge{border:1px solid #bbb;background:#fff!important}

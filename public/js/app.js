@@ -569,11 +569,21 @@ const MEDIA={
      Der zuschnitt-Eintrag ist zugleich der Schalter für die eigene
      Steuerleiste mit dem Vollbild-Knopf; x:0 und die volle Quellbreite
      heissen, dass nichts weggeblendet wird — siehe die längere
-     Begründung beim Rezeptbuch weiter unten. */
+     Begründung beim Rezeptbuch weiter unten.
+
+     Die Anzeigehöhe von 550 Pixeln ergibt eine Breite von 247 Pixeln.
+     Vorher standen hier 400 Pixel und damit 179 Pixel Breite — neben der
+     366 Pixel breiten Karte sah das nach einem vergessenen Streifen aus.
+     Den grössten Teil der zusätzlichen Höhe hatte die Karte ohnehin frei:
+     Sie steht im Raster neben der Karte zum URL-Shortener, die höher ist,
+     und ihr Medienbereich streckt sich mit flex:1 in die Differenz
+     hinein. Die Zeile wächst dadurch nur um rund sechzig Pixel. Viel
+     weiter sollte man nicht gehen, sonst gibt diese Karte die Zeilenhöhe
+     vor und zieht die Nachbarkarte mit. */
   askel:{
     video:{src:'media/askel-demo.mp4',
            titel:'Askel zeichnet eine Route auf', dauer:'0:51',
-           zuschnitt:{x:0, breite:720, quelle:[720,1606], hoehe:400}},
+           zuschnitt:{x:0, breite:720, quelle:[720,1606], hoehe:550}},
     downloads:[{href:'https://github.com/Lro-rgb/Askel/archive/HEAD.zip',
                 label:'Askel.zip', meta:'GitHub'}]},
   /* Bildschirmaufnahme aus dem Android-Emulator, im Hochformat und ohne
@@ -592,15 +602,17 @@ const MEDIA={
 
      Der zuschnitt-Eintrag steht trotzdem da: Er ist zugleich der Schalter
      für die eigene Steuerleiste mit dem Vollbild-Knopf. x:0 und die volle
-     Quellbreite heissen, dass nichts weggeblendet wird — nur die Höhe von
-     400 Pixeln legt fest, wie gross das Video auf der Karte steht. Weniger
-     dürfen es nicht sein: Die Leiste ist so breit wie das Bild, und bei
-     einem Hochformat bleiben darunter sonst keine 160 Pixel für Knöpfe,
-     Regler und Zeitangabe. */
+     Quellbreite heissen, dass nichts weggeblendet wird — nur die Höhe
+     legt fest, wie gross das Video auf der Karte steht. Sie ist dieselbe
+     wie bei Askel: Zwei Aufnahmen vom Handy in derselben Übersicht sollen
+     gleich gross sein, sonst sieht die kleinere nach Versehen aus. Nach
+     unten gibt es eine Grenze, die Leiste ist so breit wie das Bild, und
+     bei einem Hochformat bleiben darunter sonst keine 160 Pixel für
+     Knöpfe, Regler und Zeitangabe. */
   rezeptbuch:{
     video:{src:'media/rezeptbuch-demo-v2.mp4',
            titel:'Mein Rezeptbuch im Android-Emulator', dauer:'0:50',
-           zuschnitt:{x:0, breite:720, quelle:[720,1600], hoehe:400}},
+           zuschnitt:{x:0, breite:720, quelle:[720,1600], hoehe:550}},
     downloads:[{href:'https://github.com/Lro-rgb/MeinRezeptbuch/archive/HEAD.zip',
                 label:'MeinRezeptbuch.zip', meta:'GitHub'}]
   },
@@ -745,6 +757,21 @@ function baueVideoPlayer(v,zs){
      grossen Bildschirm vor allem den schwarzen Rand in Gross, und das Handy
      bliebe ein Streifen in der Mitte. */
   function zuschnittSetzen(hoehe){
+    /* Auf schmalen Bildschirmen darf der Ausschnitt nicht breiter werden
+       als der Platz in der Karte. Der Rahmen selbst wird zwar von
+       max-width:100% gebremst, das Video darin aber nicht — es stünde
+       weiter in voller Breite da und der rechte Rand der Aufnahme wäre
+       abgeschnitten. Ist der Platz knapp, gibt darum die Breite die Höhe
+       vor und nicht umgekehrt. In der Grossansicht gilt das nicht, dort
+       rechnet grossHoehe() ohnehin mit dem ganzen Fenster. */
+    if(!player.classList.contains('voll')){
+      /* Gemessen wird am Medienbereich der Karte, nicht am Rahmen direkt
+         darüber: Der nimmt per CSS die Breite des Videos an und wüsste
+         darum immer nur, wie breit das Video schon ist. */
+      const box=player.closest('.proj-media');
+      const platz=box&&box.clientWidth;
+      if(platz)hoehe=Math.min(hoehe,platz*zs.quelle[1]/zs.breite);
+    }
     const s=hoehe/zs.quelle[1];
     const b=Math.round(zs.breite*s);
     /* Auch der Abspieler selbst wird auf die Breite des Ausschnitts
@@ -799,6 +826,20 @@ function baueVideoPlayer(v,zs){
   rahmen.append(v,overlay);
   player.append(rahmen,leiste);
   zuschnittSetzen(zs.hoehe);
+  /* Beim ersten Aufruf hängt der Abspieler noch nicht in der Seite, und die
+     Projektübersicht ist beim Laden ohnehin ausgeblendet — gemessen käme
+     dort nur eine Breite von null heraus. Ein ResizeObserver auf dem
+     Medienbereich rechnet darum genau dann nach, wenn dieser eine Breite
+     bekommt: beim ersten Öffnen des Tabs und später bei jeder Änderung. */
+  requestAnimationFrame(()=>{
+    const box=player.closest('.proj-media');
+    zuschnittSetzen(zs.hoehe);
+    if(box&&window.ResizeObserver){
+      new ResizeObserver(()=>{
+        if(!player.classList.contains('voll'))zuschnittSetzen(zs.hoehe);
+      }).observe(box);
+    }
+  });
 
   const umschalten=()=>{if(v.paused)v.play();else v.pause();};
   overlay.addEventListener('click',umschalten);
@@ -851,9 +892,10 @@ function baueVideoPlayer(v,zs){
     zuschnittSetzen(gross?grossHoehe():zs.hoehe);
     btnVoll.setAttribute('aria-label',gross?I18N.t('media.exitLargeView'):I18N.t('media.largeView'));
   }
-  /* Wird das Fenster in der Grossansicht kleiner, muss der Ausschnitt mit. */
+  /* Wird das Fenster kleiner, muss der Ausschnitt mit: in der Grossansicht
+     auf die neue Fensterhöhe, in der Karte auf die neue Kartenbreite. */
   window.addEventListener('resize',()=>{
-    if(player.classList.contains('voll'))zuschnittSetzen(grossHoehe());
+    zuschnittSetzen(player.classList.contains('voll')?grossHoehe():zs.hoehe);
   });
   function ueberlagernAn(){
     player.classList.add('fix');
