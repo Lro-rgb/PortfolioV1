@@ -928,7 +928,18 @@ function renderProjectMedia(){
       f.setAttribute('aria-hidden','true');
       f.tabIndex=-1;
       rahmen.appendChild(f);
-      // Der Rahmen selbst nimmt keine Klicks an, darum der Verweis darunter.
+
+      /* Darüber die Schaltfläche, die dieselbe Seite gross und bedienbar
+         aufmacht. Der verkleinerte Rahmen bleibt klickdicht: bei 40 Prozent
+         Grösse wäre jeder Verweis darin ein Zufallstreffer. */
+      const hit=el('button','embed-hit');
+      hit.type='button';
+      hit.dataset.siteview=cfg.einbettung.src;
+      hit.setAttribute('aria-label',I18N.t('siteview.openLabel'));
+      hit.appendChild(el('span','',esc(I18N.t('siteview.open'))));
+      rahmen.appendChild(hit);
+
+      // Wer die Seite lieber in einem eigenen Tab hat, nimmt den Verweis darunter.
       const a=document.createElement('a');
       a.className='embed-open';a.href=cfg.einbettung.src;
       a.target='_blank';a.rel='noopener noreferrer';
@@ -1400,6 +1411,108 @@ document.addEventListener('keydown',e=>{
     else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
   }
 });
+
+/* ═══════════════════════════════════
+   SEITE IN VOLLANSICHT
+
+   Die erste Website steckte bisher als klickdichte Vorschau in ihrer Karte —
+   sie sah aus wie ein Bildschirmfoto und verhielt sich auch so. Hier läuft
+   sie in einem nachgebauten Browserfenster wirklich: eigene Verweise,
+   eigener Verlauf, Adresszeile, die mitzieht.
+
+   Das Fenster steckt den Rahmen ab. Ohne ihn wäre nicht zu erkennen, wo
+   diese Seite aufhört und die von 2024 anfängt — und der Unterschied
+   zwischen beiden ist genau das, was die Karte zeigen will.
+═══════════════════════════════════ */
+const siteview=$('siteview'),svFrame=$('svFrame');
+/* Eigener Zähler statt history.length: Ein Rahmen teilt sich den Verlauf mit
+   der Seite, in der er steckt. history.length zählt also auch die Schritte
+   des Portfolios mit und stünde schon beim Öffnen auf zwei oder mehr. Der
+   Zurück-Schalter wäre damit von Anfang an bedienbar — und ein Druck darauf
+   würde nicht im Rahmen blättern, sondern das Portfolio verlassen. */
+let svSchritte=0;
+
+/* Der Rahmen läuft mit sandbox="allow-same-origin", aber ohne allow-scripts.
+   Lesen ist damit erlaubt (deshalb steht in der Adresszeile, wo man gerade
+   ist), Ausführen nicht. Sollte die Kopie irgendwann doch ein Skript
+   bekommen, bleibt sie stumm — und dieser Zugriff wirft dann eine Ausnahme
+   statt die Anzeige abzubrechen. */
+function svAdresseNachziehen(){
+  let pfad='';
+  try{
+    pfad=svFrame.contentWindow.location.pathname;
+  }catch(e){ /* fremder Ursprung: Adresse bleibt stehen */ }
+  if(pfad)$('svUrl').textContent=location.host+pfad;
+  svSchritte++;
+  $('svBack').disabled=svSchritte<2;
+}
+
+document.addEventListener('click',e=>{
+  const hit=e.target.closest('[data-siteview]');
+  if(!hit)return;
+  const src=hit.dataset.siteview;
+  svSchritte=0;
+  svFrame.src=src;
+  $('svNew').href=src;
+  $('svUrl').textContent=location.host+'/'+src.replace(/^\//,'');
+  $('svBack').disabled=true;
+  siteview.showModal();   // Escape, Fokusfalle und Abdunklung macht der Browser
+});
+svFrame.addEventListener('load',svAdresseNachziehen);
+$('svClose').addEventListener('click',()=>siteview.close());
+$('svBack').addEventListener('click',()=>{
+  try{svFrame.contentWindow.history.back();}catch(e){ /* nichts zu tun */ }
+});
+// Klick auf die Abdunklung: das <dialog> selbst füllt den Bildschirm, das
+// Fenster darin nicht — ein Treffer daneben landet also hier.
+siteview.addEventListener('click',e=>{if(e.target===siteview)siteview.close();});
+
+/* ═══════════════════════════════════
+   VORFÜHRUNG: ADRESSE KÜRZEN
+
+   Zeigt die Antwort der Funktion so, wie sie kommt. Die Weiterleitung
+   dahinter fehlt mit Absicht — sie steht in der Erklärung darunter, nicht
+   auf dieser Domain.
+═══════════════════════════════════ */
+(function(){
+  const eingabe=$('kurzUrl'),knopf=$('kurzBtn'),ausgabe=$('kurzOut');
+  if(!eingabe||!knopf||!ausgabe)return;
+
+  function melden(klasse,text){
+    ausgabe.innerHTML='<span class="'+klasse+'">'+esc(text)+'</span>';
+  }
+
+  async function kuerzen(){
+    const url=eingabe.value.trim();
+    if(!url){eingabe.focus();return;}
+
+    knopf.disabled=true;
+    melden('','… '+I18N.t('demo.kurz.working'));
+    try{
+      const antwort=await fetch('/api/kurz',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({url:url})
+      });
+      const daten=await antwort.json().catch(()=>({}));
+      if(!antwort.ok){
+        melden('err','✗ '+(daten.error||I18N.t('demo.kurz.failed')));
+        return;
+      }
+      ausgabe.innerHTML=
+        '<span class="ok">201 Created</span> { "code": "'+esc(daten.code)+'" }'+
+        '<br><span style="color:var(--dim)">'+esc(I18N.t('demo.kurz.wouldRedirect'))+
+        ' → '+esc(url)+'</span>';
+    }catch(e){
+      melden('err','✗ '+I18N.t('demo.kurz.offline'));
+    }finally{
+      knopf.disabled=false;
+    }
+  }
+
+  knopf.addEventListener('click',kuerzen);
+  eingabe.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();kuerzen();}});
+})();
 
 /* ═══════════════════════════════════
    ORDNER AUF/ZU

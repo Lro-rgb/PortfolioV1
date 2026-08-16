@@ -625,6 +625,28 @@
                     <br><br>
                     Dazu kam schriftliche Arbeit, die ich sonst nirgends gemacht habe: ein Rollenkonzept mit IAM und RBAC, ein Sicherheitskonzept und eine Kostenanalyse für einen Betrieb in AWS. Alle drei theoretisch, aber sie haben mich zum ersten Mal darüber nachdenken lassen, was der Betrieb einer Anwendung tatsächlich kostet und wer worauf zugreifen darf.
                   </div>
+                  <!-- Vorführung: dieselbe Aufgabe wie im Projekt, nur ohne
+                       Cluster und ohne Datenbank. Die Grenzen davon stehen im
+                       Text darunter, nicht im Kleingedruckten. -->
+                  <div class="demo" id="demo-kurz">
+                    <div class="demo-head">
+                      <span class="demo-verb">POST</span>
+                      <span class="demo-path">/api/kurz</span>
+                      <span class="demo-tag" data-i18n="demo.live">läuft wirklich</span>
+                    </div>
+                    <div class="demo-body">
+                      <label class="demo-label" for="kurzUrl" data-i18n="demo.kurz.label">Eine lange Adresse eingeben:</label>
+                      <div class="demo-row">
+                        <input class="demo-in" id="kurzUrl" type="url" inputmode="url" spellcheck="false"
+                               autocomplete="off" placeholder="https://github.com/Lro-rgb/url-shortener"
+                               aria-describedby="kurzNote"/>
+                        <button type="button" class="demo-btn" id="kurzBtn" data-i18n="demo.kurz.submit">kürzen</button>
+                      </div>
+                      <div class="demo-out" id="kurzOut" role="status" aria-live="polite"></div>
+                      <p class="demo-note" id="kurzNote" data-i18n="demo.kurz.note">Der Kurzcode wird hier wirklich von einer Serverless-Function vergeben, aber nirgends gespeichert und nicht weitergeleitet. Eine Weiterleitung auf beliebige fremde Adressen würde diese Domain zum Steigbügel für Phishing-Links machen — das ist mir eine Vorführung nicht wert. Im Projekt selbst übernehmen das eine MariaDB und ein zweiter Dienst, der als einziger die Datenbank sieht; die Kubernetes-Kette läuft hier ohnehin nicht mit.</p>
+                    </div>
+                  </div>
+
                   <dl class="proj-meta" data-i18n="proj.urlshortener.meta">
                     <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt. Der Kurs stellte ein leeres Grundgerüst mit den ersten sechs Commits, alles ab der Containerisierung stammt von mir: 17 der 23 Commits.</dd></div>
                     <div><dt>Gelernt</dt><dd>
@@ -1122,6 +1144,35 @@
     <ul class="qi-list" id="qiList" role="listbox" aria-label="Ergebnisse" data-i18n-aria-label="palette.results"></ul>
   </div>
 </div>
+
+<!-- ══════════════ SEITE IN VOLLANSICHT ══════════════
+     Die erste Website läuft darin wirklich — mit ihren eigenen Verweisen,
+     zurück-Schalter und Adresszeile. Der Rahmen ist nachgebaut, damit klar
+     bleibt, dass hier eine fremde Seite im Fenster steckt und nicht diese.
+
+     sandbox="allow-same-origin" ohne allow-scripts: Damit darf die Seite
+     gelesen werden (die Adresszeile zeigt deshalb, wo man gerade ist), aber
+     kein Skript darin laufen. Da die Kopie ohnehin reines HTML und CSS ist,
+     nimmt ihr das nichts weg. -->
+<dialog class="siteview" id="siteview"
+        aria-label="Erste Website in Vollansicht" data-i18n-aria-label="siteview.ariaLabel">
+  <div class="sv-window">
+    <div class="sv-bar">
+      <div class="sv-lights" aria-hidden="true">
+        <span class="lh-dot" style="background:#FF5F57"></span>
+        <span class="lh-dot" style="background:#FEBC2E"></span>
+        <span class="lh-dot" style="background:#28CA41"></span>
+      </div>
+      <button type="button" class="sv-btn" id="svBack" aria-label="Zurück" data-i18n-aria-label="siteview.back">‹</button>
+      <span class="sv-url" id="svUrl"></span>
+      <a class="sv-btn" id="svNew" href="erste-website" target="_blank" rel="noopener noreferrer"
+         aria-label="In neuem Tab öffnen" data-i18n-aria-label="siteview.newTab">↗</a>
+      <button type="button" class="sv-btn sv-close" id="svClose" aria-label="Vorschau schliessen" data-i18n-aria-label="siteview.close">×</button>
+    </div>
+    <iframe class="sv-frame" id="svFrame" title="Erste eigene Website von 2024"
+            data-i18n-title="siteview.frameTitle" sandbox="allow-same-origin"></iframe>
+  </div>
+</dialog>
 
 <!-- ══════════════ BILD-VOLLANSICHT ══════════════ -->
 <div class="overlay lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot in Vollansicht" data-i18n-aria-label="lightbox.ariaLabel" aria-hidden="true">
