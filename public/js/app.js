@@ -1948,7 +1948,10 @@ function updateAuth(ok){
 /* ═══════════════════════════════════
    GESCHÜTZTE DATEN LADEN
 ═══════════════════════════════════ */
-const EMPTY_MSG='<p style="color:var(--dim);font-family:var(--mono);font-size:.8rem;padding:1.2rem 0">// Noch keine Daten hinterlegt.</p>';
+/* Als Funktion und nicht als Konstante: Der Text hängt an der gewählten
+   Sprache, und die kann sich ändern, nachdem die Datei einmal geladen ist. */
+const emptyMsg=()=>'<p style="color:var(--dim);font-family:var(--mono);font-size:.8rem;padding:1.2rem 0">'+
+  esc(I18N.t('protected.empty'))+'</p>';
 let lastNoten=null,lastLebenslauf=null;
 
 // Fremde Werte landen im DOM — vor dem Einsetzen entschärfen.
@@ -1980,7 +1983,7 @@ async function loadProtected(panel){
       lastNoten=d.noten||[];
       const box=$('noten-content'),dl=$('noten-dl');
       if(!lastNoten.length){
-        box.innerHTML=EMPTY_MSG;
+        box.innerHTML=emptyMsg();
         if(dl)dl.style.display='none';
       }else{
         const cc=n=>n>=5?'note-5':n>=4?'note-4':n>=3?'note-3':'note-2';
@@ -1999,13 +2002,13 @@ async function loadProtected(panel){
             '<span class="dg-zahl">'+list.length+'</span></summary>'+
           (list.length
             ? '<div class="noten-grid">'+list.map(karte).join('')+'</div>'+
-              '<p class="noten-avg">Durchschnitt: <strong>'+
+              '<p class="noten-avg">'+esc(I18N.t('noten.avg'))+' <strong>'+
                 (list.reduce((s,n)=>s+n.note,0)/list.length).toFixed(2)+'</strong></p>'
-            : EMPTY_MSG)+
+            : emptyMsg())+
           '</details>';
         box.innerHTML=
-          gruppe('üK-Kompetenznachweise',lastNoten.filter(n=>n.art!=='zeugnis'))+
-          gruppe('Zeugnisse',lastNoten.filter(n=>n.art==='zeugnis'))+
+          gruppe(I18N.t('noten.h.uek'),lastNoten.filter(n=>n.art!=='zeugnis'))+
+          gruppe(I18N.t('noten.h.zeugnisse'),lastNoten.filter(n=>n.art==='zeugnis'))+
           '<div class="zeugnis-vorschau" hidden></div>';
         if(dl)dl.style.display='inline-flex';
       }
@@ -2013,51 +2016,79 @@ async function loadProtected(panel){
 
     if(panel==='cv'){
       lastLebenslauf=Object.assign(
-        {ausbildung:[],erfahrung:[],nebenjobs:[],zertifikate:[],sprachen:[]},
+        {personalien:{},ausbildung:[],erfahrung:[],nebenjobs:[],zertifikate:[],sprachen:[]},
         d.lebenslauf||{});
       const lv=lastLebenslauf;
       const box=$('cv-content'),dl=$('cv-dl');
       const hasAny=lv.ausbildung.length||lv.erfahrung.length||lv.nebenjobs.length||
                    lv.zertifikate.length||lv.sprachen.length;
       {
+        const h=(schluessel,abstand)=>'<h3 class="ed-h2"'+(abstand?' style="margin-top:2rem"':'')+'>'+
+          esc(I18N.t(schluessel))+'</h3>';
         const tl=list=>list.length
           ? list.map(e=>'<div class="tl-e in"><div class="tl-date">'+esc(e.zeitraum)+'</div>'+
               '<div class="tl-title">'+esc(e.titel)+'</div>'+
               '<div class="tl-sub">'+esc(e.ort)+'<br>'+esc(e.notiz)+'</div></div>').join('')
-          : EMPTY_MSG;
+          : emptyMsg();
+
+        /* Personalien: nur die Felder, die auch gefüllt sind. Ein Lebenslauf
+           mit einer leeren Zeile "Telefon:" sagt einem Betrieb nur, was
+           fehlt — genauso wie bei den Zertifikaten weiter unten. */
+        const felder=[['cv.p.geboren','geburtsdatum'],['cv.p.adresse','adresse'],
+                      ['cv.p.telefon','telefon'],['cv.p.email','email'],
+                      ['cv.p.nation','staatsangehoerigkeit']]
+          .filter(([,f])=>lv.personalien[f])
+          .map(([k,f])=>'<div class="fact"><dt>'+esc(I18N.t(k))+'</dt><dd>'+
+            (f==='email'
+              ? '<a href="mailto:'+esc(lv.personalien[f])+'">'+esc(lv.personalien[f])+'</a>'
+              : esc(lv.personalien[f]))+'</dd></div>').join('');
+        const personalien=(lv.personalien.name||felder)
+          ? h('cv.h.personalien')+
+            (lv.personalien.name?'<p class="cv-name">'+esc(lv.personalien.name)+'</p>':'')+
+            (felder?'<dl class="fact-row">'+felder+'</dl>':'')
+          : '';
+
         const inhalt=
-          '<div class="cv-cols">'+
-            '<div><h3 class="ed-h2">Ausbildung</h3><div class="tl">'+tl(lv.ausbildung)+'</div></div>'+
-            '<div><h3 class="ed-h2">Berufserfahrung</h3><div class="tl">'+tl(lv.erfahrung)+'</div></div>'+
+          personalien+
+          '<div class="cv-cols"'+(personalien?' style="margin-top:2rem"':'')+'>'+
+            '<div>'+h('cv.h.ausbildung')+'<div class="tl">'+tl(lv.ausbildung)+'</div></div>'+
+            '<div>'+h('cv.h.erfahrung')+'<div class="tl">'+tl(lv.erfahrung)+'</div></div>'+
           '</div>'+
           (lv.nebenjobs.length
-            ? '<h3 class="ed-h2" style="margin-top:2rem">Nebenjobs &amp; Freiwilligenarbeit</h3>'+
-              '<div class="tl">'+tl(lv.nebenjobs)+'</div>'
+            ? h('cv.h.nebenjobs',true)+'<div class="tl">'+tl(lv.nebenjobs)+'</div>'
             : '')+
-          '<h3 class="ed-h2" style="margin-top:2rem">Sprachen</h3>'+
+          h('cv.h.sprachen',true)+
           (lv.sprachen.length
-            ? '<table class="ed-table"><tr><th>Sprache</th><th>Niveau</th></tr>'+
+            ? '<table class="ed-table"><tr><th>'+esc(I18N.t('cv.th.sprache'))+'</th>'+
+              '<th>'+esc(I18N.t('cv.th.niveau'))+'</th></tr>'+
               lv.sprachen.map(s=>'<tr><td>'+esc(s.sprache)+'</td><td><span class="badge bb">'+esc(s.niveau)+'</span></td></tr>').join('')+
               '</table>'
-            : EMPTY_MSG)+
+            : emptyMsg())+
           /* Zertifikate erscheinen erst, wenn welche eingetragen sind — eine
              Ueberschrift mit "noch keine Daten" darunter sagt einem Betrieb
              nur, was fehlt. */
           (lv.zertifikate.length
-            ? '<h3 class="ed-h2">Zertifikate</h3>'+
-              '<table class="ed-table"><tr><th>Jahr</th><th>Titel</th><th>Anbieter</th></tr>'+
+            ? h('cv.h.zertifikate')+
+              '<table class="ed-table"><tr><th>'+esc(I18N.t('cv.th.jahr'))+'</th>'+
+              '<th>'+esc(I18N.t('cv.th.titel'))+'</th><th>'+esc(I18N.t('cv.th.anbieter'))+'</th></tr>'+
               lv.zertifikate.map(z=>'<tr><td>'+esc(z.jahr)+'</td><td>'+esc(z.titel)+'</td><td>'+esc(z.anbieter)+'</td></tr>').join('')+
               '</table>'
             : '');
         /* Die abgetippten Angaben oben und die unterschriebenen Unterlagen
            unten: derselbe Weg wie bei den Kompetenznachweisen, die Dateien
-           kommen erst nach der Tokenpruefung aus /api/zeugnis. */
-        box.innerHTML=(hasAny?inhalt:EMPTY_MSG)+
-          '<h3 class="ed-h2" style="margin-top:2rem">Lebenslauf als PDF</h3>'+
+           kommen erst nach der Tokenpruefung aus /api/zeugnis.
+
+           Die Zeile unter "Arbeitsbestätigung" kommt aus dem ersten Eintrag
+           der Berufserfahrung, statt Betrieb und Rolle ein zweites Mal von
+           Hand hinzuschreiben — sonst stimmen die beiden Stellen nach der
+           ersten Änderung nicht mehr überein. */
+        const stelle=lv.erfahrung[0];
+        box.innerHTML=(hasAny?inhalt:emptyMsg())+
+          h('cv.h.pdf',true)+
           dokKnoepfe('cv')+
           '<div class="zeugnis-vorschau" hidden></div>'+
-          '<h3 class="ed-h2" style="margin-top:2rem">Arbeitsbestätigung</h3>'+
-          '<p class="cv-dok-notiz">Bahnhof Apotheke Achillea, Burgdorf — Aushilfe / Springer.</p>'+
+          h('cv.h.arbeitsbestaetigung',true)+
+          (stelle?'<p class="cv-dok-notiz">'+esc(stelle.ort)+' — '+esc(stelle.titel)+'.</p>':'')+
           dokKnoepfe('arbeitsbestaetigung')+
           '<div class="zeugnis-vorschau" hidden></div>';
         if(dl)dl.style.display='inline-flex';
@@ -2110,6 +2141,15 @@ document.addEventListener('click',e=>{
 document.addEventListener('lr:langchange',()=>{
   const an=document.querySelector('.pf-btn.aktiv');
   if(an)projekteFiltern(an.dataset.filter);
+});
+
+/* Noten und Lebenslauf baut das Javascript zusammen, sie tragen deshalb kein
+   data-i18n und werden beim Sprachwechsel nicht mitgenommen. Steht gerade
+   einer der beiden Bereiche offen, wird er neu aufgebaut. */
+document.addEventListener('lr:langchange',()=>{
+  const aktiv=document.querySelector('.tab.active');
+  const name=aktiv&&aktiv.dataset.panel;
+  if((name==='noten'||name==='cv')&&token&&verifyToken())loadProtected(name);
 });
 
 /* ── Kompetenznachweise (PDF hinter dem Login) ──

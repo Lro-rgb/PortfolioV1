@@ -248,6 +248,20 @@ und Zeugnisse; welche Gruppe eine Karte bekommt, steht im Feld `art` in
 Vorschau und Download; die abgetippten Angaben darüber bleiben, damit der
 Inhalt auch ohne PDF-Anzeige lesbar ist.
 
+Der Lebenslauf beginnt mit den Personalien aus dem Feld `personalien` in
+`api/protected.js`. Geburtsdatum, Wohnadresse und Telefonnummer stehen dort
+**nicht im Klartext**, sondern kommen aus den Umgebungsvariablen
+`CV_GEBURTSDATUM`, `CV_ADRESSE`, `CV_TELEFON` und `CV_NATIONALITAET` — aus
+demselben Grund wie die Kompetenznachweise: Diese Datei liegt in einem
+öffentlichen Repository, und ein Passwort vor dem Lebenslauf nützt nichts,
+wenn die Wohnadresse zwei Klicks weiter auf GitHub steht. **Leere Felder
+werden nicht angezeigt** — was nicht gesetzt ist, fehlt in der Anzeige, statt
+als leere Zeile dazustehen; dasselbe gilt für die Zertifikate.
+
+Beide Bereiche baut JavaScript zusammen und trägt deshalb kein `data-i18n`.
+Damit sie beim Sprachwechsel trotzdem mitziehen, werden sie neu aufgebaut,
+wenn gerade einer von beiden offen ist.
+
 Die PDF-Dateien liegen bewusst **nicht** unter `public/`: alles dort liefert
 Vercel ohne jede Prüfung aus, ein Passwort davor wäre Dekoration.
 

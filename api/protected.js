@@ -8,6 +8,7 @@ const { verifyToken, requireConfig } = require('../lib/auth.js');
 // Bewusst serverseitig: diese Inhalte gehören nicht ins Frontend-Bundle,
 // sondern werden nur gegen ein gültiges Token ausgeliefert.
 //   noten:       { fach, note, semester, art }   art: 'uek' | 'zeugnis'
+//   personalien: { name, geburtsdatum, adresse, telefon, email, staatsangehoerigkeit }
 //   ausbildung / erfahrung / nebenjobs: { zeitraum, titel, ort, notiz }
 //   zertifikate: { jahr, titel, anbieter }
 //   sprachen:    { sprache, niveau }
@@ -57,6 +58,26 @@ const DATA = {
     }
   ],
   lebenslauf: {
+    /* Ein Lebenslauf ohne Absender ist keiner — bisher fing er direkt mit
+       "Ausbildung" an.
+
+       Geburtsdatum, Wohnadresse und Telefonnummer stehen NICHT hier im
+       Klartext, sondern kommen aus Umgebungsvariablen. Der Grund ist
+       derselbe wie bei den Kompetenznachweisen: Diese Datei liegt in einem
+       oeffentlichen Repository. Ein Passwort vor dem Lebenslauf nuetzt
+       nichts, wenn die Wohnadresse zwei Klicks weiter auf GitHub steht.
+
+       Gesetzt werden sie in .env (lokal) und mit "vercel env add"
+       (Produktion). Fehlt eine, bleibt die Zeile in der Anzeige einfach
+       weg — leere Felder werden nicht gerendert. */
+    personalien: {
+      name: 'Luis Rosado',
+      geburtsdatum: process.env.CV_GEBURTSDATUM || '',
+      adresse: process.env.CV_ADRESSE || '',
+      telefon: process.env.CV_TELEFON || '',
+      email: 'luisrosado008@gmail.com',
+      staatsangehoerigkeit: process.env.CV_NATIONALITAET || ''
+    },
     ausbildung: [
       {
         zeitraum: '2024 – 2028',
