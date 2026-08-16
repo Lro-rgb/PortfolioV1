@@ -109,6 +109,20 @@ grösseren Änderung mitgepflegt**, ebenso wie diese README; gepflegt wird sie
 
 ---
 
+## Auf dem Handy
+
+Unter 820 px Breite ordnet sich die Oberfläche um, ohne ihren Charakter zu
+verlieren: Die Icon-Leiste links bleibt stehen und scrollt als Navigation
+mit, der Datei-Explorer fährt darüber als Schublade aus (Schalter ☰ in der
+Titelleiste oder das Explorer-Symbol), und die Statusleiste sitzt fest am
+unteren Rand. Titel-, Tab- und Statusleiste werden höher, damit jede
+Schaltfläche mit dem Finger sicher zu treffen ist. Die Höhen stehen als
+Variablen (`--h-title`, `--h-tabs`, `--h-status`) in `css/themes.css` und
+werden in `css/vscode.css` für schmale Bildschirme überschrieben — das
+Raster der Oberfläche zieht dadurch von selbst mit.
+
+---
+
 ## Geschützter Bereich
 
 Im Ordner **„unterlagen"** (Sidebar) liegen `noten.csv` und `lebenslauf.md`.

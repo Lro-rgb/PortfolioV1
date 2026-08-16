@@ -580,6 +580,11 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
 
 .editor-scroll { background: var(--bg); }
 
+/* Nach einem Dateiwechsel per Tastatur liegt der Fokus auf dem Editorbereich,
+   damit Bild-ab und die Pfeiltasten scrollen. Der Rahmen dazu liegt innen —
+   aussen wuerde ihn der Rand des Bereichs abschneiden. */
+.editor-scroll:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+
 /* Fliesstext: heller und groesser als vorher. --muted war fuer laengere
    Absaetze zu schwach. */
 .prose {
@@ -1407,6 +1412,19 @@ code {
    Schublade — so wie VS Code sich auf einem kleinen Fenster verhaelt.
    ═══════════════════════════════════════════════════════════════════════ */
 @media (max-width: 820px) {
+  /* Die Leisten werden hoeher, weil ein Finger ungenauer trifft als ein
+     Mauszeiger. Weil alle Hoehen aus diesen vier Werten stammen, zieht das
+     Raster der .ide, die Schublade und die Abdunklung automatisch mit. */
+  :root {
+    --h-title: 44px;
+    --h-tabs: 44px;
+    --h-status: 26px;
+  }
+
+  /* Kein blauer Kasten mehr beim Antippen — die Rueckmeldung geben die
+     :active-Regeln weiter unten, in den Farben der Oberflaeche. */
+  html { -webkit-tap-highlight-color: transparent; }
+
   .ide {
     grid-template-columns: var(--w-activity) minmax(0, 1fr);
     grid-template-areas:
@@ -1422,13 +1440,27 @@ code {
     top: var(--h-title);
     bottom: var(--h-status);
     left: var(--w-activity);
+    /* Etwas breiter als am Schreibtisch, aber so, dass rechts genug
+       Abdunklung frei bleibt, um die Schublade wieder zuzutippen. */
+    width: min(300px, calc(100vw - var(--w-activity) - 48px));
     z-index: 400;
-    transform: translateX(-102%);
+    /* Die Schublade sitzt um die Breite der Activity Bar eingerueckt.
+       Sie muss deshalb um ihre eigene Breite PLUS diese Einrueckung nach
+       links fahren — sonst blieb ein Streifen von ihr ueber der Activity
+       Bar stehen, und vom Streifen sah man den blauen Auswahlbalken der
+       aktiven Datei als Rechteck am linken Rand. */
+    transform: translateX(calc(-100% - var(--w-activity) - 2px));
     transition: transform 0.22s ease;
     box-shadow: var(--shadow);
   }
 
   .sidebar.open { transform: none; }
+
+  /* style.css blendet die geschlossene Schublade mit visibility aus, die
+     Regel fuer aufgeklappte Ordner setzt sie fuer deren Inhalt aber wieder
+     auf sichtbar. Hier zurueckgenommen: zugeklappt ist zugeklappt — auch
+     fuer die Tabulatortaste und den Screenreader. */
+  .sidebar:not(.open) .tree-children { visibility: hidden; }
 
   .sb-backdrop {
     display: block;
@@ -1440,6 +1472,61 @@ code {
 
   .sb-backdrop[hidden] { display: none; }
 
+  /* ── Trefferflaechen ──
+     Alles, was man antippt, ist mindestens so hoch wie eine Fingerkuppe
+     breit ist. Die Werte in style.css reichten dafuer nicht, weil die
+     Bauteile hier weiter oben feste Hoehen bekommen haben. */
+  .tree-folder,
+  .tree-file {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+  }
+
+  .tree-file { padding-left: 38px; }
+
+  .tab { height: var(--h-tabs); padding: 0 14px; }
+
+  .tab-x {
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-left: 4px;
+    font-size: 1rem;
+  }
+
+  .sb-toggle {
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    font-size: 1.15rem;
+  }
+
+  .tb-lang {
+    min-width: 40px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+  }
+
+  .tb-auth { padding: 0.3rem 0.5rem; }
+
+  .st-item { padding: 0 9px; }
+
+  /* Gedrueckt-Zustand statt Antipp-Rechteck des Browsers */
+  .act-btn:active,
+  .tree-file:active,
+  .tree-folder:active,
+  .tab:active,
+  .sb-toggle:active,
+  button.st-item:active { background: var(--list-hover); }
+
   .code-content { padding: 20px 18px 56px; }
   .breadcrumb, .outline { padding-left: 18px; padding-right: 18px; }
   .tb-search { display: none; }
@@ -1449,18 +1536,39 @@ code {
   /* Die erste Fassung liess die Seite auf dem Handy mitwachsen, statt
      alles in 100dvh zu quetschen. Das war richtig und wird hier wieder
      hergestellt — meine Regel weiter oben haette es sonst ueberschrieben,
-     weil sie spaeter im Stylesheet steht. */
+     weil sie spaeter im Stylesheet steht.
+
+     overflow bleibt sichtbar: mit overflow:auto waere die .ide der
+     naechste Scroll-Behaelter, und das klebende Verhalten der Activity
+     Bar weiter unten wuerde nie greifen. */
   .ide {
     height: auto;
     min-height: 100vh;
     min-height: 100dvh;
-    overflow: auto;
+    overflow: visible;
+  }
+
+  /* Die Icon-Leiste laeuft beim Scrollen mit, statt als toter Streifen
+     neben zwei Metern Text zu stehen. Sie ist damit auf dem Handy die
+     eigentliche Navigation: Explorer, Suche, Projekte, Terminal. */
+  .activitybar {
+    position: sticky;
+    top: var(--h-title);
+    align-self: start;
+    height: calc(100dvh - var(--h-title) - var(--h-status));
+    z-index: 350;
   }
 
   /* Die Statusleiste bleibt am unteren Rand sichtbar, auch waehrend die
-     Seite scrollt — sonst waere sie auf dem Handy praktisch nie zu sehen. */
+     Seite scrollt — sonst waere sie auf dem Handy praktisch nie zu sehen.
+     position:sticky half hier nicht: das Rasterfeld der Leiste ist genau
+     so hoch wie sie selbst, es bleibt also kein Weg zum Kleben. Die
+     Zeilenhoehe im Raster haelt den Platz frei, den sie als feste Leiste
+     nicht mehr belegt. */
   .statusbar {
-    position: sticky;
+    position: fixed;
+    left: 0;
+    right: 0;
     bottom: 0;
     z-index: 300;
   }

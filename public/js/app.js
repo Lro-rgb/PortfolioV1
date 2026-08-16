@@ -199,6 +199,13 @@ function openTab(name,opts){
   closeDrawer(); // auf dem Handy die Schublade nach der Auswahl schliessen
 
   if(opts.focusTab!==false&&opts.fromKeyboard)tab.focus();
+  /* Wer die Datei per Tastatur gewechselt hat — Strg+P, Enter im Explorer,
+     Enter auf einem Tab —, will danach weiterlesen. Der Fokus stand aber
+     noch auf dem Suchfeld, dem Explorer oder der Tableiste, und Bild-ab,
+     Leertaste und die Pfeiltasten scrollten deshalb entweder gar nichts
+     oder die falsche Leiste. Er wandert jetzt in den Editorbereich, der
+     dafuer tabindex="-1" traegt. */
+  else if(opts.focusEditor)editorScroll.focus({preventScroll:true});
   if(isLocked(name))loadProtected(name);
 }
 
@@ -272,7 +279,7 @@ $('tabbar').addEventListener('keydown',e=>{
 
   if(e.key==='Enter'||e.key===' '){
     e.preventDefault();
-    openTab(tab.dataset.panel);
+    openTab(tab.dataset.panel,{focusEditor:true});
     return;
   }
   if(e.key==='Delete'||(e.key==='w'&&(e.ctrlKey||e.metaKey))){
@@ -295,10 +302,15 @@ $('tabbar').addEventListener('keydown',e=>{
   }
 });
 
-/* ── Explorer & alle anderen [data-open]-Auslöser ── */
+/* ── Explorer & alle anderen [data-open]-Auslöser ──
+   detail ist bei einem echten Mausklick die Zahl der Klicks, bei einem
+   Klick, den Enter oder die Leertaste auf einem Knopf auslöst, dagegen 0.
+   Daran hängt, ob der Fokus anschliessend in den Editor wandert: mit der
+   Maus liest man weiter, wo man will — mit der Tastatur bliebe er sonst
+   im Explorer hängen und das Blättern ginge ins Leere. */
 document.addEventListener('click',e=>{
   const trigger=e.target.closest('[data-open]');
-  if(trigger)openTab(trigger.dataset.open);
+  if(trigger)openTab(trigger.dataset.open,{focusEditor:e.detail===0});
 });
 
 $('reopenAll').addEventListener('click',reopenAll);

@@ -256,7 +256,7 @@
       // Wer "projekte" tippt, findet damit auch projekte.html.
       search: tab.dataset.panel,
       hint: tab.dataset.locked === 'true' ? I18N.t('palette.hint.locked') : '',
-      run: () => openTab(tab.dataset.panel)
+      run: () => openTab(tab.dataset.panel, { focusEditor: true })
     }));
   }
 
@@ -362,17 +362,22 @@
     qiInput.setSelectionRange(qiInput.value.length, qiInput.value.length);
   }
 
-  function closePalette() {
+  /** Beim Abbrechen (Escape, Klick daneben) gehoert der Fokus dorthin
+   *  zurueck, wo er herkam. Wenn die Palette dagegen etwas ausfuehrt, das
+   *  den Fokus selbst weitersetzt — eine Datei oeffnen, das Terminal
+   *  aufmachen —, waere das Zurueckgeben ein Rueckschritt: der Fokus landete
+   *  wieder im Suchfeld der Titelleiste und die Tastatur scrollte nichts. */
+  function closePalette(keepFocus) {
     if (qiBackdrop.hidden) return;
     qiBackdrop.hidden = true;
-    if (qiReturnFocus && document.contains(qiReturnFocus)) qiReturnFocus.focus();
+    if (!keepFocus && qiReturnFocus && document.contains(qiReturnFocus)) qiReturnFocus.focus();
     qiReturnFocus = null;
   }
 
   function runPalette(i) {
     const entry = qiResults[i];
     if (!entry) return;
-    closePalette();
+    closePalette(entry.type === 'file');
     entry.run();
   }
 
