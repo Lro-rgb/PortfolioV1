@@ -1,11 +1,11 @@
-/* Kleiner Entwicklungsserver fuer public/ — ohne Abhaengigkeiten, wie der
+/* Kleiner Entwicklungsserver für public/ — ohne Abhängigkeiten, wie der
    Rest des Projekts.
 
    Warum nicht "python -m http.server": der schickt nur ein Last-Modified
-   und ueberlaesst dem Browser den Rest. Der rechnet sich daraus selbst
-   eine Haltbarkeit aus und liefert geaenderte Dateien minutenlang aus dem
-   Zwischenspeicher weiter — man aendert etwas, laedt neu und sieht das
-   Alte. Dieser Server sagt ausdruecklich "no-store", damit jede Anfrage
+   und überlässt dem Browser den Rest. Der rechnet sich daraus selbst
+   eine Haltbarkeit aus und liefert geänderte Dateien minutenlang aus dem
+   Zwischenspeicher weiter — man ändert etwas, lädt neu und sieht das
+   Alte. Dieser Server sagt ausdrücklich "no-store", damit jede Anfrage
    frisch beantwortet wird.
 
    In Produktion gilt das nicht: dort steht die Regel in vercel.json.
@@ -21,8 +21,8 @@ const port = Number(process.argv[2]) || 4175;
 const wurzel = path.join(__dirname, '..', 'public');
 const projekt = path.join(__dirname, '..');
 
-/* .env einlesen, wie es "vercel dev" spaeter auch tut. Ohne JWT_SECRET und
-   APP_PASSWORD_HASH antwortet der geschuetzte Bereich mit 503 — das ist so
+/* .env einlesen, wie es "vercel dev" später auch tut. Ohne JWT_SECRET und
+   APP_PASSWORD_HASH antwortet der geschützte Bereich mit 503 — das ist so
    gewollt, es soll hier nur nicht daran scheitern, dass die Datei niemand
    liest. */
 function ladeEnv() {
@@ -41,8 +41,8 @@ ladeEnv();
 
 /* Die Serverless Functions aus api/ auch hier bedienen.
    Vorher gab es sie lokal schlicht nicht: jede Anfrage an /api/... lief in
-   die 404 fuer statische Dateien. Anmeldung, Noten und die
-   Kompetenznachweise waren damit nur nach dem Veroeffentlichen zu testen —
+   die 404 für statische Dateien. Anmeldung, Noten und die
+   Kompetenznachweise waren damit nur nach dem Veröffentlichen zu testen —
    also genau die Stellen, an denen ein Fehler am meisten kostet. */
 function apiBedienen(req, res, pfad) {
   const name = pfad.replace(/^\/api\//, '').replace(/\.js$/, '');
@@ -53,7 +53,7 @@ function apiBedienen(req, res, pfad) {
     return;
   }
 
-  // Bei jeder Anfrage neu laden, damit Aenderungen ohne Neustart greifen.
+  // Bei jeder Anfrage neu laden, damit Änderungen ohne Neustart greifen.
   delete require.cache[require.resolve(datei)];
   const handler = require(datei);
 
@@ -66,7 +66,7 @@ function apiBedienen(req, res, pfad) {
 
     /* Vercel gibt den Funktionen ein paar Bequemlichkeiten mit, die das
        nackte http-Modul nicht hat. Genau diese drei benutzen die Funktionen
-       hier — mehr nachzubauen waere geraten statt gebraucht. */
+       hier — mehr nachzubauen wäre geraten statt gebraucht. */
     res.status = code => { res.statusCode = code; return res; };
     res.json = wert => {
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -105,14 +105,14 @@ const typen = {
 
 /* Die Sicherheitskopfzeilen aus vercel.json auch lokal mitschicken.
 
-   Ohne das faellt eine zu enge Content-Security-Policy erst nach dem
-   Veroeffentlichen auf — dann, wenn plotzlich die Technologie-Logos fehlen
-   oder der PDF-Export nichts mehr tut. Hier gilt dieselbe Regel wie spaeter
+   Ohne das fällt eine zu enge Content-Security-Policy erst nach dem
+   Veröffentlichen auf — dann, wenn plotzlich die Technologie-Logos fehlen
+   oder der PDF-Export nichts mehr tut. Hier gilt dieselbe Regel wie später
    in Produktion, und ein Fehler zeigt sich beim Entwickeln.
 
    Bewusst schlicht gehalten: nur die Umschreibungen, die in vercel.json
-   tatsaechlich vorkommen (/(.*) und /(.*)\.(a|b|c)). Kommt eine kompliziertere
-   dazu, greift sie lokal nicht — die Datei bleibt fuer Vercel massgeblich. */
+   tatsächlich vorkommen (/(.*) und /(.*)\.(a|b|c)). Kommt eine kompliziertere
+   dazu, greift sie lokal nicht — die Datei bleibt für Vercel massgeblich. */
 const kopfRegeln = ladeKopfRegeln();
 
 function ladeKopfRegeln() {
@@ -120,7 +120,7 @@ function ladeKopfRegeln() {
     const roh = fs.readFileSync(path.join(__dirname, '..', 'vercel.json'), 'utf8');
     return (JSON.parse(roh).headers || []).map(regel => ({
       test: new RegExp('^' + regel.source + '$'),
-      // Die "//"-Eintraege sind Kommentare, keine Kopfzeilen.
+      // Die "//"-Einträge sind Kommentare, keine Kopfzeilen.
       headers: (regel.headers || []).filter(h => h.key)
     }));
   } catch (e) {
@@ -135,7 +135,7 @@ function kopfzeilenFuer(pfad) {
     if (!regel.test.test(pfad)) continue;
     for (const h of regel.headers) raus[h.key] = h.value;
   }
-  // Lokal laeuft nichts ueber HTTPS — die beiden Zeilen wuerden das Testen
+  // Lokal läuft nichts über HTTPS — die beiden Zeilen würden das Testen
   // nur behindern.
   delete raus['Strict-Transport-Security'];
   if (raus['Content-Security-Policy']) {
@@ -183,10 +183,10 @@ http.createServer((req, res) => {
 
     /* Teilanfragen (Range). Ohne sie schickt der Server immer die ganze
        Datei mit Status 200, und der Browser kann in einem Video nicht
-       springen: Der Abspieler haelt die Aufnahme dann fuer nicht spulbar
-       und bleibt bei Sekunde null stehen. Statische Hoster koennen das von
+       springen: Der Abspieler hält die Aufnahme dann für nicht spulbar
+       und bleibt bei Sekunde null stehen. Statische Hoster können das von
        sich aus, der Entwicklungsserver hier musste es lernen, damit sich
-       eine Aufnahme lokal genauso bedienen laesst wie spaeter online. */
+       eine Aufnahme lokal genauso bedienen lässt wie später online. */
     const bereich = req.headers.range;
     if (!fehler && info.isFile() && bereich) {
       const treffer = /^bytes=(\d*)-(\d*)$/.exec(bereich.trim());
@@ -212,8 +212,8 @@ http.createServer((req, res) => {
 
     fs.readFile(datei, (leseFehler, inhalt) => {
       /* Cache-Control kommt hier absichtlich nach den Regeln aus vercel.json
-         und ueberschreibt sie: lokal soll nie etwas aus dem Zwischenspeicher
-         kommen, sonst sieht man Aenderungen nicht. */
+         und überschreibt sie: lokal soll nie etwas aus dem Zwischenspeicher
+         kommen, sonst sieht man Änderungen nicht. */
       const kopf = Object.assign(kopfzeilenFuer(pfad), { 'Cache-Control': 'no-store, must-revalidate' });
       if (leseFehler) {
         kopf['Content-Type'] = typen['.html'];

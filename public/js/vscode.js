@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   vscode.js — die Oberflaechenteile, die VS Code ausmachen
+   vscode.js — die Oberflächenteile, die VS Code ausmachen
 
-   Laeuft nach app.js und baut darauf auf: openTab(), LANG und updateAuth()
+   Läuft nach app.js und baut darauf auf: openTab(), LANG und updateAuth()
    stammen von dort. Hier kommen dazu:
 
      1. Farbdesigns (echte VS-Code-Themes)
@@ -18,7 +18,7 @@
   'use strict';
 
   /* $() und esc() kommen aus app.js — sie dort und hier getrennt zu
-     definieren waere derselbe Code an zwei Stellen. Diese Datei baut
+     definieren wäre derselbe Code an zwei Stellen. Diese Datei baut
      ohnehin auf app.js auf (openTab, LANG, updateAuth) und wird nach ihr
      geladen. */
   const ide = $('ide');
@@ -36,8 +36,8 @@
     { id: 'light-plus' }
   ];
 
-  // Name kommt aus dem Woerterbuch, damit "(Standard)"/"(hell)" beim
-  // Sprachwechsel mit uebersetzt werden.
+  // Name kommt aus dem Wörterbuch, damit "(Standard)"/"(hell)" beim
+  // Sprachwechsel mit übersetzt werden.
   function themeName(id) {
     return I18N.t('theme.name.' + id);
   }
@@ -54,7 +54,7 @@
     try {
       localStorage.setItem('lr_theme', theme.id);
     } catch (e) {
-      // Privater Modus: das Design gilt dann nur fuer diesen Besuch.
+      // Privater Modus: das Design gilt dann nur für diesen Besuch.
     }
 
     const label = $('stTheme');
@@ -69,7 +69,7 @@
     return true;
   }
 
-  /** Wechselt zum naechsten Design in der Liste. */
+  /** Wechselt zum nächsten Design in der Liste. */
   function cycleTheme() {
     const i = THEMES.findIndex((t) => t.id === currentTheme());
     const next = THEMES[(i + 1) % THEMES.length];
@@ -78,7 +78,7 @@
   }
 
   setTheme(currentTheme()); // Beschriftung beim Start angleichen
-  // Beim Sprachwechsel die Design-Beschriftung neu setzen, sie haengt nicht
+  // Beim Sprachwechsel die Design-Beschriftung neu setzen, sie hängt nicht
   // an data-i18n, weil sie den Klammerzusatz abschneidet.
   document.addEventListener('lr:langchange', () => setTheme(currentTheme()));
 
@@ -109,8 +109,8 @@
 
   /* ═══════════════════════════════════════════════════════════════════
      3. BEFEHLE
-     Ein Ort fuer alles, was von mehreren Stellen aus ausgeloest wird:
-     Menue, Activity Bar, Statusleiste, Palette und Terminal greifen
+     Ein Ort für alles, was von mehreren Stellen aus ausgelöst wird:
+     Menü, Activity Bar, Statusleiste, Palette und Terminal greifen
      alle hierauf zu.
      ═══════════════════════════════════════════════════════════════════ */
 
@@ -120,7 +120,7 @@
     terminal: () => togglePanel(),
     theme: () => openPalette('>design '),
     explorer: toggleSidebar,
-    // Erst die Bilder der noch nie geoeffneten Bereiche holen — im Ausdruck
+    // Erst die Bilder der noch nie geöffneten Bereiche holen — im Ausdruck
     // stehen alle Bereiche untereinander —, dann den Dialog aufmachen.
     print: async () => {
       if (typeof alleBilderFreigeben === 'function') await alleBilderFreigeben();
@@ -139,7 +139,7 @@
     }
   };
 
-  // Alles mit data-cmd verdrahten — Menue, Activity Bar, Statusleiste.
+  // Alles mit data-cmd verdrahten — Menü, Activity Bar, Statusleiste.
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-cmd]');
     if (!btn) return;
@@ -172,9 +172,9 @@
 
   /* Leseanteil statt erfundener Zeile/Spalte.
      Im echten VS Code steht dort die Cursorposition. Die gibt es hier nicht
-     — eine erfundene Zahl waere nur Dekoration. Der Leseanteil ist dagegen
+     — eine erfundene Zahl wäre nur Dekoration. Der Leseanteil ist dagegen
      eine echte Angabe und beantwortet die Frage, die sich beim Lesen
-     tatsaechlich stellt: Wie viel kommt noch? */
+     tatsächlich stellt: Wie viel kommt noch? */
   function updateStatusProgress() {
     if (!stLines || !editorScroll) return;
     const max = editorScroll.scrollHeight - editorScroll.clientHeight;
@@ -182,13 +182,13 @@
     stLines.textContent = I18N.t('status.readPrefix') + pct + I18N.t('status.readSuffix');
   }
 
-  /* Kein eigener Scroll-Listener: app.js buendelt alle Scroll-Aufgaben in
-     einem einzigen, der hoechstens einmal pro Bild laeuft. */
+  /* Kein eigener Scroll-Listener: app.js bündelt alle Scroll-Aufgaben in
+     einem einzigen, der höchstens einmal pro Bild läuft. */
   if (typeof onEditorScroll === 'function') onEditorScroll(updateStatusProgress);
 
   /* Anmeldestatus: app.js meldet ihn an die Titelleiste. Hier wird die
      Funktion umschlossen, damit die Statusleiste unten mitzieht — ohne
-     app.js dafuer anfassen zu muessen. */
+     app.js dafür anfassen zu müssen. */
   if (typeof window.updateAuth === 'function') {
     const original = window.updateAuth;
     window.updateAuth = function (ok) {
@@ -197,7 +197,7 @@
     };
   }
 
-  /* Dasselbe fuer openTab: nach jedem Dateiwechsel Sprache und Leseanteil
+  /* Dasselbe für openTab: nach jedem Dateiwechsel Sprache und Leseanteil
      angleichen. */
   if (typeof window.openTab === 'function') {
     const original = window.openTab;
@@ -215,7 +215,7 @@
   /* ═══════════════════════════════════════════════════════════════════
      5. KOMMANDOPALETTE (Strg+P)
 
-     Zwei Modi wie im Original: ohne Praefix wird nach Dateien gesucht,
+     Zwei Modi wie im Original: ohne Präfix wird nach Dateien gesucht,
      mit ">" nach Befehlen.
      ═══════════════════════════════════════════════════════════════════ */
 
@@ -234,18 +234,18 @@
   /** Liest den Dateinamen aus einem Tab.
    *
    *  textContent allein reicht nicht: Im Tab stecken auch das Dateisymbol
-   *  (bei JSON-Dateien die Zeichen "{ }"), das Schloss bei geschuetzten
+   *  (bei JSON-Dateien die Zeichen "{ }"), das Schloss bei geschützten
    *  Dateien, der Schliessen-Knopf und der Zeilenumbruch des Quelltextes.
    *  Ungefiltert stand in der Palette dann "{ }      luis.json  ×". */
   function fileLabel(tab) {
     return tab.textContent
       .replace(/[×✕🔒]/g, '')      // Schliessen-Kreuz und Schloss
       .replace(/\{\s*\}/g, '')      // das JSON-Symbol "{ }"
-      .replace(/\s+/g, ' ')         // Zeilenumbrueche und Einrueckung
+      .replace(/\s+/g, ' ')         // Zeilenumbrüche und Einrückung
       .trim();
   }
 
-  /** Dateien aus der Tableiste lesen statt sie hier nochmal aufzuzaehlen —
+  /** Dateien aus der Tableiste lesen statt sie hier nochmal aufzuzählen —
    *  eine neue Datei im HTML taucht damit automatisch in der Palette auf. */
   function fileEntries() {
     return Array.from(document.querySelectorAll('.tab')).map((tab) => ({
@@ -287,8 +287,8 @@
   /** Bewertet einen Eintrag gegen die Eingabe. Kleiner ist besser, -1
    *  bedeutet "passt nicht".
    *
-   *  Zwei Stufen: Erst der zusammenhaengende Treffer (wer "skill" tippt,
-   *  will skills.py zuoberst). Findet sich keiner, wird geprueft, ob die
+   *  Zwei Stufen: Erst der zusammenhängende Treffer (wer "skill" tippt,
+   *  will skills.py zuoberst). Findet sich keiner, wird geprüft, ob die
    *  Buchstaben wenigstens der Reihe nach vorkommen — so findet "prj" auch
    *  projekte.html, wie man es von VS Code kennt. */
   function scoreEntry(entry, query) {
@@ -304,7 +304,7 @@
       if (pos === -1) return -1;
       pos++;
     }
-    // Verstreute Treffer landen hinter allen zusammenhaengenden.
+    // Verstreute Treffer landen hinter allen zusammenhängenden.
     return 1000 + pos;
   }
 
@@ -322,7 +322,7 @@
         .sort((a, b) => a.s - b.s)
         .map((x) => x.e);
     } else if (!isCmd) {
-      // Ohne Eingabe zeigt VS Code die zuletzt geoeffneten Dateien zuerst.
+      // Ohne Eingabe zeigt VS Code die zuletzt geöffneten Dateien zuerst.
       entries.sort(
         (a, b) =>
           (recentFiles.indexOf(a.id) + 1 || 99) - (recentFiles.indexOf(b.id) + 1 || 99)
@@ -362,10 +362,10 @@
     qiInput.setSelectionRange(qiInput.value.length, qiInput.value.length);
   }
 
-  /** Beim Abbrechen (Escape, Klick daneben) gehoert der Fokus dorthin
-   *  zurueck, wo er herkam. Wenn die Palette dagegen etwas ausfuehrt, das
-   *  den Fokus selbst weitersetzt — eine Datei oeffnen, das Terminal
-   *  aufmachen —, waere das Zurueckgeben ein Rueckschritt: der Fokus landete
+  /** Beim Abbrechen (Escape, Klick daneben) gehört der Fokus dorthin
+   *  zurück, wo er herkam. Wenn die Palette dagegen etwas ausführt, das
+   *  den Fokus selbst weitersetzt — eine Datei öffnen, das Terminal
+   *  aufmachen —, wäre das Zurückgeben ein Rückschritt: der Fokus landete
    *  wieder im Suchfeld der Titelleiste und die Tastatur scrollte nichts. */
   function closePalette(keepFocus) {
     if (qiBackdrop.hidden) return;
@@ -516,7 +516,7 @@
     exit() { togglePanel(false); }
   };
 
-  // Ein paar gebraeuchliche Zweitnamen, damit niemand raten muss.
+  // Ein paar gebräuchliche Zweitnamen, damit niemand raten muss.
   COMMANDS.dir = COMMANDS.ls;
   COMMANDS.cat = COMMANDS.open;
   COMMANDS.theme = COMMANDS.design;
@@ -550,7 +550,7 @@
         runCommand(value);
         return;
       }
-      // Pfeiltasten blaettern durch die bisherigen Eingaben — wie in einer
+      // Pfeiltasten blättern durch die bisherigen Eingaben — wie in einer
       // echten Shell.
       if (e.key === 'ArrowUp' && history.length) {
         e.preventDefault();
@@ -583,8 +583,8 @@
     if (!mod) return;
 
     // Strg+P — Datei suchen. Der Browser druckt sonst; das ist hier
-    // gewollt uebernommen, weil die Palette der haeufigere Wunsch ist.
-    // Drucken bleibt ueber die Palette erreichbar ("Datei: Seite drucken").
+    // gewollt übernommen, weil die Palette der häufigere Wunsch ist.
+    // Drucken bleibt über die Palette erreichbar ("Datei: Seite drucken").
     if (e.key.toLowerCase() === 'p' && !e.shiftKey) {
       e.preventDefault();
       qiBackdrop.hidden ? openPalette('') : closePalette();
@@ -614,9 +614,9 @@
 
   /* Escape als Notausgang.
      Vorher lag das nur auf dem Eingabefeld der Palette — wer den Fokus
-     verloren hatte, kam nicht mehr heraus. Jetzt hoert das Dokument mit,
+     verloren hatte, kam nicht mehr heraus. Jetzt hört das Dokument mit,
      und zwar in der Erfassungsphase (capture), damit es auch dann greift,
-     wenn ein anderer Handler das Ereignis vorher abfaengt. */
+     wenn ein anderer Handler das Ereignis vorher abfängt. */
   document.addEventListener(
     'keydown',
     (e) => {

@@ -1,15 +1,15 @@
 // scripts/unterlagen-verschluesseln.js
 //
-// Verschluesselt die Kompetenznachweise aus unterlagen/ nach
-// unterlagen-verschluesselt/. Nur die verschluesselte Fassung wird
-// eingecheckt: das Repository ist oeffentlich, die Noten sollen dort
-// niemand lesen koennen, die Dateien muessen aber trotzdem mit jedem
+// Verschlüsselt die Kompetenznachweise aus unterlagen/ nach
+// unterlagen-verschluesselt/. Nur die verschlüsselte Fassung wird
+// eingecheckt: das Repository ist öffentlich, die Noten sollen dort
+// niemand lesen können, die Dateien müssen aber trotzdem mit jedem
 // Bau aus GitHub auf den Server kommen.
 //
 //   node scripts/unterlagen-verschluesseln.js
 //
-// Der Schluessel steht in UNTERLAGEN_KEY (64 Hexzeichen). Fehlt er, wird
-// einer vorgeschlagen — die Zeile gehoert dann nach .env und mit
+// Der Schlüssel steht in UNTERLAGEN_KEY (64 Hexzeichen). Fehlt er, wird
+// einer vorgeschlagen — die Zeile gehört dann nach .env und mit
 // "vercel env add UNTERLAGEN_KEY" in die Produktionsumgebung.
 
 const fs = require('fs');
@@ -20,7 +20,7 @@ const projekt = path.join(__dirname, '..');
 const quelle = path.join(projekt, 'unterlagen');
 const ziel = path.join(projekt, 'unterlagen-verschluesselt');
 
-// .env einlesen, damit der Schluessel nicht jedes Mal von Hand gesetzt wird
+// .env einlesen, damit der Schlüssel nicht jedes Mal von Hand gesetzt wird
 try {
   for (const zeile of fs.readFileSync(path.join(projekt, '.env'), 'utf8').split('\n')) {
     const t = zeile.trim();
@@ -54,13 +54,13 @@ if (!dateien.length) {
 
 for (const name of dateien) {
   const klar = fs.readFileSync(path.join(quelle, name));
-  /* AES-256-GCM: verschluesselt und erkennt nachtraegliche Veraenderungen.
-     Der Zufallswert (iv) muss je Datei verschieden sein, sonst laesst sich
-     aus zwei Dateien der Schluesselstrom herausrechnen. */
+  /* AES-256-GCM: verschlüsselt und erkennt nachträgliche Veränderungen.
+     Der Zufallswert (iv) muss je Datei verschieden sein, sonst lässt sich
+     aus zwei Dateien der Schlüsselstrom herausrechnen. */
   const iv = crypto.randomBytes(12);
   const c = crypto.createCipheriv('aes-256-gcm', schluessel, iv);
   const geheim = Buffer.concat([c.update(klar), c.final()]);
-  // Aufbau: iv (12) + Pruefsumme (16) + Inhalt
+  // Aufbau: iv (12) + Prüfsumme (16) + Inhalt
   fs.writeFileSync(path.join(ziel, name + '.bin'), Buffer.concat([iv, c.getAuthTag(), geheim]));
   console.log('verschluesselt:', name, '→', name + '.bin', '(' + geheim.length + ' Bytes)');
 }

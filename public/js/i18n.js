@@ -1,11 +1,11 @@
 /* ═══════════════════════════════════════════════════════════════════════
    i18n.js — Sprachumschaltung Deutsch / Englisch
 
-   Woerterbuch-Ansatz: jedes uebersetzbare Element traegt data-i18n="key"
-   (fuer innerHTML) oder data-i18n-<attribut>="key" (fuer aria-label, title,
+   Wörterbuch-Ansatz: jedes übersetzbare Element trägt data-i18n="key"
+   (für innerHTML) oder data-i18n-<attribut>="key" (für aria-label, title,
    placeholder, alt, content). apply() liest bei jedem Sprachwechsel alle
-   passenden Elemente neu ein — auch spaeter per JS erzeugte, z.B. die
-   Gliederung oder die "Ausfuehrlich"-Schalter bei den Projekten.
+   passenden Elemente neu ein — auch später per JS erzeugte, z.B. die
+   Gliederung oder die "Ausführlich"-Schalter bei den Projekten.
 
    Muss vor app.js geladen werden: app.js und vscode.js rufen I18N.t() an
    mehreren Stellen auf (Splash, Login, Terminal, Kommandopalette, ...).

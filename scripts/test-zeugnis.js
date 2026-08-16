@@ -1,5 +1,5 @@
 // scripts/test-zeugnis.js
-// Prueft /api/zeugnis ohne laufenden Server: Wer kein gueltiges Token hat,
+// Prüft /api/zeugnis ohne laufenden Server: Wer kein gültiges Token hat,
 // darf keine Datei bekommen, und aus der Modulnummer darf sich kein Pfad
 // bauen lassen. Aufruf:  node scripts/test-zeugnis.js
 //
@@ -8,8 +8,8 @@
 
 process.env.JWT_SECRET = 'nur-fuer-diesen-test-mindestens-32-zeichen-lang';
 
-/* Der Schluessel der verschluesselten Nachweise kommt aus .env — ohne ihn
-   koennte der Test nicht pruefen, ob wirklich eine PDF herauskommt. */
+/* Der Schlüssel der verschlüsselten Nachweise kommt aus .env — ohne ihn
+   könnte der Test nicht prüfen, ob wirklich eine PDF herauskommt. */
 try {
   const fs0 = require('fs'), p0 = require('path');
   for (const z of fs0.readFileSync(p0.join(__dirname, '..', '.env'), 'utf8').split('\n')) {
@@ -63,15 +63,15 @@ for (const boese of ['../lib/auth.js', '../../.env', '187/../../lib/auth.js', ''
   assert.ok(!Buffer.isBuffer(a.koerper), 'es darf keine Datei herauskommen fuer: ' + JSON.stringify(boese));
 }
 
-/* Aus einem fremden Arbeitsverzeichnis heraus pruefen. Genau daran ist es
+/* Aus einem fremden Arbeitsverzeichnis heraus prüfen. Genau daran ist es
    einmal gescheitert: der Pfad zur PDF wurde aus process.cwd() gebaut, und
-   der Entwicklungsserver startet eine Ebene hoeher — mit gueltigem Token kam
-   trotzdem "nicht gefunden". Von hier aus faellt das auf. */
+   der Entwicklungsserver startet eine Ebene höher — mit gültigem Token kam
+   trotzdem "nicht gefunden". Von hier aus fällt das auf. */
 process.chdir(os.tmpdir());
 
-// ── Mit gueltigem Token kommt die richtige Datei ──
+// ── Mit gültigem Token kommt die richtige Datei ──
 /* Neben den Modulnummern auch der Lebenslauf: er kommt seit dem Wegfall
-   von jsPDF ueber denselben Endpunkt. Die Arbeitsbestaetigung steht hier
+   von jsPDF über denselben Endpunkt. Die Arbeitsbestätigung steht hier
    nicht, solange die Datei noch fehlt. */
 for (const modul of ['187', '106', '294', '210', '335', 'cv']) {
   const a = ruf(mitToken(gueltig), { modul });
@@ -82,7 +82,7 @@ for (const modul of ['187', '106', '294', '210', '335', 'cv']) {
   assert.ok(/no-store/.test(a.kopf['cache-control']), 'geschuetzte Datei darf nicht zwischengespeichert werden');
 }
 
-// ── Mit falschem Schluessel darf nichts herauskommen ──
+// ── Mit falschem Schlüssel darf nichts herauskommen ──
 const echterSchluessel = process.env.UNTERLAGEN_KEY;
 process.env.UNTERLAGEN_KEY = 'a'.repeat(64);
 const mitFalschem = ruf(mitToken(gueltig), { modul: '187' });

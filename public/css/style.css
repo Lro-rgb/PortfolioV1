@@ -5,9 +5,9 @@
 
 html{scroll-behavior:smooth}
 
-/* font-weight:300 war hier der Hauptgrund fuer die schlechte Lesbarkeit:
+/* font-weight:300 war hier der Hauptgrund für die schlechte Lesbarkeit:
    Inter Light auf dunklem Grund verliert bei kleinen Graden sichtbar an
-   Kontrast. Regular ist die richtige Wahl fuer Fliesstext. */
+   Kontrast. Regular ist die richtige Wahl für Fliesstext. */
 body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;font-weight:400;overflow:hidden;-webkit-font-smoothing:antialiased}
 
 /* ═══ FOKUS & TASTATURBEDIENUNG ═══
@@ -66,12 +66,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
 .titlebar{background:var(--tb);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1rem;gap:1rem;user-select:none;flex-shrink:0;min-width:0}
 /* Die drei runden Ampelpunkte von macOS sind entfallen: VS Code hat sie
    nicht. Auf Windows und Linux zeichnet es seine eigene Titelleiste mit
-   den Fensterknoepfen rechts, auf macOS liefert das Betriebssystem sie.
-   Ein nachgebauter macOS-Rahmen um eine VS-Code-Oberflaeche war also
+   den Fensterknöpfen rechts, auf macOS liefert das Betriebssystem sie.
+   Ein nachgebauter macOS-Rahmen um eine VS-Code-Oberfläche war also
    gerade der Teil, der nicht stimmte. Stattdessen steht dort jetzt das
-   Menue und das Suchfeld — beides in vscode.css. Auch .tb-title ist damit
-   entfallen: Die Mitte der Titelleiste gehoert dem Suchfeld, genau wie im
-   Original. */
+   Menü und das Suchfeld — beides in vscode.css. */
 
 /* Login-Status — sass früher in der blauen Leiste unten */
 .tb-auth{font-family:var(--mono);font-size:.64rem;color:var(--dim);white-space:nowrap;
@@ -140,7 +138,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
 .ic-csv{color:#3FB950}
 
 /* ═══ SCHLOSS-SYMBOL ═══
-   Vorher stand an jeder geschuetzten Stelle das Emoji 🔒. Jedes System malt
+   Vorher stand an jeder geschützten Stelle das Emoji 🔒. Jedes System malt
    es anders und in eigenen Farben — im nachgebauten Editor sah es aus wie
    hineingerutscht. Die Form steht jetzt einmal hier als Maske, die Farbe
    kommt von der Schrift und geht damit jedes Farbdesign mit. */
@@ -189,7 +187,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
 .cv-name{font-family:var(--sans);font-size:1.3rem;font-weight:600;color:var(--text);
   margin:.2rem 0 .9rem}
 .cv-cols{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
-@media(max-width:820px){.cv-cols{grid-template-columns:1fr;gap:1rem}}
 
 /* BREADCRUMB */
 .breadcrumb{background:var(--tb);border-bottom:1px solid var(--border);padding:.36rem 1.5rem;font-family:var(--mono);font-size:.7rem;color:var(--dim);display:flex;align-items:center;gap:.4rem;flex-shrink:0;user-select:none}
@@ -201,12 +198,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
 /* ═══ GLIEDERUNG & LESEFORTSCHRITT ═══
    Lange Abschnitte werden sonst zur Scroll-Strecke. Die Gliederung wird
    aus den Zwischentiteln erzeugt und bleibt beim Scrollen oben stehen. */
-/* z-index bewusst hoch: ein Bild, ueber dem die Maus steht, bekommt durch
+/* z-index bewusst hoch: ein Bild, über dem die Maus steht, bekommt durch
    die Hervorhebung eine eigene Zeichenebene und schob sich sonst vor die
    Leiste, sobald es beim Scrollen darunter durchlief. */
-/* Eine Zeile, die bei Bedarf seitwaerts laeuft. Mit Umbruch wurde die Leiste
+/* Eine Zeile, die bei Bedarf seitwärts läuft. Mit Umbruch wurde die Leiste
    auf schmaleren Bildschirmen drei Zeilen hoch und nahm dem Text oben
-   dauerhaft ueber hundert Pixel weg. */
+   dauerhaft über hundert Pixel weg. */
 .outline{position:sticky;top:0;z-index:40;background:var(--bg);
   border-bottom:1px solid var(--border2);padding:.55rem 2.5rem;
   display:flex;flex-wrap:nowrap;align-items:center;gap:.3rem .5rem;
@@ -252,8 +249,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
   margin-top:.6rem}
 
 /* CODE VIEW
-   Die Spalte mit den geschaetzten Zeilennummern ist entfallen — echte,
-   fortlaufende Nummern stehen jetzt in den Codebloecken selbst, wo sie
+   Die Spalte mit den geschätzten Zeilennummern ist entfallen — echte,
+   fortlaufende Nummern stehen jetzt in den Codeblöcken selbst, wo sie
    stimmen. Damit brauchte es hier auch kein Raster mehr. */
 .code-view{min-height:100%}
 .code-content{padding:2rem 2.5rem;min-width:0;overflow-wrap:break-word}
@@ -290,8 +287,8 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
   text-decoration:none;transition:border-color .2s,background .2s,transform .15s}
 .cta:hover{border-color:var(--blue);background:#1C2333;transform:translateY(-2px)}
 /* Das GitHub-Zeichen kommt aus derselben Schrift wie die Technologie-Logos.
-   Ohne "colored" nimmt es die Farbe der Schaltflaeche an — die Originalfarbe
-   waere fast schwarz und auf dunklem Grund nicht zu sehen. */
+   Ohne "colored" nimmt es die Farbe der Schaltfläche an — die Originalfarbe
+   wäre fast schwarz und auf dunklem Grund nicht zu sehen. */
 .cta-ic{font-size:1.05em;line-height:1}
 .cta-primary{background:var(--blue);border-color:var(--blue);color:#0D1117;font-weight:700}
 .cta-primary:hover{background:#79C0FF;border-color:#79C0FF;color:#0D1117}
@@ -300,6 +297,14 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
 .fact-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);
   margin:1.8rem 0 .5rem;max-width:760px;border:1px solid var(--border)}
 .fact{background:var(--bg);padding:.9rem 1rem}
+/* Personalien im Lebenslauf: Dort ist die Zahl der Angaben nicht fest, leere
+   Felder werden weggelassen. Im Raster bleibt in der letzten Zeile dann eine
+   leere Zelle stehen, durch die der Hintergrund des Rasters als grauer Block
+   scheint — dieselbe Falle wie früher bei .proj-grid. Im Flexfluss gibt es
+   keine leeren Zellen: Die Felder der letzten Zeile dehnen sich auf die
+   volle Breite. Die Faktenleiste der Startseite bleibt beim Raster. */
+.fact-row.fluss{display:flex;flex-wrap:wrap}
+.fact-row.fluss .fact{flex:1 1 12rem}
 .fact dt{font-family:var(--mono);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);margin-bottom:.3rem}
 .fact dd{font-family:var(--mono);font-size:.78rem;color:var(--text)}
 
@@ -309,7 +314,7 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
 .cb::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(88,166,255,.03),transparent);pointer-events:none}
 .cb-lang{position:absolute;top:.45rem;right:.75rem;font-size:.62rem;color:var(--dim);letter-spacing:.07em}
 .cl{display:flex;gap:.5rem;align-items:baseline}
-.i1{padding-left:1.4rem}.i2{padding-left:2.8rem}
+.i1{padding-left:1.4rem}
 
 /* SECTION HEADERS */
 .ed-h1{font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--text);margin:1.5rem 0 1.2rem;padding-bottom:.55rem;border-bottom:1px solid var(--border)}
@@ -322,10 +327,8 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
 .ed-table td{padding:.45rem .75rem;border-bottom:1px solid var(--border2);color:var(--text);transition:background .15s}
 .ed-table tr:hover td{background:rgba(255,255,255,.02)}
 .badge{font-size:.63rem;letter-spacing:.05em;padding:.15rem .5rem;border-radius:2px;display:inline-block;font-family:var(--mono)}
-.bg{background:rgba(63,185,80,.15);color:var(--green)}
+/* Nur die blaue Ausführung ist im Einsatz (Sprachniveaus im Lebenslauf). */
 .bb{background:rgba(88,166,255,.15);color:var(--blue)}
-.bo{background:rgba(227,179,65,.15);color:var(--orange)}
-.bt{background:rgba(57,208,184,.15);color:var(--teal)}
 
 /* LEGENDE ZUR SKILL-TABELLE */
 .legend{list-style:none;margin:0 0 1.6rem;padding:0;display:flex;flex-wrap:wrap;gap:.5rem 1.4rem}
@@ -348,9 +351,9 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
    Kartenzahl blieb dort sonst eine leere Rasterzelle als grauer Block
    stehen, weil der Container-Hintergrund durchscheint. */
 /* align-items:stretch (statt start): zwei Karten nebeneinander bekommen
-   dieselbe Hoehe wie die groessere der beiden. proj-card ist dafuer eine
-   Flex-Spalte — proj-media waechst in die zusaetzliche Hoehe hinein (das
-   Bild wird groesser statt dass unten Luft bleibt), und bei Karten ohne
+   dieselbe Höhe wie die grössere der beiden. proj-card ist dafür eine
+   Flex-Spalte — proj-media wächst in die zusätzliche Höhe hinein (das
+   Bild wird grösser statt dass unten Luft bleibt), und bei Karten ohne
    Bild schiebt margin-top:auto stattdessen proj-links ganz nach unten. */
 /* Mehr Luft zwischen und in den Karten: bei zehn Projekten mit Abstract,
    Klapptext und Bild lief sonst alles ineinander. */
@@ -379,10 +382,10 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
 .proj-body{font-family:var(--sans);font-size:.83rem;color:var(--muted);line-height:1.75;margin-bottom:1.3rem}
 
 /* Rolle, Team, Gelerntes — Beschriftung oben, Inhalt darunter. Bei
-   laengeren Texten (z.B. "Gelernt" mit einer ganzen Liste) lief der Inhalt
+   längeren Texten (z.B. "Gelernt" mit einer ganzen Liste) lief der Inhalt
    in der alten Zweispalten-Anordnung neben der Beschriftung her statt
    darunter; als Block untereinander liest sich beides sauberer. Eine
-   Haarlinie darueber trennt die Details vom Fliesstext. */
+   Haarlinie darüber trennt die Details vom Fliesstext. */
 .proj-meta{margin:0 0 1.3rem;padding-top:1.1rem;border-top:1px solid var(--border);
   display:flex;flex-direction:column;gap:.8rem}
 .proj-meta>div{display:flex;flex-direction:column;gap:.15rem}
@@ -412,9 +415,9 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
    ausgefranst. */
 .proj-video.hoch{width:auto;height:340px;max-width:100%}
 /* Zuschnitt-Rahmen: blendet den schwarzen Rand einer Emulator-Aufnahme aus,
-   indem er das Video ueberlaufen laesst. Die Masse setzt app.js aus dem
-   MEDIA-Eintrag, hier steht nur, was unabhaengig vom einzelnen Video gilt.
-   Der Abspielknopf liegt darueber und verschwindet, sobald es laeuft. */
+   indem er das Video überlaufen lässt. Die Masse setzt app.js aus dem
+   MEDIA-Eintrag, hier steht nur, was unabhängig vom einzelnen Video gilt.
+   Der Abspielknopf liegt darüber und verschwindet, sobald es läuft. */
 .video-player{display:inline-block;max-width:100%}
 .video-crop{position:relative;overflow:hidden;background:#000;
   border:1px solid var(--border);border-radius:3px 3px 0 0;max-width:100%}
@@ -429,11 +432,11 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
 .video-play:focus-visible{opacity:1;background:rgba(0,0,0,.35)}
 @media (prefers-reduced-motion:reduce){.video-play{transition:none}}
 
-/* Eigene Steuerleiste, buendig unter dem Ausschnitt. Sie nimmt dessen
-   Breite an, statt darueber hinauszustehen — ein Kasten, der breiter ist
-   als das Bild darueber, sieht nach Versehen aus. Damit die vier Teile in
+/* Eigene Steuerleiste, bündig unter dem Ausschnitt. Sie nimmt dessen
+   Breite an, statt darüber hinauszustehen — ein Kasten, der breiter ist
+   als das Bild darüber, sieht nach Versehen aus. Damit die vier Teile in
    die schmale Zeile passen, ist alles knapp gehalten: die Spurleiste darf
-   schrumpfen, Knoepfe und Zeit bleiben. */
+   schrumpfen, Knöpfe und Zeit bleiben. */
 .video-bar{display:flex;align-items:center;gap:.3rem;
   padding:.3rem .35rem;background:var(--sb);
   border:1px solid var(--border);border-top:0;border-radius:0 0 3px 3px}
@@ -451,16 +454,16 @@ code{font-family:var(--mono);font-size:.86em;background:var(--border2);color:var
 .vb-seek:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 
 /* Grossansicht: der Zuschnitt wird in app.js aufgehoben, hier bekommt das
-   Video den ganzen Platz ueber der Leiste. Gilt fuer echtes Vollbild und
-   fuer die Rueckfallebene, die sich nur ueber die Seite legt. */
+   Video den ganzen Platz über der Leiste. Gilt für echtes Vollbild und
+   für die Rückfallebene, die sich nur über die Seite legt. */
 .video-player.voll{display:flex;flex-direction:column;width:100%;height:100%;
   background:#000}
-/* margin:auto zentriert den Ausschnitt im Platz, der ueber der Leiste
-   uebrig bleibt — waagrecht und senkrecht zugleich. */
+/* margin:auto zentriert den Ausschnitt im Platz, der über der Leiste
+   übrig bleibt — waagrecht und senkrecht zugleich. */
 .video-player.voll .video-crop{margin:auto;border:0;border-radius:0}
 .video-player.voll .video-bar{flex:none;border:0;border-radius:0}
-/* Ueber allem der Seite, aber unter Login-Dialog (900) und Vollansicht der
-   Screenshots (950) — die duerfen die Grossansicht ueberdecken. */
+/* Über allem der Seite, aber unter Login-Dialog (900) und Vollansicht der
+   Screenshots (950) — die dürfen die Grossansicht überdecken. */
 .video-player.fix{position:fixed;inset:0;z-index:890;max-width:none}
 /* Solange die Grossansicht liegt, soll die Seite darunter nicht mitrollen. */
 body.voll-offen{overflow:hidden}
@@ -495,7 +498,7 @@ body.voll-offen{overflow:hidden}
 .shot-grid.frei .shot{aspect-ratio:auto}
 .shot-grid.frei .shot img{height:auto;object-fit:fill}
 
-/* Karussell-Vorschau: ein Bild ist zu sehen, Pfeile und Punkte blaettern
+/* Karussell-Vorschau: ein Bild ist zu sehen, Pfeile und Punkte blättern
    durch den Rest. Dieselben Format-Varianten wie beim Raster (quer/frei),
    aber ohne dessen Grundproblem — zwei unterschiedlich geformte Bilder
    nebeneinander gab es hier gar nicht erst, weil immer nur eins zu sehen
@@ -582,12 +585,6 @@ body.voll-offen{overflow:hidden}
 .sv-close{font-size:1.15rem}
 .sv-frame{flex:1;width:100%;border:0;background:#fff}
 
-@media(max-width:820px){
-  .sv-window{width:100vw;height:100vh;height:100dvh;border:0;border-radius:0}
-  .sv-bar{height:44px}
-  .sv-btn{width:36px;height:34px}
-}
-
 /* ── Vorführung in einer Projektkarte ──
    Aufgebaut wie eine Anfrage im Editor: oben Verb und Pfad, darunter die
    Eingabe. Der Hinweis darunter gehört dazu und wird nicht kleiner gesetzt
@@ -621,13 +618,6 @@ body.voll-offen{overflow:hidden}
 .demo-out .ok{color:var(--green)}
 .demo-out .err{color:var(--red)}
 .demo-note{font-size:.76rem;line-height:1.7;color:var(--muted);margin:.8rem 0 0}
-
-/* Muss hinter den Regeln oben stehen: Eine Medienabfrage erhöht die
-   Gewichtung nicht, eine spätere Regel gleicher Gewichtung gewinnt. */
-@media(max-width:820px){
-  .demo-in,.demo-btn{padding-top:.7rem;padding-bottom:.7rem}
-  .demo-btn{flex:1 1 auto}
-}
 
 /* Leere Rahmen bleiben kleiner als echte Bilder: ein Platzhalter in voller
    Kartenbreite zieht mehr Aufmerksamkeit auf sich als der Text daneben. */
@@ -669,15 +659,6 @@ body.voll-offen{overflow:hidden}
 .lb-nav:hover,.lb-close:hover{border-color:var(--blue);background:#1C2333}
 .lb-nav[hidden]{display:none}
 .lb-count{position:absolute;bottom:1.4rem;font-family:var(--mono);font-size:.7rem;color:var(--dim)}
-
-@media(max-width:820px){
-  .lb-nav{width:38px;height:52px;font-size:1.3rem}
-  .lb-prev{left:.5rem}.lb-next{right:.5rem}
-  .shot-grid{grid-template-columns:repeat(auto-fit,minmax(88px,1fr))}
-  /* Breite Aufnahmen auf dem Handy lieber untereinander als zwei
-     unleserliche Spalten nebeneinander. */
-  .shot-grid.quer,.shot-grid.frei{grid-template-columns:1fr}
-}
 
 /* TIMELINE */
 .tl{position:relative;padding-left:1.6rem;margin:.5rem 0}
@@ -749,7 +730,7 @@ body.voll-offen{overflow:hidden}
    Drittel der Breite ist ein A4-Blatt nicht zu lesen. */
 .zeugnis-vorschau{margin:1.2rem 0;border:1px solid var(--border);
   border-radius:3px;background:#161B22;overflow:hidden}
-/* Steht sie zwischen den Notenkarten, laeuft sie ueber alle Spalten und
+/* Steht sie zwischen den Notenkarten, läuft sie über alle Spalten und
    schiebt die restlichen Karten nach unten. */
 .noten-grid>.zeugnis-vorschau{grid-column:1/-1;margin:.2rem 0 .6rem}
 .zeugnis-kopf{display:flex;align-items:center;gap:.6rem;padding:.5rem .8rem;
@@ -785,9 +766,9 @@ body.voll-offen{overflow:hidden}
 .cv-dok-notiz{font-family:var(--mono);font-size:.7rem;color:var(--dim);margin:.3rem 0 0}
 
 /* ═══ FARBFELDER IM README ═══
-   Die Werte des Standarddesigns als Flaeche. Feste Farben im HTML, weil hier
-   ausdruecklich Dark+ gezeigt wird — sie duerfen nicht mitwechseln, wenn der
-   Besucher ein anderes Design waehlt. */
+   Die Werte des Standarddesigns als Fläche. Feste Farben im HTML, weil hier
+   ausdrücklich Dark+ gezeigt wird — sie dürfen nicht mitwechseln, wenn der
+   Besucher ein anderes Design wählt. */
 .farbfelder{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem .9rem;
   margin:1rem 0 .9rem;padding:0}
 .farbfelder li{display:flex;align-items:center;gap:.45rem;
@@ -817,7 +798,7 @@ body.voll-offen{overflow:hidden}
   gap:.7rem 2rem;margin:0}
 .q-e dt{font-family:var(--mono);font-size:.72rem;color:var(--text);margin-bottom:.15rem}
 /* --muted statt --dim: bei .72rem kommt --dim nur auf einen Kontrast von
-   3.5:1, das ist unter dem, was fuer Fliesstext verlangt wird. --muted
+   3.5:1, das ist unter dem, was für Fliesstext verlangt wird. --muted
    liegt bei 6.2:1 — in hellen wie dunklen Designs. */
 .q-e dd{font-family:var(--sans);font-size:.72rem;color:var(--muted);margin:0;line-height:1.55}
 .q-e a{color:var(--blue);text-decoration:none}
@@ -845,6 +826,11 @@ body.voll-offen{overflow:hidden}
    Abstände. Der Explorer verschwindet auf dem Handy bewusst nicht
    mehr ersatzlos — er ist die einzige Stelle, an der die gesperrten
    Dateien und die Ordnerstruktur sichtbar sind.
+
+   Alle Handy-Regeln stehen hier zusammen und nicht verstreut bei ihren
+   Bausteinen: Eine Medienabfrage erhöht die Gewichtung nicht, eine
+   spätere Regel gleicher Gewichtung gewinnt. Am Ende der Datei steht
+   also sicher, was sonst je nach Reihenfolge mal greift und mal nicht.
 ═══════════════════════════════════════════════════════════════ */
 
 @media(max-width:1024px){
@@ -877,9 +863,24 @@ body.voll-offen{overflow:hidden}
   .tree-folder{padding-top:.55rem;padding-bottom:.55rem}
   .tab-x{opacity:1;padding:.35rem}
 
-  .proj-grid,.noten-grid,.tech-grid,.quellen-liste{grid-template-columns:1fr}
+  .proj-grid,.noten-grid,.tech-grid,.quellen-liste,.cv-cols{grid-template-columns:1fr}
+  .cv-cols{gap:1rem}
   .fact-row{grid-template-columns:1fr 1fr}
   .cta{flex:1 1 auto;justify-content:center}
+
+  /* Bilder: kleinere Kacheln, und breite Aufnahmen lieber untereinander
+     als zwei unleserliche Spalten nebeneinander. */
+  .shot-grid{grid-template-columns:repeat(auto-fit,minmax(88px,1fr))}
+  .shot-grid.quer,.shot-grid.frei{grid-template-columns:1fr}
+  .lb-nav{width:38px;height:52px;font-size:1.3rem}
+  .lb-prev{left:.5rem}.lb-next{right:.5rem}
+
+  /* Vorführung und Seitenvollansicht: Trefferflächen für Finger */
+  .demo-in,.demo-btn{padding-top:.7rem;padding-bottom:.7rem}
+  .demo-btn{flex:1 1 auto}
+  .sv-window{width:100vw;height:100vh;height:100dvh;border:0;border-radius:0}
+  .sv-bar{height:44px}
+  .sv-btn{width:36px;height:34px}
   .code-view{grid-template-columns:32px 1fr}
   .code-content{padding:1.5rem 1.2rem}
   /* Breite Tabellen bekommen ihren eigenen Scrollbereich, damit nicht
@@ -961,17 +962,17 @@ body.voll-offen{overflow:hidden}
   .cb::before,.proj-card::before,.tech-card::after{display:none}
   .proj-grid,.tech-grid,.noten-grid,.fact-row{background:#fff!important;gap:.3cm;border:none}
   .proj-card,.tech-card,.note-card,.cb,.fact{page-break-inside:avoid}
-  /* Schaltflaechen und die eingebettete Vorschau haben auf Papier nichts
+  /* Schaltflächen und die eingebettete Vorschau haben auf Papier nichts
      verloren — der Nachweis selbst wird als eigene Datei mitgeschickt. */
   .note-akt,.zeugnis-vorschau,.proj-filter{display:none!important}
-  /* Auf Papier gehoeren alle Projekte hin, egal was am Bildschirm gefiltert war */
+  /* Auf Papier gehören alle Projekte hin, egal was am Bildschirm gefiltert war */
   .is-aus{display:revert!important}
   .chip,.badge{border:1px solid #bbb;background:#fff!important}
   .ed-table td,.ed-table th{border-color:#ccc}
 
-  /* Skills: der farbige Punkt ueberlebt den Druck nicht (Hintergruende
-     werden weggelassen). Also faellt er weg und die Einstufung, die am
-     Bildschirm nur Screenreader hoeren, wird sichtbar gedruckt. */
+  /* Skills: der farbige Punkt überlebt den Druck nicht (Hintergründe
+     werden weggelassen). Also fällt er weg und die Einstufung, die am
+     Bildschirm nur Screenreader hören, wird sichtbar gedruckt. */
   .sk-list{display:block!important}
   .sk{page-break-inside:avoid;border-bottom:1px solid #ddd}
   .sk-dot{display:none!important}

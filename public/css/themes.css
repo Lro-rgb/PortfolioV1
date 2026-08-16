@@ -1,17 +1,17 @@
 /* ═══════════════════════════════════════════════════════════════════════
    themes.css — Farbthemen
 
-   Die Werte sind nicht geschaetzt, sondern aus den echten VS-Code-Themes
-   uebernommen (workbench.colorCustomizations und tokenColors). Genau
-   deshalb wirkt die Oberflaeche vertraut: Wer VS Code benutzt, erkennt
+   Die Werte sind nicht geschätzt, sondern aus den echten VS-Code-Themes
+   übernommen (workbench.colorCustomizations und tokenColors). Genau
+   deshalb wirkt die Oberfläche vertraut: Wer VS Code benutzt, erkennt
    "Dark+" oder "Dracula" sofort wieder.
 
-   Aufbau: Jede Variable beschreibt einen Oberflaechenteil, nicht eine
+   Aufbau: Jede Variable beschreibt einen Oberflächenteil, nicht eine
    Farbe. "--act-bg" ist der Hintergrund der Activity Bar — welche Farbe
-   das ist, entscheidet allein das gewaehlte Theme. Kein Bauteil im
+   das ist, entscheidet allein das gewählte Theme. Kein Bauteil im
    restlichen CSS nennt je einen Farbwert.
 
-   Neues Theme hinzufuegen: Block kopieren, Werte ersetzen, den Namen in
+   Neues Theme hinzufügen: Block kopieren, Werte ersetzen, den Namen in
    THEMES in app.js eintragen. Sonst ist nichts zu tun.
    ═══════════════════════════════════════════════════════════════════════ */
 
@@ -20,7 +20,7 @@
 [data-theme='dark-plus'] {
   color-scheme: dark;
 
-  /* Flaechen */
+  /* Flächen */
   --bg: #1e1e1e;              /* editor.background */
   --sb: #252526;              /* sideBar.background */
   --tb: #3c3c3c;              /* titleBar.activeBackground */
@@ -44,14 +44,14 @@
   --act-fg: #ffffff66;        /* activityBar.inactiveForeground */
   --act-fg-active: #ffffff;   /* activityBar.foreground */
 
-  /* Zustaende */
+  /* Zustände */
   --list-hover: #2a2d2e;      /* list.hoverBackground */
   --list-active: #094771;     /* list.activeSelectionBackground */
   --focus: #007fd4;           /* focusBorder */
-  --accent: #007acc;          /* Akzent der Oberflaeche */
-  /* Statusleiste bewusst gedaempft: das reine #007acc von VS Code ist die
-     kraeftigste Flaeche der ganzen Seite und zieht den Blick nach unten
-     weg vom Inhalt. Gleicher Farbton, weniger Saettigung. */
+  --accent: #007acc;          /* Akzent der Oberfläche */
+  /* Statusleiste bewusst gedämpft: das reine #007acc von VS Code ist die
+     kräftigste Fläche der ganzen Seite und zieht den Blick nach unten
+     weg vom Inhalt. Gleicher Farbton, weniger Sättigung. */
   --status-bg: #2d5876;       /* statusBar.background */
   --status-fg: #e6eef5;
   --tab-active-border: #007acc;
@@ -282,7 +282,7 @@
 }
 
 /* ── Light+ (Default Light) ────────────────────────────────────────────────
-   Kein nachtraeglicher Zusatz: Wer die Seite in einem hellen Raum oder auf
+   Kein nachträglicher Zusatz: Wer die Seite in einem hellen Raum oder auf
    einem Beamer ansieht, liest hier deutlich besser. Die Activity Bar bleibt
    dunkel — genau wie im echten Light+.
    ─────────────────────────────────────────────────────────────────────── */
@@ -339,11 +339,11 @@
 /* ═══════════════════════════════════════════════════════════════════════
    Schriften und Altnamen
 
-   Die Seite hiess ihre Farben frueher --blue, --green, --red. Das sind
+   Die Seite hiess ihre Farben früher --blue, --green, --red. Das sind
    Farbnamen, keine Bedeutungen: In Dracula ist "blue" pink. Deshalb heissen
    sie jetzt nach ihrer Aufgabe (--accent, --ok, --danger). Die alten Namen
-   bleiben als Verweis bestehen, damit bestehendes CSS weiterlaeuft — sie
-   loesen sich auf demselben Element auf und nehmen darum automatisch den
+   bleiben als Verweis bestehen, damit bestehendes CSS weiterläuft — sie
+   lösen sich auf demselben Element auf und nehmen darum automatisch den
    Wert des aktiven Themes an.
    ═══════════════════════════════════════════════════════════════════════ */
 :root {
@@ -357,8 +357,8 @@
   --purple: var(--syn-kw);
   --teal: var(--syn-type);
 
-  /* Hoehen der Oberflaechenteile — an einer Stelle, damit das Raster der
-     .ide und die einzelnen Leisten nicht auseinanderlaufen koennen. */
+  /* Höhen der Oberflächenteile — an einer Stelle, damit das Raster der
+     .ide und die einzelnen Leisten nicht auseinanderlaufen können. */
   --h-title: 35px;
   --h-tabs: 35px;
   --h-status: 22px;

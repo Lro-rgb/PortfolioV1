@@ -1,25 +1,25 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   vscode.css — die Oberflaechenteile, die VS Code ausmachen
+   vscode.css — die Oberflächenteile, die VS Code ausmachen
 
-   Laedt nach style.css und ergaenzt beziehungsweise korrigiert dort, wo die
-   erste Fassung von der echten Oberflaeche abwich.
+   Lädt nach style.css und ergänzt beziehungsweise korrigiert dort, wo die
+   erste Fassung von der echten Oberfläche abwich.
 
-   Leitgedanke: Die Huelle ist eine genaue Nachbildung, der Inhalt darin ist
-   normaler, gut lesbarer Text. Umgekehrt — Huelle ungefaehr, Inhalt als
+   Leitgedanke: Die Hülle ist eine genaue Nachbildung, der Inhalt darin ist
+   normaler, gut lesbarer Text. Umgekehrt — Hülle ungefähr, Inhalt als
    Pseudo-Code — sieht zwar nach Programmieren aus, liest sich aber schlecht.
-   Wer eine Bewerbung prueft, soll den Text lesen koennen, ohne ihn zu
+   Wer eine Bewerbung prüft, soll den Text lesen können, ohne ihn zu
    entziffern.
    ═══════════════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════════════
    1. GERUEST
 
-   Echtes VS Code ordnet die Flaechen so an: Titelleiste ganz oben ueber
+   Echtes VS Code ordnet die Flächen so an: Titelleiste ganz oben über
    alles, darunter links die Activity Bar, daneben die Sidebar, rechts der
-   Editorbereich, und unten die Statusleiste ueber die volle Breite.
+   Editorbereich, und unten die Statusleiste über die volle Breite.
 
-   Wichtig und in der ersten Fassung falsch: Die Tableiste gehoert NUR ueber
-   den Editor, nicht ueber die Sidebar. Genau daran erkennt man auf einen
+   Wichtig und in der ersten Fassung falsch: Die Tableiste gehört NUR über
+   den Editor, nicht über die Sidebar. Genau daran erkennt man auf einen
    Blick, ob eine Nachbildung stimmt.
    ═══════════════════════════════════════════════════════════════════════ */
 .ide {
@@ -40,7 +40,7 @@
 /* .pane war der Kasten um Sidebar und Editor. Mit display:contents
    verschwindet er aus dem Layout, ohne aus dem HTML zu verschwinden —
    seine Kinder werden damit direkt zu Feldern des Rasters oben. So
-   konnte die Oberflaeche neu angeordnet werden, ohne 600 Zeilen Inhalt
+   konnte die Oberfläche neu angeordnet werden, ohne 600 Zeilen Inhalt
    im HTML zu verschieben. */
 .pane { display: contents; }
 
@@ -60,7 +60,7 @@
 
 /* ═══════════════════════════════════════════════════════════════════════
    2. TITELLEISTE
-   Im echten VS Code steht dort links ein Menue (Datei, Bearbeiten, …),
+   Im echten VS Code steht dort links ein Menü (Datei, Bearbeiten, …),
    mittig der Titel des Arbeitsbereichs.
    ═══════════════════════════════════════════════════════════════════════ */
 .titlebar {
@@ -97,7 +97,7 @@
 }
 
 /* Suchfeld in der Titelleiste — im echten VS Code sitzt dort die
-   Kommandopalette. Ein Klick oeffnet sie, genau wie Strg+P. */
+   Kommandopalette. Ein Klick öffnet sie, genau wie Strg+P. */
 .tb-search {
   display: flex;
   align-items: center;
@@ -137,8 +137,8 @@
 /* ═══════════════════════════════════════════════════════════════════════
    3. ACTIVITY BAR
    Die 48 Pixel breite Icon-Leiste ganz links. Das wiedererkennbarste
-   Element der ganzen Oberflaeche — und in der ersten Fassung nicht
-   vorhanden. Der aktive Eintrag traegt links einen 2px-Strich und volle
+   Element der ganzen Oberfläche — und in der ersten Fassung nicht
+   vorhanden. Der aktive Eintrag trägt links einen 2px-Strich und volle
    Deckkraft; das ist genau die Kennzeichnung, die VS Code verwendet.
    ═══════════════════════════════════════════════════════════════════════ */
 .activitybar {
@@ -183,8 +183,8 @@
   background: var(--act-fg-active);
 }
 
-/* Zaehler am Symbol (Anzahl Projekte, gesperrte Dateien) — im echten
-   VS Code sitzt dort die Zahl der Aenderungen in der Quellcodeverwaltung. */
+/* Zähler am Symbol (Anzahl Projekte, gesperrte Dateien) — im echten
+   VS Code sitzt dort die Zahl der Änderungen in der Quellcodeverwaltung. */
 .act-badge {
   position: absolute;
   right: 8px;
@@ -206,7 +206,7 @@
 
 /* ═══════════════════════════════════════════════════════════════════════
    4. SIDEBAR
-   Geht jetzt ueber die volle Hoehe (unter der Titelleiste), nicht mehr nur
+   Geht jetzt über die volle Höhe (unter der Titelleiste), nicht mehr nur
    neben dem Editor.
    ═══════════════════════════════════════════════════════════════════════ */
 .sidebar {
@@ -223,7 +223,7 @@
 /* Eingeklappt: die Spalte verschwindet, die Activity Bar bleibt stehen —
    dasselbe Verhalten wie beim Klick auf das Explorer-Symbol in VS Code.
    Nur auf breiten Fenstern: schmale benutzen die Schublade, und dort
-   wuerde display:none sie unerreichbar machen. */
+   würde display:none sie unerreichbar machen. */
 @media (min-width: 821px) {
   .ide[data-sidebar='hidden'] .sidebar {
     display: none;
@@ -313,7 +313,7 @@
 /* ═══════════════════════════════════════════════════════════════════════
    6. STATUSLEISTE
    War in der ersten Fassung entfernt worden. Sie ist aber die zweite
-   Haelfte des Wiedererkennungswerts — und ein guter Platz fuer Angaben,
+   Hälfte des Wiedererkennungswerts — und ein guter Platz für Angaben,
    die sonst nirgends hinpassen: Theme, Sprache der Datei, Anmeldestatus.
    ═══════════════════════════════════════════════════════════════════════ */
 .statusbar {
@@ -358,7 +358,7 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
 
 /* ═══════════════════════════════════════════════════════════════════════
    7. PANEL (Terminal)
-   Faehrt unten aus dem Editorbereich aus, genau wie Strg+^ in VS Code.
+   Fährt unten aus dem Editorbereich aus, genau wie Strg+^ in VS Code.
    ═══════════════════════════════════════════════════════════════════════ */
 .panel {
   background: var(--panel-bg);
@@ -442,7 +442,7 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
 /* ═══════════════════════════════════════════════════════════════════════
    8. KOMMANDOPALETTE
    Nachbildung des Quick Input von VS Code: schmaler Kasten, der oben aus
-   der Titelleiste faellt.
+   der Titelleiste fällt.
    ═══════════════════════════════════════════════════════════════════════ */
 .qi-backdrop {
   position: fixed;
@@ -454,10 +454,10 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
   background: transparent;
 }
 
-/* Ohne diese Zeile bleibt die Flaeche liegen, auch wenn das hidden-Attribut
-   gesetzt ist: Ein display:flex aus dem Stylesheet schlaegt das display:none,
-   das der Browser fuer [hidden] mitbringt. Die Palette lag dann unsichtbar
-   ueber der ganzen Seite und hat jeden Klick abgefangen. */
+/* Ohne diese Zeile bleibt die Fläche liegen, auch wenn das hidden-Attribut
+   gesetzt ist: Ein display:flex aus dem Stylesheet schlägt das display:none,
+   das der Browser für [hidden] mitbringt. Die Palette lag dann unsichtbar
+   über der ganzen Seite und hat jeden Klick abgefangen. */
 .qi-backdrop[hidden] {
   display: none;
 }
@@ -535,19 +535,19 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
 /* ═══════════════════════════════════════════════════════════════════════
    9. LESBARKEIT IM EDITOR
 
-   Der eigentliche Punkt dieser Ueberarbeitung. Vorher lief der Fliesstext
-   in Monospace mit Zeilenhoehe 1.95 neben einer Spalte mit erfundenen
-   Zeilennummern. Das sah nach Editor aus, las sich aber muehsam.
+   Der eigentliche Punkt dieser Überarbeitung. Vorher lief der Fliesstext
+   in Monospace mit Zeilenhöhe 1.95 neben einer Spalte mit erfundenen
+   Zeilennummern. Das sah nach Editor aus, las sich aber mühsam.
 
    Jetzt: Der Inhalt ist gesetzt wie die Vorschau einer Markdown-Datei in
-   VS Code — serifenlos, in ruhiger Groesse, mit begrenzter Zeilenlaenge.
-   Monospace bleibt dort, wo tatsaechlich Code steht.
+   VS Code — serifenlos, in ruhiger Grösse, mit begrenzter Zeilenlänge.
+   Monospace bleibt dort, wo tatsächlich Code steht.
    ═══════════════════════════════════════════════════════════════════════ */
 
-/* Die Spalte mit den erfundenen Zeilennummern faellt weg. Sie war nicht
-   einmal wahrheitsgemaess: Die Zahlen wurden aus der Pixelhoehe des
-   Inhalts geschaetzt und passten zu keiner Zeile. Echte Zeilennummern
-   stehen jetzt in den Codebloecken, wo sie stimmen. */
+/* Die Spalte mit den erfundenen Zeilennummern fällt weg. Sie war nicht
+   einmal wahrheitsgemäss: Die Zahlen wurden aus der Pixelhöhe des
+   Inhalts geschätzt und passten zu keiner Zeile. Echte Zeilennummern
+   stehen jetzt in den Codeblöcken, wo sie stimmen. */
 
 .code-view {
   display: block;
@@ -559,18 +559,18 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
   line-height: 1.7;
   font-size: 18px;
   color: var(--text);
-  /* Auf breiten Bildschirmen blieb rechts eine tote Flaeche stehen: der
-     Inhalt hing bei 900px linksbuendig fest, der Rest war leer. Er darf
+  /* Auf breiten Bildschirmen blieb rechts eine tote Fläche stehen: der
+     Inhalt hing bei 900px linksbündig fest, der Rest war leer. Er darf
      jetzt bis 1700px mitwachsen — auf einem 2500 Pixel breiten Monitor
-     macht das den Unterschied zwischen halb gefuellt und gefuellt. Der
-     Fliesstext bleibt trotzdem begrenzt, dafuer sorgt .prose mit seinen
-     80ch; Zeilen ueber die volle Breite liest niemand gern. Breiter
+     macht das den Unterschied zwischen halb gefüllt und gefüllt. Der
+     Fliesstext bleibt trotzdem begrenzt, dafür sorgt .prose mit seinen
+     80ch; Zeilen über die volle Breite liest niemand gern. Breiter
      werden vor allem die Raster, also Projektkarten und Tabellen. */
   max-width: 1700px;
-  /* Nicht mittig, sondern leicht nach links versetzt: vom uebrigen Platz
-     bekommt die linke Seite ein Viertel, die rechte drei. Das haelt den
-     Text in der Naehe des Explorers — ein Editor liest sich von links —
-     ohne dass rechts wieder eine tote Flaeche entsteht. Passt der Inhalt
+  /* Nicht mittig, sondern leicht nach links versetzt: vom übrigen Platz
+     bekommt die linke Seite ein Viertel, die rechte drei. Das hält den
+     Text in der Nähe des Explorers — ein Editor liest sich von links —
+     ohne dass rechts wieder eine tote Fläche entsteht. Passt der Inhalt
      ohnehin nicht mehr ins Fenster, ist der Wert 0 und nichts verschiebt
      sich. */
   margin-left: max(0px, calc((100% - 1700px) / 4));
@@ -582,11 +582,11 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
 
 /* Nach einem Dateiwechsel per Tastatur liegt der Fokus auf dem Editorbereich,
    damit Bild-ab und die Pfeiltasten scrollen. Der Rahmen dazu liegt innen —
-   aussen wuerde ihn der Rand des Bereichs abschneiden. */
+   aussen würde ihn der Rand des Bereichs abschneiden. */
 .editor-scroll:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
 
-/* Fliesstext: heller und groesser als vorher. --muted war fuer laengere
-   Absaetze zu schwach. */
+/* Fliesstext: heller und grösser als vorher. --muted war für längere
+   Absätze zu schwach. */
 .prose {
   font-family: var(--sans);
   font-size: 18px;
@@ -598,8 +598,8 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
 .prose p { margin-bottom: 0.85rem; }
 .prose strong { color: var(--text); font-weight: 600; }
 
-/* Ueberschriften: im Editor wirkt Monospace hier richtig, weil es
-   Dateiueberschriften sind — aber groesser und mit mehr Luft. */
+/* Überschriften: im Editor wirkt Monospace hier richtig, weil es
+   Dateiüberschriften sind — aber grösser und mit mehr Luft. */
 .ed-h1 {
   font-family: var(--sans);
   font-size: 1.65rem;
@@ -620,7 +620,7 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
   margin: 2rem 0 0.7rem;
 }
 
-/* Das "##" davor bleibt — es ist die Markdown-Herkunft und faerbt sich
+/* Das "##" davor bleibt — es ist die Markdown-Herkunft und färbt sich
    in der Kommentarfarbe des Themes. */
 .ed-h2::before {
   content: '##';
@@ -651,8 +651,8 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
 /* ── Skill-Liste ───────────────────────────────────────────────────────────
    Sechs Tabellen mit je drei Spalten waren auf der Skills-Seite zu viel:
    Kopfzeilen, Rahmen und eine Spalte, in der zwanzigmal fast dasselbe
-   Wort stand. Geblieben sind zwei Spalten Eintraege — Name oben, Beleg
-   klein darunter — und ein farbiger Punkt fuer die Einstufung.
+   Wort stand. Geblieben sind zwei Spalten Einträge — Name oben, Beleg
+   klein darunter — und ein farbiger Punkt für die Einstufung.
    ───────────────────────────────────────────────────────────────────────── */
 .sk-list {
   list-style: none;
@@ -664,7 +664,7 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
 }
 
 /* Eine Zeile pro Technologie: Punkt, Name, Projekt. Vorher stand unter
-   jedem Namen noch ein Satz — bei achtzehn Eintraegen war das eine Wand
+   jedem Namen noch ein Satz — bei achtzehn Einträgen war das eine Wand
    aus Fliesstext, durch die man lesen statt schauen musste. */
 .sk {
   display: grid;
@@ -697,7 +697,7 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
   min-width: 0;
 }
 
-/* Der Beleg: nur noch der Projektname, rechtsbuendig, damit alle
+/* Der Beleg: nur noch der Projektname, rechtsbündig, damit alle
    Projekte einer Spalte untereinander auf einer Kante stehen. */
 .sk-wo {
   display: flex;
@@ -719,7 +719,7 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
 }
 
 /* Alle Angaben sind reiner Text — sie nennen, wo eine Technologie zum
-   Einsatz kam, und fuehren bewusst nirgendwohin. */
+   Einsatz kam, und führen bewusst nirgendwohin. */
 .sk-chip-still {
   color: var(--dim);
   background: none;
@@ -753,7 +753,7 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
   font-style: normal;
 }
 
-/* Codebloecke: hier gehoert Monospace hin, hier stimmen Zeilennummern. */
+/* Codeblöcke: hier gehört Monospace hin, hier stimmen Zeilennummern. */
 .cb {
   background: var(--sb);
   border: 1px solid var(--border);
@@ -812,7 +812,7 @@ code {
   white-space: normal;
 }
 
-/* Breadcrumb wie in VS Code: klein, ohne eigene Flaeche */
+/* Breadcrumb wie in VS Code: klein, ohne eigene Fläche */
 .breadcrumb {
   background: var(--bg);
   border-bottom: none;
@@ -854,13 +854,13 @@ code {
 }
 
 /* ── Bilderstrecken (Interessen) ───────────────────────────────────────────
-   Ein Streifen, den man mit den Knoepfen, dem Rad oder dem Finger
-   verschiebt. Kein Selbstlauf, keine Ueberblendung: die Bilder sollen
-   angeschaut werden koennen, nicht vorbeiziehen.
+   Ein Streifen, den man mit den Knöpfen, dem Rad oder dem Finger
+   verschiebt. Kein Selbstlauf, keine Überblendung: die Bilder sollen
+   angeschaut werden können, nicht vorbeiziehen.
    ───────────────────────────────────────────────────────────────────────── */
 .slider { margin: 0.7rem 0 1.9rem; }
 
-/* Bereiche ohne eingetragene Bilder hinterlassen keine Luecke. */
+/* Bereiche ohne eingetragene Bilder hinterlassen keine Lücke. */
 .slider:empty { display: none; margin: 0; }
 
 .sl-track {
@@ -875,8 +875,8 @@ code {
   cursor: grab;
 }
 
-/* Waehrend des Ziehens stoert das Einrasten — es zerrt gegen die Maus.
-   Es greift wieder, sobald man loslaesst. */
+/* Während des Ziehens stört das Einrasten — es zerrt gegen die Maus.
+   Es greift wieder, sobald man loslässt. */
 .sl-dragging {
   cursor: grabbing;
   scroll-snap-type: none;
@@ -895,7 +895,7 @@ code {
   scroll-snap-align: start;
 }
 
-/* Albumcover sind quadratisch — im Querformat waere oben und unten
+/* Albumcover sind quadratisch — im Querformat wäre oben und unten
    jeweils ein Streifen abgeschnitten. */
 .slider[data-slider="musik"] .shot {
   flex-basis: clamp(150px, 24%, 210px);
@@ -989,7 +989,7 @@ code {
   color: var(--muted);
 }
 
-/* Schaltflaechen: ein Stil fuer die ganze Seite, zwei Groessen. */
+/* Schaltflächen: ein Stil für die ganze Seite, zwei Grössen. */
 .btn {
   font-family: var(--sans);
   font-size: 12.5px;
@@ -1070,7 +1070,7 @@ code {
   .imp-list > div { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; }
 }
 
-/* Herkunft der Bilder — Fussnote, keine Ueberschrift. */
+/* Herkunft der Bilder — Fussnote, keine Überschrift. */
 .quellen {
   margin: 2.2rem 0 0;
   padding-top: 0.8rem;
@@ -1088,9 +1088,9 @@ code {
   aspect-ratio: 2 / 3;
 }
 
-/* Im Streifen kein Anheben beim Ueberfahren: eine Verschiebung erzeugt
+/* Im Streifen kein Anheben beim Überfahren: eine Verschiebung erzeugt
    eine eigene Zeichenebene, und die geriet mit der Gliederungsleiste
-   darueber ins Gehege. Der Rahmen reicht als Rueckmeldung. */
+   darüber ins Gehege. Der Rahmen reicht als Rückmeldung. */
 .sl-track .shot:hover { transform: none; border-color: var(--accent); }
 
 .sl-nav {
@@ -1114,7 +1114,7 @@ code {
 
 .sl-btn:hover { background: var(--list-hover); border-color: var(--accent); }
 
-/* Reihe passt vollstaendig ins Bild: die Pfeile haetten nichts zu tun. */
+/* Reihe passt vollständig ins Bild: die Pfeile hätten nichts zu tun. */
 .sl-passt .sl-btn { display: none; }
 .sl-passt .sl-count { margin-left: 0; }
 
@@ -1125,8 +1125,8 @@ code {
   border-color: var(--border);
 }
 
-/* Die Bilder sollen beim Ziehen nicht als Verknuepfung am Mauszeiger
-   haengen bleiben. */
+/* Die Bilder sollen beim Ziehen nicht als Verknüpfung am Mauszeiger
+   hängen bleiben. */
 .sl-track .shot img { -webkit-user-drag: none; user-select: none; }
 
 .sl-count {
@@ -1180,7 +1180,7 @@ code {
   word-break: break-all;
 }
 
-/* Leere Rahmen, solange fuer ein Thema noch keine Bilder eingetragen sind. */
+/* Leere Rahmen, solange für ein Thema noch keine Bilder eingetragen sind. */
 .sl-ph {
   display: flex;
   align-items: center;
@@ -1321,7 +1321,7 @@ code {
 }
 
 /* "Abstract" ist eine Beschriftung, kein Satzanfang. Als eigene Zeile
-   darueber braucht es keinen Gedankenstrich, der die beiden verbindet. */
+   darüber braucht es keinen Gedankenstrich, der die beiden verbindet. */
 .proj-abstract strong {
   display: block;
   color: var(--accent);
@@ -1335,8 +1335,8 @@ code {
 .tech-cat { font-family: var(--sans); font-size: 12.5px; }
 .fact dd { font-family: var(--sans); font-size: 16.5px; }
 /* Sechs bis sieben Chips pro Karte, jeder mit eigenem Rahmen, lasen sich
-   wie eine Reihe Schaltflaechen. Ohne Rahmen und mit ruhigerer Flaeche
-   bleiben sie das, was sie sind: eine Aufzaehlung. */
+   wie eine Reihe Schaltflächen. Ohne Rahmen und mit ruhigerer Fläche
+   bleiben sie das, was sie sind: eine Aufzählung. */
 .chip {
   font-size: 12.5px;
   background: color-mix(in srgb, var(--border2) 55%, transparent);
@@ -1345,19 +1345,17 @@ code {
 }
 
 .badge { font-family: var(--sans); font-size: 11px; font-weight: 500; }
-.bg { background: color-mix(in srgb, var(--ok) 18%, transparent); color: var(--ok); }
 .bb { background: color-mix(in srgb, var(--info) 18%, transparent); color: var(--info); }
-.bo { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
 
 /* ── Startseite ────────────────────────────────────────────────────────────
    Vorher standen dieselben Angaben dreimal auf einer Seite: als JSON-Block
    oben, als Faktenleiste in der Mitte und als Python-Klasse unten. Geblieben
-   ist die Faktenleiste, dafuer mit Angaben, die tatsaechlich etwas sagen.
+   ist die Faktenleiste, dafür mit Angaben, die tatsächlich etwas sagen.
    ─────────────────────────────────────────────────────────────────────── */
 
 
 /* Faktenleiste: drei Spalten statt vier, damit sechs Angaben sauber
-   aufgehen, und Werte gross genug zum Ueberfliegen. */
+   aufgehen, und Werte gross genug zum Überfliegen. */
 .fact-row {
   grid-template-columns: repeat(3, 1fr);
   max-width: 820px;
@@ -1409,11 +1407,11 @@ code {
 /* ═══════════════════════════════════════════════════════════════════════
    10. SCHMALE BILDSCHIRME
    Activity Bar bleibt (sie ist schmal genug), die Sidebar wird zur
-   Schublade — so wie VS Code sich auf einem kleinen Fenster verhaelt.
+   Schublade — so wie VS Code sich auf einem kleinen Fenster verhält.
    ═══════════════════════════════════════════════════════════════════════ */
 @media (max-width: 820px) {
-  /* Die Leisten werden hoeher, weil ein Finger ungenauer trifft als ein
-     Mauszeiger. Weil alle Hoehen aus diesen vier Werten stammen, zieht das
+  /* Die Leisten werden höher, weil ein Finger ungenauer trifft als ein
+     Mauszeiger. Weil alle Höhen aus diesen vier Werten stammen, zieht das
      Raster der .ide, die Schublade und die Abdunklung automatisch mit. */
   :root {
     --h-title: 44px;
@@ -1421,8 +1419,8 @@ code {
     --h-status: 26px;
   }
 
-  /* Kein blauer Kasten mehr beim Antippen — die Rueckmeldung geben die
-     :active-Regeln weiter unten, in den Farben der Oberflaeche. */
+  /* Kein blauer Kasten mehr beim Antippen — die Rückmeldung geben die
+     :active-Regeln weiter unten, in den Farben der Oberfläche. */
   html { -webkit-tap-highlight-color: transparent; }
 
   .ide {
@@ -1444,9 +1442,9 @@ code {
        Abdunklung frei bleibt, um die Schublade wieder zuzutippen. */
     width: min(300px, calc(100vw - var(--w-activity) - 48px));
     z-index: 400;
-    /* Die Schublade sitzt um die Breite der Activity Bar eingerueckt.
-       Sie muss deshalb um ihre eigene Breite PLUS diese Einrueckung nach
-       links fahren — sonst blieb ein Streifen von ihr ueber der Activity
+    /* Die Schublade sitzt um die Breite der Activity Bar eingerückt.
+       Sie muss deshalb um ihre eigene Breite PLUS diese Einrückung nach
+       links fahren — sonst blieb ein Streifen von ihr über der Activity
        Bar stehen, und vom Streifen sah man den blauen Auswahlbalken der
        aktiven Datei als Rechteck am linken Rand. */
     transform: translateX(calc(-100% - var(--w-activity) - 2px));
@@ -1457,9 +1455,9 @@ code {
   .sidebar.open { transform: none; }
 
   /* style.css blendet die geschlossene Schublade mit visibility aus, die
-     Regel fuer aufgeklappte Ordner setzt sie fuer deren Inhalt aber wieder
-     auf sichtbar. Hier zurueckgenommen: zugeklappt ist zugeklappt — auch
-     fuer die Tabulatortaste und den Screenreader. */
+     Regel für aufgeklappte Ordner setzt sie für deren Inhalt aber wieder
+     auf sichtbar. Hier zurückgenommen: zugeklappt ist zugeklappt — auch
+     für die Tabulatortaste und den Screenreader. */
   .sidebar:not(.open) .tree-children { visibility: hidden; }
 
   .sb-backdrop {
@@ -1472,10 +1470,10 @@ code {
 
   .sb-backdrop[hidden] { display: none; }
 
-  /* ── Trefferflaechen ──
+  /* ── Trefferflächen ──
      Alles, was man antippt, ist mindestens so hoch wie eine Fingerkuppe
-     breit ist. Die Werte in style.css reichten dafuer nicht, weil die
-     Bauteile hier weiter oben feste Hoehen bekommen haben. */
+     breit ist. Die Werte in style.css reichten dafür nicht, weil die
+     Bauteile hier weiter oben feste Höhen bekommen haben. */
   .tree-folder,
   .tree-file {
     height: 40px;
@@ -1519,7 +1517,7 @@ code {
 
   .st-item { padding: 0 9px; }
 
-  /* Gedrueckt-Zustand statt Antipp-Rechteck des Browsers */
+  /* Gedrückt-Zustand statt Antipp-Rechteck des Browsers */
   .act-btn:active,
   .tree-file:active,
   .tree-folder:active,
@@ -1535,12 +1533,12 @@ code {
 
   /* Die erste Fassung liess die Seite auf dem Handy mitwachsen, statt
      alles in 100dvh zu quetschen. Das war richtig und wird hier wieder
-     hergestellt — meine Regel weiter oben haette es sonst ueberschrieben,
-     weil sie spaeter im Stylesheet steht.
+     hergestellt — meine Regel weiter oben hätte es sonst überschrieben,
+     weil sie später im Stylesheet steht.
 
-     overflow bleibt sichtbar: mit overflow:auto waere die .ide der
-     naechste Scroll-Behaelter, und das klebende Verhalten der Activity
-     Bar weiter unten wuerde nie greifen. */
+     overflow bleibt sichtbar: mit overflow:auto wäre die .ide der
+     nächste Scroll-Behälter, und das klebende Verhalten der Activity
+     Bar weiter unten würde nie greifen. */
   .ide {
     height: auto;
     min-height: 100vh;
@@ -1548,7 +1546,7 @@ code {
     overflow: visible;
   }
 
-  /* Die Icon-Leiste laeuft beim Scrollen mit, statt als toter Streifen
+  /* Die Icon-Leiste läuft beim Scrollen mit, statt als toter Streifen
      neben zwei Metern Text zu stehen. Sie ist damit auf dem Handy die
      eigentliche Navigation: Explorer, Suche, Projekte, Terminal. */
   .activitybar {
@@ -1559,11 +1557,11 @@ code {
     z-index: 350;
   }
 
-  /* Die Statusleiste bleibt am unteren Rand sichtbar, auch waehrend die
-     Seite scrollt — sonst waere sie auf dem Handy praktisch nie zu sehen.
+  /* Die Statusleiste bleibt am unteren Rand sichtbar, auch während die
+     Seite scrollt — sonst wäre sie auf dem Handy praktisch nie zu sehen.
      position:sticky half hier nicht: das Rasterfeld der Leiste ist genau
      so hoch wie sie selbst, es bleibt also kein Weg zum Kleben. Die
-     Zeilenhoehe im Raster haelt den Platz frei, den sie als feste Leiste
+     Zeilenhöhe im Raster hält den Platz frei, den sie als feste Leiste
      nicht mehr belegt. */
   .statusbar {
     position: fixed;
@@ -1576,8 +1574,8 @@ code {
 
 /* ═══════════════════════════════════════════════════════════════════════
    11. DRUCK
-   Die Druckregeln in style.css kennen die neuen Oberflaechenteile noch
-   nicht — hier nachgezogen. Beim Ausdruck bleibt nur der Inhalt uebrig.
+   Die Druckregeln in style.css kennen die neuen Oberflächenteile noch
+   nicht — hier nachgezogen. Beim Ausdruck bleibt nur der Inhalt übrig.
    ═══════════════════════════════════════════════════════════════════════ */
 @media print {
   .activitybar,

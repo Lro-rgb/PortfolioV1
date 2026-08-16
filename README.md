@@ -316,6 +316,8 @@ APP_PASSWORD_HASH` in die Produktionsumgebung.
 | Neues Projekt | Karte in `index.html`, Bilder in `MEDIA` (`js/app.js`), Zähler zählt sich selbst |
 | Neue Bibliothek, Schrift, Farbdesign oder fremdes Bild | Quellenliste am Fuss der Startseite — Schlüssel `home.credits` in `js/i18n.js`, **beide** Sprachen |
 | Neue PDF in `unterlagen/` | `node scripts/unterlagen-verschluesseln.js`, Eintrag in der festen Liste in `api/zeugnis.js` |
+| Neue Regel fürs Handy | Gehört in den gesammelten `@media(max-width:820px)`-Block am Ende von `css/style.css`, nicht neben den Baustein — eine Medienabfrage erhöht die Gewichtung nicht, und weiter unten in der Datei greift sie sicher |
+| Neuer Kommentar | Deutsch mit echten Umlauten statt `ue`/`ae`/`oe`; alle Dateien sind UTF-8 |
 | Grössere Änderung an der Seite | Diese README |
 
 Die Quellenliste ist keine Formsache: Die Seite wird von Betrieben **und** von
