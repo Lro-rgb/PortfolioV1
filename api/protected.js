@@ -20,43 +20,24 @@ const { verifyToken, requireConfig } = require('../lib/auth.js');
 // "art" bestimmt, in welcher der beiden Klappgruppen die Karte landet:
 // 'uek' fuer Kompetenznachweise, 'zeugnis' fuer Schulzeugnisse.
 const DATA = {
-  noten: [
-    {
-      fach: 'üK-Modul 187 — ICT-Arbeitsplatz mit Betriebssystem in Betrieb nehmen',
-      note: 5.0,
-      semester: 'September 2024',
-      datei: '187',
-      art: 'uek'
-    },
-    {
-      fach: 'üK-Modul 106 — Datenbanken abfragen, bearbeiten und warten',
-      note: 4.5,
-      semester: 'März 2025',
-      datei: '106',
-      art: 'uek'
-    },
-    {
-      fach: 'üK-Modul 294 — Frontend einer interaktiven Webapplikation realisieren',
-      note: 5.5,
-      semester: 'April 2026',
-      datei: '294',
-      art: 'uek'
-    },
-    {
-      fach: 'üK-Modul 210 — Public Cloud für Anwendungen nutzen',
-      note: 5.0,
-      semester: 'Juni 2026',
-      datei: '210',
-      art: 'uek'
-    },
-    {
-      fach: 'üK-Modul 335 — Mobile-Applikation realisieren',
-      note: 5.0,
-      semester: 'Juni/Juli 2026',
-      datei: '335',
-      art: 'uek'
+  /* Die Noten stehen nicht mehr hier, sondern in der Umgebungsvariablen
+     NOTEN_JSON — als eine Zeile JSON mit denselben Feldern wie bisher.
+     Grund: Diese Datei liegt in einem oeffentlichen Repository. Die PDF der
+     Kompetenznachweise waren verschluesselt abgelegt, die Zahlen daneben
+     standen im Klartext daneben; der Passwortschutz vor dem Notenbereich
+     galt also nur fuer die Website, nicht fuer den Quelltext.
+
+     Faellt die Variable weg oder ist sie kaputt, bleibt die Liste leer und
+     der Bereich zeigt "keine Daten" — das ist besser, als wenn die ganze
+     Funktion beim Laden abstuerzt und auch der Lebenslauf verschwindet. */
+  noten: (() => {
+    try {
+      return JSON.parse(process.env.NOTEN_JSON || '[]');
+    } catch (e) {
+      console.error('NOTEN_JSON ist kein gueltiges JSON — Notenliste bleibt leer.');
+      return [];
     }
-  ],
+  })(),
   lebenslauf: {
     /* Ein Lebenslauf ohne Absender ist keiner — bisher fing er direkt mit
        "Ausbildung" an.

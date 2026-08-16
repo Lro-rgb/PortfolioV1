@@ -242,9 +242,16 @@ Der Ablauf:
    Liste kommen auch `modul=cv` (der unterschriebene Lebenslauf) und
    `modul=arbeitsbestaetigung`.
 
+Die Noten selbst stehen **nicht** in `api/protected.js`, sondern als eine Zeile
+JSON in der Umgebungsvariablen `NOTEN_JSON`. Vorher lagen die PDF verschlüsselt
+im Repository, die Zahlen daneben aber im Klartext — der Passwortschutz galt
+also nur für die Website, nicht für den Quelltext. Fehlt die Variable oder ist
+sie kaputt, bleibt die Notenliste leer und der Rest des geschützten Bereichs
+funktioniert weiter.
+
 Im Notenbereich stehen die Karten in zwei Klappgruppen — üK-Kompetenznachweise
-und Zeugnisse; welche Gruppe eine Karte bekommt, steht im Feld `art` in
-`api/protected.js`. Der Lebenslauf zeigt zusätzlich die beiden PDF mit
+und Zeugnisse; welche Gruppe eine Karte bekommt, steht im Feld `art` jedes
+Eintrags. Der Lebenslauf zeigt zusätzlich die beiden PDF mit
 Vorschau und Download; die abgetippten Angaben darüber bleiben, damit der
 Inhalt auch ohne PDF-Anzeige lesbar ist.
 
