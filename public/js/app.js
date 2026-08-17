@@ -2019,10 +2019,9 @@ function doLogout(){
     if(dl)dl.style.display='none';
   });
   lastNoten=null;lastLebenslauf=null;
-  /* Die geholten Zeugnisse liegen als örtliche Adressen im Speicher des
-     Tabs. Beim Abmelden gehören sie weg, sonst sind sie über die alte
-     blob:-Adresse weiter lesbar. */
-  zeugnisse.forEach(u=>URL.revokeObjectURL(u));
+  /* Die geholten Zeugnisse liegen als data:-Adressen im Speicher des Tabs.
+     Beim Abmelden gehören sie weg, zusammen mit den Feldern, die sie
+     anzeigen (oben in dieser Funktion). */
   zeugnisse.clear();
   openTab('home');
 }
@@ -2286,7 +2285,20 @@ async function zeugnisUrl(modul){
     if(res.status===401)doLogout();
     throw new Error('Zeugnis nicht erhalten ('+res.status+')');
   }
-  const url=URL.createObjectURL(await res.blob());
+  /* Erst stand hier eine blob:-Adresse. Die zerfällt aber, sobald sie den
+     Tab verlässt, in dem sie entstanden ist: "In neuem Tab öffnen" blieb
+     auf dem Handy leer, weil Safari dort einen neuen Tab tatsächlich als
+     neuen Kontext behandelt. Eine data:-Adresse trägt die PDF selbst in
+     sich und funktioniert darum auch dort, in der Vollansicht wie im
+     eingebetteten Rahmen. Bei der Grösse dieser PDF (Zeugnisse, Lebenslauf)
+     unbedenklich. */
+  const blob=await res.blob();
+  const url=await new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>resolve(reader.result);
+    reader.onerror=()=>reject(reader.error||new Error('PDF nicht lesbar'));
+    reader.readAsDataURL(blob);
+  });
   zeugnisse.set(modul,url);
   return url;
 }
