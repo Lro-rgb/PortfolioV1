@@ -531,8 +531,16 @@ const MEDIA={
          stattdessen die wieder rein soll:
            {src:'media/urlshortener-01-pipeline.png',
             alt:'Die Pipeline in GitLab CI, alle Stufen grün'}, */
+      /* Das einzige Bild der Strecke, das kein flacher Streifen ist: 857
+         zu 607 Pixel gegen 815 zu 206 bei den anderen. Über die volle
+         Kartenbreite gezogen stand es mehr als doppelt so hoch wie seine
+         Nachbarn im selben Karussell. 300 Pixel bringen es auf eine
+         ähnliche Höhe. Dass die Schrift darin dadurch klein wird, ist
+         verkraftbar: Ein Klick öffnet das Bild weiterhin in voller
+         Grösse. Auf dem Handy ist die Karte ohnehin schmaler als 300
+         Pixel, dort ändert die Angabe nichts. */
       {src:'media/urlshortener-05-argocd.png',
-       alt:'ArgoCD meldet die Anwendung als Synced und Healthy'},
+       alt:'ArgoCD meldet die Anwendung als Synced und Healthy', breite:300},
       {src:'media/urlshortener-03-pods.png',
        alt:'kubectl get pods: beide Dienste laufen mit 1/1'},
       {src:'media/urlshortener-04-curl.png',
@@ -1041,6 +1049,7 @@ function renderProjectMedia(){
       slide.setAttribute('aria-label',I18N.t('media.enlargeScreenshot')+(cfg.shots[0].alt||(I18N.t('media.imageFallback')+1)));
       const img=document.createElement('img');
       img.dataset.src=cfg.shots[0].src;img.alt=cfg.shots[0].alt||'';img.loading='lazy';img.decoding='async';
+      shotBreiteSetzen(slide,cfg.shots[0]);
       slide.appendChild(img);
       carousel.appendChild(slide);
 
@@ -1361,6 +1370,19 @@ function beobachteStatsfm(){
    Wechselt nur das eine sichtbare Bild aus, statt alle Screenshots als
    Raster gleichzeitig zu zeigen. Ein Klick auf das Bild öffnet weiterhin
    die Vollansicht unten — dort steckt schon die Pfeiltasten-Navigation. */
+/* Begrenzt die Anzeigebreite eines einzelnen Screenshots.
+
+   Nötig, weil in einer Strecke sehr unterschiedliche Seitenverhältnisse
+   nebeneinander stehen können: Ein Terminalausschnitt ist ein flacher
+   Streifen, ein Fensterausschnitt fast quadratisch. Beide über die volle
+   Kartenbreite gezogen heisst, dass der quadratische dreimal so hoch
+   steht wie der flache und die Karte beherrscht. Die Angabe steht beim
+   einzelnen Bild in MEDIA und wirkt nur nach unten — ist die Karte
+   schmaler als der Wert, bleibt es bei der vollen Breite. */
+function shotBreiteSetzen(slide,s){
+  slide.style.maxWidth=s&&s.breite?s.breite+'px':'';
+}
+
 function setCarouselSlide(carousel,index){
   const cfg=MEDIA[carousel.dataset.group];
   if(!cfg||!cfg.shots||!cfg.shots.length)return;
@@ -1369,6 +1391,7 @@ function setCarouselSlide(carousel,index){
   const s=cfg.shots[index];
   const slide=carousel.querySelector('.sc-slide');
   const img=slide.querySelector('img');
+  shotBreiteSetzen(slide,s);
   slide.dataset.index=String(index);
   slide.setAttribute('aria-label',I18N.t('media.enlargeScreenshot')+(s.alt||(I18N.t('media.imageFallback')+(index+1))));
   img.src=s.src;

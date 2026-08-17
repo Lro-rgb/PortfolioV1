@@ -511,7 +511,9 @@ body.voll-offen{overflow:hidden}
    nebeneinander gab es hier gar nicht erst, weil immer nur eins zu sehen
    ist. */
 .shot-carousel{position:relative;margin:.9rem 0 .8rem}
-.shot-carousel .shot{width:100%}
+/* display:block, damit ein Bild mit begrenzter Breite (breite in MEDIA)
+   über margin:auto in der Mitte steht statt links am Rand zu kleben. */
+.shot-carousel .shot{width:100%;display:block;margin-inline:auto}
 .shot-carousel.quer .shot{aspect-ratio:16/10}
 .shot-carousel.quer .shot img{object-fit:contain;background:#000}
 .shot-carousel.frei .shot{aspect-ratio:auto}
