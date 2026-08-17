@@ -17,6 +17,11 @@ bei mir melden, bekommen das Passwort von mir.
 
 ![Stack](https://img.shields.io/badge/stack-HTML%20%7C%20CSS%20%7C%20JS%20%7C%20Vercel-blue)
 
+<p>
+  <img src="public/media/portfolio-home.png" alt="Startseite im Editor-Look" width="49%">
+  <img src="public/media/portfolio-terminal.png" alt="Eingebautes Terminal mit whoami-Befehl" width="49%">
+</p>
+
 ---
 
 ## Inhalt
