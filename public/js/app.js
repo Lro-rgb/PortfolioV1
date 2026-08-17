@@ -534,13 +534,18 @@ const MEDIA={
       /* Das einzige Bild der Strecke, das kein flacher Streifen ist: 857
          zu 607 Pixel gegen 815 zu 206 bei den anderen. Unverändert stünde
          es auf einer 366 Pixel breiten Karte 259 Pixel hoch und damit
-         fast dreimal so hoch wie seine Nachbarn im selben Karussell. Mit
-         230 Pixeln bleibt es über die volle Kartenbreite stehen, ohne die
-         Karte zu beherrschen. Der Wert ist ein Kompromiss: Je weiter er
-         unter der natürlichen Höhe von rund 260 Pixeln liegt, desto
-         sichtbarer wird die Schrift im Bild zusammengedrückt. */
+         fast dreimal so hoch wie seine Nachbarn im selben Karussell.
+
+         290 Pixel sind die Obergrenze, die es dabei behält. Auf einer 366
+         Pixel breiten Karte stünde es von sich aus rund 260 Pixel hoch,
+         dort greift die Angabe also gar nicht und das Bild bleibt
+         unverzerrt. Zum Tragen kommt sie auf breiten Bildschirmen, wo die
+         Karte auf über 500 Pixel wächst und das Bild sonst 370 Pixel hoch
+         würde. Niedrigere Werte waren hier schon eingetragen; sie machten
+         die Karte ruhiger, drückten aber die Schrift im Bild sichtbar
+         zusammen. */
       {src:'media/urlshortener-05-argocd.png',
-       alt:'ArgoCD meldet die Anwendung als Synced und Healthy', hoehe:230},
+       alt:'ArgoCD meldet die Anwendung als Synced und Healthy', hoehe:290},
       {src:'media/urlshortener-03-pods.png',
        alt:'kubectl get pods: beide Dienste laufen mit 1/1'},
       {src:'media/urlshortener-04-curl.png',
