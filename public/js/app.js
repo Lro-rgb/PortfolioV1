@@ -2019,9 +2019,10 @@ function doLogout(){
     if(dl)dl.style.display='none';
   });
   lastNoten=null;lastLebenslauf=null;
-  /* Die geholten Zeugnisse liegen als data:-Adressen im Speicher des Tabs.
-     Beim Abmelden gehören sie weg, zusammen mit den Feldern, die sie
-     anzeigen (oben in dieser Funktion). */
+  /* Die geholten Zeugnisse liegen als örtliche Adressen im Speicher des
+     Tabs. Beim Abmelden gehören sie weg, sonst sind sie über die alte
+     blob:-Adresse weiter lesbar. */
+  zeugnisse.forEach(u=>URL.revokeObjectURL(u));
   zeugnisse.clear();
   openTab('home');
 }
@@ -2285,20 +2286,7 @@ async function zeugnisUrl(modul){
     if(res.status===401)doLogout();
     throw new Error('Zeugnis nicht erhalten ('+res.status+')');
   }
-  /* Erst stand hier eine blob:-Adresse. Die zerfällt aber, sobald sie den
-     Tab verlässt, in dem sie entstanden ist: "In neuem Tab öffnen" blieb
-     auf dem Handy leer, weil Safari dort einen neuen Tab tatsächlich als
-     neuen Kontext behandelt. Eine data:-Adresse trägt die PDF selbst in
-     sich und funktioniert darum auch dort, in der Vollansicht wie im
-     eingebetteten Rahmen. Bei der Grösse dieser PDF (Zeugnisse, Lebenslauf)
-     unbedenklich. */
-  const blob=await res.blob();
-  const url=await new Promise((resolve,reject)=>{
-    const reader=new FileReader();
-    reader.onload=()=>resolve(reader.result);
-    reader.onerror=()=>reject(reader.error||new Error('PDF nicht lesbar'));
-    reader.readAsDataURL(blob);
-  });
+  const url=URL.createObjectURL(await res.blob());
   zeugnisse.set(modul,url);
   return url;
 }
@@ -2349,7 +2337,11 @@ document.addEventListener('click',async e=>{
         feld.innerHTML=
           '<div class="zeugnis-kopf">'+
             '<span class="zeugnis-titel">'+esc(dokTitel(modul))+'</span>'+
-            '<a class="zeugnis-link" href="'+url+'" target="_blank" rel="noopener noreferrer">'+
+            /* Kein rel="noopener": Safari löst eine blob:-Adresse in einem
+               neuen Tab nur auf, wenn der noch den öffnenden Tab als
+               Opener kennt. Unbedenklich, die Adresse zeigt auf eine PDF
+               ohne Skript, kein Angriffsziel für den Opener-Zugriff. */
+            '<a class="zeugnis-link" href="'+url+'" target="_blank" rel="noreferrer">'+
               esc(I18N.t('noten.openTab'))+'</a>'+
             '<button type="button" class="zeugnis-link" data-zu="1">'+esc(I18N.t('noten.close'))+'</button>'+
           '</div>'+
