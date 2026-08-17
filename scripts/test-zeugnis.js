@@ -3,12 +3,12 @@
 // darf keine Datei bekommen, und aus der Modulnummer darf sich kein Pfad
 // bauen lassen. Aufruf:  node scripts/test-zeugnis.js
 //
-// Ohne Netz und ohne Fremdbibliothek — es wird ein Token unterschrieben und
+// Ohne Netz und ohne Fremdbibliothek: Es wird ein Token unterschrieben und
 // der Handler direkt aufgerufen.
 
 process.env.JWT_SECRET = 'nur-fuer-diesen-test-mindestens-32-zeichen-lang';
 
-/* Der Schlüssel der verschlüsselten Nachweise kommt aus .env — ohne ihn
+/* Der Schlüssel der verschlüsselten Nachweise kommt aus .env; ohne ihn
    könnte der Test nicht prüfen, ob wirklich eine PDF herauskommt. */
 try {
   const fs0 = require('fs'), p0 = require('path');
@@ -21,7 +21,7 @@ try {
 } catch { /* keine .env */ }
 
 if (!/^[0-9a-f]{64}$/i.test(process.env.UNTERLAGEN_KEY || '')) {
-  console.error('UNTERLAGEN_KEY fehlt — erst "node scripts/unterlagen-verschluesseln.js" ausfuehren.');
+  console.error('UNTERLAGEN_KEY fehlt, erst "node scripts/unterlagen-verschluesseln.js" ausfuehren.');
   process.exit(1);
 }
 
@@ -65,7 +65,7 @@ for (const boese of ['../lib/auth.js', '../../.env', '187/../../lib/auth.js', ''
 
 /* Aus einem fremden Arbeitsverzeichnis heraus prüfen. Genau daran ist es
    einmal gescheitert: der Pfad zur PDF wurde aus process.cwd() gebaut, und
-   der Entwicklungsserver startet eine Ebene höher — mit gültigem Token kam
+   der Entwicklungsserver startet eine Ebene höher, mit gültigem Token kam
    trotzdem "nicht gefunden". Von hier aus fällt das auf. */
 process.chdir(os.tmpdir());
 
@@ -90,4 +90,4 @@ assert.strictEqual(mitFalschem.code, 503, 'falscher Schluessel darf keine Datei 
 assert.ok(!Buffer.isBuffer(mitFalschem.koerper), 'bei falschem Schluessel darf keine Datei herauskommen');
 process.env.UNTERLAGEN_KEY = echterSchluessel;
 
-console.log('OK — Zugriffsschutz, Verschluesselung, fuenf Kompetenznachweise und der Lebenslauf in Ordnung.');
+console.log('OK: Zugriffsschutz, Verschluesselung, fuenf Kompetenznachweise und der Lebenslauf in Ordnung.');

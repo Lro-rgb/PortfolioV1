@@ -13,7 +13,7 @@ const { verifyToken, requireConfig } = require('../lib/auth.js');
 //   zertifikate: { jahr, titel, anbieter }
 //   sprachen:    { sprache, niveau }
 //
-// "nebenjobs" deckt bezahlte Nebenjobs und Freiwilligenarbeit ab — die
+// "nebenjobs" deckt bezahlte Nebenjobs und Freiwilligenarbeit ab, die
 // IMS-Checkliste verlangt beides ausdrücklich im Lebenslauf.
 // "datei" ist der Schlüssel, unter dem /api/zeugnis die PDF herausgibt.
 // Ohne diesen Eintrag zeigt die Karte einfach keine Schaltflächen.
@@ -21,25 +21,25 @@ const { verifyToken, requireConfig } = require('../lib/auth.js');
 // 'uek' für Kompetenznachweise, 'zeugnis' für Schulzeugnisse.
 const DATA = {
   /* Die Noten stehen nicht mehr hier, sondern in der Umgebungsvariablen
-     NOTEN_JSON — als eine Zeile JSON mit denselben Feldern wie bisher.
+     NOTEN_JSON, als eine Zeile JSON mit denselben Feldern wie bisher.
      Grund: Diese Datei liegt in einem öffentlichen Repository. Die PDF der
      Kompetenznachweise waren verschlüsselt abgelegt, die Zahlen daneben
      standen im Klartext daneben; der Passwortschutz vor dem Notenbereich
      galt also nur für die Website, nicht für den Quelltext.
 
      Fällt die Variable weg oder ist sie kaputt, bleibt die Liste leer und
-     der Bereich zeigt "keine Daten" — das ist besser, als wenn die ganze
+     der Bereich zeigt "keine Daten". Das ist besser, als wenn die ganze
      Funktion beim Laden abstürzt und auch der Lebenslauf verschwindet. */
   noten: (() => {
     try {
       return JSON.parse(process.env.NOTEN_JSON || '[]');
     } catch (e) {
-      console.error('NOTEN_JSON ist kein gueltiges JSON — Notenliste bleibt leer.');
+      console.error('NOTEN_JSON ist kein gueltiges JSON, Notenliste bleibt leer.');
       return [];
     }
   })(),
   lebenslauf: {
-    /* Ein Lebenslauf ohne Absender ist keiner — bisher fing er direkt mit
+    /* Ein Lebenslauf ohne Absender ist keiner, bisher fing er direkt mit
        "Ausbildung" an.
 
        Geburtsdatum, Wohnadresse und Telefonnummer stehen NICHT hier im
@@ -50,7 +50,7 @@ const DATA = {
 
        Gesetzt werden sie in .env (lokal) und mit "vercel env add"
        (Produktion). Fehlt eine, bleibt die Zeile in der Anzeige einfach
-       weg — leere Felder werden nicht gerendert. */
+       weg, leere Felder werden nicht gerendert. */
     personalien: {
       name: 'Luis Rosado',
       geburtsdatum: process.env.CV_GEBURTSDATUM || '',
@@ -76,7 +76,7 @@ const DATA = {
     /* Dieselbe Stelle steht bewusst zweimal: unter Berufserfahrung, weil sie
        meine einzige ist und die Spalte sonst leer bliebe, und unter
        Nebenjobs, weil die IMS-Checkliste beides ausdrücklich verlangt. Die
-       Beschreibung ist verschieden — oben die Aufgaben, unten die Art des
+       Beschreibung ist verschieden: oben die Aufgaben, unten die Art des
        Einsatzes. */
     erfahrung: [
       {

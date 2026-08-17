@@ -6,11 +6,11 @@
 - Ein [Vercel](https://vercel.com)-Account (kostenlos)
 - [Vercel CLI](https://vercel.com/docs/cli): `npm install -g vercel`
 
-Das Projekt hat keine npm-Abhängigkeiten — `npm install` ist nicht nötig.
+Das Projekt hat keine npm-Abhängigkeiten, `npm install` ist nicht nötig.
 
 ## 1. Zugangsdaten erzeugen
 
-Alle drei Werte sind Pflicht — ohne sie verweigert der geschützte Bereich
+Alle drei Werte sind Pflicht. Ohne sie verweigert der geschützte Bereich
 bewusst den Dienst (HTTP 503), statt auf einen im Code hinterlegten
 Standardwert zurückzufallen.
 
@@ -42,7 +42,7 @@ Skript selbst vor, wenn noch keiner gesetzt ist:
 node scripts/unterlagen-verschluesseln.js
 ```
 
-Ohne diese Variable antwortet `/api/zeugnis` mit 503 — die Unterlagen
+Ohne diese Variable antwortet `/api/zeugnis` mit 503, die Unterlagen
 bleiben dann verschlossen, auch nach erfolgreicher Anmeldung.
 
 ## 3. Lokal testen
@@ -67,7 +67,7 @@ vercel dev
 vercel
 ```
 
-Beim ersten Deploy fragt Vercel nach Projekteinstellungen —
+Beim ersten Deploy fragt Vercel nach Projekteinstellungen,
 die Standardwerte passen.
 
 ## 5. Umgebungsvariablen in Vercel setzen
@@ -149,27 +149,27 @@ für die Einträge hier.
 **Sicherheitskopfzeilen** (gelten für die ganze Seite, `source: "/(.*)"`):
 
 - `Content-Security-Policy` sagt dem Browser, von wo er überhaupt etwas laden
-  darf. Alles, was dort nicht steht, wird abgewiesen — auch dann, wenn es
+  darf. Alles, was dort nicht steht, wird abgewiesen, auch dann, wenn es
   jemand über eine Lücke in die Seite geschrieben hätte. `script-src` erlaubt
-  nur die eigene Herkunft — fremden Code führt die Seite keinen mehr aus.
+  nur die eigene Herkunft, fremden Code führt die Seite keinen mehr aus.
   `'unsafe-inline'` ist bei Skripten nötig, weil das
   Farbdesign vor dem ersten Zeichnen gesetzt wird, und bei Stilen, weil
   einzelne Masse zur Laufzeit gesetzt werden. Die Bild-Hosts sind die, von
-  denen stats.fm seine Cover ausliefert — fehlt dort später einmal ein Bild,
+  denen stats.fm seine Cover ausliefert. Fehlt dort später einmal ein Bild,
   ist wahrscheinlich ein Host dazugekommen und gehört hier ergänzt.
 - `X-Frame-Options: SAMEORIGIN` verhindert, dass die Seite in einem **fremden**
   Rahmen steckt und jemand Klicks darauf umleitet. Doppelt zu
   `frame-ancestors: 'self'`, für ältere Browser. Nicht `DENY`, weil die
   Projektkarte der ersten Website diese als Vorschau in einem eigenen Rahmen
-  zeigt — bei `DENY` bleibt dieser Rahmen leer.
-- `X-Content-Type-Options: nosniff` — der Browser soll Dateien so behandeln,
+  zeigt; bei `DENY` bleibt dieser Rahmen leer.
+- `X-Content-Type-Options: nosniff` sorgt dafür, dass der Browser Dateien so behandelt,
   wie sie ausgezeichnet sind, und nicht selbst raten. Sonst kann ein
   hochgeladenes Bild als Skript ausgeführt werden.
-- `Referrer-Policy` — beim Weggehen erfährt die Zielseite nur die Herkunft,
+- `Referrer-Policy`: Beim Weggehen erfährt die Zielseite nur die Herkunft,
   nicht die genaue Adresse.
-- `Permissions-Policy` — Kamera, Mikrofon und Standort braucht die Seite
+- `Permissions-Policy`: Kamera, Mikrofon und Standort braucht die Seite
   nicht, also gar nicht erst erlauben.
-- `Strict-Transport-Security` — zwei Jahre lang nur noch verschlüsselt
+- `Strict-Transport-Security`: zwei Jahre lang nur noch verschlüsselt
   aufrufen.
 
 **Zwischenspeicher** (die drei übrigen `source`-Regeln):
@@ -177,7 +177,7 @@ für die Einträge hier.
 - HTML, CSS und JS werden immer frisch geprüft: die Seite ändert sich
   häufiger als der Rest.
 - Bilder, Video und Schriften ändern sich praktisch nie. Ein Jahr im
-  Zwischenspeicher spart bei jedem weiteren Besuch die gesamte Übertragung —
+  Zwischenspeicher spart bei jedem weiteren Besuch die gesamte Übertragung.
   das ist der grösste Hebel für die Ladezeit, denn dort liegen mehrere
   Megabyte.
 - Antworten des geschützten Bereichs gehören in keinen Zwischenspeicher und

@@ -3,7 +3,7 @@
 // POST /api/kurz  { url: "https://..." }  →  { code }
 //
 // Die spielbare Hälfte des Schulprojekts "URL-Shortener mit GitOps-Kette":
-// Adresse rein, Kurzcode raus. Das Weiterleiten fehlt hier bewusst — eine
+// Adresse rein, Kurzcode raus. Das Weiterleiten fehlt hier bewusst. Eine
 // Weiterleitung auf beliebige fremde Adressen macht aus meiner Domain einen
 // Steigbügel für Phishing-Links, und das ist mir eine Vorführung nicht
 // wert. Ohne Weiterleitung braucht die Funktion auch nichts zu speichern.
@@ -13,7 +13,7 @@ const crypto = require('crypto');
 const MAX_URL_LAENGE = 2000;   // länger sind echte Adressen praktisch nie
 
 /* Nur http und https. Ohne die Prüfung landete jede beliebige Zeichenkette
-   in der Antwort, auch "javascript:..." — und die Seite zeigt die Antwort an. */
+   in der Antwort, auch "javascript:...", und die Seite zeigt die Antwort an. */
 function zielPruefen(roh) {
   if (typeof roh !== 'string') return null;
   const text = roh.trim();

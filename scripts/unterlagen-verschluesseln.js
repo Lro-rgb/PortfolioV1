@@ -9,7 +9,7 @@
 //   node scripts/unterlagen-verschluesseln.js
 //
 // Der Schlüssel steht in UNTERLAGEN_KEY (64 Hexzeichen). Fehlt er, wird
-// einer vorgeschlagen — die Zeile gehört dann nach .env und mit
+// einer vorgeschlagen; die Zeile gehört dann nach .env und mit
 // "vercel env add UNTERLAGEN_KEY" in die Produktionsumgebung.
 
 const fs = require('fs');
@@ -33,7 +33,7 @@ try {
 const hex = (process.env.UNTERLAGEN_KEY || '').trim();
 if (!/^[0-9a-f]{64}$/i.test(hex)) {
   console.error('UNTERLAGEN_KEY fehlt oder ist keine 64 Hexzeichen.\n');
-  console.error('Vorschlag — diese Zeile nach .env uebernehmen:\n');
+  console.error('Vorschlag, diese Zeile nach .env uebernehmen:\n');
   console.error('UNTERLAGEN_KEY=' + crypto.randomBytes(32).toString('hex') + '\n');
   console.error('Danach: vercel env add UNTERLAGEN_KEY   (nur den Wert)');
   process.exit(1);
@@ -41,7 +41,7 @@ if (!/^[0-9a-f]{64}$/i.test(hex)) {
 const schluessel = Buffer.from(hex, 'hex');
 
 if (!fs.existsSync(quelle)) {
-  console.error('Ordner unterlagen/ fehlt — dort gehoeren die PDF-Dateien hin.');
+  console.error('Ordner unterlagen/ fehlt, dort gehoeren die PDF-Dateien hin.');
   process.exit(1);
 }
 fs.mkdirSync(ziel, { recursive: true });

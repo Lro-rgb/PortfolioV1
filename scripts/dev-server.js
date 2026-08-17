@@ -1,10 +1,10 @@
-/* Kleiner Entwicklungsserver für public/ — ohne Abhängigkeiten, wie der
+/* Kleiner Entwicklungsserver für public/, ohne Abhängigkeiten, wie der
    Rest des Projekts.
 
    Warum nicht "python -m http.server": der schickt nur ein Last-Modified
    und überlässt dem Browser den Rest. Der rechnet sich daraus selbst
    eine Haltbarkeit aus und liefert geänderte Dateien minutenlang aus dem
-   Zwischenspeicher weiter — man ändert etwas, lädt neu und sieht das
+   Zwischenspeicher weiter: Man ändert etwas, lädt neu und sieht das
    Alte. Dieser Server sagt ausdrücklich "no-store", damit jede Anfrage
    frisch beantwortet wird.
 
@@ -22,7 +22,7 @@ const wurzel = path.join(__dirname, '..', 'public');
 const projekt = path.join(__dirname, '..');
 
 /* .env einlesen, wie es "vercel dev" später auch tut. Ohne JWT_SECRET und
-   APP_PASSWORD_HASH antwortet der geschützte Bereich mit 503 — das ist so
+   APP_PASSWORD_HASH antwortet der geschützte Bereich mit 503. Das ist so
    gewollt, es soll hier nur nicht daran scheitern, dass die Datei niemand
    liest. */
 function ladeEnv() {
@@ -42,7 +42,7 @@ ladeEnv();
 /* Die Serverless Functions aus api/ auch hier bedienen.
    Vorher gab es sie lokal schlicht nicht: jede Anfrage an /api/... lief in
    die 404 für statische Dateien. Anmeldung, Noten und die
-   Kompetenznachweise waren damit nur nach dem Veröffentlichen zu testen —
+   Kompetenznachweise waren damit nur nach dem Veröffentlichen zu testen,
    also genau die Stellen, an denen ein Fehler am meisten kostet. */
 function apiBedienen(req, res, pfad) {
   const name = pfad.replace(/^\/api\//, '').replace(/\.js$/, '');
@@ -66,7 +66,7 @@ function apiBedienen(req, res, pfad) {
 
     /* Vercel gibt den Funktionen ein paar Bequemlichkeiten mit, die das
        nackte http-Modul nicht hat. Genau diese drei benutzen die Funktionen
-       hier — mehr nachzubauen wäre geraten statt gebraucht. */
+       hier, mehr nachzubauen wäre geraten statt gebraucht. */
     res.status = code => { res.statusCode = code; return res; };
     res.json = wert => {
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -106,13 +106,13 @@ const typen = {
 /* Die Sicherheitskopfzeilen aus vercel.json auch lokal mitschicken.
 
    Ohne das fällt eine zu enge Content-Security-Policy erst nach dem
-   Veröffentlichen auf — dann, wenn plotzlich die Technologie-Logos fehlen
+   Veröffentlichen auf, dann nämlich, wenn plotzlich die Technologie-Logos fehlen
    oder der PDF-Export nichts mehr tut. Hier gilt dieselbe Regel wie später
    in Produktion, und ein Fehler zeigt sich beim Entwickeln.
 
    Bewusst schlicht gehalten: nur die Umschreibungen, die in vercel.json
    tatsächlich vorkommen (/(.*) und /(.*)\.(a|b|c)). Kommt eine kompliziertere
-   dazu, greift sie lokal nicht — die Datei bleibt für Vercel massgeblich. */
+   dazu, greift sie lokal nicht, die Datei bleibt für Vercel massgeblich. */
 const kopfRegeln = ladeKopfRegeln();
 
 function ladeKopfRegeln() {
@@ -135,7 +135,7 @@ function kopfzeilenFuer(pfad) {
     if (!regel.test.test(pfad)) continue;
     for (const h of regel.headers) raus[h.key] = h.value;
   }
-  // Lokal läuft nichts über HTTPS — die beiden Zeilen würden das Testen
+  // Lokal läuft nichts über HTTPS, die beiden Zeilen würden das Testen
   // nur behindern.
   delete raus['Strict-Transport-Security'];
   if (raus['Content-Security-Policy']) {
@@ -231,5 +231,5 @@ http.createServer((req, res) => {
   });
 }).listen(port, () => {
   console.log('Entwicklungsserver laeuft auf http://localhost:' + port);
-  console.log('Zwischenspeicher ist abgeschaltet — neu laden genuegt, kein Strg+F5.');
+  console.log('Zwischenspeicher ist abgeschaltet, neu laden genuegt, kein Strg+F5.');
 });

@@ -4,14 +4,14 @@
  * ───────────────────────────────────────────────────────────
  * Erzeugt einen sicheren Passwort-Hash (scrypt, salted) für
  * den Login des geschützten Bereichs (Noten / Lebenslauf).
- * Nutzt nur Node's eingebautes "crypto"-Modul — kein npm
+ * Nutzt nur Node's eingebautes "crypto"-Modul, kein npm
  * install nötig.
  *
  * Verwendung:
  *   node scripts/generate-password-hash.js DEIN_PASSWORT
  *
  * Der Hash gehört als Umgebungsvariable APP_PASSWORD_HASH
- * hinterlegt — nicht in den Quellcode. Das Repository ist
+ * hinterlegt, nicht in den Quellcode. Das Repository ist
  * öffentlich, und ein dort liegender Hash liesse sich in Ruhe
  * offline durchprobieren.
  * ───────────────────────────────────────────────────────────

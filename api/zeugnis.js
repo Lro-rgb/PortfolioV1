@@ -4,7 +4,7 @@
 //
 // Die Kompetenznachweise liegen bewusst in "unterlagen/" und nicht in
 // "public/": alles unter "public/" liefert Vercel ohne jede Prüfung aus, ein
-// Passwort davor wäre reine Dekoration — wer die Adresse kennt, hätte die
+// Passwort davor wäre reine Dekoration, wer die Adresse kennt, hätte die
 // Noten. Hier kommt die Datei erst nach der Tokenprüfung heraus.
 
 const fs = require('fs');
@@ -68,7 +68,7 @@ module.exports = function handler(req, res) {
     return res.status(404).json({ error: 'Datei nicht gefunden.' });
   }
 
-  /* Die Dateien liegen verschlüsselt im Repository — es ist öffentlich.
+  /* Die Dateien liegen verschlüsselt im Repository, denn das ist öffentlich.
      Der Schlüssel steht nur in der Umgebung, wie schon JWT_SECRET. */
   const hex = (process.env.UNTERLAGEN_KEY || '').trim();
   if (!/^[0-9a-f]{64}$/i.test(hex)) {
@@ -83,7 +83,7 @@ module.exports = function handler(req, res) {
     entschluessler.setAuthTag(roh.subarray(12, 28));
     inhalt = Buffer.concat([entschluessler.update(roh.subarray(28)), entschluessler.final()]);
   } catch (e) {
-    // Falscher Schlüssel oder veränderte Datei — beides darf nicht durchgehen.
+    // Falscher Schlüssel oder veränderte Datei, beides darf nicht durchgehen.
     console.error('Zeugnis nicht entschluesselbar:', datei, e.message);
     return res.status(503).json({ error: 'Der geschuetzte Bereich ist derzeit nicht verfuegbar.' });
   }

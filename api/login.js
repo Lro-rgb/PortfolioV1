@@ -20,7 +20,7 @@ const MAX_PASSWORD_LENGTH = 200;
 
 /* Einfache Bremse gegen das Durchprobieren von Passwörtern.
 
-   Serverlose Funktionen haben keinen gemeinsamen Speicher — jede Instanz
+   Serverlose Funktionen haben keinen gemeinsamen Speicher, jede Instanz
    zählt für sich, und nach einer Ruhephase fängt sie wieder bei null an.
    Ein entschlossener Angreifer umgeht das. Trotzdem sinnvoll: Es macht das
    stumpfe Durchprobieren aus einer Quelle deutlich langsamer, und mehr lässt
@@ -55,7 +55,7 @@ function fehlversuchNotieren(schluessel) {
 }
 
 module.exports = async function handler(req, res) {
-  // Frontend und API liegen auf derselben Herkunft — es gibt keinen Grund,
+  // Frontend und API liegen auf derselben Herkunft, es gibt keinen Grund,
   // diesen Endpunkt für fremde Seiten zu öffnen.
   res.setHeader('Cache-Control', 'no-store');
 

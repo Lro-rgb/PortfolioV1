@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   vscode.js — die Oberflächenteile, die VS Code ausmachen
+   vscode.js: die Oberflächenteile, die VS Code ausmachen
 
    Läuft nach app.js und baut darauf auf: openTab(), LANG und updateAuth()
    stammen von dort. Hier kommen dazu:
@@ -10,14 +10,14 @@
      4. Kommandopalette (Strg+P)
      5. Terminal (Strg+^)
 
-   Alles davon ist bedienbar, ohne die Maus zu benutzen — und nichts davon
+   Alles davon ist bedienbar, ohne die Maus zu benutzen, und nichts davon
    ist Attrappe: Jeder Knopf tut etwas.
    ═══════════════════════════════════════════════════════════════════════ */
 
 (function () {
   'use strict';
 
-  /* $() und esc() kommen aus app.js — sie dort und hier getrennt zu
+  /* $() und esc() kommen aus app.js; sie dort und hier getrennt zu
      definieren wäre derselbe Code an zwei Stellen. Diese Datei baut
      ohnehin auf app.js auf (openTab, LANG, updateAuth) und wird nach ihr
      geladen. */
@@ -93,7 +93,7 @@
   }
 
   function toggleSidebar() {
-    // Auf schmalen Bildschirmen ist die Seitenleiste eine Schublade —
+    // Auf schmalen Bildschirmen ist die Seitenleiste eine Schublade,
     // dort regelt app.js das Auf und Zu.
     if (window.matchMedia('(max-width: 820px)').matches) {
       const toggle = $('sbToggle');
@@ -120,8 +120,8 @@
     terminal: () => togglePanel(),
     theme: () => openPalette('>design '),
     explorer: toggleSidebar,
-    // Erst die Bilder der noch nie geöffneten Bereiche holen — im Ausdruck
-    // stehen alle Bereiche untereinander —, dann den Dialog aufmachen.
+    // Erst die Bilder der noch nie geöffneten Bereiche holen, im Ausdruck
+    // stehen alle Bereiche untereinander, dann den Dialog aufmachen.
     print: async () => {
       if (typeof alleBilderFreigeben === 'function') await alleBilderFreigeben();
       window.print();
@@ -139,7 +139,7 @@
     }
   };
 
-  // Alles mit data-cmd verdrahten — Menü, Activity Bar, Statusleiste.
+  // Alles mit data-cmd verdrahten: Menü, Activity Bar, Statusleiste.
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-cmd]');
     if (!btn) return;
@@ -172,7 +172,7 @@
 
   /* Leseanteil statt erfundener Zeile/Spalte.
      Im echten VS Code steht dort die Cursorposition. Die gibt es hier nicht
-     — eine erfundene Zahl wäre nur Dekoration. Der Leseanteil ist dagegen
+     Eine erfundene Zahl wäre nur Dekoration. Der Leseanteil ist dagegen
      eine echte Angabe und beantwortet die Frage, die sich beim Lesen
      tatsächlich stellt: Wie viel kommt noch? */
   function updateStatusProgress() {
@@ -187,7 +187,7 @@
   if (typeof onEditorScroll === 'function') onEditorScroll(updateStatusProgress);
 
   /* Anmeldestatus: app.js meldet ihn an die Titelleiste. Hier wird die
-     Funktion umschlossen, damit die Statusleiste unten mitzieht — ohne
+     Funktion umschlossen, damit die Statusleiste unten mitzieht, ohne
      app.js dafür anfassen zu müssen. */
   if (typeof window.updateAuth === 'function') {
     const original = window.updateAuth;
@@ -245,7 +245,7 @@
       .trim();
   }
 
-  /** Dateien aus der Tableiste lesen statt sie hier nochmal aufzuzählen —
+  /** Dateien aus der Tableiste lesen statt sie hier nochmal aufzuzählen:
    *  eine neue Datei im HTML taucht damit automatisch in der Palette auf. */
   function fileEntries() {
     return Array.from(document.querySelectorAll('.tab')).map((tab) => ({
@@ -272,7 +272,7 @@
       { label: I18N.t('palette.cmd.logout'), hint: '', run: CMD.logout }
     ];
 
-    // Jedes Design einzeln aufrufbar — so wie "Farbdesign" in VS Code.
+    // Jedes Design einzeln aufrufbar, so wie "Farbdesign" in VS Code.
     THEMES.forEach((t) => {
       list.push({
         label: I18N.t('palette.cmd.themePrefix') + themeName(t.id),
@@ -289,7 +289,7 @@
    *
    *  Zwei Stufen: Erst der zusammenhängende Treffer (wer "skill" tippt,
    *  will skills.py zuoberst). Findet sich keiner, wird geprüft, ob die
-   *  Buchstaben wenigstens der Reihe nach vorkommen — so findet "prj" auch
+   *  Buchstaben wenigstens der Reihe nach vorkommen, so findet "prj" auch
    *  projekte.html, wie man es von VS Code kennt. */
   function scoreEntry(entry, query) {
     if (!query) return 0;
@@ -364,8 +364,8 @@
 
   /** Beim Abbrechen (Escape, Klick daneben) gehört der Fokus dorthin
    *  zurück, wo er herkam. Wenn die Palette dagegen etwas ausführt, das
-   *  den Fokus selbst weitersetzt — eine Datei öffnen, das Terminal
-   *  aufmachen —, wäre das Zurückgeben ein Rückschritt: der Fokus landete
+   *  den Fokus selbst weitersetzt, also eine Datei öffnen oder das Terminal
+   *  aufmachen, wäre das Zurückgeben ein Rückschritt: der Fokus landete
    *  wieder im Suchfeld der Titelleiste und die Tastatur scrollte nichts. */
   function closePalette(keepFocus) {
     if (qiBackdrop.hidden) return;
@@ -550,7 +550,7 @@
         runCommand(value);
         return;
       }
-      // Pfeiltasten blättern durch die bisherigen Eingaben — wie in einer
+      // Pfeiltasten blättern durch die bisherigen Eingaben, wie in einer
       // echten Shell.
       if (e.key === 'ArrowUp' && history.length) {
         e.preventDefault();
@@ -582,7 +582,7 @@
     const mod = e.ctrlKey || e.metaKey;
     if (!mod) return;
 
-    // Strg+P — Datei suchen. Der Browser druckt sonst; das ist hier
+    // Strg+P, Datei suchen. Der Browser druckt sonst; das ist hier
     // gewollt übernommen, weil die Palette der häufigere Wunsch ist.
     // Drucken bleibt über die Palette erreichbar ("Datei: Seite drucken").
     if (e.key.toLowerCase() === 'p' && !e.shiftKey) {
@@ -591,21 +591,21 @@
       return;
     }
 
-    // Strg+Umschalt+P — Befehle
+    // Strg+Umschalt+P, Befehle
     if (e.key.toLowerCase() === 'p' && e.shiftKey) {
       e.preventDefault();
       openPalette('>');
       return;
     }
 
-    // Strg+^ beziehungsweise Strg+` — Terminal
+    // Strg+^ beziehungsweise Strg+`, Terminal
     if (e.key === '^' || e.key === '`' || e.code === 'Backquote' || e.code === 'IntlBackslash') {
       e.preventDefault();
       togglePanel();
       return;
     }
 
-    // Strg+Umschalt+E — Explorer
+    // Strg+Umschalt+E, Explorer
     if (e.key.toLowerCase() === 'e' && e.shiftKey) {
       e.preventDefault();
       toggleSidebar();
@@ -613,7 +613,7 @@
   });
 
   /* Escape als Notausgang.
-     Vorher lag das nur auf dem Eingabefeld der Palette — wer den Fokus
+     Vorher lag das nur auf dem Eingabefeld der Palette; wer den Fokus
      verloren hatte, kam nicht mehr heraus. Jetzt hört das Dokument mit,
      und zwar in der Erfassungsphase (capture), damit es auch dann greift,
      wenn ein anderer Handler das Ereignis vorher abfängt. */

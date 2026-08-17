@@ -6,7 +6,7 @@
 <meta name="description" content="Diese Seite gibt es auf dem Portfolio von Luis Rosado nicht. Zurück zur Startseite, zu den Projekten oder zum Kontakt."/>
 <meta name="robots" content="noindex, follow"/>
 <meta name="theme-color" content="#1e1e1e"/>
-<title>404 — Datei nicht gefunden · Luis Rosado</title>
+<title>404: Datei nicht gefunden · Luis Rosado</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
 
 <!-- Nur die Farbwerte werden von aussen geholt, damit die Seite im gewaehlten
@@ -15,14 +15,14 @@
      Bewusst ohne style.css, vscode.css und Google Fonts: Eine Fehlerseite soll
      auch dann noch lesbar sein, wenn mit den uebrigen Dateien etwas nicht
      stimmt, und sie soll schnell da sein. Genau daran ist die vorherige
-     Fassung gescheitert — sie band style.css ein, aber nicht themes.css, und
+     Fassung gescheitert: Sie band style.css ein, aber nicht themes.css, und
      stand deshalb ohne einen einzigen Farbwert da: schwarze Schrift auf
      schwarzem Grund. Was hier gebraucht wird, steht jetzt im Dokument selbst,
      und die Farben haben Rueckfallwerte. -->
 <link rel="stylesheet" href="/css/themes.css">
 
 <script>
-  // Gewaehltes Farbdesign setzen, bevor die Seite zeichnet — wie im Portfolio.
+  // Gewaehltes Farbdesign setzen, bevor die Seite zeichnet, wie im Portfolio.
   (function () {
     try {
       var t = localStorage.getItem('lr_theme');
@@ -34,7 +34,7 @@
 <style>
   /* Rueckfallwerte fuer den Fall, dass themes.css nicht geladen werden kann.
      Dann sieht die Seite zwar nicht nach dem gewaehlten Design aus, ist aber
-     lesbar — und darum geht es hier. */
+     lesbar, und darum geht es hier. */
   :root{
     --nf-bg: var(--bg, #1e1e1e);
     --nf-panel: var(--sb, #252526);
@@ -83,7 +83,7 @@
 
     <div class="nf-term">
       <div><span class="nf-prompt">~/luis-rosado</span> $ cat <span class="nf-pfad" id="nfPfad">.</span></div>
-      <div><span class="nf-err">cat: ENOENT</span> — no such file or directory</div>
+      <div><span class="nf-err">cat: ENOENT</span>: no such file or directory</div>
       <div class="nf-cmt">// Vertippt, oder der Verweis ist veraltet.</div>
     </div>
 

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   themes.css — Farbthemen
+   themes.css: Farbthemen
 
    Die Werte sind nicht geschätzt, sondern aus den echten VS-Code-Themes
    übernommen (workbench.colorCustomizations und tokenColors). Genau
@@ -7,7 +7,7 @@
    "Dark+" oder "Dracula" sofort wieder.
 
    Aufbau: Jede Variable beschreibt einen Oberflächenteil, nicht eine
-   Farbe. "--act-bg" ist der Hintergrund der Activity Bar — welche Farbe
+   Farbe. "--act-bg" ist der Hintergrund der Activity Bar. Welche Farbe
    das ist, entscheidet allein das gewählte Theme. Kein Bauteil im
    restlichen CSS nennt je einen Farbwert.
 
@@ -15,7 +15,7 @@
    THEMES in app.js eintragen. Sonst ist nichts zu tun.
    ═══════════════════════════════════════════════════════════════════════ */
 
-/* ── Dark+ (Default Dark) — das Standardtheme von VS Code ───────────────── */
+/* ── Dark+ (Default Dark), das Standardtheme von VS Code ───────────────── */
 :root,
 [data-theme='dark-plus'] {
   color-scheme: dark;
@@ -67,7 +67,7 @@
   --syn-var: #9cdcfe;
   --syn-punct: #d4d4d4;
 
-  /* Bedeutungsfarben (Skills, Noten, Meldungen) — bewusst nicht aus der
+  /* Bedeutungsfarben (Skills, Noten, Meldungen), bewusst nicht aus der
      Syntaxpalette, damit Bedeutung und Codefarbe nicht verwechselt werden. */
   --ok: #4ec9b0;
   --info: #569cd6;
@@ -284,7 +284,7 @@
 /* ── Light+ (Default Light) ────────────────────────────────────────────────
    Kein nachträglicher Zusatz: Wer die Seite in einem hellen Raum oder auf
    einem Beamer ansieht, liest hier deutlich besser. Die Activity Bar bleibt
-   dunkel — genau wie im echten Light+.
+   dunkel, genau wie im echten Light+.
    ─────────────────────────────────────────────────────────────────────── */
 [data-theme='light-plus'] {
   color-scheme: light;
@@ -342,7 +342,7 @@
    Die Seite hiess ihre Farben früher --blue, --green, --red. Das sind
    Farbnamen, keine Bedeutungen: In Dracula ist "blue" pink. Deshalb heissen
    sie jetzt nach ihrer Aufgabe (--accent, --ok, --danger). Die alten Namen
-   bleiben als Verweis bestehen, damit bestehendes CSS weiterläuft — sie
+   bleiben als Verweis bestehen, damit bestehendes CSS weiterläuft; sie
    lösen sich auf demselben Element auf und nehmen darum automatisch den
    Wert des aktiven Themes an.
    ═══════════════════════════════════════════════════════════════════════ */
@@ -357,7 +357,7 @@
   --purple: var(--syn-kw);
   --teal: var(--syn-type);
 
-  /* Höhen der Oberflächenteile — an einer Stelle, damit das Raster der
+  /* Höhen der Oberflächenteile, an einer Stelle, damit das Raster der
      .ide und die einzelnen Leisten nicht auseinanderlaufen können. */
   --h-title: 35px;
   --h-tabs: 35px;
@@ -367,7 +367,7 @@
 }
 
 /* Wenn ein helles Theme aktiv ist, brauchen ein paar Stellen weniger
-   Kontrast statt mehr — hier zentral geregelt statt in jedem Bauteil. */
+   Kontrast statt mehr, hier zentral geregelt statt in jedem Bauteil. */
 [data-theme='light-plus'] .tab:hover,
 [data-theme='light-plus'] .tree-file:hover,
 [data-theme='light-plus'] .tree-folder:hover {

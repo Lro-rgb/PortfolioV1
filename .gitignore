@@ -6,7 +6,7 @@ node_modules/
 *.log
 .DS_Store
 
-# Die Kompetenznachweise im Klartext. Dieses Repository ist oeffentlich — hier
+# Die Kompetenznachweise im Klartext. Dieses Repository ist oeffentlich, hier
 # eingecheckt waeren die Noten fuer jeden lesbar, und der Passwortschutz vor
 # dem Notenbereich waere umsonst. Eingecheckt wird stattdessen der Ordner
 # unterlagen-verschluesselt/; den Schluessel dazu haelt UNTERLAGEN_KEY.

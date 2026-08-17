@@ -99,7 +99,7 @@ function openTabNames(){
 /**
  * Tabs, auf die gerade ohne Login umgeschaltet werden darf.
  * Die gesperrten Tabs haben keinen Schliessen-Button und gelten damit
- * immer als "offen" — ohne diesen Filter würde das Schliessen des letzten
+ * immer als "offen". Ohne diesen Filter würde das Schliessen des letzten
  * sichtbaren Tabs ungefragt den Login-Dialog aufreissen.
  */
 function switchableTabs(){
@@ -108,7 +108,7 @@ function switchableTabs(){
 }
 
 /**
- * Öffnet einen Tab. Gesperrte Tabs verlangen vorher ein gültiges Token —
+ * Öffnet einen Tab. Gesperrte Tabs verlangen vorher ein gültiges Token,
  * ohne das wird der Login-Dialog gezeigt und die Auswahl gemerkt.
  */
 /* Bilder eines Bereichs wirklich holen.
@@ -116,7 +116,7 @@ function switchableTabs(){
    loading="lazy" allein hat hier nicht gereicht. Die Bereiche liegen alle im
    selben Dokument und werden nur über eine Klasse ein- und ausgeblendet; für
    den Browser stehen ihre Bilder damit an Position null und gelten als
-   sichtbar. Er hat sie deshalb sofort geladen — beim ersten Aufruf kamen über
+   sichtbar. Er hat sie deshalb sofort geladen. Beim ersten Aufruf kamen über
    fünf Megabyte herunter, obwohl der Besucher nur die Startseite sieht und
    die Bilder von Interessen und Projekten vielleicht nie ansteuert.
 
@@ -127,7 +127,7 @@ function bilderFreigeben(panel,sofort){
   panel.querySelectorAll('img[data-src]').forEach(img=>{
     /* Für den Ausdruck muss "lazy" weg. Die noch nie geöffneten Bereiche
        sind in dem Moment ausgeblendet, und ein ausgeblendetes Bild lädt der
-       Browser mit lazy grundsätzlich nicht — es bliebe leer, obwohl es auf
+       Browser mit lazy grundsätzlich nicht, es bliebe leer, obwohl es auf
        dem Papier stehen soll. */
     if(sofort)img.loading='eager';
     img.src=img.dataset.src;
@@ -138,7 +138,7 @@ function bilderFreigeben(panel,sofort){
 /* Auf Papier stehen alle Bereiche untereinander, auch die nie geöffneten.
    Deren Bilder müssen also vorher noch geholt werden, sonst bleiben im
    Ausdruck Lücken. Gibt die Rückmeldung, wann alles geladen ist, damit der
-   Druckbefehl darauf warten kann — der Druckdialog selbst wartet nicht. */
+   Druckbefehl darauf warten kann; der Druckdialog selbst wartet nicht. */
 function alleBilderFreigeben(){
   bilderFreigeben(document,true);
   const offen=[...document.images].filter(img=>!img.complete);
@@ -188,7 +188,7 @@ function openTab(name,opts){
   buildOutline(panel);
   editorScroll.scrollTop=0;
   /* Die Blätterpfeile der Bilderreihen wurden bisher einmal beim Aufbau
-     gemessen — da war das Panel noch ausgeblendet, clientWidth also null und
+     gemessen. Da war das Panel noch ausgeblendet, clientWidth also null und
      beide Pfeile blieben abgeschaltet. Sie wachten erst auf, wenn man die
      Reihe von Hand verschoben hatte. Jetzt wird nachgemessen, sobald der
      Bereich wirklich sichtbar ist. */
@@ -199,8 +199,8 @@ function openTab(name,opts){
   closeDrawer(); // auf dem Handy die Schublade nach der Auswahl schliessen
 
   if(opts.focusTab!==false&&opts.fromKeyboard)tab.focus();
-  /* Wer die Datei per Tastatur gewechselt hat — Strg+P, Enter im Explorer,
-     Enter auf einem Tab —, will danach weiterlesen. Der Fokus stand aber
+  /* Wer die Datei per Tastatur gewechselt hat, also mit Strg+P, Enter im Explorer,
+     Enter auf einem Tab, will danach weiterlesen. Der Fokus stand aber
      noch auf dem Suchfeld, dem Explorer oder der Tableiste, und Bild-ab,
      Leertaste und die Pfeiltasten scrollten deshalb entweder gar nichts
      oder die falsche Leiste. Er wandert jetzt in den Editorbereich, der
@@ -255,7 +255,7 @@ $('tabbar').addEventListener('click',e=>{
   if(tab)openTab(tab.dataset.panel);
 });
 
-/* Waagrechte Leisten mit dem Mausrad bedienbar machen — die Tableiste hier,
+/* Waagrechte Leisten mit dem Mausrad bedienbar machen: die Tableiste hier,
    die Gliederung in buildOutline. Beide laufen waagrecht, das Rad meldet aber
    nur eine senkrechte Bewegung: ohne Umrechnung scrollt der Inhalt darunter
    und die hinteren Einträge sind auf einem schmaleren Bildschirm gar nicht
@@ -306,7 +306,7 @@ $('tabbar').addEventListener('keydown',e=>{
    detail ist bei einem echten Mausklick die Zahl der Klicks, bei einem
    Klick, den Enter oder die Leertaste auf einem Knopf auslöst, dagegen 0.
    Daran hängt, ob der Fokus anschliessend in den Editor wandert: mit der
-   Maus liest man weiter, wo man will — mit der Tastatur bliebe er sonst
+   Maus liest man weiter, wo man will; mit der Tastatur bliebe er sonst
    im Explorer hängen und das Blättern ginge ins Leere. */
 document.addEventListener('click',e=>{
   const trigger=e.target.closest('[data-open]');
@@ -339,12 +339,12 @@ function setHash(name){
     history.replaceState(null,'',url);
   }catch(e){
     // Beim Öffnen als lokale Datei oder in einer Vorschau-Ansicht lehnen
-    // manche Browser replaceState ab. Die Adresse ist dann nur Beiwerk —
+    // manche Browser replaceState ab. Die Adresse ist dann nur Beiwerk,
     // ein Fehler hier darf nicht den Rest der Navigation abbrechen.
   }
 }
 
-// Bleibt für von Hand geänderte Adressen zuständig — eigene Änderungen
+// Bleibt für von Hand geänderte Adressen zuständig; eigene Änderungen
 // laufen über replaceState und lösen hier nichts aus.
 window.addEventListener('hashchange',()=>{
   const name=currentHashPanel();
@@ -357,8 +357,8 @@ window.addEventListener('hashchange',()=>{
    EXPLORER-SCHUBLADE (nur schmale Bildschirme)
 
    Auf dem Handy hat die Sidebar keinen Platz neben dem Editor. Statt sie
-   ersatzlos auszublenden — dort stehen die Ordnerstruktur und die
-   gesperrten Dateien — fährt sie über einen Schalter in der Titelleiste
+   ersatzlos auszublenden, dort stehen die Ordnerstruktur und die
+   gesperrten Dateien, fährt sie über einen Schalter in der Titelleiste
    als Schublade aus.
 ═══════════════════════════════════ */
 let focusBeforeDrawer=null;
@@ -382,7 +382,7 @@ function closeDrawer(){
   backdrop.hidden=true;
   sbToggle.setAttribute('aria-expanded','false');
   sbToggle.querySelector('.vh').textContent=I18N.t('chrome.explorerOpen');
-  // Fokus nur zurückholen, wenn er noch in der Schublade steckt —
+  // Fokus nur zurückholen, wenn er noch in der Schublade steckt,
   // sonst würde ein Klick auf eine Datei den Fokus wieder wegreissen.
   if(sidebar.contains(document.activeElement)){
     (focusBeforeDrawer&&document.contains(focusBeforeDrawer)?focusBeforeDrawer:sbToggle).focus();
@@ -405,7 +405,7 @@ document.addEventListener('keydown',e=>{
 })();
 
 /* ═══════════════════════════════════════════════════════════════
-   MEDIEN  —  Video, Screenshots, Downloads
+   MEDIEN: Video, Screenshots, Downloads
 
    Alles läuft über die beiden Objekte unten. Was hier nicht
    eingetragen ist, wird auch nicht gerendert: keine leeren Player,
@@ -414,11 +414,11 @@ document.addEventListener('keydown',e=>{
    Neue Datei einbinden:
      1. Datei nach public/media/ legen
      2. Hier beim passenden Projekt eintragen
-   Mehr ist nicht nötig — die Anzeige baut sich daraus auf.
+   Mehr ist nicht nötig, die Anzeige baut sich daraus auf.
 ═══════════════════════════════════════════════════════════════ */
 
 /* Leere Bildrahmen anzeigen oder nicht. Auf true stehen sie in jeder Karte
-   ohne Bild als gestricheltes "Bild folgt" — nützlich, solange man selbst
+   ohne Bild als gestricheltes "Bild folgt". Nützlich, solange man selbst
    daran arbeitet, unruhig für jeden, der die Seite nur anschaut. */
 const PLATZHALTER_ZEIGEN=false;
 
@@ -427,7 +427,7 @@ const PLATZHALTER_ZEIGEN=false;
        video:{src:'media/askel.mp4', poster:'media/askel-poster.jpg',
               titel:'Askel zeichnet eine Route auf', dauer:'1:10',
               format:'hoch'},   // hochkant, für Aufnahmen vom Handy
-       format:'quer',   // 16:10 statt hochkant — für Bilder vom Rechner
+       format:'quer',   // 16:10 statt hochkant, für Bilder vom Rechner
        shots:[{src:'media/askel-1.jpg', alt:'Startbildschirm mit Routenliste'}],
        downloads:[{href:'media/askel-doku.pdf', label:'Projektdokumentation', meta:'PDF · 1,2 MB'}]
      }
@@ -441,7 +441,7 @@ const PLATZHALTER_ZEIGEN=false;
    public/media/ liegt. */
 /* Die ZIP-Verweise bei den Projekten zeigen auf GitHub, nicht auf eine
    Datei unter public/media/. Der Pfad /archive/HEAD.zip packt immer den
-   aktuellen Stand des Standardzweigs — es liegt also kein Archiv im
+   aktuellen Stand des Standardzweigs. Es liegt also kein Archiv im
    Repository herum, das nach dem nächsten Commit veraltet ist, und die
    Seite wird davon kein Megabyte grösser.
 
@@ -477,16 +477,16 @@ const MEDIA={
   },
   /* Noch ohne Datei: platzhalter reserviert den Platz, damit jede Karte
      gleich aufgebaut ist. Sobald daneben shots oder video steht, ver-
-     schwindet der Rahmen von selbst — der Platzhalter wird nur gezeigt,
+     schwindet der Rahmen von selbst; der Platzhalter wird nur gezeigt,
      solange nichts Echtes da ist.
 
      Ob sie überhaupt erscheinen, entscheidet PLATZHALTER_ZEIGEN weiter
      unten. Sechs von zehn Karten hatten damit einen gestrichelten Kasten
-     mit "Bild folgt" an der auffälligsten Stelle — das ist genau die
+     mit "Bild folgt" an der auffälligsten Stelle, und das ist genau die
      Unruhe, die eine Übersicht kaputt macht. Die Einträge bleiben
      stehen, damit ein einziges Wort sie wieder einschaltet. */
   /* Vier Aufnahmen der laufenden Seite, aufgenommen bei 1600x1000. Der
-     Text der Karte nennt Kommandopalette, Terminal und sechs Farbdesigns —
+     Text der Karte nennt Kommandopalette, Terminal und sechs Farbdesigns, aber
      das eine Bild der Startseite hat davon nichts gezeigt. Jetzt steht
      hinter jeder dieser Behauptungen ein Bild. */
   portfolio:{
@@ -495,7 +495,7 @@ const MEDIA={
       {src:'media/portfolio-home.png',
        alt:'Die Startseite dieses Portfolios im VS-Code-Design: Explorer links, luis.json offen im Editor'},
       {src:'media/portfolio-palette.png',
-       alt:'Die Kommandopalette mit der Befehlsliste: Farbdesign wechseln, Terminal, Explorer, drucken — jeder Eintrag mit seinem Tastenkürzel'},
+       alt:'Die Kommandopalette mit der Befehlsliste: Farbdesign wechseln, Terminal, Explorer, drucken, jeder Eintrag mit seinem Tastenkürzel'},
       {src:'media/portfolio-terminal.png',
        alt:'Das eingeblendete Terminal, darin der Befehl whoami mit seiner Ausgabe'},
       {src:'media/portfolio-hell.jpg',
@@ -505,7 +505,7 @@ const MEDIA={
                 label:'PortfolioV1.zip', meta:'GitHub'}]
   },
   /* Eigene Aufnahmen der beiden Geräte, oben und unten leicht
-     zugeschnitten — der dunkle Tisch drumherum nahm sonst mehr Platz ein
+     zugeschnitten, der dunkle Tisch drumherum nahm sonst mehr Platz ein
      als die Geräte selbst. format:'frei' bleibt: die Kachel nimmt die
      eigene Proportion des Bildes an, statt sie in einen festen 16:10-
      Rahmen zu zwingen und dabei Balken zu riskieren. */
@@ -520,8 +520,8 @@ const MEDIA={
   },
   /* Vier Bildschirmfotos aus der Projektdokumentation, in der Reihenfolge
      der Kette: gebaut, ausgerollt, läuft, antwortet. Sie sind sehr
-     unterschiedlich breit — ein Pipeline-Bild ist mehr als dreimal so
-     breit wie hoch — darum format:'frei': die Kacheln nehmen die
+     unterschiedlich breit, ein Pipeline-Bild ist mehr als dreimal so
+     breit wie hoch, darum format:'frei': die Kacheln nehmen die
      Proportion des Bildes an, statt es in ein festes Raster zu zwingen. */
   urlshortener:{
     format:'frei',
@@ -569,23 +569,23 @@ const MEDIA={
      Beschleunigt sind nur die beiden Stellen, an denen ausser dem Zähler
      nichts passiert: die ersten Sekunden nach dem Start auf doppeltes
      Tempo, die lange Strecke vor dem Stopp auf zweieinhalbfaches. Alles
-     andere läuft in Echtzeit — die Karte, auf der sich die Route zeichnet,
+     andere läuft in Echtzeit: die Karte, auf der sich die Route zeichnet,
      das Speichern, die fertige Route und die Einstellungen. Damit hetzt
      die Aufnahme an keiner Stelle, an der man etwas mitlesen muss.
 
      Zwei weitere Schnitte ohne Tempowechsel: Der Standbild-Moment nach dem
      Speichern ist um zwei Sekunden gekürzt, und der Schluss endet auf den
      Einstellungen. In der Rohaufnahme kamen danach noch das Löschen aller
-     Daten und die eingeblendete Schaltfläche des Bildschirmrekorders — als
+     Daten und die eingeblendete Schaltfläche des Bildschirmrekorders, als
      letzter Eindruck einer Vorführung beides das Falsche.
 
      Der zuschnitt-Eintrag ist zugleich der Schalter für die eigene
      Steuerleiste mit dem Vollbild-Knopf; x:0 und die volle Quellbreite
-     heissen, dass nichts weggeblendet wird — siehe die längere
+     heissen, dass nichts weggeblendet wird; siehe die längere
      Begründung beim Rezeptbuch weiter unten.
 
      Die Anzeigehöhe von 550 Pixeln ergibt eine Breite von 247 Pixeln.
-     Vorher standen hier 400 Pixel und damit 179 Pixel Breite — neben der
+     Vorher standen hier 400 Pixel und damit 179 Pixel Breite, und neben der
      366 Pixel breiten Karte sah das nach einem vergessenen Streifen aus.
      Den grössten Teil der zusätzlichen Höhe hatte die Karte ohnehin frei:
      Sie steht im Raster neben der Karte zum URL-Shortener, die höher ist,
@@ -600,7 +600,7 @@ const MEDIA={
     downloads:[{href:'https://github.com/Lro-rgb/Askel/archive/HEAD.zip',
                 label:'Askel.zip', meta:'GitHub'}]},
   /* Bildschirmaufnahme aus dem Android-Emulator, im Hochformat und ohne
-     schwarzen Rand — abgeschnitten werden muss hier also nichts mehr.
+     schwarzen Rand, abgeschnitten werden muss hier also nichts mehr.
      Die Aufnahme zeigt die Sammlung, die Suche, den Vegetarisch-Filter,
      die Eingabemaske und ein Rezept im Detail.
 
@@ -615,7 +615,7 @@ const MEDIA={
 
      Der zuschnitt-Eintrag steht trotzdem da: Er ist zugleich der Schalter
      für die eigene Steuerleiste mit dem Vollbild-Knopf. x:0 und die volle
-     Quellbreite heissen, dass nichts weggeblendet wird — nur die Höhe
+     Quellbreite heissen, dass nichts weggeblendet wird, nur die Höhe
      legt fest, wie gross das Video auf der Karte steht. Sie ist dieselbe
      wie bei Askel: Zwei Aufnahmen vom Handy in derselben Übersicht sollen
      gleich gross sein, sonst sieht die kleinere nach Versehen aus. Nach
@@ -656,7 +656,7 @@ const MEDIA={
   },
   // Die erste Website liegt als Kopie unter public/erste-website/ und wird
   // deshalb direkt eingebettet statt abfotografiert.
-  // Für die erste Website gibt es kein Repository — sie lag nur per FTP auf
+  // Für die erste Website gibt es kein Repository, sie lag nur per FTP auf
   // dem Schulserver. Ihr Archiv ist deshalb das einzige, das wirklich unter
   // public/media/ liegt und beim Ändern der Kopie neu gepackt gehört.
   erstewebsite:{einbettung:{src:'erste-website',
@@ -667,7 +667,7 @@ const MEDIA={
 
 /* Interessen: pro Bereich eine Bilderstrecke.
    Bild einbinden: Datei nach public/media/ legen und hier eine Zeile
-   eintragen. Bereiche ohne Bilder erscheinen gar nicht — kein leerer
+   eintragen. Bereiche ohne Bilder erscheinen gar nicht: kein leerer
    Rahmen, kein Platzhalter.
      gaming:[{src:'media/gaming-eldenring.jpg', alt:'Elden Ring, …'}]
    Der Text im alt-Attribut steht auch als Bildunterschrift in der
@@ -681,15 +681,15 @@ const INTERESSEN={
     // beschnitten fing die Kachel erst hinter dem Gesicht an, darum der
     // Ausschnitt weit nach links.
     {src:'media/gaming-persona3.jpg', ausschnitt:'12% 50%',
-     alt:'Persona 3 — Key-Art des Protagonisten mit SEES-Armbinde'},
+     alt:'Persona 3, Key-Art des Protagonisten mit SEES-Armbinde'},
     {src:'media/gaming-elden-ring.jpg',
-     alt:'Elden Ring — Key-Art'},
+     alt:'Elden Ring, Key-Art'},
     {src:'media/gaming-undertale.jpg',
-     alt:'Undertale — Titelschriftzug'},
+     alt:'Undertale, Titelschriftzug'},
     {src:'media/gaming-palworld.jpg',
-     alt:'Palworld — Key-Art'},
+     alt:'Palworld, Key-Art'},
     {src:'media/gaming-ghost-of-tsushima.jpg',
-     alt:'Ghost of Tsushima — Key-Art'}
+     alt:'Ghost of Tsushima, Key-Art'}
   ],
   // Albumcover, geholt aus der öffentlichen Suche von Apple Music
   // (1000 x 1000). Auch hier: die Bilder gehören den Labels.
@@ -708,7 +708,7 @@ const INTERESSEN={
   // Bandcover, gesucht über Apple Books und Open Library.
   lesen:[
     {src:'media/lesen-jojolion.jpg',
-     alt:'JoJo’s Bizarre Adventure Teil 8 — JoJolion, Band 1'},
+     alt:'JoJo’s Bizarre Adventure Teil 8: JoJolion, Band 1'},
     {src:'media/lesen-dragon-ball-z.jpg',
      alt:'Dragon Ball Z, Band 1'},
     {src:'media/lesen-hellsing.jpg',
@@ -719,7 +719,7 @@ const INTERESSEN={
      alt:'Berserk, Band 1'}
   ],
   /* Eigene Fotos: der selbst gebaute Rechner und die beiden Konsolen mit
-     Custom Firmware — genau das, was der Text über der Strecke ankündigt.
+     Custom Firmware, genau das, was der Text über der Strecke ankündigt.
      Die Konsolenbilder sind dieselben wie in der Modding-Karte. */
   hardware:[
     {src:'media/hardware-setup.jpg',
@@ -754,7 +754,7 @@ function zeitText(s){
    so breit wie die Karte, nicht so schmal wie der Ausschnitt.
 
    Vollbild geht auf den ganzen Abspieler, damit die Leiste mitkommt. Der
-   Zuschnitt wird dabei aufgehoben — auf einem grossen Bildschirm ist Platz
+   Zuschnitt wird dabei aufgehoben; auf einem grossen Bildschirm ist Platz
    genug für das ganze Bild, und die schwarzen Ränder stören dort nicht,
    weil das Video ohnehin 16:9 ist. */
 function baueVideoPlayer(v,zs){
@@ -765,14 +765,14 @@ function baueVideoPlayer(v,zs){
   v.controls=false;
 
   /* Setzt den Ausschnitt auf eine bestimmte Anzeigehöhe. Der Zuschnitt
-     bleibt auch in der Grossansicht bestehen — dort wird er nur grösser
+     bleibt auch in der Grossansicht bestehen, dort wird er nur grösser
      gerechnet. Würde man ihn stattdessen aufheben, sähe man auf einem
      grossen Bildschirm vor allem den schwarzen Rand in Gross, und das Handy
      bliebe ein Streifen in der Mitte. */
   function zuschnittSetzen(hoehe){
     /* Auf schmalen Bildschirmen darf der Ausschnitt nicht breiter werden
        als der Platz in der Karte. Der Rahmen selbst wird zwar von
-       max-width:100% gebremst, das Video darin aber nicht — es stünde
+       max-width:100% gebremst, das Video darin aber nicht, es stünde
        weiter in voller Breite da und der rechte Rand der Aufnahme wäre
        abgeschnitten. Ist der Platz knapp, gibt darum die Breite die Höhe
        vor und nicht umgekehrt. In der Grossansicht gilt das nicht, dort
@@ -803,7 +803,7 @@ function baueVideoPlayer(v,zs){
   /* Anzeigehöhe in der Grossansicht: so hoch wie der Platz über der
      Leiste hergibt, aber höchstens doppelt so hoch wie die Aufnahme
      selbst. Weiter hochgerechnet wird die Schrift auf dem Handy nur
-     matschig — dieselbe Grenze wie bei den Screenshots in der
+     matschig, dieselbe Grenze wie bei den Screenshots in der
      Vollansicht. */
   function grossHoehe(){
     const leisteH=leiste.offsetHeight||30;
@@ -840,7 +840,7 @@ function baueVideoPlayer(v,zs){
   player.append(rahmen,leiste);
   zuschnittSetzen(zs.hoehe);
   /* Beim ersten Aufruf hängt der Abspieler noch nicht in der Seite, und die
-     Projektübersicht ist beim Laden ohnehin ausgeblendet — gemessen käme
+     Projektübersicht ist beim Laden ohnehin ausgeblendet, gemessen käme
      dort nur eine Breite von null heraus. Ein ResizeObserver auf dem
      Medienbereich rechnet darum genau dann nach, wenn dieser eine Breite
      bekommt: beim ersten Öffnen des Tabs und später bei jeder Änderung. */
@@ -899,7 +899,7 @@ function baueVideoPlayer(v,zs){
      Ansichten dürfen sie teils gar nicht aufrufen. Wenn also etwas dagegen
      spricht, legt sich der Abspieler stattdessen über die Seite. Das
      Ergebnis ist für den Betrachter praktisch dasselbe und funktioniert
-     immer — besser als ein Knopf, der auf manchen Geräten nichts tut. */
+     immer, und das ist besser als ein Knopf, der auf manchen Geräten nichts tut. */
   function ansichtSetzen(gross){
     player.classList.toggle('voll',gross);
     zuschnittSetzen(gross?grossHoehe():zs.hoehe);
@@ -959,7 +959,7 @@ function renderProjectMedia(){
 
       /* Zuschnitt für Aufnahmen, bei denen das Bild breiter ist als das,
          was darauf zu sehen ist. Der Emulator nimmt in 1280x720 auf, das
-         Handy darin ist aber nur 322 Pixel breit — drei Viertel der Datei
+         Handy darin ist aber nur 322 Pixel breit, drei Viertel der Datei
          sind schwarzer Rand. Ohne Zuschnitt wäre die App auf der Karte
          daumennagelgross.
 
@@ -967,10 +967,10 @@ function renderProjectMedia(){
          Grösse blendet aus, das Video wird darin auf Höhe gerechnet und
          so weit nach links geschoben, dass der gewünschte Ausschnitt im
          Rahmen steht. Das Video bleibt unangetastet und lässt sich
-         jederzeit gegen eine sauber exportierte Fassung tauschen — dann
+         jederzeit gegen eine sauber exportierte Fassung tauschen, dann
          fällt einfach diese Angabe weg.
 
-         zuschnitt: {x, breite, quelle:[vollBreite, vollHoehe], hoehe} —
+         zuschnitt: {x, breite, quelle:[vollBreite, vollHoehe], hoehe},
          alle Werte in Pixeln des Originals ausser hoehe, das die
          Darstellungshöhe auf der Karte ist. */
       const zs=cfg.video.zuschnitt;
@@ -988,7 +988,7 @@ function renderProjectMedia(){
        zeigt immer den aktuellen Stand. Das Fenster ist auf 1280 Pixel
        gestellt und wird auf die Kartenbreite heruntergerechnet, damit die
        Seite so aussieht wie auf einem Rechner und nicht wie auf einem
-       schmalen Handy. Ohne Skripte, ohne Mausereignisse — es ist ein Bild,
+       schmalen Handy. Ohne Skripte, ohne Mausereignisse: es ist ein Bild,
        kein zweites Fenster zum Bedienen. */
     if(cfg.einbettung&&cfg.einbettung.src){
       const fig=el('figure','media-figure');
@@ -1021,7 +1021,7 @@ function renderProjectMedia(){
       fig.appendChild(a);
       box.appendChild(fig);
 
-      /* Erst messen, wenn der Rahmen im Dokument hängt — vorher ist seine
+      /* Erst messen, wenn der Rahmen im Dokument hängt, vorher ist seine
          Breite 0 und der Massstab entsprechend auch. Danach bei jeder
          Änderung nachziehen: ResizeObserver deckt Kartenbreite und
          Seitenleiste ab, das resize-Ereignis ältere Browser ohne
@@ -1039,7 +1039,7 @@ function renderProjectMedia(){
 
     /* Karussell statt Raster: nur ein Bild ist zu sehen, Pfeile und Punkte
        blättern durch die übrigen. Bei nur einem Screenshot bleiben Pfeile
-       und Punkte weg — da gibt es nichts zum Durchklicken. Ein Klick auf
+       und Punkte weg, da gibt es nichts zum Durchklicken. Ein Klick auf
        das Bild selbst öffnet weiterhin die Vollansicht (dieselbe
        .shot-Klasse, dieselbe Klick-Delegation wie vorher). */
     if(cfg.shots&&cfg.shots.length){
@@ -1081,7 +1081,7 @@ function renderProjectMedia(){
     }
 
     /* Platzhalter: nur, solange für diese Sorte nichts Echtes vorliegt.
-       Ein Video ersetzt den Videorahmen, Bilder ersetzen die Kacheln —
+       Ein Video ersetzt den Videorahmen, Bilder ersetzen die Kacheln,
        beides kann nebeneinander stehen. */
     const ph=PLATZHALTER_ZEIGEN?cfg.platzhalter:null;
     if(ph){
@@ -1112,7 +1112,7 @@ function renderProjectMedia(){
 /* ── Bilderstrecken auf der Interessen-Seite ──
    Ein waagrechter Streifen mit Einrastpunkten. Die Knöpfe scrollen ihn,
    ein Klick auf ein Bild öffnet dieselbe Vollansicht wie bei den
-   Projekten — dafür werden die Listen unter einem eigenen Namen in
+   Projekten, dafür werden die Listen unter einem eigenen Namen in
    MEDIA hinterlegt. */
 function renderSliders(){
   document.querySelectorAll('[data-slider]').forEach(box=>{
@@ -1145,7 +1145,7 @@ function renderSliders(){
       img.dataset.src=b.src;img.alt=b.alt||'';img.loading='lazy';img.decoding='async';
       // Die Kachel ist immer gleich gross, die Bilder sind es nicht. Steht
       // das Wichtige nicht in der Mitte, verschiebt ausschnitt den
-      // sichtbaren Bereich — 0% ganz nach links, 100% ganz nach rechts.
+      // sichtbaren Bereich: 0% ganz nach links, 100% ganz nach rechts.
       if(b.ausschnitt)img.style.objectPosition=b.ausschnitt;
       btn.appendChild(img);
       track.appendChild(btn);
@@ -1170,7 +1170,7 @@ function renderSliders(){
       if(window.ResizeObserver)new ResizeObserver(()=>randKnoepfe(box)).observe(track);
       else requestAnimationFrame(()=>randKnoepfe(box));
       /* Die Kacheln ohne festes Seitenverhältnis bekommen ihre Breite erst
-         mit dem geladenen Bild. Der Beobachter oben sieht das nicht — er
+         mit dem geladenen Bild. Der Beobachter oben sieht das nicht, er
          hängt am Rahmen, nicht am Inhalt. */
       track.querySelectorAll('img').forEach(im=>
         im.addEventListener('load',()=>randKnoepfe(box),{once:true}));
@@ -1179,7 +1179,7 @@ function renderSliders(){
 }
 
 /* Schrittweite: genau ein Bild samt Abstand. Vorher war es ein Bruchteil
-   der sichtbaren Breite — dabei blieb nach jedem Klick ein anderer
+   der sichtbaren Breite, dabei blieb nach jedem Klick ein anderer
    Bildausschnitt am Rand stehen. */
 function slSchritt(track){
   const erst=track.querySelector('.shot');
@@ -1188,14 +1188,14 @@ function slSchritt(track){
   return erst.getBoundingClientRect().width+abstand;
 }
 
-/* Am Anfang und am Ende ist der jeweilige Knopf wirkungslos — dann soll
+/* Am Anfang und am Ende ist der jeweilige Knopf wirkungslos, dann soll
    er auch so aussehen und von der Tabulatortaste übersprungen werden. */
 function randKnoepfe(box){
   const track=box.querySelector('.sl-track');
   const links=box.querySelector('.sl-btn[data-dir="-1"]');
   const rechts=box.querySelector('.sl-btn[data-dir="1"]');
   if(!track||!links||!rechts)return;
-  /* Passt die ganze Reihe auf den Bildschirm, gibt es nichts zu blättern —
+  /* Passt die ganze Reihe auf den Bildschirm, gibt es nichts zu blättern,
      dann verschwinden die Pfeile ganz statt abgeschaltet dazustehen. Auf
      schmalen Bildschirmen kommen sie von selbst zurück. Die Zahl daneben
      bleibt, sie stimmt in beiden Fällen. */
@@ -1259,14 +1259,14 @@ document.addEventListener('click',e=>{
 });
 
 /* ══════════════════════════════════════════════════════════════════
-   HÖRSTATISTIKEN  —  stats.fm
+   HÖRSTATISTIKEN: stats.fm
 
    Die öffentliche API von stats.fm erlaubt Anfragen aus dem Browser
    (Access-Control-Allow-Origin: *), deshalb braucht es keinen eigenen
    Serverdienst dazwischen. Ein iframe wäre nicht gegangen: stats.fm
    schickt x-frame-options: SAMEORIGIN.
 
-   Geladen wird erst, wenn der Abschnitt sichtbar wird — die Startseite
+   Geladen wird erst, wenn der Abschnitt sichtbar wird, die Startseite
    soll nicht auf einen fremden Dienst warten. Antwortet er nicht, bleibt
    der Verweis auf das Profil stehen, der im HTML schon drin ist.
 ══════════════════════════════════════════════════════════════════ */
@@ -1374,7 +1374,7 @@ function beobachteStatsfm(){
 /* ── Karussell-Vorschau in den Projektkarten ──
    Wechselt nur das eine sichtbare Bild aus, statt alle Screenshots als
    Raster gleichzeitig zu zeigen. Ein Klick auf das Bild öffnet weiterhin
-   die Vollansicht unten — dort steckt schon die Pfeiltasten-Navigation. */
+   die Vollansicht unten, dort steckt schon die Pfeiltasten-Navigation. */
 /* Setzt die Anzeigehöhe eines einzelnen Screenshots.
 
    Nötig, weil in einer Strecke sehr unterschiedliche Seitenverhältnisse
@@ -1384,14 +1384,14 @@ function beobachteStatsfm(){
    steht wie der flache und die Karte beherrscht.
 
    Das Bild behält dabei die volle Breite und wird auf die angegebene
-   Höhe gezogen — die Strecken in den Projektkarten stehen ohnehin auf
+   Höhe gezogen, die Strecken in den Projektkarten stehen ohnehin auf
    object-fit:fill. Es wird also verzerrt und nicht beschnitten: Bei
    einem Beleg soll nichts wegfallen, und wer den Inhalt lesen will,
    öffnet das Bild mit einem Klick unverzerrt in der Vollansicht.
 
    Gesetzt wird max-height und nicht height: Auf einer schmalen Karte ist
    das Bild von sich aus flacher als der Wert, und eine feste Höhe würde
-   es dort in die Gegenrichtung ziehen — hoch und schmal statt breit und
+   es dort in die Gegenrichtung ziehen, hoch und schmal statt breit und
    flach. So greift die Angabe nur, solange sie das Bild kleiner macht. */
 function shotHoeheSetzen(img,s){
   img.style.maxHeight=s&&s.hoehe?s.hoehe+'px':'';
@@ -1438,8 +1438,8 @@ function openLightbox(group,index){
 /* Anzeigegrösse in der Vollansicht.
 
    max-width allein reicht nicht: es kann ein Bild nur kleiner machen, nie
-   grösser. Kleine Aufnahmen — der Screenshot von "kubectl get pods" ist
-   815 Pixel breit — standen deshalb als Briefmarke mitten in der schwarzen
+   grösser. Kleine Aufnahmen wie der Screenshot von "kubectl get pods", der nur
+   815 Pixel breit ist, standen deshalb als Briefmarke mitten in der schwarzen
    Fläche. Hier wird die Breite ausgerechnet: so gross wie der Platz
    erlaubt, aber höchstens doppelt so gross wie das Original. Weiter
    hochgerechnet wird Text auf einem Bildschirmfoto nur matschig.
@@ -1512,27 +1512,27 @@ document.addEventListener('keydown',e=>{
 /* ═══════════════════════════════════
    SEITE IN VOLLANSICHT
 
-   Die erste Website steckte bisher als klickdichte Vorschau in ihrer Karte —
+   Die erste Website steckte bisher als klickdichte Vorschau in ihrer Karte,
    sie sah aus wie ein Bildschirmfoto und verhielt sich auch so. Hier läuft
    sie in einem nachgebauten Browserfenster wirklich: eigene Verweise,
    eigener Verlauf, Adresszeile, die mitzieht.
 
    Das Fenster steckt den Rahmen ab. Ohne ihn wäre nicht zu erkennen, wo
-   diese Seite aufhört und die von 2024 anfängt — und der Unterschied
+   diese Seite aufhört und die von 2024 anfängt, und der Unterschied
    zwischen beiden ist genau das, was die Karte zeigen will.
 ═══════════════════════════════════ */
 const siteview=$('siteview'),svFrame=$('svFrame');
 /* Eigener Zähler statt history.length: Ein Rahmen teilt sich den Verlauf mit
    der Seite, in der er steckt. history.length zählt also auch die Schritte
    des Portfolios mit und stünde schon beim Öffnen auf zwei oder mehr. Der
-   Zurück-Schalter wäre damit von Anfang an bedienbar — und ein Druck darauf
+   Zurück-Schalter wäre damit von Anfang an bedienbar, und ein Druck darauf
    würde nicht im Rahmen blättern, sondern das Portfolio verlassen. */
 let svSchritte=0;
 
 /* Der Rahmen läuft mit sandbox="allow-same-origin", aber ohne allow-scripts.
    Lesen ist damit erlaubt (deshalb steht in der Adresszeile, wo man gerade
    ist), Ausführen nicht. Sollte die Kopie irgendwann doch ein Skript
-   bekommen, bleibt sie stumm — und dieser Zugriff wirft dann eine Ausnahme
+   bekommen, bleibt sie stumm, und dieser Zugriff wirft dann eine Ausnahme
    statt die Anzeige abzubrechen. */
 function svAdresseNachziehen(){
   let pfad='';
@@ -1561,14 +1561,14 @@ $('svBack').addEventListener('click',()=>{
   try{svFrame.contentWindow.history.back();}catch(e){ /* nichts zu tun */ }
 });
 // Klick auf die Abdunklung: das <dialog> selbst füllt den Bildschirm, das
-// Fenster darin nicht — ein Treffer daneben landet also hier.
+// Fenster darin nicht, ein Treffer daneben landet also hier.
 siteview.addEventListener('click',e=>{if(e.target===siteview)siteview.close();});
 
 /* ═══════════════════════════════════
    VORFÜHRUNG: ADRESSE KÜRZEN
 
    Zeigt die Antwort der Funktion so, wie sie kommt. Die Weiterleitung
-   dahinter fehlt mit Absicht — sie steht in der Erklärung darunter, nicht
+   dahinter fehlt mit Absicht, sie steht in der Erklärung darunter, nicht
    auf dieser Domain.
 ═══════════════════════════════════ */
 (function(){
@@ -1627,7 +1627,7 @@ document.querySelectorAll('.tree-folder').forEach(btn=>{
    GLIEDERUNG, LESEFORTSCHRITT UND FALTBARE DETAILS
 
    Lange Abschnitte sind zum Überfliegen gedacht, nicht zum
-   Durchscrollen. Beides wird aus dem vorhandenen Markup erzeugt —
+   Durchscrollen. Beides wird aus dem vorhandenen Markup erzeugt,
    neue Inhalte brauchen keine zusätzliche Pflege.
 ═══════════════════════════════════════════════════════════════ */
 
@@ -1644,7 +1644,7 @@ function buildOutline(panel){
   const content = panel.querySelector('.code-content');
   if(!content || content.querySelector('.outline'))return;
   /* Bereiche, die ihre Gliederung nicht brauchen. Bei den Skills sind die drei
-     Zwischentitel ohnehin auf einen Blick zu sehen — die Leiste darüber war
+     Zwischentitel ohnehin auf einen Blick zu sehen, die Leiste darüber war
      eine Bedienung, die nichts erschliesst. */
   if(panel.dataset.outline === 'aus')return;
 
@@ -1679,7 +1679,7 @@ function buildOutline(panel){
   content.insertBefore(bar, nav);
 
   // Ohne Luft am Ende können die letzten Abschnitte nicht nach oben
-  // gescrollt werden — der Sprung dorthin liefe sonst ins Leere.
+  // gescrollt werden, der Sprung dorthin liefe sonst ins Leere.
   content.classList.add('has-outline');
 }
 
@@ -1689,7 +1689,7 @@ function buildOutline(panel){
  * Nicht offsetTop verwenden: das misst bis zum nächsten positionierten
  * Vorfahren, nicht bis zum Scrollbereich, und liegt hier um die Höhe von
  * Titel-, Tab- und Pfadleiste daneben. Bei den letzten Abschnitten reichte
- * dieser Versatz aus, damit das Ziel hinter das Scrollende rutschte — die
+ * dieser Versatz aus, damit das Ziel hinter das Scrollende rutschte, und die
  * Knöpfe wirkten dann wirkungslos.
  */
 function offsetInScroller(elm){
@@ -1698,7 +1698,7 @@ function offsetInScroller(elm){
     - editorScroll.getBoundingClientRect().top;
 }
 
-// Der Hash gehört der Tab-Navigation — deshalb selbst scrollen statt
+// Der Hash gehört der Tab-Navigation, deshalb selbst scrollen statt
 // den Browser springen zu lassen.
 document.addEventListener('click',e=>{
   const a = e.target.closest('.outline a');
@@ -1736,7 +1736,7 @@ function updateOutlineState(){
 
   let currentId = links[0].dataset.target;
   if(atBottom){
-    // Am Ende der Seite gilt der letzte Abschnitt — sonst bliebe er nie
+    // Am Ende der Seite gilt der letzte Abschnitt, sonst bliebe er nie
     // hervorgehoben, weil er den oberen Rand nicht mehr erreichen kann.
     currentId = links[links.length-1].dataset.target;
   }else{
@@ -1749,7 +1749,7 @@ function updateOutlineState(){
 
   /* Die Leiste ist eine einzige Zeile: bei vielen Titeln liegt die gerade
      gelesene Marke leicht ausserhalb des sichtbaren Streifens. Sie wird
-     nachgezogen — aber nur waagrecht, "nearest" hält den Text darunter in
+     nachgezogen, aber nur waagrecht, "nearest" hält den Text darunter in
      Ruhe. */
   panel.querySelector('.outline a.current')
     ?.scrollIntoView({block:'nearest',inline:'nearest'});
@@ -1759,8 +1759,8 @@ function updateOutlineState(){
 /* ── Ausführliches einklappen ──
    Sichtbar bleibt, was zum Überfliegen reicht: Art des Projekts, Titel,
    Abstract, Bilder, die eigene Rolle, der Stack und die Verweise. Der
-   lange Fliesstext und die restlichen Details — Gelerntes, was ich heute
-   anders mache — wandern hinter einen Schalter.
+   lange Fliesstext und die restlichen Details, also Gelerntes und was ich heute
+   anders mache, wandern hinter einen Schalter.
 
    Der Grund: die Details waren mit Abstand der längste Block einer Karte,
    bei manchen Projekten fast die Hälfte der Höhe. Zehn Karten mit je
@@ -1796,7 +1796,7 @@ function buildFolds(panel){
     wrap.appendChild(holder);
     if(body) holder.appendChild(body);
 
-    // Von den Details bleibt die erste Zeile stehen — das ist die Rolle,
+    // Von den Details bleibt die erste Zeile stehen, das ist die Rolle,
     // und die ist für einen Betrieb die wichtigste Angabe der Karte.
     if(meta){
       const zeilen = [...meta.children];
@@ -1809,7 +1809,7 @@ function buildFolds(panel){
   });
 }
 
-/* Ein Umschalter für alle Faltungen — die erzeugten oben und die, die
+/* Ein Umschalter für alle Faltungen: die erzeugten oben und die, die
    direkt im HTML stehen (Impressum). */
 document.addEventListener('click',e=>{
   const btn=e.target.closest('.fold-btn');
@@ -1823,7 +1823,7 @@ document.addEventListener('click',e=>{
 
 /* Mailadresse in die Zwischenablage. Der moderne Weg braucht eine sichere
    Verbindung und ein Fenster im Vordergrund; scheitert er, wird der alte
-   Weg über ein verstecktes Feld versucht — erst dann gilt es als
+   Weg über ein verstecktes Feld versucht, erst dann gilt es als
    fehlgeschlagen. */
 async function inZwischenablage(text){
   if(navigator.clipboard&&window.isSecureContext){
@@ -1858,7 +1858,7 @@ document.addEventListener('click',async e=>{
 
    Vorher lief bei jedem einzelnen Scroll-Pixel ein querySelectorAll über
    das ganze Dokument, und für jedes gefundene Element wurde
-   getBoundingClientRect() aufgerufen — bei 62 Elementen also 62 erzwungene
+   getBoundingClientRect() aufgerufen, bei 62 Elementen also 62 erzwungene
    Layoutberechnungen pro Ereignis.
 
    Ein IntersectionObserver macht dasselbe, aber der Browser rechnet es
@@ -1893,7 +1893,7 @@ function initReveals(){
 
    Statt mehrerer Listener, die unabhängig voneinander bei jedem Pixel
    feuern, gibt es einen einzigen. Er sammelt die Aufgaben und führt sie
-   gebündelt im nächsten Animationsbild aus (requestAnimationFrame) —
+   gebündelt im nächsten Animationsbild aus (requestAnimationFrame),
    also höchstens einmal pro Bildwiederholung statt dutzende Male.
 
    Andere Skripte hängen sich mit onEditorScroll(fn) ein, damit nicht
@@ -1966,7 +1966,7 @@ function togglePw(){
 }
 
 // Beschriftung des Augensymbols hängt vom Feldzustand ab, nicht von
-// data-i18n-aria-label allein — beim Sprachwechsel deshalb nachziehen,
+// data-i18n-aria-label allein, beim Sprachwechsel deshalb nachziehen,
 // sonst fällt sie auf die im HTML hinterlegte Grundstellung zurück.
 document.addEventListener('lr:langchange',()=>{
   const i=$('loginInput'),b=$('loginTog');
@@ -2051,7 +2051,7 @@ const emptyMsg=()=>'<p style="color:var(--dim);font-family:var(--mono);font-size
   esc(I18N.t('protected.empty'))+'</p>';
 let lastNoten=null,lastLebenslauf=null;
 
-// Fremde Werte landen im DOM — vor dem Einsetzen entschärfen.
+// Fremde Werte landen im DOM, vor dem Einsetzen entschärfen.
 function esc(v){
   return String(v==null?'':v)
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
@@ -2130,7 +2130,7 @@ async function loadProtected(panel){
 
         /* Personalien: nur die Felder, die auch gefüllt sind. Ein Lebenslauf
            mit einer leeren Zeile "Telefon:" sagt einem Betrieb nur, was
-           fehlt — genauso wie bei den Zertifikaten weiter unten. */
+           fehlt, genauso wie bei den Zertifikaten weiter unten. */
         const felder=[['cv.p.geboren','geburtsdatum'],['cv.p.adresse','adresse'],
                       ['cv.p.telefon','telefon'],['cv.p.email','email'],
                       ['cv.p.nation','staatsangehoerigkeit']]
@@ -2161,7 +2161,7 @@ async function loadProtected(panel){
               lv.sprachen.map(s=>'<tr><td>'+esc(s.sprache)+'</td><td><span class="badge bb">'+esc(s.niveau)+'</span></td></tr>').join('')+
               '</table>'
             : emptyMsg())+
-          /* Zertifikate erscheinen erst, wenn welche eingetragen sind — eine
+          /* Zertifikate erscheinen erst, wenn welche eingetragen sind; eine
              Überschrift mit "noch keine Daten" darunter sagt einem Betrieb
              nur, was fehlt. */
           (lv.zertifikate.length
@@ -2177,7 +2177,7 @@ async function loadProtected(panel){
 
            Die Zeile unter "Arbeitsbestätigung" kommt aus dem ersten Eintrag
            der Berufserfahrung, statt Betrieb und Rolle ein zweites Mal von
-           Hand hinzuschreiben — sonst stimmen die beiden Stellen nach der
+           Hand hinzuschreiben, sonst stimmen die beiden Stellen nach der
            ersten Änderung nicht mehr überein. */
         const stelle=lv.erfahrung[0];
         box.innerHTML=(hasAny?inhalt:emptyMsg())+
@@ -2185,7 +2185,7 @@ async function loadProtected(panel){
           dokKnoepfe('cv')+
           '<div class="zeugnis-vorschau" hidden></div>'+
           h('cv.h.arbeitsbestaetigung',true)+
-          (stelle?'<p class="cv-dok-notiz">'+esc(stelle.ort)+' — '+esc(stelle.titel)+'.</p>':'')+
+          (stelle?'<p class="cv-dok-notiz">'+esc(stelle.ort)+', '+esc(stelle.titel)+'.</p>':'')+
           dokKnoepfe('arbeitsbestaetigung')+
           '<div class="zeugnis-vorschau" hidden></div>';
         if(dl)dl.style.display='inline-flex';
@@ -2211,7 +2211,7 @@ function triggerDownload(blob,filename){
    Die Seite ist lang: wer nur wissen will, was aus der Schule stammt und was
    aus eigenem Antrieb, soll nicht an allen zehn Karten vorbeiscrollen
    müssen. Geblendet werden die beiden Abschnitte samt Zwischentitel, nicht
-   die Karten einzeln — die Trennung steht ohnehin schon im Markup. */
+   die Karten einzeln, die Trennung steht ohnehin schon im Markup. */
 function projekteFiltern(art){
   document.querySelectorAll('.pf-btn').forEach(b=>{
     const an=b.dataset.filter===art;
@@ -2234,8 +2234,8 @@ document.addEventListener('click',e=>{
 });
 
 /* Was das Wörterbuch beim Sprachwechsel nicht selbst erwischt:
-   – die Zahl neben dem Projektfilter, der einzige Text ohne data-i18n;
-   – Noten und Lebenslauf, die das Javascript zusammenbaut. Steht gerade
+   - die Zahl neben dem Projektfilter, der einzige Text ohne data-i18n;
+   - Noten und Lebenslauf, die das Javascript zusammenbaut. Steht gerade
      einer der beiden Bereiche offen, wird er neu aufgebaut. */
 document.addEventListener('lr:langchange',()=>{
   const an=document.querySelector('.pf-btn.aktiv');
@@ -2247,11 +2247,11 @@ document.addEventListener('lr:langchange',()=>{
 });
 
 /* ── Kompetenznachweise (PDF hinter dem Login) ──
-   Die Dateien liegen nicht unter public/, sondern kommen von /api/zeugnis —
+   Die Dateien liegen nicht unter public/, sondern kommen von /api/zeugnis,
    und zwar nur gegen ein gültiges Token. Ein einfaches <a href> nützt hier
    nichts: das Token steht im sessionStorage und muss als Kopfzeile mit, also
    wird die Datei geholt und daraus eine örtliche Adresse gemacht.
-   Einmal geholt, bleibt sie liegen — Vorschau und Download teilen sie sich. */
+   Einmal geholt, bleibt sie liegen, Vorschau und Download teilen sie sich. */
 const zeugnisse=new Map();
 
 /* Unterlagen, die kein Modulnachweis sind: gleicher Weg, nur mit eigenem
@@ -2265,9 +2265,9 @@ const dokDatei=k=>DOKUMENTE[k]?DOKUMENTE[k].datei:'uek-modul-'+k+'-luis-rosado.p
 
 /* Welches Vorschaufeld zu einer Schaltfläche gehört, in dieser Reihenfolge:
    das Feld, in dem die Schaltfläche selbst steht (der Schliessen-Knopf),
-   dann das Feld direkt unter dem Knopfpaar — so schiebt die Vorschau im
+   dann das Feld direkt unter dem Knopfpaar, so schiebt die Vorschau im
    Lebenslauf die Arbeitsbestätigung nach unten, statt ganz unten
-   aufzugehen —, und zuletzt das gemeinsame Feld des Reiters, das unter dem
+   aufzugehen, und zuletzt das gemeinsame Feld des Reiters, das unter dem
    Notenraster steht. */
 const vorschaufeld=el=>{
   const drin=el.closest('.zeugnis-vorschau');
@@ -2292,14 +2292,14 @@ async function zeugnisUrl(modul){
 }
 
 /* Früher stand hier eine Prüfung, ob der Browser die PDF im Rahmen wirklich
-   anzeigt — und falls nicht, wurde auf einen Verweis umgeschaltet. Die
+   anzeigt, und falls nicht, wurde auf einen Verweis umgeschaltet. Die
    Erkennung war nicht zu trauen: Chromes eingebaute PDF-Anzeige meldet einen
    leeren Körper, obwohl sie anzeigt. Die Vorschau ging auf und verschwand
    eine Sekunde später wieder. Jetzt bleibt der Rahmen einfach stehen; wer
    lieber eine ganze Seite will, nimmt "In neuem Tab öffnen" in der
    Kopfzeile. Lieber eindeutig als klug. */
 
-/* Ein Klickfänger für alle Karten statt eines Zuhörers je Schaltfläche —
+/* Ein Klickfänger für alle Karten statt eines Zuhörers je Schaltfläche,
    die Karten werden nach jeder Anmeldung neu gebaut. */
 document.addEventListener('click',async e=>{
   const zu=e.target.closest('[data-zu]');
@@ -2325,7 +2325,7 @@ document.addEventListener('click',async e=>{
         feld.hidden=true;feld.innerHTML='';feld.dataset.modul='';
       }else{
         /* Im Notenraster wandert das Vorschaufeld unter die angeklickte
-           Karte und läuft dort über alle Spalten — in einem Drittel der
+           Karte und läuft dort über alle Spalten, in einem Drittel der
            Breite wäre ein A4-Blatt nicht zu lesen, ganz unten am Ende des
            Rasters sucht man es. */
         const karte=btn.closest('.note-card');
@@ -2365,7 +2365,7 @@ function downloadNotenCsv(){
   triggerDownload(new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'}),'noten-luis-rosado.csv');
 }
 
-/* Der Lebenslauf liegt als fertige PDF hinter dem Login — die Schaltfläche
+/* Der Lebenslauf liegt als fertige PDF hinter dem Login, die Schaltfläche
    in der Brotkrumenleiste holt genau die Datei, die auch die Vorschau zeigt.
    Früher wurde hier mit jsPDF eine eigene PDF aus den Daten gebaut; das war
    eine zweite, schlechtere Fassung desselben Dokuments. */

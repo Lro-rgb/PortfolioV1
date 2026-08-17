@@ -1,4 +1,4 @@
-# Content-Guide — wo welche Inhalte stehen
+# Content-Guide: wo welche Inhalte stehen
 
 Kurze Übersicht, an welcher Stelle die Texte und Daten der Seite gepflegt
 werden.
@@ -43,7 +43,7 @@ Noten und Lebenslauf stehen **nicht** im Frontend, sondern serverseitig in
 ```js
 const DATA = {
   noten: [
-    { fach: "üK-Modul 294 — Frontend …", note: 5.5, semester: "April 2026",
+    { fach: "üK-Modul 294, Frontend …", note: 5.5, semester: "April 2026",
       datei: "294", art: "uek" }
   ],
   lebenslauf: {
@@ -56,7 +56,7 @@ const DATA = {
 };
 ```
 
-`nebenjobs` deckt bezahlte Nebenjobs **und** Freiwilligenarbeit ab — die
+`nebenjobs` deckt bezahlte Nebenjobs **und** Freiwilligenarbeit ab, die
 IMS-Checkliste verlangt beides ausdrücklich. `nebenjobs` und `zertifikate`
 erscheinen nur, wenn Einträge vorhanden sind; eine Überschrift mit „noch
 keine Daten" darunter sagt einem Betrieb nur, was fehlt.
@@ -80,14 +80,14 @@ node scripts/generate-password-hash.js NEUES_PASSWORT
 
 Die ausgegebene Zeile ersetzt `APP_PASSWORD_HASH` in `.env` (lokal). Für
 die veröffentlichte Fassung zusätzlich `vercel env add APP_PASSWORD_HASH`
-und neu deployen. Im Code steht das Passwort nirgends — das Repository ist
+und neu deployen. Im Code steht das Passwort nirgends, das Repository ist
 öffentlich.
 
 ## 4. Videos, Screenshots und Downloads
 
 Alle Medien laufen über zwei Objekte am Anfang des Medien-Abschnitts in
 `public/js/app.js`. Was dort nicht eingetragen ist, wird auch nicht
-angezeigt — es gibt also keine leeren Player und keine toten Verweise.
+angezeigt. Es gibt also keine leeren Player und keine toten Verweise.
 
 Ablauf: Datei nach `public/media/` legen, hier eintragen, fertig.
 
@@ -108,17 +108,17 @@ Die Schlüssel (`wallpaper`, `arch`, `portfolio`, `modding`,
 `erstewebsite`) entsprechen dem `data-media`-Attribut der jeweiligen
 Projektkarte im HTML.
 
-Bilder vor dem Einchecken komprimieren — JPEG bei Qualität 80 reicht für
+Bilder vor dem Einchecken komprimieren. JPEG bei Qualität 80 reicht für
 die Vollansicht und spart gegenüber der Kameraeinstellung gut ein Drittel.
 
 Screenshots lassen sich anklicken und öffnen sich in einer Vollansicht mit
-Pfeiltasten-Navigation. Der `alt`-Text ist dabei Pflicht — er ist zugleich
+Pfeiltasten-Navigation. Der `alt`-Text ist dabei Pflicht, er ist zugleich
 die Bildunterschrift.
 
 ## 5. Geschützte PDF (`unterlagen/`)
 
 Lebenslauf, Arbeitsbestätigung und die üK-Kompetenznachweise liegen als
-PDF in `unterlagen/` — nicht unter `public/`, sonst lägen sie ohne jede
+PDF in `unterlagen/`, nicht unter `public/`, sonst lägen sie ohne jede
 Prüfung im Netz. Eine neue Datei ablegen, in `api/zeugnis.js` unter
 `DATEIEN` eintragen und verschlüsseln:
 
@@ -131,8 +131,8 @@ der README unter „Geschützter Bereich".
 
 ## 6. Favicon & Link-Vorschau
 
-- `public/favicon.svg` — „L."-Monogramm im Farbschema der Seite.
-- `public/og-image.png` — Bild für die Link-Vorschau (LinkedIn, WhatsApp,
+- `public/favicon.svg`: „L."-Monogramm im Farbschema der Seite.
+- `public/og-image.png`: Bild für die Link-Vorschau (LinkedIn, WhatsApp,
   E-Mail-Clients), empfohlen 1200 × 630 px. Liegt die Datei nicht vor,
   zeigt die Vorschau nur Titel und Beschreibung.
 
@@ -154,7 +154,7 @@ in `INTERESSEN`:
 
 ```js
 const INTERESSEN = {
-  gaming:   [{ src: 'media/gaming-elden-ring.jpg', alt: 'Elden Ring — Key-Art' }],
+  gaming:   [{ src: 'media/gaming-elden-ring.jpg', alt: 'Elden Ring, Key-Art' }],
   musik:    [],
   lesen:    [],
   hardware: []
@@ -174,4 +174,4 @@ Interessen-Seite und ins Impressum auf `kontakt.sql`.
 Das Profil steht als `data-user` am Element `#statsfm` im HTML, der Zeitraum
 in `SFM_ZEITRAUM` in `app.js` (`weeks`, `months` oder `lifetime`). Antwortet
 stats.fm nicht, bleibt der Verweis auf das Profil stehen, der im HTML
-hinterlegt ist — dort muss die Adresse also ebenfalls stimmen.
+hinterlegt ist. Dort muss die Adresse also ebenfalls stimmen.
