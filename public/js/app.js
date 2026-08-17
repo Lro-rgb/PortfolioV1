@@ -535,10 +535,12 @@ const MEDIA={
          zu 607 Pixel gegen 815 zu 206 bei den anderen. Unverändert stünde
          es auf einer 366 Pixel breiten Karte 259 Pixel hoch und damit
          fast dreimal so hoch wie seine Nachbarn im selben Karussell. Mit
-         200 Pixeln bleibt es über die volle Kartenbreite stehen, ohne die
-         Karte zu beherrschen. */
+         230 Pixeln bleibt es über die volle Kartenbreite stehen, ohne die
+         Karte zu beherrschen. Der Wert ist ein Kompromiss: Je weiter er
+         unter der natürlichen Höhe von rund 260 Pixeln liegt, desto
+         sichtbarer wird die Schrift im Bild zusammengedrückt. */
       {src:'media/urlshortener-05-argocd.png',
-       alt:'ArgoCD meldet die Anwendung als Synced und Healthy', hoehe:200},
+       alt:'ArgoCD meldet die Anwendung als Synced und Healthy', hoehe:230},
       {src:'media/urlshortener-03-pods.png',
        alt:'kubectl get pods: beide Dienste laufen mit 1/1'},
       {src:'media/urlshortener-04-curl.png',
