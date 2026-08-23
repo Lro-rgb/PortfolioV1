@@ -478,32 +478,12 @@ body.voll-offen{overflow:hidden}
   display:flex;gap:.6rem;align-items:baseline}
 .media-dur{color:var(--blue)}
 
-/* Screenshot-Streifen, anklickbar für die Vollansicht.
-   auto-fit statt auto-fill: eine einzelne Kachel bekommt sonst nur ihre
-   Mindestbreite und daneben bleibt eine leere Spalte reserviert, genau
-   die Lücke, die bei Karten mit nur einem Bild am unruhigsten aussah.
-   Mit auto-fit teilt sich die vorhandene Breite auf das auf, was wirklich
-   da ist. */
-.shot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
-  gap:.75rem;margin:.9rem 0 .8rem}
+/* Einzelne Aufnahme, anklickbar für die Vollansicht. Die Anordnung macht
+   das Karussell weiter unten; das frühere Raster gibt es nicht mehr. */
 .shot{padding:0;border:1px solid var(--border);background:var(--sb);overflow:hidden;
   border-radius:3px;aspect-ratio:9/16;transition:border-color .18s,transform .18s}
 .shot:hover{border-color:var(--blue);transform:translateY(-2px)}
 .shot img{width:100%;height:100%;object-fit:cover;display:block}
-
-/* Aufnahmen vom Rechner statt vom Handy: wenige, dafür breite Kacheln.
-   In 110 Pixeln ist von einem Desktop nichts mehr zu erkennen. */
-.shot-grid.quer{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
-.shot-grid.quer .shot{aspect-ratio:16/10}
-.shot-grid.quer .shot img{object-fit:contain;background:#000}
-
-/* Bilder mit sehr unterschiedlichen Seitenverhältnissen, etwa ein breiter
-   Streifen neben einem fast quadratischen Fenster. Hier bekommt jede
-   Kachel die Proportion ihres Bildes, statt beides in dieselbe Form zu
-   schneiden oder mit schwarzen Balken aufzufüllen. */
-.shot-grid.frei{grid-template-columns:repeat(auto-fit,minmax(230px,1fr));align-items:start}
-.shot-grid.frei .shot{aspect-ratio:auto}
-.shot-grid.frei .shot img{height:auto;object-fit:fill}
 
 /* Karussell-Vorschau: ein Bild ist zu sehen, Pfeile und Punkte blättern
    durch den Rest. Dieselben Format-Varianten wie beim Raster (quer/frei),
@@ -625,17 +605,6 @@ body.voll-offen{overflow:hidden}
 .demo-out .ok{color:var(--green)}
 .demo-out .err{color:var(--red)}
 .demo-note{font-size:.76rem;line-height:1.7;color:var(--muted);margin:.8rem 0 0}
-
-/* Leere Rahmen bleiben kleiner als echte Bilder: ein Platzhalter in voller
-   Kartenbreite zieht mehr Aufmerksamkeit auf sich als der Text daneben. */
-.shot-grid.ph-grid.quer{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
-.shot.ph,.video-ph{display:flex;align-items:center;justify-content:center;
-  border:1px dashed var(--border2);background:var(--sb);border-radius:3px;cursor:default}
-.shot.ph:hover{transform:none;border-color:var(--border2)}
-.shot.ph span,.video-ph span{font-family:var(--mono);font-size:.66rem;color:var(--dim)}
-/* Hochkant, weil dort eine Bildschirmaufnahme vom Handy hinkommt. Über
-   die ganze Kartenbreite wäre sie unangenehm hoch. */
-.video-ph{aspect-ratio:9/16;max-width:230px;margin:.9rem 0 .8rem}
 
 .dl-list{display:flex;flex-direction:column;gap:.4rem;margin:.9rem 0 .5rem}
 .dl-item{display:flex;align-items:center;gap:.6rem;padding:.55rem .8rem;
@@ -875,10 +844,6 @@ body.voll-offen{overflow:hidden}
   .fact-row{grid-template-columns:1fr 1fr}
   .cta{flex:1 1 auto;justify-content:center}
 
-  /* Bilder: kleinere Kacheln, und breite Aufnahmen lieber untereinander
-     als zwei unleserliche Spalten nebeneinander. */
-  .shot-grid{grid-template-columns:repeat(auto-fit,minmax(88px,1fr))}
-  .shot-grid.quer,.shot-grid.frei{grid-template-columns:1fr}
   .lb-nav{width:38px;height:52px;font-size:1.3rem}
   .lb-prev{left:.5rem}.lb-next{right:.5rem}
 

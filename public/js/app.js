@@ -417,11 +417,6 @@ document.addEventListener('keydown',e=>{
    Mehr ist nicht nötig, die Anzeige baut sich daraus auf.
 ═══════════════════════════════════════════════════════════════ */
 
-/* Leere Bildrahmen anzeigen oder nicht. Auf true stehen sie in jeder Karte
-   ohne Bild als gestricheltes "Bild folgt". Nützlich, solange man selbst
-   daran arbeitet, unruhig für jeden, der die Seite nur anschaut. */
-const PLATZHALTER_ZEIGEN=false;
-
 /* Pro Projekt: video, shots (Screenshots), downloads.
      askel:{
        video:{src:'media/askel.mp4', poster:'media/askel-poster.jpg',
@@ -475,16 +470,6 @@ const MEDIA={
     downloads:[{href:'https://github.com/Lro-rgb/arch-hyprland-rice/archive/HEAD.zip',
                 label:'arch-hyprland-rice.zip', meta:'GitHub'}]
   },
-  /* Noch ohne Datei: platzhalter reserviert den Platz, damit jede Karte
-     gleich aufgebaut ist. Sobald daneben shots oder video steht, ver-
-     schwindet der Rahmen von selbst; der Platzhalter wird nur gezeigt,
-     solange nichts Echtes da ist.
-
-     Ob sie überhaupt erscheinen, entscheidet PLATZHALTER_ZEIGEN weiter
-     unten. Sechs von zehn Karten hatten damit einen gestrichelten Kasten
-     mit "Bild folgt" an der auffälligsten Stelle, und das ist genau die
-     Unruhe, die eine Übersicht kaputt macht. Die Einträge bleiben
-     stehen, damit ein einziges Wort sie wieder einschaltet. */
   /* Vier Aufnahmen der laufenden Seite, aufgenommen bei 1600x1000. Der
      Text der Karte nennt Kommandopalette, Terminal und sechs Farbdesigns, aber
      das eine Bild der Startseite hat davon nichts gezeigt. Jetzt steht
@@ -1078,21 +1063,6 @@ function renderProjectMedia(){
       }
 
       box.appendChild(carousel);
-    }
-
-    /* Platzhalter: nur, solange für diese Sorte nichts Echtes vorliegt.
-       Ein Video ersetzt den Videorahmen, Bilder ersetzen die Kacheln,
-       beides kann nebeneinander stehen. */
-    const ph=PLATZHALTER_ZEIGEN?cfg.platzhalter:null;
-    if(ph){
-      if(ph.video&&!(cfg.video&&cfg.video.src)){
-        box.appendChild(el('div','video-ph','<span>'+I18N.t('media.videoComing')+'</span>'));
-      }
-      if(ph.anzahl&&!(cfg.shots&&cfg.shots.length)){
-        const grid=el('div','shot-grid ph-grid'+(cfg.format==='quer'?' quer':''));
-        for(let i=0;i<ph.anzahl;i++)grid.appendChild(el('div','shot ph','<span>'+I18N.t('media.imageComing')+'</span>'));
-        box.appendChild(grid);
-      }
     }
 
     if(cfg.downloads&&cfg.downloads.length){
