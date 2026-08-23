@@ -51,10 +51,16 @@ const DATA = {
     erfahrung:   [{ zeitraum, titel, ort, notiz }],
     nebenjobs:   [{ zeitraum, titel, ort, notiz }],
     zertifikate: [{ jahr, titel, anbieter }],
-    sprachen:    [{ sprache, niveau }]
+    sprachen:    [{ sprache, niveau }],
+    referenzen:  [{ name, rolle, telefon, email }]
   }
 };
 ```
+
+Bei `referenzen` stehen Name und Rolle im Code, Telefon und E-Mail kommen
+aus `CV_REF1_*` und `CV_REF2_*`. Es sind Kontaktdaten von Drittpersonen,
+und dieses Repository ist öffentlich; fehlt eine Variable, bleibt die
+Spalte in der Anzeige leer.
 
 `nebenjobs` deckt bezahlte Nebenjobs **und** Freiwilligenarbeit ab, die
 IMS-Checkliste verlangt beides ausdrücklich. `nebenjobs` und `zertifikate`
@@ -65,7 +71,9 @@ Bei den Noten steuern zwei Felder die Anzeige: `art` entscheidet, in
 welcher der beiden Klappgruppen die Karte landet (`uek` für die
 Kompetenznachweise, `zeugnis` für Schulzeugnisse), und `datei` ist der
 Schlüssel, unter dem `/api/zeugnis` die zugehörige PDF herausgibt. Ohne
-`datei` zeigt die Karte einfach keine Schaltflächen.
+`datei` zeigt die Karte einfach keine Schaltflächen. Mehrere Noten dürfen
+auf dieselbe `datei` zeigen: die Zeugnisse führen mehrere Fächer, liegen
+aber als eine PDF vor.
 
 Diese Daten gehen nur an eingeloggte Besucher raus. Der Knopf „⭳ CSV"
 über den Noten erscheint, sobald Noten eingetragen sind. Der Knopf

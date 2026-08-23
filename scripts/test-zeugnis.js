@@ -71,9 +71,12 @@ process.chdir(os.tmpdir());
 
 // ── Mit gültigem Token kommt die richtige Datei ──
 /* Neben den Modulnummern auch der Lebenslauf: er kommt seit dem Wegfall
-   von jsPDF über denselben Endpunkt. Die Arbeitsbestätigung steht hier
-   nicht, solange die Datei noch fehlt. */
-for (const modul of ['187', '106', '294', '210', '335', 'cv']) {
+   von jsPDF über denselben Endpunkt. Dazu die Arbeitsbestätigung und die
+   beiden Schulzeugnisse, damit jeder Schlüssel aus DATEIEN hier belegt
+   ist; sonst fällt eine Datei, die beim Verschlüsseln vergessen wurde,
+   erst dem Besucher auf. */
+for (const modul of ['187', '106', '294', '295', '210', '335', 'cv',
+                     'arbeitsbestaetigung', 'zeugnis-gibb', 'zeugnis-bwd']) {
   const a = ruf(mitToken(gueltig), { modul });
   assert.strictEqual(a.code, 200, 'Modul ' + modul + ' muss ausgeliefert werden');
   assert.ok(Buffer.isBuffer(a.koerper), 'Modul ' + modul + ' muss eine Datei liefern');
@@ -90,4 +93,4 @@ assert.strictEqual(mitFalschem.code, 503, 'falscher Schluessel darf keine Datei 
 assert.ok(!Buffer.isBuffer(mitFalschem.koerper), 'bei falschem Schluessel darf keine Datei herauskommen');
 process.env.UNTERLAGEN_KEY = echterSchluessel;
 
-console.log('OK: Zugriffsschutz, Verschluesselung, fuenf Kompetenznachweise und der Lebenslauf in Ordnung.');
+console.log('OK: Zugriffsschutz, Verschluesselung und alle hinterlegten Unterlagen in Ordnung.');

@@ -12,6 +12,7 @@ const { verifyToken, requireConfig } = require('../lib/auth.js');
 //   ausbildung / erfahrung / nebenjobs: { zeitraum, titel, ort, notiz }
 //   zertifikate: { jahr, titel, anbieter }
 //   sprachen:    { sprache, niveau }
+//   referenzen:  { name, rolle, telefon, email }
 //
 // "nebenjobs" deckt bezahlte Nebenjobs und Freiwilligenarbeit ab, die
 // IMS-Checkliste verlangt beides ausdrücklich im Lebenslauf.
@@ -100,6 +101,25 @@ const DATA = {
       { sprache: 'Englisch', niveau: 'B2' },
       { sprache: 'Italienisch', niveau: 'B2' },
       { sprache: 'Französisch', niveau: 'B1' }
+    ],
+    /* Referenzpersonen: Name und Rolle sind unkritisch und stehen direkt im
+       Code, Telefon und E-Mail sind private Kontaktdaten von Drittpersonen
+       und kommen darum, genau wie bei den eigenen Personalien oben, aus
+       Umgebungsvariablen statt aus dem öffentlichen Repository. Fehlt eine
+       Variable, bleibt die betroffene Spalte in der Anzeige leer. */
+    referenzen: [
+      {
+        name: 'Patrick Meier',
+        rolle: 'Klassenlehrer, Wirtschaft und Recht (WR), bwd Bern',
+        telefon: process.env.CV_REF1_TELEFON || '',
+        email: process.env.CV_REF1_EMAIL || ''
+      },
+      {
+        name: 'Reto Glarner',
+        rolle: 'Berufsschullehrer 2. Ausbildungsjahr, Module 293 & 322, gibb Bern',
+        telefon: process.env.CV_REF2_TELEFON || '',
+        email: process.env.CV_REF2_EMAIL || ''
+      }
     ]
   }
 };

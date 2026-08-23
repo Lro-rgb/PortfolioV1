@@ -2094,18 +2094,25 @@ async function loadProtected(panel){
            Kompetenznachweise der überbetrieblichen Kurse, darunter die
            Schulzeugnisse. Das Auf- und Zuklappen kann <details> selbst,
            dafür braucht es kein eigenes Javascript. */
-        const gruppe=(titel,list)=>
+        const gruppe=(titel,list,schnitt)=>
           '<details class="doc-gruppe" open><summary>'+esc(titel)+
             '<span class="dg-zahl">'+list.length+'</span></summary>'+
           (list.length
             ? '<div class="noten-grid">'+list.map(karte).join('')+'</div>'+
-              '<p class="noten-avg">'+esc(I18N.t('noten.avg'))+' <strong>'+
-                (list.reduce((s,n)=>s+n.note,0)/list.length).toFixed(2)+'</strong></p>'
+              (schnitt
+                ? '<p class="noten-avg">'+esc(I18N.t('noten.avg'))+' <strong>'+
+                    (list.reduce((s,n)=>s+n.note,0)/list.length).toFixed(2)+'</strong></p>'
+                : '')
             : emptyMsg())+
           '</details>';
+        /* Nur die üK-Module bekommen einen Durchschnitt: sie sind
+           gleichartige Einzelnoten. Im Zeugnisblock stehen ein
+           Zeugnisdurchschnitt, eine Fachnote und eine Erfahrungsnote
+           nebeneinander; deren Mittel wäre keine Note, die es gibt, und
+           läge über dem echten Zeugnisdurchschnitt. */
         box.innerHTML=
-          gruppe(I18N.t('noten.h.uek'),lastNoten.filter(n=>n.art!=='zeugnis'))+
-          gruppe(I18N.t('noten.h.zeugnisse'),lastNoten.filter(n=>n.art==='zeugnis'))+
+          gruppe(I18N.t('noten.h.uek'),lastNoten.filter(n=>n.art!=='zeugnis'),true)+
+          gruppe(I18N.t('noten.h.zeugnisse'),lastNoten.filter(n=>n.art==='zeugnis'),false)+
           '<div class="zeugnis-vorschau" hidden></div>';
         if(dl)dl.style.display='inline-flex';
       }
@@ -2113,7 +2120,7 @@ async function loadProtected(panel){
 
     if(panel==='cv'){
       lastLebenslauf=Object.assign(
-        {personalien:{},ausbildung:[],erfahrung:[],nebenjobs:[],zertifikate:[],sprachen:[]},
+        {personalien:{},ausbildung:[],erfahrung:[],nebenjobs:[],zertifikate:[],sprachen:[],referenzen:[]},
         d.lebenslauf||{});
       const lv=lastLebenslauf;
       const box=$('cv-content'),dl=$('cv-dl');
@@ -2169,6 +2176,18 @@ async function loadProtected(panel){
               '<table class="ed-table"><tr><th>'+esc(I18N.t('cv.th.jahr'))+'</th>'+
               '<th>'+esc(I18N.t('cv.th.titel'))+'</th><th>'+esc(I18N.t('cv.th.anbieter'))+'</th></tr>'+
               lv.zertifikate.map(z=>'<tr><td>'+esc(z.jahr)+'</td><td>'+esc(z.titel)+'</td><td>'+esc(z.anbieter)+'</td></tr>').join('')+
+              '</table>'
+            : '')+
+          /* Referenzen: Telefon/E-Mail bleiben leer, solange die zugehörige
+             Umgebungsvariable fehlt, statt eine leere Spalte anzuzeigen. */
+          (lv.referenzen.length
+            ? h('cv.h.referenzen',true)+
+              '<table class="ed-table"><tr><th>'+esc(I18N.t('cv.th.name'))+'</th>'+
+              '<th>'+esc(I18N.t('cv.th.rolle'))+'</th><th>'+esc(I18N.t('cv.p.telefon'))+'</th>'+
+              '<th>'+esc(I18N.t('cv.p.email'))+'</th></tr>'+
+              lv.referenzen.map(r=>'<tr><td>'+esc(r.name)+'</td><td>'+esc(r.rolle)+'</td>'+
+                '<td>'+esc(r.telefon||'')+'</td>'+
+                '<td>'+(r.email?'<a href="mailto:'+esc(r.email)+'">'+esc(r.email)+'</a>':'')+'</td></tr>').join('')+
               '</table>'
             : '');
         /* Die abgetippten Angaben oben und die unterschriebenen Unterlagen

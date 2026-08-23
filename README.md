@@ -279,6 +279,15 @@ Eintrags. Der Lebenslauf zeigt zusätzlich die beiden PDF mit
 Vorschau und Download; die abgetippten Angaben darüber bleiben, damit der
 Inhalt auch ohne PDF-Anzeige lesbar ist.
 
+Einen Durchschnitt rechnet nur die üK-Gruppe aus, dort sind alle Einträge
+gleichartige Modulnoten. Im Zeugnisblock stehen ein Zeugnisdurchschnitt, eine
+Fachnote und eine Erfahrungsnote nebeneinander; ein Mittel daraus wäre keine
+Note, die es gibt, und läge über dem echten Zeugnisdurchschnitt.
+
+Alle Noten stehen so da, wie sie im Zeugnis stehen, auch die ungenügenden.
+Die Zeugnis-PDF liegen ohnehin daneben; eine Auswahl, die nur die guten
+Nachweise zeigt, würde beim ersten Blick ins Zeugnis auffallen.
+
 Der Lebenslauf beginnt mit den Personalien aus dem Feld `personalien` in
 `api/protected.js`. Geburtsdatum, Wohnadresse und Telefonnummer stehen dort
 **nicht im Klartext**, sondern kommen aus den Umgebungsvariablen
@@ -288,6 +297,11 @@ demselben Grund wie die Kompetenznachweise: Diese Datei liegt in einem
 wenn die Wohnadresse zwei Klicks weiter auf GitHub steht. **Leere Felder
 werden nicht angezeigt**: Was nicht gesetzt ist, fehlt in der Anzeige, statt
 als leere Zeile dazustehen; dasselbe gilt für die Zertifikate.
+
+Dasselbe gilt für die Referenzpersonen: Name und Rolle stehen im Code,
+Telefon und E-Mail kommen aus `CV_REF1_TELEFON`, `CV_REF1_EMAIL`,
+`CV_REF2_TELEFON` und `CV_REF2_EMAIL`. Es sind fremde Kontaktdaten, die
+gehören noch weniger in ein öffentliches Repository als die eigenen.
 
 Beide Bereiche baut JavaScript zusammen und trägt deshalb kein `data-i18n`.
 Damit sie beim Sprachwechsel trotzdem mitziehen, werden sie neu aufgebaut,

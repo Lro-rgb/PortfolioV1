@@ -130,6 +130,7 @@
       "cv.h.nebenjobs": "Nebenjobs & Freiwilligenarbeit",
       "cv.h.sprachen": "Sprachen",
       "cv.h.zertifikate": "Zertifikate",
+      "cv.h.referenzen": "Referenzen",
       "cv.h.pdf": "Lebenslauf als PDF",
       "cv.h.arbeitsbestaetigung": "Arbeitsbestätigung",
       "cv.p.geboren": "Geboren",
@@ -142,6 +143,8 @@
       "cv.th.jahr": "Jahr",
       "cv.th.titel": "Titel",
       "cv.th.anbieter": "Anbieter",
+      "cv.th.name": "Name",
+      "cv.th.rolle": "Rolle",
 
       "media.openPage": "Seite öffnen",
 
@@ -523,6 +526,7 @@
       "cv.h.nebenjobs": "Side jobs & voluntary work",
       "cv.h.sprachen": "Languages",
       "cv.h.zertifikate": "Certificates",
+      "cv.h.referenzen": "References",
       "cv.h.pdf": "CV as a PDF",
       "cv.h.arbeitsbestaetigung": "Confirmation of employment",
       "cv.p.geboren": "Date of birth",
@@ -535,6 +539,8 @@
       "cv.th.jahr": "Year",
       "cv.th.titel": "Title",
       "cv.th.anbieter": "Provider",
+      "cv.th.name": "Name",
+      "cv.th.rolle": "Role",
 
       "media.openPage": "Open page",
 

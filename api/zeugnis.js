@@ -20,12 +20,15 @@ const DATEIEN = {
   '187': 'uek-187-ict-arbeitsplatz.pdf',
   '106': 'uek-106-datenbanken.pdf',
   '294': 'uek-294-frontend.pdf',
+  '295': 'uek-295-backend.pdf',
   '210': 'uek-210-public-cloud.pdf',
   '335': 'uek-335-mobile-applikation.pdf',
   // Nicht nur Modulnachweise: derselbe Weg trägt auch die Unterlagen zur
   // Bewerbung. Der Schlüssel ist hier ein Name statt einer Modulnummer.
   'cv': 'lebenslauf.pdf',
-  'arbeitsbestaetigung': 'arbeitsbestaetigung-apotheke.pdf'
+  'arbeitsbestaetigung': 'arbeitsbestaetigung-apotheke.pdf',
+  'zeugnis-gibb': 'zeugnis-gibb.pdf',
+  'zeugnis-bwd': 'zeugnis-bwd.pdf'
 };
 
 module.exports = function handler(req, res) {
