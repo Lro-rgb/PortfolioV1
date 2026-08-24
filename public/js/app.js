@@ -2212,7 +2212,11 @@ function triggerDownload(blob,filename){
   const a=document.createElement('a');
   a.href=url;a.download=filename;
   document.body.appendChild(a);a.click();
-  document.body.removeChild(a);URL.revokeObjectURL(url);
+  document.body.removeChild(a);
+  /* Firefox liest den Blob asynchron nach dem Klick. Wird die URL sofort
+     widerrufen, bricht der Download dort manchmal ab, obwohl Chrome und
+     Edge das nicht stört. Eine kurze Verzögerung lässt ihn sicher anlaufen. */
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
 /* ── Projekte nach Art filtern ──
