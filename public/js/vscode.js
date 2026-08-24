@@ -458,6 +458,19 @@
       locked: t.dataset.locked === 'true'
     }));
 
+  /* Manche Dateinamen sind übersetzt (kontakt.sql/contact.sql, ...), der
+     Panel-Name aber nicht. f.name oben trägt nur die Sprache, die gerade
+     angezeigt wird, "open contact" schlug bei deutscher Oberfläche darum
+     fehl. FILE_KEY bildet Panel auf den passenden i18n-Schlüssel ab (bei
+     "cv" weicht er vom Panel-Namen ab), bilingualNames liefert beide
+     Sprachfassungen unabhängig von der gerade aktiven. */
+  const FILE_KEY = { kontakt: 'kontakt', projekte: 'projekte', interessen: 'interessen', noten: 'noten', cv: 'lebenslauf' };
+  function bilingualNames(panel) {
+    const key = 'file.' + (FILE_KEY[panel] || panel);
+    const t = window.I18N_TRANSLATIONS || {};
+    return [t.de && t.de[key], t.en && t.en[key]].filter(Boolean);
+  }
+
   const COMMANDS = {
     help() {
       print(I18N.t('term.help.intro'), 'ok');
@@ -476,7 +489,9 @@
       if (!arg) { print(I18N.t('term.openNeedsArg'), 'err'); return; }
       const q = arg.toLowerCase();
       const hit = FILE_NAMES().find(
-        (f) => f.panel === q || f.name.toLowerCase().indexOf(q) !== -1
+        (f) => f.panel === q ||
+          f.name.toLowerCase().indexOf(q) !== -1 ||
+          bilingualNames(f.panel).some((n) => n.toLowerCase().indexOf(q) !== -1)
       );
       if (!hit) { print(I18N.t('term.fileNotFound') + esc(arg), 'err'); return; }
       print(I18N.t('term.opening') + esc(hit.name) + ' …', 'ok');
@@ -495,7 +510,8 @@
     },
 
     contact() {
-      print(I18N.t('term.contact'));
+      print(I18N.t('term.contact'), 'ok');
+      openTab('kontakt');
     },
 
     design(arg) {
@@ -511,6 +527,11 @@
 
     clear() {
       Array.from(termOut.querySelectorAll('.term-line')).forEach((l) => l.remove());
+    },
+
+    whoisetienne() {
+      print('<b>Étienne.</b> King of BWD. Ohne Widerspruch.', 'ok');
+      print('Stil: unerreicht. Auftreten: Referenzklasse. Alle anderen: Statisten.');
     },
 
     exit() { togglePanel(false); }
