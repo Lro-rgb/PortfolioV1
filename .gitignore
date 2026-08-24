@@ -12,3 +12,4 @@ node_modules/
 # unterlagen-verschluesselt/; den Schluessel dazu haelt UNTERLAGEN_KEY.
 #   node scripts/unterlagen-verschluesseln.js
 unterlagen/
+.env*

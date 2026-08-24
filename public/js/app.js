@@ -503,6 +503,16 @@ const MEDIA={
        alt:'Der 3DS mit Luma3DS: oben der Homebrew Launcher, unten das Menü mit den installierten Anwendungen'}
     ]
   },
+  // Oberfläche von Sailo mit Beispieldaten, aus dem eigenen Repo.
+  sailo:{
+    format:'quer',
+    shots:[
+      {src:'media/sailo-oberflaeche.png',
+       alt:'Sailo mit Beispieldaten: links die Spiele mit der Anzahl ihrer Sicherungen, rechts die Sicherungen des gewählten Spiels'}
+    ],
+    downloads:[{href:'https://github.com/Lro-rgb/Sailo/archive/HEAD.zip',
+                label:'Sailo.zip', meta:'GitHub'}]
+  },
   /* Vier Bildschirmfotos aus der Projektdokumentation, in der Reihenfolge
      der Kette: gebaut, ausgerollt, läuft, antwortet. Sie sind sehr
      unterschiedlich breit, ein Pipeline-Bild ist mehr als dreimal so
@@ -1987,6 +1997,8 @@ function doLogout(){
     if(box)box.innerHTML='<span style="color:var(--dim);font-family:var(--mono);font-size:.8rem">Lade Daten…</span>';
     const dl=$(n==='noten'?'noten-dl':'cv-dl');
     if(dl)dl.style.display='none';
+    const zip=$(n==='noten'?'noten-zip':'cv-zip');
+    if(zip)zip.style.display='none';
   });
   lastNoten=null;lastLebenslauf=null;
   /* Die geholten Zeugnisse liegen als örtliche Adressen im Speicher des
@@ -2048,7 +2060,10 @@ async function loadProtected(panel){
 
     if(panel==='noten'){
       lastNoten=d.noten||[];
-      const box=$('noten-content'),dl=$('noten-dl');
+      const box=$('noten-content'),dl=$('noten-dl'),zip=$('noten-zip');
+      // Die ZIP fasst immer Lebenslauf und Arbeitsbestätigung mit ein,
+      // sie ist also auch ohne eingetragene Noten sinnvoll.
+      if(zip)zip.style.display='inline-flex';
       if(!lastNoten.length){
         box.innerHTML=emptyMsg();
         if(dl)dl.style.display='none';
@@ -2093,7 +2108,8 @@ async function loadProtected(panel){
         {personalien:{},ausbildung:[],erfahrung:[],nebenjobs:[],zertifikate:[],sprachen:[],referenzen:[]},
         d.lebenslauf||{});
       const lv=lastLebenslauf;
-      const box=$('cv-content'),dl=$('cv-dl');
+      const box=$('cv-content'),dl=$('cv-dl'),zip=$('cv-zip');
+      if(zip)zip.style.display='inline-flex';
       const hasAny=lv.ausbildung.length||lv.erfahrung.length||lv.nebenjobs.length||
                    lv.zertifikate.length||lv.sprachen.length;
       {
@@ -2358,22 +2374,121 @@ function downloadNotenCsv(){
   triggerDownload(new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'}),'noten-luis-rosado.csv');
 }
 
-/* Der Lebenslauf liegt als fertige PDF hinter dem Login, die Schaltfläche
-   in der Brotkrumenleiste holt genau die Datei, die auch die Vorschau zeigt.
-   Früher wurde hier mit jsPDF eine eigene PDF aus den Daten gebaut; das war
-   eine zweite, schlechtere Fassung desselben Dokuments. */
-async function downloadCvPdf(){
+/* Lebenslauf und Arbeitsbestätigung liegen als fertige PDF hinter dem Login,
+   die Schaltfläche in der Brotkrumenleiste holt beide Dateien dieses Tabs,
+   dieselben, die auch die Vorschau zeigt. Früher wurde hier mit jsPDF eine
+   eigene PDF aus den Daten gebaut; das war eine zweite, schlechtere Fassung
+   desselben Dokuments. */
+async function downloadLebenslaufAlle(){
   const btn=$('cv-dl');
   btn.disabled=true;
   try{
-    const a=document.createElement('a');
-    a.href=await zeugnisUrl('cv');a.download=dokDatei('cv');
-    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    for(const modul of ['cv','arbeitsbestaetigung']){
+      const a=document.createElement('a');
+      a.href=await zeugnisUrl(modul);a.download=dokDatei(modul);
+      document.body.appendChild(a);a.click();document.body.removeChild(a);
+    }
   }catch(e){
     console.error(e);
     alert(I18N.t('noten.fileError'));
   }
   btn.disabled=false;
+}
+
+/* ── ZIP-Writer von Hand ──
+   Diese Seite kommt bewusst ohne eine einzige externe Abhängigkeit aus
+   (siehe README), eine Bibliothek wie JSZip nur für den Sammel-Download
+   würde das aufgeben. Die Dateien sind PDFs und damit selbst schon
+   komprimiert, eine zweite Kompressionsstufe (DEFLATE) brächte kaum etwas
+   und bräuchte eine eigene Implementierung davon. Methode "Stored" reicht:
+   das ist ein regulärer, gültiger ZIP-Eintrag, nur ohne Kompression. */
+const CRC_TABLE=(()=>{
+  const t=new Uint32Array(256);
+  for(let n=0;n<256;n++){
+    let c=n;
+    for(let k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);
+    t[n]=c>>>0;
+  }
+  return t;
+})();
+function crc32(bytes){
+  let c=0xFFFFFFFF;
+  for(let i=0;i<bytes.length;i++)c=CRC_TABLE[(c^bytes[i])&0xFF]^(c>>>8);
+  return (c^0xFFFFFFFF)>>>0;
+}
+function u16(n){return new Uint8Array([n&0xFF,(n>>>8)&0xFF]);}
+function u32(n){return new Uint8Array([n&0xFF,(n>>>8)&0xFF,(n>>>16)&0xFF,(n>>>24)&0xFF]);}
+function zipDatum(){
+  const d=new Date();
+  const zeit=((d.getHours()&0x1F)<<11)|((d.getMinutes()&0x3F)<<5)|((d.getSeconds()>>1)&0x1F);
+  const datum=(((d.getFullYear()-1980)&0x7F)<<9)|(((d.getMonth()+1)&0xF)<<5)|(d.getDate()&0x1F);
+  return {zeit,datum};
+}
+function zipBauen(dateien){
+  const enc=new TextEncoder();
+  const {zeit,datum}=zipDatum();
+  const teile=[];      // Blob-Teile, in Reihenfolge
+  const eintraege=[];  // für das zentrale Verzeichnis am Ende
+  let offset=0;
+
+  dateien.forEach(({name,data})=>{
+    const nameBytes=enc.encode(name);
+    const crc=crc32(data);
+    const groesse=data.length;
+    const kopf=[
+      u32(0x04034b50),u16(20),u16(0),u16(0),u16(zeit),u16(datum),
+      u32(crc),u32(groesse),u32(groesse),u16(nameBytes.length),u16(0),
+      nameBytes
+    ];
+    kopf.forEach(t=>teile.push(t));
+    teile.push(data);
+    eintraege.push({name:nameBytes,crc,groesse,offset});
+    offset+=kopf.reduce((s,t)=>s+t.length,0)+groesse;
+  });
+
+  const zentralStart=offset;
+  eintraege.forEach(e=>{
+    const kopf=[
+      u32(0x02014b50),u16(20),u16(20),u16(0),u16(0),u16(zeit),u16(datum),
+      u32(e.crc),u32(e.groesse),u32(e.groesse),u16(e.name.length),u16(0),u16(0),
+      u16(0),u16(0),u32(0),u32(e.offset),e.name
+    ];
+    kopf.forEach(t=>teile.push(t));
+    offset+=kopf.reduce((s,t)=>s+t.length,0);
+  });
+  const zentralGroesse=offset-zentralStart;
+
+  teile.push(u32(0x06054b50),u16(0),u16(0),u16(eintraege.length),u16(eintraege.length),
+    u32(zentralGroesse),u32(zentralStart),u16(0));
+
+  return new Blob(teile,{type:'application/zip'});
+}
+
+/* Ein Download für alles: Kompetenznachweise, Zeugnisse, Lebenslauf und
+   Arbeitsbestätigung in einer einzigen ZIP-Datei. Holt die Notenliste bei
+   Bedarf selbst nach, falls die Noten-Ansicht noch nie offen war. */
+async function downloadAllesAlsZip(){
+  const btns=document.querySelectorAll('[data-zip-alles]');
+  btns.forEach(b=>b.disabled=true);
+  try{
+    if(!lastNoten){
+      const res=await fetch('/api/protected',{headers:{'Authorization':'Bearer '+token}});
+      if(!res.ok){doLogout();return;}
+      lastNoten=(await res.json()).noten||[];
+    }
+    const module=[...new Set(lastNoten.map(n=>n.datei).filter(Boolean))];
+    const dateien=[];
+    for(const modul of ['cv','arbeitsbestaetigung',...module]){
+      const url=await zeugnisUrl(modul);
+      const buf=await (await fetch(url)).arrayBuffer();
+      dateien.push({name:dokDatei(modul),data:new Uint8Array(buf)});
+    }
+    triggerDownload(zipBauen(dateien),'unterlagen-luis-rosado.zip');
+  }catch(e){
+    console.error(e);
+    alert(I18N.t('noten.fileError'));
+  }
+  btns.forEach(b=>b.disabled=false);
 }
 
 /* ═══════════════════════════════════

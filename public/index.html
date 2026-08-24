@@ -383,6 +383,7 @@
                 <li><span class="sk-dot d-proj" aria-hidden="true"></span><span data-i18n="skills.legend.proj">in einem Projekt eingesetzt</span></li>
                 <li><span class="sk-dot d-base" aria-hidden="true"></span><span data-i18n="skills.legend.base">Grundlagen aus dem Unterricht</span></li>
                 <li><span class="sk-dot d-new" aria-hidden="true"></span><span data-i18n="skills.legend.new">arbeite ich mich gerade ein</span></li>
+                <li><span class="sk-dot d-soft" aria-hidden="true"></span><span data-i18n="skills.legend.soft">im Berufsalltag gezeigt</span></li>
               </ul>
 
               <h3 class="ed-h2 reveal">Web &amp; Frontend</h3>
@@ -454,8 +455,27 @@
                   <span class="sk-wo"><span class="sk-chip sk-chip-still" data-i18n="skills.chip.class">Unterricht</span></span></li>
               </ul>
 
+              <h3 class="ed-h2 reveal" data-i18n="skills.h.soft">Soft Skills</h3>
+              <ul class="sk-list reveal">
+                <li class="sk"><span class="sk-dot d-soft" aria-hidden="true"></span>
+                  <span class="sk-name"><span data-i18n="skills.soft.auffassung">Schnelle Auffassungsgabe</span><span class="vh" data-i18n="skills.vh.soft">, im Berufsalltag gezeigt</span></span>
+                  <span class="sk-wo"><span class="sk-chip sk-chip-still" data-i18n="skills.chip.allProjects">alle Projekte</span></span></li>
+                <li class="sk"><span class="sk-dot d-soft" aria-hidden="true"></span>
+                  <span class="sk-name"><span data-i18n="skills.soft.selbststaendig">Selbstständiges Arbeiten</span><span class="vh" data-i18n="skills.vh.soft">, im Berufsalltag gezeigt</span></span>
+                  <span class="sk-wo"><span class="sk-chip sk-chip-still">Apotheke Achillea</span></span></li>
+                <li class="sk"><span class="sk-dot d-soft" aria-hidden="true"></span>
+                  <span class="sk-name"><span data-i18n="skills.soft.team">Teamfähigkeit</span><span class="vh" data-i18n="skills.vh.soft">, im Berufsalltag gezeigt</span></span>
+                  <span class="sk-wo"><span class="sk-chip sk-chip-still">Askel</span><span class="sk-chip sk-chip-still">Kobui</span></span></li>
+                <li class="sk"><span class="sk-dot d-soft" aria-hidden="true"></span>
+                  <span class="sk-name"><span data-i18n="skills.soft.zuverlaessig">Zuverlässigkeit</span><span class="vh" data-i18n="skills.vh.soft">, im Berufsalltag gezeigt</span></span>
+                  <span class="sk-wo"><span class="sk-chip sk-chip-still">Apotheke Achillea</span></span></li>
+                <li class="sk"><span class="sk-dot d-soft" aria-hidden="true"></span>
+                  <span class="sk-name"><span data-i18n="skills.soft.stress">Stressresistenz</span><span class="vh" data-i18n="skills.vh.soft">, im Berufsalltag gezeigt</span></span>
+                  <span class="sk-wo"><span class="sk-chip sk-chip-still">Apotheke Achillea</span></span></li>
+              </ul>
+
               <p class="sk-next reveal"><span class="sk-dot d-new" aria-hidden="true"></span>
-                <span data-i18n="skills.next">Als Nächstes: REST-APIs von Grund auf, nach den zwei Endpunkten dieser Website.</span></p>
+                <span data-i18n="skills.next">Als Nächstes: Java, dazu REST-APIs von Grund auf, nach den zwei Endpunkten dieser Website.</span></p>
             </div>
           </div>
         </div>
@@ -607,6 +627,24 @@
                     <div><dt>Gelernt</dt><dd>Bootvorgang, Recovery-Modi, Signaturprüfung und der Umgang mit englischer Fachdokumentation</dd></div>
                   </dl>
                   <div class="chips"><span class="chip">RCM</span><span class="chip">Hekate</span><span class="chip">EmuMMC</span><span class="chip">Luma3DS</span></div>
+                </article>
+
+                <article class="proj-card" id="proj-sailo">
+                  <div class="proj-type" data-i18n="proj.sailo.type">// Persönlich · eigenständig · eigenes Werkzeug</div>
+                  <h4 class="proj-t">Sailo</h4>
+                  <p class="proj-abstract" data-i18n="proj.sailo.abstract"><strong>Abstract</strong>Ein kleines Werkzeug, das meine eigenen Spielstand-Sicherungen von Switch und 3DS ordnet: mit Zeitstempel sichern, auflisten, zurückspielen. Entstanden, weil die mit Checkpoint bzw. JKSV exportierten Spielstände sonst unsortiert auf der SD-Karte liegen.</p>
+                  <div class="proj-media" data-media="sailo"></div>
+                  <div class="proj-body" data-i18n="proj.sailo.body">
+                    Jede Sicherung landet als Ordner mit Zeitstempel unter Spiel und Konsole, ohne Datenbank oder Index-Datei: Der Ordnername <code>JJJJ-MM-TT_hh-mm-ss</code> ist zugleich der Zeitstempel und sortiert sich schon als Text richtig, dadurch kann der Index nie vom tatsächlichen Ordnerinhalt abweichen. Beim Wiederherstellen sichert Sailo den aktuellen Stand automatisch, bevor der Zielordner geleert wird &ndash; sonst blieben Dateien des alten Stands liegen, die es in der Sicherung gar nicht gibt, und der Spielstand wäre eine Mischung aus beidem. Geschrieben mit .NET 9 und Avalonia statt MAUI, damit das Werkzeug auch unter Linux läuft.
+                  </div>
+                  <dl class="proj-meta" data-i18n="proj.sailo.meta">
+                    <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt</dd></div>
+                    <div><dt>Gelernt</dt><dd>Dateisystem-Operationen sicher gestalten, sodass ein Fehlschlag nie zum Datenverlust führt, und Avalonia als plattformübergreifende Alternative zu MAUI</dd></div>
+                  </dl>
+                  <div class="chips"><span class="chip">C#</span><span class="chip">.NET 9</span><span class="chip">Avalonia</span></div>
+                  <div class="proj-links" data-i18n="proj.sailo.links">
+                    <a href="https://github.com/Lro-rgb/Sailo" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                  </div>
                 </article>
 
               </div>
@@ -1069,6 +1107,7 @@
           <div class="breadcrumb">
             <span data-i18n="folder.unterlagen">unterlagen</span><span class="sep">›</span><span class="bc-part" data-i18n="file.noten">noten.csv</span>
             <button class="bc-logout" id="noten-dl" style="display:none;margin-left:auto;margin-right:.5rem" onclick="downloadNotenCsv()">⭳ CSV</button>
+            <button class="bc-logout" id="noten-zip" data-zip-alles style="display:none;margin-right:.5rem" onclick="downloadAllesAlsZip()">⭳ ZIP</button>
             <button class="bc-logout" onclick="doLogout()">logout</button>
           </div>
           <div class="code-view">
@@ -1084,7 +1123,8 @@
         <div class="editor-panel" id="panel-cv" role="tabpanel" aria-labelledby="tab-cv">
           <div class="breadcrumb">
             <span data-i18n="folder.unterlagen">unterlagen</span><span class="sep">›</span><span class="bc-part" data-i18n="file.lebenslauf">lebenslauf.md</span>
-            <button class="bc-logout" id="cv-dl" style="display:none;margin-left:auto;margin-right:.5rem" onclick="downloadCvPdf()">⭳ PDF</button>
+            <button class="bc-logout" id="cv-dl" style="display:none;margin-left:auto;margin-right:.5rem" onclick="downloadLebenslaufAlle()">⭳ PDFs</button>
+            <button class="bc-logout" id="cv-zip" data-zip-alles style="display:none;margin-right:.5rem" onclick="downloadAllesAlsZip()">⭳ ZIP</button>
             <button class="bc-logout" onclick="doLogout()">logout</button>
           </div>
           <div class="code-view">

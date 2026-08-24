@@ -687,6 +687,7 @@ button.st-item:hover { background: rgba(255, 255, 255, 0.14); }
 .d-proj { background: var(--ok); }
 .d-base { background: var(--info); }
 .d-new  { background: var(--warn); }
+.d-soft { background: var(--accent); }
 
 .sk-name {
   font-family: var(--sans);
