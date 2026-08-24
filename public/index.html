@@ -126,7 +126,7 @@
       <label class="login-label" for="loginInput" data-i18n="login.label">const password =</label>
       <div class="login-iw">
         <input class="login-in" id="loginInput" type="password" placeholder="••••••••" autocomplete="current-password" aria-describedby="loginErr"/>
-        <button type="button" class="login-tog" onclick="togglePw()" id="loginTog" aria-label="Passwort anzeigen" data-i18n-aria-label="login.showPw">👁</button>
+        <button type="button" class="login-tog" onclick="togglePw()" id="loginTog" aria-label="Passwort anzeigen" data-i18n-aria-label="login.showPw"><span class="ic-eye" aria-hidden="true"></span></button>
       </div>
       <button type="button" class="login-btn" id="loginBtn" onclick="doLogin()" data-i18n="login.enter">ENTER ↵</button>
       <p class="login-err" id="loginErr" role="alert" data-i18n="login.error">Falsches Passwort.</p>
@@ -258,7 +258,7 @@
         <!-- Folder 1: luis-rosado -->
         <button type="button" class="tree-folder open" id="folder1" aria-expanded="true" aria-controls="folder1-children">
           <span class="arrow" aria-hidden="true">▶</span>
-          <span class="folder-icon" aria-hidden="true">📂</span>
+          <span class="folder-icon ic-folder-open" aria-hidden="true"></span>
           <span>luis-rosado</span>
         </button>
         <div class="tree-children" id="folder1-children">
@@ -274,7 +274,7 @@
         <!-- Folder 2: unterlagen (locked) -->
         <button type="button" class="tree-folder" id="folder2" aria-expanded="false" aria-controls="folder2-children" style="margin-top:.4rem">
           <span class="arrow" aria-hidden="true">▶</span>
-          <span class="folder-icon" aria-hidden="true">📁</span>
+          <span class="folder-icon ic-folder" aria-hidden="true"></span>
           <span style="color:var(--dim)" data-i18n="folder.unterlagen">unterlagen</span>
           <span class="lock" style="font-size:.72rem;color:var(--dim);margin-left:.3rem" aria-hidden="true"></span>
         </button>
@@ -319,7 +319,7 @@
 
               <div class="cta-row reveal">
                 <a class="cta cta-primary" href="mailto:luisrosado008@gmail.com?subject=Praktikumsstelle%20Applikationsentwicklung">
-                  <span aria-hidden="true">✉</span> <span data-i18n="home.cta.mail">E-Mail schreiben</span>
+                  <span class="ic-mail cta-ic" aria-hidden="true"></span> <span data-i18n="home.cta.mail">E-Mail schreiben</span>
                 </a>
                 <a class="cta" href="https://github.com/Lro-rgb" target="_blank" rel="noopener noreferrer">
                   <i class="devicon-github-original cta-ic" aria-hidden="true"></i> <span data-i18n="home.cta.github">GitHub ansehen</span>
@@ -574,7 +574,7 @@
                   </dl>
                   <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Node.js</span><span class="chip">Vercel</span></div>
                   <div class="proj-links" data-i18n="proj.portfolio.links">
-                    <a href="https://github.com/Lro-rgb/PortfolioV1" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                    <a href="https://github.com/Lro-rgb/PortfolioV1" class="proj-link" target="_blank" rel="noopener noreferrer"><i class="devicon-github-original" aria-hidden="true"></i> Quellcode auf GitHub</a>
                   </div>
                 </article>
 
@@ -592,7 +592,7 @@
                   </dl>
                   <div class="chips"><span class="chip">Bash</span><span class="chip">Matugen</span><span class="chip">Waypaper</span><span class="chip">Rofi</span><span class="chip">Waybar</span><span class="chip">Hyprland</span></div>
                   <div class="proj-links" data-i18n="proj.wallpaper.links">
-                    <a href="https://github.com/Lro-rgb/wallsync" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                    <a href="https://github.com/Lro-rgb/wallsync" class="proj-link" target="_blank" rel="noopener noreferrer"><i class="devicon-github-original" aria-hidden="true"></i> Quellcode auf GitHub</a>
                   </div>
                 </article>
 
@@ -610,7 +610,7 @@
                   </dl>
                   <div class="chips"><span class="chip">Arch Linux</span><span class="chip">Hyprland</span><span class="chip">Alacritty</span><span class="chip">Fish</span><span class="chip">Waybar</span><span class="chip">Nautilus</span><span class="chip">Dual-Boot</span></div>
                   <div class="proj-links" data-i18n="proj.arch.links">
-                    <a href="https://github.com/Lro-rgb/arch-hyprland-rice" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Konfiguration auf GitHub</a>
+                    <a href="https://github.com/Lro-rgb/arch-hyprland-rice" class="proj-link" target="_blank" rel="noopener noreferrer"><i class="devicon-github-original" aria-hidden="true"></i> Konfiguration auf GitHub</a>
                   </div>
                 </article>
 
@@ -643,7 +643,7 @@
                   </dl>
                   <div class="chips"><span class="chip">C#</span><span class="chip">.NET 9</span><span class="chip">Avalonia</span></div>
                   <div class="proj-links" data-i18n="proj.sailo.links">
-                    <a href="https://github.com/Lro-rgb/Sailo" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                    <a href="https://github.com/Lro-rgb/Sailo" class="proj-link" target="_blank" rel="noopener noreferrer"><i class="devicon-github-original" aria-hidden="true"></i> Quellcode auf GitHub</a>
                   </div>
                 </article>
 
@@ -699,8 +699,8 @@
                   </dl>
                   <div class="chips"><span class="chip">NestJS</span><span class="chip">TypeScript</span><span class="chip">MariaDB</span><span class="chip">Docker</span><span class="chip">GitLab CI</span><span class="chip">Kubernetes</span><span class="chip">ArgoCD</span></div>
                   <div class="proj-links" data-i18n="proj.urlshortener.links">
-                    <a href="https://github.com/Lro-rgb/url-shortener" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Anwendung</a>
-                    <a href="https://github.com/Lro-rgb/url-shortener-gitops" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 GitOps-Repo</a>
+                    <a href="https://github.com/Lro-rgb/url-shortener" class="proj-link" target="_blank" rel="noopener noreferrer"><i class="devicon-github-original" aria-hidden="true"></i> Anwendung</a>
+                    <a href="https://github.com/Lro-rgb/url-shortener-gitops" class="proj-link" target="_blank" rel="noopener noreferrer"><i class="devicon-github-original" aria-hidden="true"></i> GitOps-Repo</a>
                   </div>
                 </article>
 
@@ -727,7 +727,7 @@
                   </dl>
                   <div class="chips"><span class="chip">React Native</span><span class="chip">Expo</span><span class="chip">TypeScript</span><span class="chip">expo-location</span><span class="chip">Jest</span></div>
                   <div class="proj-links" data-i18n="proj.askel.links">
-                    <a href="https://github.com/Lro-rgb/Askel" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                    <a href="https://github.com/Lro-rgb/Askel" class="proj-link" target="_blank" rel="noopener noreferrer"><i class="devicon-github-original" aria-hidden="true"></i> Quellcode auf GitHub</a>
                   </div>
                 </article>
 
@@ -757,7 +757,7 @@
                   </dl>
                   <div class="chips"><span class="chip">C#</span><span class="chip">.NET MAUI</span><span class="chip">XAML</span><span class="chip">MVVM</span><span class="chip">Android</span></div>
                   <div class="proj-links" data-i18n="proj.rezeptbuch.links">
-                    <a href="https://github.com/Lro-rgb/MeinRezeptbuch" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                    <a href="https://github.com/Lro-rgb/MeinRezeptbuch" class="proj-link" target="_blank" rel="noopener noreferrer"><i class="devicon-github-original" aria-hidden="true"></i> Quellcode auf GitHub</a>
                   </div>
                 </article>
 
@@ -776,7 +776,7 @@
                   </dl>
                   <div class="chips"><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Vite</span><span class="chip">CSS Modules</span></div>
                   <div class="proj-links" data-i18n="proj.kobui.links">
-                    <a href="https://github.com/kiraa1q/kobui" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                    <a href="https://github.com/kiraa1q/kobui" class="proj-link" target="_blank" rel="noopener noreferrer"><i class="devicon-github-original" aria-hidden="true"></i> Quellcode auf GitHub</a>
                   </div>
                 </article>
 
@@ -809,7 +809,7 @@
                   </dl>
                   <div class="chips"><span class="chip">Python</span><span class="chip">Flask</span><span class="chip">Redis</span><span class="chip">Docker Compose</span><span class="chip">Jinja2</span><span class="chip">Azure</span></div>
                   <div class="proj-links" data-i18n="proj.webshop.links">
-                    <a href="https://github.com/Lro-rgb/redis-webshop" class="proj-link" target="_blank" rel="noopener noreferrer">🐙 Quellcode auf GitHub</a>
+                    <a href="https://github.com/Lro-rgb/redis-webshop" class="proj-link" target="_blank" rel="noopener noreferrer"><i class="devicon-github-original" aria-hidden="true"></i> Quellcode auf GitHub</a>
                   </div>
                 </article>
 
@@ -837,8 +837,8 @@
                   </dl>
                   <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">FTP</span></div>
                   <div class="proj-links" data-i18n="proj.erstewebsite.links">
-                    <a href="erste-website" class="proj-link" target="_blank" rel="noopener noreferrer">🌐 Kopie hier ansehen</a>
-                    <a href="http://datastaff.com.br/rosado/" class="proj-link" target="_blank" rel="noopener noreferrer">🏫 Original auf dem Schulserver</a>
+                    <a href="erste-website" class="proj-link" target="_blank" rel="noopener noreferrer"><span class="ic-globe" aria-hidden="true"></span> Kopie hier ansehen</a>
+                    <a href="http://datastaff.com.br/rosado/" class="proj-link" target="_blank" rel="noopener noreferrer"><span class="ic-school" aria-hidden="true"></span> Original auf dem Schulserver</a>
                   </div>
                 </article>
 

@@ -152,6 +152,29 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
   mask:var(--ic-lock) center/contain no-repeat}
 .unlock{-webkit-mask-image:var(--ic-unlock);mask-image:var(--ic-unlock)}
 
+/* ═══ WEITERE SYMBOLE, dieselbe Maskentechnik ═══
+   Augensymbol, Ordner, Umschlag, Globus, Doktorhut: vorher Emoji, aus
+   demselben Grund wie oben jetzt als Maske. */
+:root{
+  --ic-eye:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.3'%3E%3Cpath d='M1 8c1.8-3.2 4.6-4.8 7-4.8s5.2 1.6 7 4.8c-1.8 3.2-4.6 4.8-7 4.8S2.8 11.2 1 8Z'/%3E%3Ccircle cx='8' cy='8' r='2.1'/%3E%3C/svg%3E");
+  --ic-folder:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.3' stroke-linejoin='round'%3E%3Cpath d='M1.6 4.2c0-.66.54-1.2 1.2-1.2h3.1l1.3 1.5h5.4c.66 0 1.2.54 1.2 1.2v6.1c0 .66-.54 1.2-1.2 1.2H2.8c-.66 0-1.2-.54-1.2-1.2Z'/%3E%3C/svg%3E");
+  --ic-folder-open:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.3' stroke-linejoin='round'%3E%3Cpath d='M1.6 5.4V4.2c0-.66.54-1.2 1.2-1.2h3.1l1.3 1.5h5.4c.66 0 1.2.54 1.2 1.2v.4'/%3E%3Cpath d='M1.6 5.4h12.2l-1.4 6a1.2 1.2 0 0 1-1.17.95H3.5a1.2 1.2 0 0 1-1.18-1z'/%3E%3C/svg%3E");
+  --ic-mail:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.3' stroke-linejoin='round'%3E%3Crect x='1.6' y='3.4' width='12.8' height='9.2' rx='1.1'/%3E%3Cpath d='M2.2 4.2l5.8 4.6 5.8-4.6'/%3E%3C/svg%3E");
+  --ic-globe:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.3'%3E%3Ccircle cx='8' cy='8' r='6.2'/%3E%3Cpath d='M2 8h12M8 1.8c2.2 2 2.2 10.4 0 12.4M8 1.8c-2.2 2-2.2 10.4 0 12.4'/%3E%3C/svg%3E");
+  --ic-school:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.3' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M8 2 14.5 5.5 8 9 1.5 5.5Z'/%3E%3Cpath d='M4 6.8v2.6c0 1.1 1.8 2 4 2s4-.9 4-2V6.8'/%3E%3Cpath d='M14.5 5.5v3.3'/%3E%3Ccircle cx='14.5' cy='9.6' r='.55'/%3E%3C/svg%3E");
+}
+.ic-eye,.ic-folder,.ic-folder-open,.ic-mail,.ic-globe,.ic-school{
+  display:inline-block;width:1em;height:1em;vertical-align:-.14em;
+  background:currentColor;flex-shrink:0;
+  -webkit-mask-position:center;-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;
+  mask-position:center;mask-size:contain;mask-repeat:no-repeat}
+.ic-eye{-webkit-mask-image:var(--ic-eye);mask-image:var(--ic-eye)}
+.ic-folder{-webkit-mask-image:var(--ic-folder);mask-image:var(--ic-folder)}
+.ic-folder-open{-webkit-mask-image:var(--ic-folder-open);mask-image:var(--ic-folder-open)}
+.ic-mail{-webkit-mask-image:var(--ic-mail);mask-image:var(--ic-mail)}
+.ic-globe{-webkit-mask-image:var(--ic-globe);mask-image:var(--ic-globe)}
+.ic-school{-webkit-mask-image:var(--ic-school);mask-image:var(--ic-school)}
+
 /* file-icon (devicon / svg) sizing for tabs & sidebar */
 .file-ic{font-size:.95rem;line-height:1;width:1em;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
 .file-ic svg{width:1em;height:1em}

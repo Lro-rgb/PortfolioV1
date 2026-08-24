@@ -1599,7 +1599,10 @@ document.querySelectorAll('.tree-folder').forEach(btn=>{
     const open=btn.classList.toggle('open');
     btn.setAttribute('aria-expanded',open?'true':'false');
     const icon=btn.querySelector('.folder-icon');
-    if(icon)icon.textContent=open?'📂':'📁';
+    if(icon){
+      icon.classList.remove('ic-folder','ic-folder-open');
+      icon.classList.add(open?'ic-folder-open':'ic-folder');
+    }
   });
 });
 

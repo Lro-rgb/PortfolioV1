@@ -467,7 +467,7 @@
     ls() {
       print(
         FILE_NAMES()
-          .map((f) => (f.locked ? '🔒 ' : '   ') + esc(f.name))
+          .map((f) => (f.locked ? '<span class="lock" aria-hidden="true"></span> ' : '   ') + esc(f.name))
           .join('<br>')
       );
     },
