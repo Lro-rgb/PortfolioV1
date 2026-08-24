@@ -101,6 +101,7 @@
       "noten.openTab": "In neuem Tab öffnen",
       "noten.close": "Schliessen",
       "noten.fileError": "Die Datei konnte nicht geladen werden. Bitte erneut anmelden und nochmals versuchen.",
+      "noten.zip.partial": "Diese Dateien fehlen im ZIP, sie liessen sich nicht laden: ",
 
       "outline.navLabel": "Gliederung dieses Abschnitts",
       "chrome.detailed": "Ausführlich",
@@ -510,6 +511,7 @@
       "noten.openTab": "Open in new tab",
       "noten.close": "Close",
       "noten.fileError": "The file could not be loaded. Please sign in again and retry.",
+      "noten.zip.partial": "These files are missing from the ZIP, they couldn't be loaded: ",
 
       "outline.navLabel": "Outline of this section",
       "chrome.detailed": "Details",

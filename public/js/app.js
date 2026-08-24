@@ -2481,12 +2481,24 @@ async function downloadAllesAlsZip(){
     }
     const module=[...new Set(lastNoten.map(n=>n.datei).filter(Boolean))];
     const dateien=[];
+    const fehlgeschlagen=[];
+    // Eine einzelne kaputte Datei soll nicht die ganze ZIP verhindern, nur
+    // eine abgelaufene Sitzung: die betrifft alle Dateien gleichermassen
+    // und bricht darum sofort ab, statt jede einzeln scheitern zu lassen.
     for(const modul of ['cv','arbeitsbestaetigung',...module]){
-      const url=await zeugnisUrl(modul);
-      const buf=await (await fetch(url)).arrayBuffer();
-      dateien.push({name:dokDatei(modul),data:new Uint8Array(buf)});
+      try{
+        const url=await zeugnisUrl(modul);
+        const buf=await (await fetch(url)).arrayBuffer();
+        dateien.push({name:dokDatei(modul),data:new Uint8Array(buf)});
+      }catch(e){
+        if(!token||!verifyToken())throw e;
+        console.error('ZIP: Datei übersprungen ('+modul+')',e);
+        fehlgeschlagen.push(dokDatei(modul));
+      }
     }
+    if(!dateien.length)throw new Error('Keine Datei konnte geladen werden.');
     triggerDownload(zipBauen(dateien),'unterlagen-luis-rosado.zip');
+    if(fehlgeschlagen.length)alert(I18N.t('noten.zip.partial')+fehlgeschlagen.join(', '));
   }catch(e){
     console.error(e);
     alert(I18N.t('noten.fileError'));
