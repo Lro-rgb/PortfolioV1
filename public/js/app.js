@@ -1731,11 +1731,23 @@ function updateOutlineState(){
   links.forEach(a=>a.classList.toggle('current', a.dataset.target === currentId));
 
   /* Die Leiste ist eine einzige Zeile: bei vielen Titeln liegt die gerade
-     gelesene Marke leicht ausserhalb des sichtbaren Streifens. Sie wird
-     nachgezogen, aber nur waagrecht, "nearest" hält den Text darunter in
-     Ruhe. */
-  panel.querySelector('.outline a.current')
-    ?.scrollIntoView({block:'nearest',inline:'nearest'});
+     gelesene Marke leicht ausserhalb des sichtbaren Streifens und wird
+     nachgezogen. scrollIntoView() macht das nicht rein waagrecht: die
+     Leiste steht sticky ganz oben im Panel, ihre eigentliche (nicht
+     angeheftete) Position liegt aber ganz am Anfang des Inhalts. Beim
+     Sprung zu einem weiter unten liegenden Abschnitt zog scrollIntoView()
+     dadurch den ganzen Editorbereich zurück Richtung Anfang, im Wettlauf
+     mit dem gerade laufenden Scrollen dorthin – bei kurzen Panels kaum
+     spürbar, bei längeren wie „Interessen" oder „Gestaltung & Technik"
+     blieb der Sprung dadurch praktisch wirkungslos. Nur scrollLeft der
+     Leiste selbst zu verschieben trifft das ohne diesen Nebeneffekt. */
+  const currentA = panel.querySelector('.outline a.current');
+  if(currentA){
+    const nav = currentA.closest('.outline');
+    const navRect = nav.getBoundingClientRect(), aRect = currentA.getBoundingClientRect();
+    if(aRect.left < navRect.left) nav.scrollLeft -= (navRect.left - aRect.left);
+    else if(aRect.right > navRect.right) nav.scrollLeft += (aRect.right - navRect.right);
+  }
 }
 // Der Scroll-Listener dazu steht weiter unten gebündelt (onEditorScroll).
 
