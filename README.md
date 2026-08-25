@@ -27,6 +27,7 @@ bei mir melden, bekommen das Passwort von mir.
 ## Inhalt
 
 - [Was die Seite kann](#was-die-seite-kann)
+- [Funktionen, die nicht sofort auffallen](#funktionen-die-nicht-sofort-auffallen)
 - [Schnellstart](#schnellstart)
 - [Tech Stack](#tech-stack)
 - [Hilfsmittel](#hilfsmittel)
@@ -53,6 +54,39 @@ bei mir melden, bekommen das Passwort von mir.
 | **Geschützter Bereich** | Noten, Kompetenznachweise, Lebenslauf und Arbeitsbestätigung, nur mit Passwort |
 | **Druckansicht** | Beim Ausdrucken fällt die Editor-Kulisse weg, übrig bleibt der Text auf Weiss |
 | **Ohne Maus bedienbar** | Tastaturkürzel, Fokusrahmen, Sprungmarke zum Inhalt, beschriftete Bedienelemente |
+
+---
+
+## Funktionen, die nicht sofort auffallen
+
+Ein paar Dinge sieht man erst auf den zweiten Blick, hier kurz zusammengefasst.
+
+**Terminal** — `Strg+^` oder das Terminal-Symbol unten in der Statusleiste
+öffnet eine echte kleine Shell mit diesen Befehlen:
+
+| Befehl | Wirkung |
+|---|---|
+| `help` | Alle Befehle auflisten |
+| `ls` | Alle Dateien auflisten, gesperrte mit Schloss-Symbol |
+| `open <datei>` | Eine Datei öffnen, z. B. `open projekte` |
+| `projects` | Projekte kurz auflisten |
+| `whoami` | Kurzvorstellung |
+| `contact` | Kontaktdaten, öffnet dabei auch den Kontakt-Tab |
+| `design [name]` | Farbdesign anzeigen oder wechseln, z. B. `design dracula` |
+| `clear` | Terminal leeren |
+| `exit` | Terminal schliessen |
+
+**Kommandopalette** — `Strg+P` sucht über alle Dateien, `Strg+Umschalt+P`
+über alle Befehle: Farbdesign wechseln, Terminal öffnen, Explorer öffnen,
+zuletzt geschlossene Datei wieder öffnen, drucken, E-Mail schreiben, GitHub
+öffnen, abmelden. Beides läuft komplett ohne Maus, mit Pfeiltasten und Enter.
+
+**Ohne Maus bedienbar** — In der Tableiste wechseln die Pfeiltasten zwischen
+den Dateien, `Pos1`/`Ende` springen an den Anfang bzw. ans Ende, `Entf`
+schliesst die aktive Datei.
+
+**Druckansicht** — Beim Drucken oder „Als PDF speichern" fällt die
+Editor-Kulisse weg, übrig bleibt der reine Inhalt auf Weiss.
 
 ---
 
