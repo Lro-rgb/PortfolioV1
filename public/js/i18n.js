@@ -292,7 +292,6 @@
       "skills.next": "Als Nächstes: Java, dazu REST-APIs von Grund auf, nach den zwei Endpunkten dieser Website.",
 
       "techstack.cat.programming": "Programmierung",
-      "techstack.cat.database": "Datenbank",
       "techstack.cat.deploy": "Ausliefern",
       "techstack.cat.ops": "Betrieb",
       "techstack.cat.vcs": "Versionierung",
@@ -702,7 +701,6 @@
       "skills.next": "Next up: Java, plus REST APIs from scratch, modeled on this site's two endpoints.",
 
       "techstack.cat.programming": "Programming",
-      "techstack.cat.database": "Database",
       "techstack.cat.deploy": "Deployment",
       "techstack.cat.ops": "Operations",
       "techstack.cat.vcs": "Version control",
