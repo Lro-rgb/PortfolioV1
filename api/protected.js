@@ -3,6 +3,12 @@
 // GET /api/protected  Authorization: Bearer <token>  →  { noten, lebenslauf }
 
 const { verifyToken, requireConfig } = require('../lib/auth.js');
+const { herkunft, erstelleBremse } = require('../lib/rateLimit.js');
+
+// Bremse gegen das Abgreifen der Daten mit einem einzelnen Token: 60
+// Anfragen je Herkunft innert 5 Minuten, mehr braucht das Nachladen der
+// Seite nicht. Siehe lib/rateLimit.js für die Grenzen dieses Ansatzes.
+const bremse = erstelleBremse(5 * 60 * 1000, 60);
 
 // ─── Geschützte Daten ─────────────────────────────────────────────────────
 // Bewusst serverseitig: diese Inhalte gehören nicht ins Frontend-Bundle,
@@ -137,6 +143,13 @@ module.exports = function handler(req, res) {
 
   const config = requireConfig(res, false);
   if (!config) return; // Antwort wurde bereits gesendet
+
+  const quelle = herkunft(req);
+  if (bremse.zuViele(quelle)) {
+    res.setHeader('Retry-After', String(bremse.fensterSekunden));
+    return res.status(429).json({ error: 'Zu viele Anfragen. Bitte spaeter erneut probieren.' });
+  }
+  bremse.notieren(quelle);
 
   const auth = req.headers.authorization || '';
   const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;

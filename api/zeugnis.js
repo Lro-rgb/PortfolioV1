@@ -11,6 +11,13 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const { verifyToken, requireConfig } = require('../lib/auth.js');
+const { herkunft, erstelleBremse } = require('../lib/rateLimit.js');
+
+// Bremse gegen das Abgreifen aller Dateien mit einem einzelnen Token: 30
+// Anfragen je Herkunft innert 5 Minuten. Weniger grosszügig als bei
+// protected.js, weil hier zusätzlich Datei-I/O und Entschlüsselung je
+// Anfrage anfallen. Siehe lib/rateLimit.js für die Grenzen dieses Ansatzes.
+const bremse = erstelleBremse(5 * 60 * 1000, 30);
 
 /* Feste Zuordnung Modulnummer → Datei. Kein aus der Anfrage
    zusammengesetzter Pfad: sonst lässt sich mit "../" alles aus dem
@@ -43,6 +50,13 @@ module.exports = function handler(req, res) {
 
   const config = requireConfig(res, false);
   if (!config) return; // Antwort wurde bereits gesendet
+
+  const quelle = herkunft(req);
+  if (bremse.zuViele(quelle)) {
+    res.setHeader('Retry-After', String(bremse.fensterSekunden));
+    return res.status(429).json({ error: 'Zu viele Anfragen. Bitte spaeter erneut probieren.' });
+  }
+  bremse.notieren(quelle);
 
   const auth = req.headers.authorization || '';
   const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;

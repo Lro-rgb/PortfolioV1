@@ -186,7 +186,8 @@ luis-rosado-portfolio/
 ├── unterlagen-verschluesselt/   # dieselben Dateien verschlüsselt, die kommen ins Repository
 │
 ├── lib/
-│   └── auth.js              # Passwort-Hashing und Token-Signierung
+│   ├── auth.js              # Passwort-Hashing und Token-Signierung
+│   └── rateLimit.js         # Bremse gegen zu viele Anfragen je Herkunft (Login, geschützter Bereich)
 │
 ├── scripts/
 │   ├── dev-server.js                 # lokaler Server inklusive api/ und .env
@@ -299,6 +300,12 @@ Der Ablauf:
    eine feste Liste geprüft, statt daraus einen Pfad zu bauen. Über dieselbe
    Liste kommen auch `modul=cv` (der unterschriebene Lebenslauf) und
    `modul=arbeitsbestaetigung`.
+
+Alle drei Endpunkte bremsen zu viele Anfragen je Herkunft (`lib/rateLimit.js`):
+`/api/login` bei Fehlversuchen, `/api/protected` und `/api/zeugnis` bei jeder
+Anfrage, unabhängig vom Ergebnis, denn ein einmal ausgestelltes Token soll
+nicht reichen, um den Bereich leerzuräumen. Der Zähler lebt nur je
+Funktionsinstanz, siehe Kommentar dort für die Grenzen davon.
 
 Die Noten selbst stehen **nicht** in `api/protected.js`, sondern als eine Zeile
 JSON in der Umgebungsvariablen `NOTEN_JSON`. Vorher lagen die PDF verschlüsselt
