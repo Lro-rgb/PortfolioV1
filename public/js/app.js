@@ -279,7 +279,17 @@ function setEmptyState(on){
 /* ── Tabbar: Klick + Tastatur (Pfeiltasten wie in echten Tab-Leisten) ── */
 $('tabbar').addEventListener('click',e=>{
   const x=e.target.closest('.tab-x');
-  if(x){e.stopPropagation();closeTab(x.closest('.tab').dataset.panel);return;}
+  if(x){
+    e.stopPropagation();
+    /* Schliessen nur am aktiven Tab. Die Leiste zeigt alle Dateien von
+       Anfang an; an einer, die man noch gar nicht geöffnet hatte, war das
+       Kreuz kein Schliessen, sondern ein Fehlgriff. Ein Treffer dort
+       öffnet die Datei, wie überall sonst auf dem Tab. */
+    const ziel=x.closest('.tab');
+    if(ziel.classList.contains('active'))closeTab(ziel.dataset.panel);
+    else openTab(ziel.dataset.panel);
+    return;
+  }
   const tab=e.target.closest('.tab');
   if(tab)openTab(tab.dataset.panel);
 });

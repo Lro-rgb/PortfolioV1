@@ -103,7 +103,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
 .tab.active{color:var(--text);border-bottom-color:var(--blue);background:var(--bg)}
 .tab .tab-x{opacity:0;margin-left:.3rem;font-size:.8rem;line-height:1;color:var(--dim);padding:.15rem .25rem;
   border-radius:2px;transition:opacity .15s,background .15s,color .15s}
-.tab:hover .tab-x,.tab .tab-x:focus-visible{opacity:1}
+.tab.active .tab-x:focus-visible{opacity:1}
+/* Das Kreuz gehört zum Tab, den man gerade liest. An den übrigen sass es
+   genau dort, wo man zum Öffnen hintippt, und schloss eine Datei, die
+   noch niemand offen hatte. visibility statt display: die Tabbreite
+   bleibt gleich und der Knopf fällt aus der Tabulatorreihenfolge. */
+.tab:not(.active) .tab-x{visibility:hidden}
 .tab .tab-x:hover{background:rgba(255,255,255,.1);color:var(--text)}
 .tab.closed{display:none}
 .tab .lock{font-size:.72rem;opacity:.55;margin-left:.3rem}
@@ -866,7 +871,7 @@ body.voll-offen{overflow:hidden}
   .ide{grid-template-rows:38px 44px 1fr}
   .tree-file{padding-top:.55rem;padding-bottom:.55rem}
   .tree-folder{padding-top:.55rem;padding-bottom:.55rem}
-  .tab-x{opacity:1;padding:.35rem}
+  .tab.active .tab-x{opacity:1;padding:.35rem}
 
   .proj-grid,.noten-grid,.tech-grid,.quellen-liste,.cv-cols{grid-template-columns:1fr}
   .cv-cols{gap:1rem}
