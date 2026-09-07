@@ -574,6 +574,25 @@
                   </div>
                 </article>
 
+                <article class="proj-card" id="proj-ygo">
+                  <div class="proj-type" data-i18n="proj.ygo.type">// Persönlich · eigenständig · laufend</div>
+                  <h4 class="proj-t">Yu-Gi-Oh! Deckbuilder</h4>
+                  <p class="proj-abstract" data-i18n="proj.ygo.abstract"><strong>Abstract</strong>Ein Deckbuilder für das Yu-Gi-Oh!-Sammelkartenspiel: Suche über rund 14&#8239;300 Karten, Deck-Editor mit Main, Extra und Side, laufende Prüfung gegen die Turnierregeln und die aktuelle Banlist. Dazu, was ein Deck kostet, und wie wahrscheinlich eine Karte in der Starthand liegt. Reine Client-Anwendung ohne Backend.</p>
+                  <div class="proj-media" data-media="ygo"></div>
+                  <div class="proj-body" data-i18n="proj.ygo.body">
+                    Die Kartendaten holt ein Skript einmalig beim Bauen in <em>einem</em> Request; zur Laufzeit spricht die App keine fremde Schnittstelle an. Die rund 14&#8239;300 Kartenbilder sind 400&#8239;MB und gehören weder ins Repository noch in jeden Build, sie liegen deshalb in einem eigenen Cloudflare-Projekt und werden über eine Build-Variable eingebunden. Die Ergebnisliste ist virtualisiert, im DOM steht nur der sichtbare Ausschnitt. Die Chance auf eine Karte in der Starthand ist exakt über die hypergeometrische Verteilung gerechnet und nicht simuliert. Ein Deck lässt sich über einen Link teilen, der es vollständig im URL-Fragment trägt &ndash; kein Server, keine Datenbank. Bei den Master-Duel-Kosten werden die vier CP-Töpfe getrennt ausgewiesen statt addiert, weil sie sich im Spiel nicht gegeneinander tauschen lassen.
+                  </div>
+                  <dl class="proj-meta" data-i18n="proj.ygo.meta">
+                    <div><dt>Meine Rolle</dt><dd>Alleine umgesetzt</dd></div>
+                    <div><dt>Besonderheit</dt><dd>Ausser React keine Laufzeit-Abhängigkeit: Drag and Drop, der Dialog der Grossansicht und die Zwischenablage kommen alle vom Browser selbst</dd></div>
+                  </dl>
+                  <div class="chips"><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">Vite</span><span class="chip">Tailwind CSS</span><span class="chip">Cloudflare</span></div>
+                  <div class="proj-links" data-i18n="proj.ygo.links">
+                    <a href="https://ygo-deckbuilder.luisrosado008.workers.dev" class="proj-link" target="_blank" rel="noopener noreferrer"><span class="ic-globe" aria-hidden="true"></span> Live ausprobieren</a>
+                    <a href="https://github.com/Lro-rgb/ygo-deckbuilder" class="proj-link" target="_blank" rel="noopener noreferrer"><i class="devicon-github-original" aria-hidden="true"></i> Quellcode auf GitHub</a>
+                  </div>
+                </article>
+
                 <article class="proj-card" id="proj-wallpaper">
                   <div class="proj-type" data-i18n="proj.wallpaper.type">// Persönlich · eigenständig · eigenes Skript</div>
                   <h4 class="proj-t" data-i18n="proj.wallpaper.title">Wallpaper-Switcher mit automatischem Farbschema</h4>
