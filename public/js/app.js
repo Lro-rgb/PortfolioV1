@@ -473,6 +473,25 @@ document.addEventListener('keydown',e=>{
    braucht sie keine Übersetzung, denn MEDIA kennt das Wörterbuch
    nicht. */
 const MEDIA={
+  /* Vier Aufnahmen der laufenden App, ebenfalls bei 1600x1000. Die Karte
+     nennt Suche, Deck-Editor, Regelprüfung, Kosten und Starthand — hinter
+     jeder dieser Behauptungen steht hier ein Bild. Aufgenommen mit einem
+     befüllten Deck, ein leerer Editor zeigt nichts von alldem. */
+  ygo:{
+    format:'quer',
+    shots:[
+      {src:'media/ygo-suche.jpg',
+       alt:'Die Suche mit gesetzten Filtern: Typ Effektmonster, Attribut LIGHT und das Wort dragon, übrig bleiben 150 von 14’293 Karten im Ergebnisraster'},
+      {src:'media/ygo-deck.jpg',
+       alt:'Der Deck-Editor mit einem Blue-Eyes-Deck: rechts das Main Deck mit 40 Karten, darüber der Preis in Euro, die vier Master-Duel-Töpfe und die Meldung, dass das Deck regelkonform ist'},
+      {src:'media/ygo-auswertung.jpg',
+       alt:'Die Grossansicht mit der Auswertung: der Balken aus Monstern, Zaubern und Fallen, die Stufenkurve daneben und das Extra Deck nach Fusion, Link, Synchro und XYZ aufgeschlüsselt'},
+      {src:'media/ygo-starthand.jpg',
+       alt:'Eine gezogene Starthand aus fünf Karten, darunter für jede Karte des Main Decks die Chance, sie in der Starthand zu sehen'}
+    ],
+    downloads:[{href:'https://github.com/Lro-rgb/ygo-deckbuilder/archive/HEAD.zip',
+                label:'ygo-deckbuilder.zip', meta:'GitHub'}]
+  },
   // Eigene Bildschirmfotos aus dem wallsync-Repo. Dasselbe Hintergrundbild
   // einmal vor und einmal nach dem Durchlauf: erst Standardfarben, dann die
   // aus dem Bild errechnete Palette in Leiste, Terminal und Menü.
