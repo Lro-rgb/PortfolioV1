@@ -27,7 +27,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
 .skip-link:focus{transform:none}
 
 /* Buttons, die wie Text/Zeilen aussehen sollen, auf Null setzen */
-.tree-folder,.tree-file,.tab-x,.login-cancel,.lh-close,.splash-skip,.cta{
+.tree-folder,.tree-file,.tab-x,.sb-toggle,.login-cancel,.lh-close,.splash-skip,.cta{
   font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 
 /* ═══ LOADING SCREEN ═══ */
@@ -83,10 +83,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
   background:transparent;transition:background .15s,color .15s}
 .tb-lang:hover{background:rgba(255,255,255,.07);color:var(--text)}
 
-/* Explorer-Schalter, nur auf schmalen Bildschirmen sichtbar */
-.sb-toggle{display:none;font-size:1rem;line-height:1;color:var(--muted);padding:.3rem .5rem;
-  border-radius:3px;flex-shrink:0;transition:background .15s,color .15s}
-.sb-toggle:hover{background:rgba(255,255,255,.07);color:var(--text)}
+/* Explorer-Schalter, nur auf schmalen Bildschirmen sichtbar. Die drei
+   Striche sind ein SVG und kein ☰: das Zeichen sitzt je nach Schrift
+   anders in seiner Zeile und war neben den übrigen Symbolen der Leiste
+   zu dünn. Farbe und Fläche wie bei den Menüknöpfen daneben, damit der
+   Schalter Teil der Titelleiste ist und nicht ein Kasten darauf. */
+.sb-toggle{display:none;align-items:center;justify-content:center;
+  color:var(--muted);padding:0;border-radius:3px;flex-shrink:0;
+  transition:background .15s,color .15s}
+.sb-toggle svg{width:17px;height:17px;display:block}
+.sb-toggle:hover{background:var(--list-hover);color:var(--text)}
 .sb-backdrop{display:none}
 
 /* TABBAR */
