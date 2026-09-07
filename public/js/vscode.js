@@ -177,8 +177,11 @@
      tatsächlich stellt: Wie viel kommt noch? */
   function updateStatusProgress() {
     if (!stLines || !editorScroll) return;
-    const max = editorScroll.scrollHeight - editorScroll.clientHeight;
-    const pct = max > 8 ? Math.round((editorScroll.scrollTop / max) * 100) : 100;
+    // scroller() aus app.js: auf schmalen Schirmen scrollt das Fenster,
+    // nicht der Editorbereich. Ohne das stand der Anteil dort immer auf 100%.
+    const sc = typeof scroller === 'function' ? scroller() : editorScroll;
+    const max = sc.scrollHeight - sc.clientHeight;
+    const pct = max > 8 ? Math.round((sc.scrollTop / max) * 100) : 100;
     stLines.textContent = I18N.t('status.readPrefix') + pct + I18N.t('status.readSuffix');
   }
 

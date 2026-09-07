@@ -15,6 +15,35 @@ let lastFocusedBeforeLogin=null;
 const $=id=>document.getElementById(id);
 
 const editorScroll=$('editorScroll');
+
+/* Wer scrollt gerade?
+
+   Am Schreibtisch ist der Editorbereich selbst der Scroll-Behälter, die
+   Seite steht fest. Auf schmalen Schirmen wächst die Seite dagegen mit
+   (siehe .ide in vscode.css), und dann scrollt das Fenster, nicht der
+   Editor. Alles, was den Scrollstand liest oder setzt, muss deshalb erst
+   fragen, wer hier zustaendig ist — sonst greift es auf dem Handy ins
+   Leere: scrollTop bleibt 0, der Lesefortschritt steht still und die
+   Gliederungsleiste springt nicht.
+
+   Geprueft wird die Tatsache statt der Bildschirmbreite: so bleibt die
+   Antwort richtig, ohne den Umbruchpunkt aus dem CSS hier zu wiederholen. */
+function scroller(){
+  return editorScroll.scrollHeight > editorScroll.clientHeight + 1
+    ? editorScroll
+    : (document.scrollingElement || document.documentElement);
+}
+
+/* Hoehe der angehefteten Leisten. Ein Sprungziel muss so weit unter den
+   oberen Rand, dass es nicht dahinter verschwindet. Am Schreibtisch
+   liegen Titel- und Tableiste ausserhalb des Scroll-Behaelters, dort
+   genuegt der bisherige Abstand. */
+function stickyOffset(){
+  if(scroller() === editorScroll) return 64;
+  const tb = document.querySelector('.titlebar');
+  const tabs = document.querySelector('.tabbar');
+  return (tb ? tb.offsetHeight : 0) + (tabs ? tabs.offsetHeight : 0) + 12;
+}
 const sidebar=$('sidebar');
 const backdrop=$('sbBackdrop');
 const sbToggle=$('sbToggle');
@@ -186,7 +215,7 @@ function openTab(name,opts){
   const panel=$('panel-'+name);
   buildFolds(panel);
   buildOutline(panel);
-  editorScroll.scrollTop=0;
+  scroller().scrollTop=0;
   /* Die Blätterpfeile der Bilderreihen wurden bisher einmal beim Aufbau
      gemessen. Da war das Panel noch ausgeblendet, clientWidth also null und
      beide Pfeile blieben abgeschaltet. Sie wachten erst auf, wenn man die
@@ -1676,9 +1705,11 @@ function buildOutline(panel){
  * Knöpfe wirkten dann wirkungslos.
  */
 function offsetInScroller(elm){
-  return editorScroll.scrollTop
-    + elm.getBoundingClientRect().top
-    - editorScroll.getBoundingClientRect().top;
+  const sc = scroller();
+  // Beim Fenster als Behaelter ist die Oberkante schon der Nullpunkt,
+  // beim Editorbereich muss dessen eigene Lage abgezogen werden.
+  const nullpunkt = sc === editorScroll ? sc.getBoundingClientRect().top : 0;
+  return sc.scrollTop + elm.getBoundingClientRect().top - nullpunkt;
 }
 
 // Der Hash gehört der Tab-Navigation, deshalb selbst scrollen statt
@@ -1689,8 +1720,8 @@ document.addEventListener('click',e=>{
   e.preventDefault();
   const target = $(a.dataset.target);
   if(!target)return;
-  const top = Math.max(0, offsetInScroller(target) - 64);
-  editorScroll.scrollTo({top, behavior: reduceMotion ? 'auto' : 'smooth'});
+  const top = Math.max(0, offsetInScroller(target) - stickyOffset());
+  scroller().scrollTo({top, behavior: reduceMotion ? 'auto' : 'smooth'});
   target.setAttribute('tabindex','-1');
   target.focus({preventScroll:true});
 
@@ -1705,17 +1736,18 @@ function updateOutlineState(){
   const panel = document.querySelector('.editor-panel.active');
   if(!panel)return;
 
+  const sc = scroller();
+
   const bar = panel.querySelector('.read-bar span');
   if(bar){
-    const max = editorScroll.scrollHeight - editorScroll.clientHeight;
-    bar.style.width = (max > 0 ? Math.min(100, (editorScroll.scrollTop / max) * 100) : 0) + '%';
+    const max = sc.scrollHeight - sc.clientHeight;
+    bar.style.width = (max > 0 ? Math.min(100, (sc.scrollTop / max) * 100) : 0) + '%';
   }
 
   const links = panel.querySelectorAll('.outline a');
   if(!links.length)return;
 
-  const atBottom = editorScroll.scrollTop + editorScroll.clientHeight
-                   >= editorScroll.scrollHeight - 4;
+  const atBottom = sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 4;
 
   let currentId = links[0].dataset.target;
   if(atBottom){
@@ -1725,7 +1757,7 @@ function updateOutlineState(){
   }else{
     links.forEach(a=>{
       const h = $(a.dataset.target);
-      if(h && offsetInScroller(h) - 96 <= editorScroll.scrollTop) currentId = a.dataset.target;
+      if(h && offsetInScroller(h) - stickyOffset() - 32 <= sc.scrollTop) currentId = a.dataset.target;
     });
   }
   links.forEach(a=>a.classList.toggle('current', a.dataset.target === currentId));
@@ -1867,7 +1899,10 @@ const revealObserver = 'IntersectionObserver' in window
         entry.target.classList.add('in');
         obs.unobserve(entry.target); // einmal eingeblendet, bleibt eingeblendet
       });
-    },{root:editorScroll,rootMargin:'0px 0px -5% 0px'})
+        // root:null heisst Sichtfeld. Das stimmt in beiden Faellen: scrollt der
+    // Editorbereich, schneidet er seinen Inhalt ohnehin ab, und der
+    // Beobachter rechnet diese Beschneidung mit ein.
+    },{rootMargin:'0px 0px -5% 0px'})
   : null;
 
 /** Nimmt alle noch nicht eingeblendeten Elemente in Beobachtung.
@@ -1901,14 +1936,20 @@ function onEditorScroll(fn){
   scrollJobs.push(fn);
 }
 
-editorScroll.addEventListener('scroll',()=>{
+function scrollAngestossen(){
   if(scrollScheduled)return;
   scrollScheduled=true;
   requestAnimationFrame(()=>{
     scrollScheduled=false;
     scrollJobs.forEach(fn=>fn());
   });
-},{passive:true});
+}
+
+// Beide Quellen: am Schreibtisch meldet sich der Editorbereich, auf
+// schmalen Schirmen das Fenster. Welche davon feuert, entscheidet das
+// Layout — hier lauschen kostet nichts und erspart eine Fallunterscheidung.
+editorScroll.addEventListener('scroll',scrollAngestossen,{passive:true});
+window.addEventListener('scroll',scrollAngestossen,{passive:true});
 
 onEditorScroll(updateOutlineState);
 

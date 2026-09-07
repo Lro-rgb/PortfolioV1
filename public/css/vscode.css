@@ -1547,6 +1547,43 @@ code {
     overflow: visible;
   }
 
+  /* Titel- und Tableiste bleiben stehen. Ohne das scrollte die ganze
+     Hülle mit dem Text weg, weil die Seite hier mitwächst (.ide oben mit
+     height:auto): auf dem Handy war dann weder der Dateiname noch der
+     Wechsel zwischen den Tabs erreichbar, ohne ganz nach oben zu
+     scrollen. Die Activity Bar klebte derweil schon, hing aber unter
+     einer Leiste, die gar nicht mehr da war.
+
+     position:fixed und nicht sticky, aus demselben Grund wie bei der
+     Statusleiste weiter unten: Ein angeheftetes Element kann sich nur
+     innerhalb seiner Grid-Area bewegen, und diese beiden Leisten belegen
+     je genau eine Zeile ihrer eigenen Höhe. Es bliebe kein Weg zum
+     Kleben. Den Platz halten die festen Zeilenhöhen des Rasters frei. */
+  .titlebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--h-title);
+    z-index: 360;
+  }
+
+  /* Die Tableiste gehört nur über den Editor, nicht über die Activity
+     Bar — deshalb rückt sie um deren Breite ein, so wie im Raster. */
+  .tabbar {
+    position: fixed;
+    top: var(--h-title);
+    left: var(--w-activity);
+    right: 0;
+    height: var(--h-tabs);
+    z-index: 355;
+  }
+
+  /* Sprungziele dürfen nicht unter den beiden Leisten landen. */
+  .code-content h3.ed-h2 {
+    scroll-margin-top: calc(var(--h-title) + var(--h-tabs) + 12px);
+  }
+
   /* Die Icon-Leiste läuft beim Scrollen mit, statt als toter Streifen
      neben zwei Metern Text zu stehen. Sie ist damit auf dem Handy die
      eigentliche Navigation: Explorer, Suche, Projekte, Terminal. */
