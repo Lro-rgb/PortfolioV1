@@ -1,5 +1,29 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
+/* ═══════════════════════════════════════════════════════════════════════
+   BILDSCHIRMBREITEN
+
+   Vier Grenzen, mehr nicht. Vorher standen acht verschiedene Werte in den
+   beiden Dateien (1024, 900, 821, 820, 760, 560, 480, 460); die Hälfte
+   davon unterschied sich nur um ein paar Pixel von der nächsten und war
+   von Fall zu Fall entstanden.
+
+     1024px  Tablet quer: Explorer schmaler, Raster von vier auf drei
+             Spalten, Statusleiste zeigt weniger an.
+      820px  Die eigentliche Umschaltung. Darunter wird der Explorer zur
+             Schublade, die Leisten werden für Finger höher, mehrspaltige
+             Raster fallen auf eine Spalte zusammen.
+             Das Gegenstück dazu ist die einzige min-width-Abfrage
+             (821px) in vscode.css, für alles, was nur am Schreibtisch
+             gilt.
+      560px  Handy quer: Zeilennummern weg, Schaltflächen untereinander.
+      480px  Handy hochkant: engere Innenabstände, letzte Raster einspaltig.
+
+   Neue Regeln gehören in einen dieser Blöcke. Braucht etwas wirklich
+   eine eigene Grenze, dann mit einem Satz dazu, warum.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+
 /* Farben und Schriften stehen in themes.css. Dort ist auch beschrieben,
    warum sie nach ihrer Aufgabe benannt sind und nicht nach ihrem Farbton. */
 
@@ -888,7 +912,6 @@ body.voll-offen{overflow:hidden}
   .tb-lang{font-size:.6rem;padding:.15rem .4rem}
   .cta-row{flex-direction:column}
   .cta{width:100%}
-  .fact-row{grid-template-columns:1fr}
 }
 
 @media(max-width:480px){
