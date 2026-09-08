@@ -294,35 +294,54 @@ function currentHashPanel(){
   return LANG[n]?n:'home';
 }
 
+/* Solange die Seite noch aufbaut, darf kein Verlaufseintrag entstehen: Der
+   erste openTab-Aufruf in startApp soll die Adresse angleichen, nicht einen
+   zweiten Eintrag neben den Einstieg legen. Sonst bräuchte es zweimal
+   Zurück, um die Seite wieder zu verlassen. */
+let navigationBereit=false;
+
 /**
  * Adresse an den offenen Tab angleichen.
  *
- * Bewusst replaceState statt "location.hash = …": eine Zuweisung an
- * location.hash stellt ein hashchange-Event in die Warteschlange, das erst
- * nach dem aktuellen Skriptdurchlauf ankommt. Wer den letzten Tab schliesst,
- * bekäme dann kurz darauf genau diesen Tab wieder aufgerissen.
- * replaceState schreibt die Adresse, ohne ein Event auszulösen.
+ * pushState statt "location.hash = …": eine Zuweisung an location.hash
+ * stellt ein hashchange-Event in die Warteschlange, das erst nach dem
+ * aktuellen Skriptdurchlauf ankommt. Wer den letzten Tab schliesst, bekäme
+ * dann kurz darauf genau diesen Tab wieder aufgerissen. pushState schreibt
+ * die Adresse, ohne ein Event auszulösen.
+ *
+ * Und pushState statt replaceState, damit die Zurück-Taste zwischen den
+ * Dateien blättert. Vorher überschrieb jeder Wechsel denselben Eintrag:
+ * Wer sich durch fünf Dateien gelesen hatte, verliess mit einem Druck auf
+ * Zurück die Seite, statt zur vorigen Datei zu kommen.
  */
 function setHash(name){
   if(currentHashPanel()===name)return;
   const url=location.pathname+location.search+(name==='home'?'':'#'+name);
   try{
-    history.replaceState(null,'',url);
+    if(navigationBereit)history.pushState({panel:name},'',url);
+    else history.replaceState({panel:name},'',url);
   }catch(e){
     // Beim Öffnen als lokale Datei oder in einer Vorschau-Ansicht lehnen
-    // manche Browser replaceState ab. Die Adresse ist dann nur Beiwerk,
+    // manche Browser die History-API ab. Die Adresse ist dann nur Beiwerk,
     // ein Fehler hier darf nicht den Rest der Navigation abbrechen.
   }
 }
 
-// Bleibt für von Hand geänderte Adressen zuständig; eigene Änderungen
-// laufen über replaceState und lösen hier nichts aus.
-window.addEventListener('hashchange',()=>{
+/* Zurück und Vorwärts. Beide Ereignisse können zum selben Schritt
+   feuern (popstate und hashchange), der Abgleich mit dem aktiven Tab lässt
+   den zweiten Aufruf dann ins Leere laufen. Und weil openTab am Ende selbst
+   setHash aufruft, dort aber die Adresse schon stimmt, entsteht beim
+   Zurückblättern kein neuer Eintrag. */
+function navigiereZuAdresse(){
   const name=currentHashPanel();
   const active=document.querySelector('.tab.active');
   if(active&&active.dataset.panel===name)return;
   openTab(name);
-});
+}
+
+window.addEventListener('popstate',navigiereZuAdresse);
+// Bleibt zusätzlich für von Hand geänderte Adressen zuständig.
+window.addEventListener('hashchange',navigiereZuAdresse);
 
 /* ═══════════════════════════════════
    EXPLORER-SCHUBLADE (nur schmale Bildschirme)
@@ -2545,6 +2564,9 @@ function startApp(){
   const start=(fromHash&&LANG[fromHash])?fromHash:'home';
   openTab(start);
   initReveals();
+
+  // Ab hier zaehlt jeder Dateiwechsel als eigener Schritt im Verlauf.
+  navigationBereit=true;
 }
 
 /* Erst wenn das Dokument fertig geparst ist. Die Skripte stehen zwar am
