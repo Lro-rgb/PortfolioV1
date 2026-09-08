@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vercel dev",
+    "test": "node --test test/",
     "deploy": "vercel --prod",
     "hash-password": "node scripts/generate-password-hash.js",
     "generate-secret": "node scripts/generate-jwt-secret.js"
