@@ -843,12 +843,51 @@
 
   var ATTR_MAP = ["aria-label", "title", "placeholder", "alt", "content"];
 
+  /* Die Sprache steht auch in der Adresse (?lang=en), nicht nur im
+     localStorage. Zwei Gründe: ein Verweis auf die englische Fassung lässt
+     sich so verschicken, und Suchmaschinen bekommen überhaupt erst eine
+     eigene Adresse zum Erfassen — vorher lag der englische Inhalt hinter
+     einem Schalter und war von aussen unsichtbar. Die Adresse gewinnt gegen
+     den Speicher: wer den Verweis anklickt, will diese Sprache sehen. */
+  function langAusAdresse() {
+    try {
+      var l = new URLSearchParams(location.search).get("lang");
+      if (l === "de" || l === "en") return l;
+    } catch (e) { /* sehr alter Browser ohne URLSearchParams */ }
+    return null;
+  }
+
   function getLang() {
+    var ausAdresse = langAusAdresse();
+    if (ausAdresse) return ausAdresse;
     try {
       var l = localStorage.getItem("lang");
       if (l === "de" || l === "en") return l;
     } catch (e) { /* privater Modus */ }
     return "de";
+  }
+
+  /* Adresse und massgebliche Adresse (canonical) der Sprache nachziehen.
+     Ohne das zweite zeigte canonical bei ?lang=en weiter auf die deutsche
+     Startseite, und Suchmaschinen würfen beide Fassungen wieder zusammen. */
+  var BASIS = "https://luis-rosado.ch/";
+
+  function adresseNachziehen() {
+    var ziel = currentLang === "en" ? BASIS + "?lang=en" : BASIS;
+    var kanonisch = document.querySelector('link[rel="canonical"]');
+    if (kanonisch) kanonisch.setAttribute("href", ziel);
+
+    var lokal = document.querySelector('meta[property="og:locale"]');
+    if (lokal) lokal.setAttribute("content", currentLang === "en" ? "en" : "de_CH");
+
+    // Im Adressfeld nur den Parameter tauschen, Sprungmarke (#projekte)
+    // und alles andere bleiben stehen.
+    try {
+      var url = new URL(location.href);
+      if (currentLang === "en") url.searchParams.set("lang", "en");
+      else url.searchParams.delete("lang");
+      if (url.href !== location.href) history.replaceState(history.state, "", url.href);
+    } catch (e) { /* sehr alter Browser */ }
   }
 
   function setStoredLang(l) {
@@ -868,6 +907,7 @@
   function applyLang() {
     var dict = translations[currentLang] || translations.de;
     document.documentElement.lang = currentLang;
+    adresseNachziehen();
 
     var nodes = document.querySelectorAll("[data-i18n]");
     for (var i = 0; i < nodes.length; i++) {

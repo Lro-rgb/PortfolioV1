@@ -13,6 +13,14 @@
      verschiedene Seiten mit demselben Inhalt. -->
 <link rel="canonical" href="https://luis-rosado.ch/"/>
 
+<!-- Die englische Fassung wird per JavaScript umgeschaltet, hat mit
+     ?lang=en aber eine eigene Adresse. Ohne diese Angaben kennt eine
+     Suchmaschine nur die deutsche Seite; canonical wird beim Sprachwechsel
+     in i18n.js mitgezogen. -->
+<link rel="alternate" hreflang="de" href="https://luis-rosado.ch/"/>
+<link rel="alternate" hreflang="en" href="https://luis-rosado.ch/?lang=en"/>
+<link rel="alternate" hreflang="x-default" href="https://luis-rosado.ch/"/>
+
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
 
