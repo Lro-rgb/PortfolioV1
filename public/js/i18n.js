@@ -32,6 +32,7 @@
       "login.checking": "Prüfe...",
       "login.error": "Falsches Passwort.",
       "login.connectionError": "Verbindungsfehler.",
+      "login.serverError": "Server antwortet unerwartet.",
       "login.cancel": "Abbrechen (ESC)",
 
       "menu.goto": "Gehe zu",
@@ -442,6 +443,7 @@
       "login.checking": "Checking...",
       "login.error": "Incorrect password.",
       "login.connectionError": "Connection error.",
+      "login.serverError": "Unexpected response from the server.",
       "login.cancel": "Cancel (ESC)",
 
       "menu.goto": "Go to",

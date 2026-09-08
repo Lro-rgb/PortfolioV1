@@ -1977,14 +1977,19 @@ function closeLogin(){
 // Fokus im Dialog halten, solange er offen ist.
 overlay.addEventListener('keydown',e=>{
   if(e.key!=='Tab')return;
-  const f=loginBox.querySelectorAll('button, input, [href]');
+  /* :not([disabled]) ist nötig, weil die Schaltfläche während der
+     Prüfung abgeschaltet ist: ohne den Filter landet der Fokus mitten im
+     Anmeldevorgang auf einem Knopf, der nichts tut, und die Falle rechnet
+     ausserdem mit dem falschen letzten Element. */
+  const f=loginBox.querySelectorAll('button:not([disabled]), input:not([disabled]), [href]');
   if(!f.length)return;
   const first=f[0],last=f[f.length-1];
   if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
   else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
 });
 
-$('loginInput').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+// Das Formular fängt die Eingabetaste und den Klick auf ENTER selbst ab.
+$('loginForm').addEventListener('submit',e=>{e.preventDefault();doLogin();});
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&overlay.classList.contains('show'))closeLogin();
 });
@@ -2018,8 +2023,17 @@ async function doLogin(){
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({password:pw})
     });
-    const data=await res.json();
-    if(res.ok&&data.token){
+    /* Antwortet nicht die Funktion, sondern z.B. eine Fehlerseite von
+       Vercel, ist der Rumpf HTML und res.json() wirft. Früher fiel das mit
+       dem echten Verbindungsfehler zusammen und die Seite meldete "keine
+       Verbindung", obwohl der Server sehr wohl geantwortet hat. */
+    let data=null;
+    try{
+      data=await res.json();
+    }catch(e){
+      data=null;
+    }
+    if(res.ok&&data&&data.token){
       token=data.token;
       sessionStorage.setItem('lr_token',token);
       const target=pendingPanel;
@@ -2030,7 +2044,9 @@ async function doLogin(){
       updateAuth(true);
       if(target)openTab(target);
     }else{
-      err.textContent=data.error||I18N.t('login.error');
+      err.textContent=(data&&data.error)||
+        (res.ok?I18N.t('login.error')
+               :I18N.t('login.serverError')+' ('+res.status+')');
       err.style.display='flex';
       $('loginInput').focus();
     }

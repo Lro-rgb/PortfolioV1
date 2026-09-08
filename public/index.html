@@ -126,17 +126,23 @@
       </div>
       <span class="login-title" id="loginTitle" data-i18n="login.title">authentication.js · Zugang erforderlich</span>
     </div>
-    <div class="login-body">
+    <!-- Ein echtes <form> und nicht bloss ein <div> mit Schaltfläche:
+         Passwortverwaltungen erkennen ein Anmeldeformular an genau dieser
+         Form und bieten Speichern und Ausfüllen erst dann zuverlässig an.
+         Nebenbei erledigt der Browser die Eingabetaste selbst. Das Formular
+         trägt die Klasse .login-body, damit die Gestaltung unverändert
+         greift. -->
+    <form class="login-body" id="loginForm" method="post" novalidate>
       <p class="login-cmt" data-i18n="login.comment">// Diese Datei ist passwortgeschützt.<br>// Nur für berechtigte Personen.</p>
       <label class="login-label" for="loginInput" data-i18n="login.label">const password =</label>
       <div class="login-iw">
-        <input class="login-in" id="loginInput" type="password" placeholder="••••••••" autocomplete="current-password" aria-describedby="loginErr"/>
-        <button type="button" class="login-tog" onclick="togglePw()" id="loginTog" aria-label="Passwort anzeigen" data-i18n-aria-label="login.showPw"><span class="ic-eye" aria-hidden="true"></span></button>
+        <input class="login-in" id="loginInput" name="password" type="password" placeholder="••••••••" autocomplete="current-password" aria-describedby="loginErr"/>
+        <button type="button" class="login-tog" data-aktion="passwortZeigen" id="loginTog" aria-label="Passwort anzeigen" data-i18n-aria-label="login.showPw"><span class="ic-eye" aria-hidden="true"></span></button>
       </div>
-      <button type="button" class="login-btn" id="loginBtn" onclick="doLogin()" data-i18n="login.enter">ENTER ↵</button>
+      <button type="submit" class="login-btn" id="loginBtn" data-i18n="login.enter">ENTER ↵</button>
       <p class="login-err" id="loginErr" role="alert" data-i18n="login.error">Falsches Passwort.</p>
       <button type="button" class="login-cancel" onclick="closeLogin()" data-i18n="login.cancel">Abbrechen (ESC)</button>
-    </div>
+    </form>
   </div>
 </div>
 
