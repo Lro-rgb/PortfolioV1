@@ -1261,6 +1261,21 @@ document.addEventListener('click',e=>{
 ══════════════════════════════════════════════════════════════════ */
 const SFM_API='https://api.stats.fm/api/v1/users/';
 const SFM_ZEITRAUM='weeks';   // letzte vier Wochen
+const SFM_FRIST=8000;         // Millisekunden, bis der Abruf abgebrochen wird
+
+/* Ein fremder Dienst kann auch einfach gar nicht antworten. Ohne Frist
+   hängt die Anfrage, bis der Browser von sich aus aufgibt, und der
+   Abschnitt bleibt bis dahin leer statt auf den Verweis zurückzufallen.
+   AbortController statt AbortSignal.timeout, weil es den länger gibt. */
+async function holeMitFrist(url,optionen,ms){
+  const abbruch=new AbortController();
+  const zeit=setTimeout(()=>abbruch.abort(),ms);
+  try{
+    return await fetch(url,Object.assign({},optionen,{signal:abbruch.signal}));
+  }finally{
+    clearTimeout(zeit);
+  }
+}
 
 async function ladeStatsfm(box){
   const user=box.dataset.user;
@@ -1268,7 +1283,8 @@ async function ladeStatsfm(box){
   box.dataset.geladen='1';
 
   const hole=async pfad=>{
-    const r=await fetch(SFM_API+encodeURIComponent(user)+pfad,{headers:{Accept:'application/json'}});
+    const r=await holeMitFrist(SFM_API+encodeURIComponent(user)+pfad,
+      {headers:{Accept:'application/json'}},SFM_FRIST);
     if(!r.ok)throw new Error('stats.fm antwortet mit '+r.status);
     return r.json();
   };
@@ -1283,7 +1299,8 @@ async function ladeStatsfm(box){
       (titel.items||[]).slice(0,5),(kuenstler.items||[]).slice(0,5));
   }catch(err){
     // Kein Alarm auf der Seite: der Verweis auf das Profil steht ja da.
-    console.warn('Hörstatistiken nicht geladen:',err.message);
+    console.warn('Hörstatistiken nicht geladen:',
+      err.name==='AbortError'?'stats.fm hat nicht innert '+(SFM_FRIST/1000)+' s geantwortet':err.message);
     box.dataset.geladen='';
   }
 }
