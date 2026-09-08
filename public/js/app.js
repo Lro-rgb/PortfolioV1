@@ -2030,7 +2030,7 @@ function doLogout(){
   updateAuth(false);
   LOCKED.forEach(n=>{
     const box=$(n==='noten'?'noten-content':'cv-content');
-    if(box)box.innerHTML='<span style="color:var(--dim);font-family:var(--mono);font-size:.8rem">Lade Daten…</span>';
+    if(box)box.innerHTML=hinweis('protected.locked');
     const dl=$(n==='noten'?'noten-dl':'cv-dl');
     if(dl)dl.style.display='none';
     const zip=$(n==='noten'?'noten-zip':'cv-zip');
@@ -2065,7 +2065,9 @@ function updateAuth(ok){
 ═══════════════════════════════════ */
 /* Als Funktion und nicht als Konstante: Der Text hängt an der gewählten
    Sprache, und die kann sich ändern, nachdem die Datei einmal geladen ist. */
-const emptyMsg=()=>'<p style="color:var(--dim);font-family:var(--mono);font-size:.8rem;padding:1.2rem 0">'+
+const hinweis=schluessel=>'<span class="protected-hint" data-i18n="'+schluessel+'">'+
+  esc(I18N.t(schluessel))+'</span>';
+const emptyMsg=()=>'<p class="protected-hint protected-leer">'+
   esc(I18N.t('protected.empty'))+'</p>';
 let lastNoten=null,lastLebenslauf=null;
 
@@ -2089,6 +2091,10 @@ function dokKnoepfe(schluessel){
 
 async function loadProtected(panel){
   if(!token)return;
+  /* Bis die Antwort da ist, steht im Feld noch "gesperrt". Das stimmt in
+     diesem Moment nicht mehr, der Login ist ja durch. */
+  const feld=$(panel==='noten'?'noten-content':'cv-content');
+  if(feld)feld.innerHTML=hinweis('protected.loading');
   try{
     const res=await fetch('/api/protected',{headers:{'Authorization':'Bearer '+token}});
     if(!res.ok){doLogout();return;}
@@ -2233,7 +2239,10 @@ async function loadProtected(panel){
       }
     }
   }catch(e){
+    /* Ohne diesen Zweig blieb bei einer abgebrochenen Anfrage der Hinweis
+       "Lade Daten…" stehen, und zwar fuer immer. */
     console.error(e);
+    if(feld)feld.innerHTML=hinweis('protected.error');
   }
 }
 

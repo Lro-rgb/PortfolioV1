@@ -733,6 +733,11 @@ body.voll-offen{overflow:hidden}
   background:#fff}
 .zeugnis-fehler{font-family:var(--mono);font-size:.72rem;color:var(--orange);
   padding:1.2rem;margin:0}
+/* Zustandszeilen im geschützten Bereich: gesperrt, lädt, leer, Fehler.
+   Standen vorher als style="" im Markup und im Javascript, an drei Stellen
+   mit denselben vier Werten. */
+.protected-hint{font-family:var(--mono);font-size:.8rem;color:var(--dim)}
+.protected-leer{padding:1.2rem 0;display:block;margin:0}
 .noten-avg{font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:1.2rem;padding:1rem 1.2rem;background:#161B22;border:1px solid var(--border);display:inline-flex;align-items:center;gap:1rem}
 .noten-avg strong{color:var(--blue);font-size:1.1rem}
 
