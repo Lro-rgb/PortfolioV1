@@ -2586,6 +2586,30 @@ async function downloadAllesAlsZip(){
 }
 
 /* ═══════════════════════════════════
+   BEDIENELEMENTE IM DOKUMENT
+═══════════════════════════════════ */
+/* Die Schaltflaechen tragen data-aktion statt onclick. Grund ist die
+   Sicherheitsregel in vercel.json: script-src kommt ohne 'unsafe-inline'
+   aus, und damit fallen auch onclick-Attribute weg, nicht nur <script>
+   im Dokument. Ein einziger Lauscher am Dokument statt neun einzelner
+   Bindungen — die Schaltflaechen tauchen teils erst nach dem Anmelden auf. */
+const AKTIONEN={
+  loginSchliessen:closeLogin,
+  passwortZeigen:togglePw,
+  abmelden:doLogout,
+  notenCsv:downloadNotenCsv,
+  lebenslaufPdfs:downloadLebenslaufAlle,
+  allesAlsZip:downloadAllesAlsZip
+};
+
+document.addEventListener('click',e=>{
+  const knopf=e.target.closest&&e.target.closest('[data-aktion]');
+  if(!knopf)return;
+  const fn=AKTIONEN[knopf.dataset.aktion];
+  if(fn)fn();
+});
+
+/* ═══════════════════════════════════
    START
 ═══════════════════════════════════ */
 function startApp(){

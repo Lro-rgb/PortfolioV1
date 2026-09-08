@@ -47,10 +47,12 @@
      wuerde das erste Zeichnen der Seite aufhalten, obwohl kein einziges
      Logo fuer den Text noetig ist. Der media="print"-Kniff laesst den
      Browser es nebenher laden und erst danach anwenden: Der Inhalt steht
-     sofort, die Logos erscheinen Sekundenbruchteile spaeter. -->
+     sofort, die Logos erscheinen Sekundenbruchteile später.
+     Umgestellt wird in js/theme.js, früher stand dafür ein onload-
+     Attribut hier — das erlaubt die Sicherheitsregel nicht mehr. -->
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.16.0/devicon.min.css"
-      media="print" onload="this.media='all';this.onload=null">
+      media="print" id="deviconCss">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.16.0/devicon.min.css"></noscript>
 
 <!-- Styles
@@ -63,14 +65,7 @@
 
 <!-- Gewaehltes Farbdesign setzen, bevor die Seite zeichnet, sonst blitzt
      kurz das Standarddesign auf. -->
-<script>
-  (function () {
-    try {
-      var t = localStorage.getItem('lr_theme');
-      if (t) document.documentElement.setAttribute('data-theme', t);
-    } catch (e) { /* privater Modus: dann gilt das Standarddesign */ }
-  })();
-</script>
+<script src="js/theme.js"></script>
 
 <!-- Strukturierte Daten für Suchmaschinen -->
 <script type="application/ld+json">
@@ -120,7 +115,7 @@
   <div class="login-box">
     <div class="login-head">
       <div class="lh-dots">
-        <button type="button" class="lh-dot lh-close" style="background:#FF5F57" onclick="closeLogin()" aria-label="Dialog schliessen" data-i18n-aria-label="login.close"></button>
+        <button type="button" class="lh-dot lh-close" style="background:#FF5F57" data-aktion="loginSchliessen" aria-label="Dialog schliessen" data-i18n-aria-label="login.close"></button>
         <span class="lh-dot" style="background:#FFBD2E" aria-hidden="true"></span>
         <span class="lh-dot" style="background:#28CA41" aria-hidden="true"></span>
       </div>
@@ -141,7 +136,7 @@
       </div>
       <button type="submit" class="login-btn" id="loginBtn" data-i18n="login.enter">ENTER ↵</button>
       <p class="login-err" id="loginErr" role="alert" data-i18n="login.error">Falsches Passwort.</p>
-      <button type="button" class="login-cancel" onclick="closeLogin()" data-i18n="login.cancel">Abbrechen (ESC)</button>
+      <button type="button" class="login-cancel" data-aktion="loginSchliessen" data-i18n="login.cancel">Abbrechen (ESC)</button>
     </form>
   </div>
 </div>
@@ -1131,9 +1126,9 @@
         <div class="editor-panel" id="panel-noten" role="tabpanel" aria-labelledby="tab-noten">
           <div class="breadcrumb">
             <span data-i18n="folder.unterlagen">unterlagen</span><span class="sep">›</span><span class="bc-part" data-i18n="file.noten">noten.csv</span>
-            <button class="bc-logout" id="noten-dl" style="display:none;margin-left:auto;margin-right:.5rem" onclick="downloadNotenCsv()">⭳ CSV</button>
-            <button class="bc-logout" id="noten-zip" data-zip-alles style="display:none;margin-right:.5rem" onclick="downloadAllesAlsZip()">⭳ ZIP</button>
-            <button class="bc-logout" onclick="doLogout()">logout</button>
+            <button class="bc-logout" id="noten-dl" style="display:none;margin-left:auto;margin-right:.5rem" data-aktion="notenCsv">⭳ CSV</button>
+            <button class="bc-logout" id="noten-zip" data-zip-alles style="display:none;margin-right:.5rem" data-aktion="allesAlsZip">⭳ ZIP</button>
+            <button class="bc-logout" data-aktion="abmelden">logout</button>
           </div>
           <div class="code-view">
             <div class="code-content" id="cc-noten">
@@ -1148,9 +1143,9 @@
         <div class="editor-panel" id="panel-cv" role="tabpanel" aria-labelledby="tab-cv">
           <div class="breadcrumb">
             <span data-i18n="folder.unterlagen">unterlagen</span><span class="sep">›</span><span class="bc-part" data-i18n="file.lebenslauf">lebenslauf.md</span>
-            <button class="bc-logout" id="cv-dl" style="display:none;margin-left:auto;margin-right:.5rem" onclick="downloadLebenslaufAlle()">⭳ PDFs</button>
-            <button class="bc-logout" id="cv-zip" data-zip-alles style="display:none;margin-right:.5rem" onclick="downloadAllesAlsZip()">⭳ ZIP</button>
-            <button class="bc-logout" onclick="doLogout()">logout</button>
+            <button class="bc-logout" id="cv-dl" style="display:none;margin-left:auto;margin-right:.5rem" data-aktion="lebenslaufPdfs">⭳ PDFs</button>
+            <button class="bc-logout" id="cv-zip" data-zip-alles style="display:none;margin-right:.5rem" data-aktion="allesAlsZip">⭳ ZIP</button>
+            <button class="bc-logout" data-aktion="abmelden">logout</button>
           </div>
           <div class="code-view">
             <div class="code-content" id="cc-cv">
