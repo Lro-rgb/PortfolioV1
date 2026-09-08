@@ -9,8 +9,15 @@
 // wert. Ohne Weiterleitung braucht die Funktion auch nichts zu speichern.
 
 const crypto = require('crypto');
+const { herkunft, erstelleBremse } = require('../lib/rateLimit.js');
 
 const MAX_URL_LAENGE = 2000;   // länger sind echte Adressen praktisch nie
+
+// Bremse wie bei den anderen Endpunkten: 60 Anfragen je Herkunft innert
+// 5 Minuten. Eine SHA-256-Summe kostet fast nichts, hier geht es weniger um
+// die Last als darum, dass kein Endpunkt ohne Bremse offen steht.
+// Siehe lib/rateLimit.js für die Grenzen dieses Ansatzes.
+const bremse = erstelleBremse(5 * 60 * 1000, 60);
 
 /* Nur http und https. Ohne die Prüfung landete jede beliebige Zeichenkette
    in der Antwort, auch "javascript:...", und die Seite zeigt die Antwort an. */
@@ -34,6 +41,13 @@ module.exports = function handler(req, res) {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  const quelle = herkunft(req);
+  if (bremse.zuViele(quelle)) {
+    res.setHeader('Retry-After', String(bremse.fensterSekunden));
+    return res.status(429).json({ error: 'Zu viele Anfragen. Bitte spaeter erneut probieren.' });
+  }
+  bremse.notieren(quelle);
 
   const ziel = zielPruefen(req.body && req.body.url);
   if (!ziel) {

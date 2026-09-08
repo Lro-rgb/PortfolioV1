@@ -19,6 +19,11 @@ const { herkunft, erstelleBremse } = require('../lib/rateLimit.js');
 // Anfrage anfallen. Siehe lib/rateLimit.js für die Grenzen dieses Ansatzes.
 const bremse = erstelleBremse(5 * 60 * 1000, 30);
 
+// Getrennter Zähler für Anfragen ohne gültiges Token, aus demselben
+// Grund wie in api/protected.js: sonst sperrt eine Flut ohne Token den
+// berechtigten Besucher hinter derselben Ausgangsadresse gleich mit aus.
+const abweisBremse = erstelleBremse(15 * 60 * 1000, 30);
+
 /* Feste Zuordnung Modulnummer → Datei. Kein aus der Anfrage
    zusammengesetzter Pfad: sonst lässt sich mit "../" alles aus dem
    Projektverzeichnis herausholen. Was nicht in dieser Liste steht,
@@ -52,21 +57,36 @@ module.exports = function handler(req, res) {
   if (!config) return; // Antwort wurde bereits gesendet
 
   const quelle = herkunft(req);
+  const auth = req.headers.authorization || '';
+  const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
+
+  // Erst prüfen, dann zählen: welcher Zähler zuständig ist, entscheidet
+  // sich am Token.
+  let fehler = null;
+  if (!token) {
+    fehler = 'Kein Token.';
+  } else {
+    try {
+      verifyToken(token, config.secret);
+    } catch (e) {
+      fehler = 'Token ungültig oder abgelaufen.';
+    }
+  }
+
+  if (fehler) {
+    if (abweisBremse.zuViele(quelle)) {
+      res.setHeader('Retry-After', String(abweisBremse.fensterSekunden));
+      return res.status(429).json({ error: 'Zu viele Anfragen. Bitte spaeter erneut probieren.' });
+    }
+    abweisBremse.notieren(quelle);
+    return res.status(401).json({ error: fehler });
+  }
+
   if (bremse.zuViele(quelle)) {
     res.setHeader('Retry-After', String(bremse.fensterSekunden));
     return res.status(429).json({ error: 'Zu viele Anfragen. Bitte spaeter erneut probieren.' });
   }
   bremse.notieren(quelle);
-
-  const auth = req.headers.authorization || '';
-  const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
-  if (!token) return res.status(401).json({ error: 'Kein Token.' });
-
-  try {
-    verifyToken(token, config.secret);
-  } catch (e) {
-    return res.status(401).json({ error: 'Token ungültig oder abgelaufen.' });
-  }
 
   const modul = String((req.query && req.query.modul) || '');
   const datei = DATEIEN[modul];

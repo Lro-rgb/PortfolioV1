@@ -5,10 +5,19 @@
 const { verifyToken, requireConfig } = require('../lib/auth.js');
 const { herkunft, erstelleBremse } = require('../lib/rateLimit.js');
 
-// Bremse gegen das Abgreifen der Daten mit einem einzelnen Token: 60
-// Anfragen je Herkunft innert 5 Minuten, mehr braucht das Nachladen der
-// Seite nicht. Siehe lib/rateLimit.js für die Grenzen dieses Ansatzes.
+// Zwei getrennte Bremsen, und zwar mit Absicht.
+//
+// "bremse" zählt nur Anfragen mit gültigem Token und begrenzt damit das
+// Abgreifen der Daten: 60 je Herkunft innert 5 Minuten, mehr braucht das
+// Nachladen der Seite nicht.
+//
+// "abweisBremse" zählt nur Anfragen ohne gültiges Token. Früher lief
+// beides über einen Zähler, der vor der Token-Prüfung hochgezählt hat:
+// dann sperrt eine Flut ohne Token (Scanner, geteilte Ausgangs-IP einer
+// Schule) den berechtigten Besucher hinter derselben Adresse gleich mit aus.
+// Getrennt gezählt trifft eine solche Flut nur sich selbst.
 const bremse = erstelleBremse(5 * 60 * 1000, 60);
+const abweisBremse = erstelleBremse(15 * 60 * 1000, 30);
 
 // ─── Geschützte Daten ─────────────────────────────────────────────────────
 // Bewusst serverseitig: diese Inhalte gehören nicht ins Frontend-Bundle,
@@ -145,24 +154,36 @@ module.exports = function handler(req, res) {
   if (!config) return; // Antwort wurde bereits gesendet
 
   const quelle = herkunft(req);
+  const auth = req.headers.authorization || '';
+  const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
+
+  // Erst prüfen, dann zählen: welcher Zähler zuständig ist, entscheidet
+  // sich am Token.
+  let fehler = null;
+  if (!token) {
+    fehler = 'Kein Token.';
+  } else {
+    try {
+      verifyToken(token, config.secret);
+    } catch (e) {
+      fehler = 'Token ungültig oder abgelaufen.';
+    }
+  }
+
+  if (fehler) {
+    if (abweisBremse.zuViele(quelle)) {
+      res.setHeader('Retry-After', String(abweisBremse.fensterSekunden));
+      return res.status(429).json({ error: 'Zu viele Anfragen. Bitte spaeter erneut probieren.' });
+    }
+    abweisBremse.notieren(quelle);
+    return res.status(401).json({ error: fehler });
+  }
+
   if (bremse.zuViele(quelle)) {
     res.setHeader('Retry-After', String(bremse.fensterSekunden));
     return res.status(429).json({ error: 'Zu viele Anfragen. Bitte spaeter erneut probieren.' });
   }
   bremse.notieren(quelle);
-
-  const auth = req.headers.authorization || '';
-  const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
-
-  if (!token) {
-    return res.status(401).json({ error: 'Kein Token.' });
-  }
-
-  try {
-    verifyToken(token, config.secret);
-  } catch (e) {
-    return res.status(401).json({ error: 'Token ungültig oder abgelaufen.' });
-  }
 
   return res.status(200).json(DATA);
 };
