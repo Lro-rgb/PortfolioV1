@@ -666,7 +666,7 @@ const MEDIA={
   erstewebsite:{einbettung:{src:'erste-website',
                             titel:'Die Seite von 2024 öffnen'},
                 downloads:[{href:'media/erste-website.zip',
-                            label:'erste-website.zip', meta:'2,8 MB'}]}
+                            label:'erste-website.zip', meta:'0,9 MB'}]}
 };
 
 /* Interessen: pro Bereich eine Bilderstrecke.
