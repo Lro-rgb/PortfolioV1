@@ -92,23 +92,28 @@
 
 <a class="skip-link" href="#editorScroll" data-i18n="chrome.skipLink">Zum Inhalt springen</a>
 
-<!-- ══════════════ SPLASH ══════════════ -->
-<div id="splash" role="status" aria-live="polite" aria-label="Seite wird geladen" data-i18n-aria-label="splash.ariaLabel">
-  <div class="splash-logo">
-    <div class="splash-icon" aria-hidden="true">⌨</div>
-    <div class="splash-name">luis<span aria-hidden="true">.</span>dev</div>
-  </div>
-  <div class="splash-files" id="splashFiles" aria-hidden="true"></div>
-  <div class="splash-bar-wrap">
-    <div class="splash-bar-label">
-      <span id="splashLabel" data-i18n="splash.init">Initialisiere...</span>
-      <span id="splashPct">0%</span>
-    </div>
-    <div class="splash-bar-track"><div class="splash-bar-fill" id="splashFill"></div></div>
-  </div>
-  <div class="splash-version" aria-hidden="true">Portfolio v1.0 · Luis Rosado</div>
-  <button type="button" class="splash-skip" id="splashSkip" data-i18n="splash.skip">Überspringen ↵</button>
-</div>
+<!-- Ohne Javascript baut sich der Editor nicht auf: die Panels schaltet
+     openTab frei, die Bilder hängen an data-src. Statt einer leeren Seite
+     stehen dann alle Bereiche untereinander wie ein langes Dokument, dazu
+     ein Hinweis mit der Adresse für den direkten Weg. Das Stylesheet steht
+     hier drin und nicht in style.css, weil es ausserhalb von <noscript>
+     keinen Anlass hat zu gelten. -->
+<noscript>
+  <style>
+    .editor-panel{display:block!important}
+    .editor-empty,.tabbar,.breadcrumb{display:none!important}
+    .noscript-hinweis{font-family:var(--mono);font-size:.8rem;line-height:1.7;
+      color:var(--text);background:var(--tb);border-bottom:1px solid var(--border);
+      padding:1rem 1.4rem;margin:0}
+    .noscript-hinweis a{color:var(--blue)}
+  </style>
+  <p class="noscript-hinweis">
+    Diese Seite stellt sich mit Javascript als Editor dar. Ohne Javascript
+    stehen alle Bereiche einfach untereinander, Bilder und der geschützte
+    Bereich fehlen. Direkter Weg:
+    <a href="mailto:luisrosado008@gmail.com">luisrosado008@gmail.com</a>
+  </p>
+</noscript>
 
 <!-- ══════════════ LOGIN ══════════════ -->
 <div class="overlay" id="loginOverlay" role="dialog" aria-modal="true" aria-labelledby="loginTitle" aria-hidden="true">
@@ -1082,13 +1087,12 @@
                 <tr><td>Tableiste &amp; Explorer</td><td>Tragen die Editor-Metapher und sind gleichzeitig die Navigation. Zwei Wege zum selben Ziel.</td></tr>
                 <tr><td>Zeilennummern</td><td>Verstärken die Metapher und zeigen nebenbei, wie lang ein Abschnitt ist. Auf schmalen Bildschirmen ausgeblendet, weil dort der Platz wichtiger ist.</td></tr>
                 <tr><td>Farbige Syntax</td><td>Die Codeblöcke sind echt eingefärbt statt als Bild eingebunden. Dadurch bleiben sie markierbar, durchsuchbar und für Screenreader lesbar.</td></tr>
-                <tr><td>Ladebildschirm</td><td>Führt die Editor-Metapher ein, bevor der Inhalt erscheint. Überspringbar und läuft nur einmal pro Besuch.</td></tr>
               </table>
 
               <h3 class="ed-h2 reveal" data-i18n="readme.h.a11y">Bedienung und Barrierefreiheit</h3>
               <div class="prose reveal" data-i18n="readme.a11y">
                 <p>Die ganze Seite lässt sich ohne Maus bedienen. In der Tableiste wechseln die Pfeiltasten zwischen den Dateien, <code>Pos1</code> und <code>Ende</code> springen an den Rand, <code>Entf</code> schliesst einen Tab. Jedes bedienbare Element hat einen sichtbaren Fokusrahmen, und ganz oben führt eine Sprungmarke direkt zum Inhalt.</p>
-                <p>Wer im Betriebssystem reduzierte Bewegung eingestellt hat, bekommt die Seite ohne Animationen und ohne Ladebildschirm. Jeder Abschnitt hat eine eigene Adresse: <code>#projekte</code> lässt sich zum Beispiel direkt verschicken.</p>
+                <p>Wer im Betriebssystem reduzierte Bewegung eingestellt hat, bekommt die Seite ohne Animationen. Jeder Abschnitt hat eine eigene Adresse: <code>#projekte</code> lässt sich zum Beispiel direkt verschicken.</p>
               </div>
 
               <h2 class="ed-h1 reveal" data-i18n="readme.h.tech">Technische Angaben</h2>

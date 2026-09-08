@@ -50,74 +50,6 @@ const sbToggle=$('sbToggle');
 const overlay=$('loginOverlay');
 
 /* ═══════════════════════════════════
-   SPLASH SCREEN
-   Läuft nur beim ersten Besuch pro Browser-Sitzung. Wer die Seite neu lädt
-   oder Bewegung reduziert haben will, landet sofort im Editor.
-═══════════════════════════════════ */
-(function(){
-  const splash=$('splash');
-  const alreadySeen=sessionStorage.getItem('lr_splash')==='1';
-
-  function finish(instant){
-    sessionStorage.setItem('lr_splash','1');
-    if(instant){
-      splash.style.display='none';
-      $('ide').classList.add('visible');
-      // Bewusst erst im nächsten Tick: beim Wiederbesuch wird der Splash
-      // übersprungen, und dieser Zweig läuft dann noch mitten im ersten
-      // Skriptdurchlauf. Alles, was weiter unten per const deklariert ist,
-      // wäre zu diesem Zeitpunkt noch in der temporalen Todzone.
-      setTimeout(startApp,0);
-      return;
-    }
-    splash.classList.add('fade');
-    $('ide').classList.add('visible');
-    setTimeout(()=>{splash.style.display='none';startApp();},500);
-  }
-
-  if(alreadySeen||reduceMotion){finish(true);return;}
-
-  const files=[
-    I18N.t('splash.loadingExtensions'),'luis.json','skills.py','techstack.ts','projekte.html',
-    'interessen.json','kontakt.sql','unterlagen/noten.csv','unterlagen/lebenslauf.md',I18N.t('splash.ready')
-  ];
-  const el=$('splashFiles'),fill=$('splashFill'),pct=$('splashPct'),lbl=$('splashLabel');
-  let i=0,timer=null,done=false;
-
-  function skip(){
-    if(done)return;
-    done=true;
-    clearTimeout(timer);
-    finish(true);
-  }
-  $('splashSkip').addEventListener('click',skip);
-  document.addEventListener('keydown',function onKey(e){
-    if(done){document.removeEventListener('keydown',onKey);return;}
-    if(e.key==='Enter'||e.key==='Escape'||e.key===' '){e.preventDefault();skip();}
-  });
-
-  function step(){
-    if(done)return;
-    if(i>=files.length){
-      timer=setTimeout(()=>{if(!done){done=true;finish(false);}},300);
-      return;
-    }
-    const div=document.createElement('div');
-    div.className='splash-file active';
-    div.textContent='  '+files[i];
-    el.appendChild(div);
-    if(el.children.length>1)el.children[el.children.length-2].className='splash-file done';
-    const p=Math.round((i/(files.length-1))*100);
-    fill.style.width=p+'%';
-    pct.textContent=p+'%';
-    lbl.textContent=i===0?I18N.t('splash.init'):i===files.length-1?I18N.t('splash.readyLabel'):I18N.t('splash.opening')+files[i];
-    i++;
-    timer=setTimeout(step,i===1?400:180);
-  }
-  step();
-})();
-
-/* ═══════════════════════════════════
    TABS & PANELS
 ═══════════════════════════════════ */
 function tabEl(name){return document.querySelector('.tab[data-panel="'+name+'"]');}
@@ -2614,3 +2546,9 @@ function startApp(){
   openTab(start);
   initReveals();
 }
+
+/* Erst wenn das Dokument fertig geparst ist. Die Skripte stehen zwar am
+   Ende des <body>, aber vscode.js laedt nach dieser Datei, und startApp
+   oeffnet Tabs, auf die dort gelauscht wird. DOMContentLoaded feuert nach
+   allen drei Dateien und haelt die Reihenfolge damit gerade. */
+document.addEventListener('DOMContentLoaded',startApp);

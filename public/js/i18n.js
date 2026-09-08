@@ -8,7 +8,7 @@
    Gliederung oder die "Ausführlich"-Schalter bei den Projekten.
 
    Muss vor app.js geladen werden: app.js und vscode.js rufen I18N.t() an
-   mehreren Stellen auf (Splash, Login, Terminal, Kommandopalette, ...).
+   mehreren Stellen auf (Login, Terminal, Kommandopalette, ...).
    ═══════════════════════════════════════════════════════════════════════ */
 
 (function () {
@@ -21,13 +21,6 @@
       "meta.twitterDescription": "Portfolio von Luis Rosado · Informatiker EFZ Applikationsentwicklung, IMS an der bwd Bern.",
 
       "chrome.skipLink": "Zum Inhalt springen",
-      "splash.ariaLabel": "Seite wird geladen",
-      "splash.init": "Initialisiere...",
-      "splash.skip": "Überspringen ↵",
-      "splash.loadingExtensions": "Lade Erweiterungen...",
-      "splash.ready": "Bereit.",
-      "splash.readyLabel": "Bereit",
-      "splash.opening": "Öffne ",
 
       "login.close": "Dialog schliessen",
       "login.title": "authentication.js · Zugang erforderlich",
@@ -419,9 +412,9 @@
       "readme.statusBarComment": "/* statusBar, gedämpft */",
       "readme.h.graphics": "Grafische Elemente",
       "readme.graphics": "<p>Es gibt bewusst keine Schmuckbilder und keine Symbolfotos. Jedes grafische Element hat eine Aufgabe:</p>",
-      "readme.graphicsTable": "<tr><th>Element</th><th>Warum es da ist</th></tr><tr><td>Technologie-Icons</td><td>Originallogos der jeweiligen Technologie. Ein Stack ist damit auf einen Blick erfassbar, ohne jede Zeile zu lesen.</td></tr><tr><td>Tableiste &amp; Explorer</td><td>Tragen die Editor-Metapher und sind gleichzeitig die Navigation. Zwei Wege zum selben Ziel.</td></tr><tr><td>Zeilennummern</td><td>Verstärken die Metapher und zeigen nebenbei, wie lang ein Abschnitt ist. Auf schmalen Bildschirmen ausgeblendet, weil dort der Platz wichtiger ist.</td></tr><tr><td>Farbige Syntax</td><td>Die Codeblöcke sind echt eingefärbt statt als Bild eingebunden. Dadurch bleiben sie markierbar, durchsuchbar und für Screenreader lesbar.</td></tr><tr><td>Ladebildschirm</td><td>Führt die Editor-Metapher ein, bevor der Inhalt erscheint. Überspringbar und läuft nur einmal pro Besuch.</td></tr>",
+      "readme.graphicsTable": "<tr><th>Element</th><th>Warum es da ist</th></tr><tr><td>Technologie-Icons</td><td>Originallogos der jeweiligen Technologie. Ein Stack ist damit auf einen Blick erfassbar, ohne jede Zeile zu lesen.</td></tr><tr><td>Tableiste &amp; Explorer</td><td>Tragen die Editor-Metapher und sind gleichzeitig die Navigation. Zwei Wege zum selben Ziel.</td></tr><tr><td>Zeilennummern</td><td>Verstärken die Metapher und zeigen nebenbei, wie lang ein Abschnitt ist. Auf schmalen Bildschirmen ausgeblendet, weil dort der Platz wichtiger ist.</td></tr><tr><td>Farbige Syntax</td><td>Die Codeblöcke sind echt eingefärbt statt als Bild eingebunden. Dadurch bleiben sie markierbar, durchsuchbar und für Screenreader lesbar.</td></tr>",
       "readme.h.a11y": "Bedienung und Barrierefreiheit",
-      "readme.a11y": "<p>Die ganze Seite lässt sich ohne Maus bedienen. In der Tableiste wechseln die Pfeiltasten zwischen den Dateien, <code>Pos1</code> und <code>Ende</code> springen an den Rand, <code>Entf</code> schliesst einen Tab. Jedes bedienbare Element hat einen sichtbaren Fokusrahmen, und ganz oben führt eine Sprungmarke direkt zum Inhalt.</p><p>Wer im Betriebssystem reduzierte Bewegung eingestellt hat, bekommt die Seite ohne Animationen und ohne Ladebildschirm. Jeder Abschnitt hat eine eigene Adresse: <code>#projekte</code> lässt sich zum Beispiel direkt verschicken.</p>",
+      "readme.a11y": "<p>Die ganze Seite lässt sich ohne Maus bedienen. In der Tableiste wechseln die Pfeiltasten zwischen den Dateien, <code>Pos1</code> und <code>Ende</code> springen an den Rand, <code>Entf</code> schliesst einen Tab. Jedes bedienbare Element hat einen sichtbaren Fokusrahmen, und ganz oben führt eine Sprungmarke direkt zum Inhalt.</p><p>Wer im Betriebssystem reduzierte Bewegung eingestellt hat, bekommt die Seite ohne Animationen. Jeder Abschnitt hat eine eigene Adresse: <code>#projekte</code> lässt sich zum Beispiel direkt verschicken.</p>",
       "readme.h.tech": "Technische Angaben",
       "readme.techTable": "<tr><th>Bereich</th><th>Umsetzung</th></tr><tr><td>Frontend</td><td>HTML, CSS und JavaScript von Hand, ohne Framework und ohne Build-Schritt. Was im Browser ankommt, ist genau das, was ich geschrieben habe.</td></tr><tr><td>Backend</td><td>Serverless Functions (Node.js) für Login und geschützte Inhalte</td></tr><tr><td>Passwortschutz</td><td>scrypt mit Salt, Vergleich in konstanter Zeit; Sitzung über ein signiertes Token mit vier Stunden Laufzeit</td></tr><tr><td>Abhängigkeiten</td><td>Keine. Weder Frontend noch Backend laden ein npm-Paket.</td></tr><tr><td>Hosting</td><td>Vercel</td></tr><tr><td>Versionsverwaltung</td><td><a href=\"https://github.com/Lro-rgb/PortfolioV1\" class=\"proj-link\" target=\"_blank\" rel=\"noopener noreferrer\">github.com/Lro-rgb/PortfolioV1</a>, der komplette Quellcode dieser Seite ist öffentlich einsehbar</td></tr><tr><td>Browser</td><td>Getestet in Chrome, Edge und Firefox. Funktioniert in jedem aktuellen Browser; ältere bekommen dieselben Inhalte, nur ohne einzelne visuelle Effekte.</td></tr>",
       "readme.h.noFramework": "Warum ohne Framework",
@@ -435,13 +428,6 @@
       "meta.twitterDescription": "Portfolio of Luis Rosado · Application Development Apprentice (EFZ), IMS at bwd Bern.",
 
       "chrome.skipLink": "Skip to content",
-      "splash.ariaLabel": "Page is loading",
-      "splash.init": "Initializing...",
-      "splash.skip": "Skip ↵",
-      "splash.loadingExtensions": "Loading extensions...",
-      "splash.ready": "Ready.",
-      "splash.readyLabel": "Ready",
-      "splash.opening": "Opening ",
 
       "login.close": "Close dialog",
       "login.title": "authentication.js · Access required",
@@ -833,9 +819,9 @@
       "readme.statusBarComment": "/* statusBar, muted */",
       "readme.h.graphics": "Graphic Elements",
       "readme.graphics": "<p>There are deliberately no decorative images and no stock photos. Every graphic element has a job:</p>",
-      "readme.graphicsTable": "<tr><th>Element</th><th>Why it's there</th></tr><tr><td>Technology icons</td><td>Original logos of each technology. A stack becomes recognizable at a glance, without reading every line.</td></tr><tr><td>Tab bar &amp; explorer</td><td>Carry the editor metaphor while also serving as navigation. Two paths to the same destination.</td></tr><tr><td>Line numbers</td><td>Reinforce the metaphor and show, as a side effect, how long a section is. Hidden on narrow screens, where space matters more.</td></tr><tr><td>Colored syntax</td><td>The code blocks are genuinely colored rather than embedded as images. That keeps them selectable, searchable and readable by screen readers.</td></tr><tr><td>Loading screen</td><td>Introduces the editor metaphor before the content appears. Skippable, and runs only once per visit.</td></tr>",
+      "readme.graphicsTable": "<tr><th>Element</th><th>Why it's there</th></tr><tr><td>Technology icons</td><td>Original logos of each technology. A stack becomes recognizable at a glance, without reading every line.</td></tr><tr><td>Tab bar &amp; explorer</td><td>Carry the editor metaphor while also serving as navigation. Two paths to the same destination.</td></tr><tr><td>Line numbers</td><td>Reinforce the metaphor and show, as a side effect, how long a section is. Hidden on narrow screens, where space matters more.</td></tr><tr><td>Colored syntax</td><td>The code blocks are genuinely colored rather than embedded as images. That keeps them selectable, searchable and readable by screen readers.</td></tr>",
       "readme.h.a11y": "Usability and Accessibility",
-      "readme.a11y": "<p>The whole site can be operated without a mouse. In the tab bar, arrow keys move between files, <code>Home</code> and <code>End</code> jump to either edge, <code>Delete</code> closes a tab. Every operable element has a visible focus ring, and a skip link at the very top jumps straight to the content.</p><p>If you've set reduced motion at the OS level, you get the site without animations and without the loading screen. Every section has its own address: <code>#projekte</code>, for example, can be sent directly.</p>",
+      "readme.a11y": "<p>The whole site can be operated without a mouse. In the tab bar, arrow keys move between files, <code>Home</code> and <code>End</code> jump to either edge, <code>Delete</code> closes a tab. Every operable element has a visible focus ring, and a skip link at the very top jumps straight to the content.</p><p>If you've set reduced motion at the OS level, you get the site without animations. Every section has its own address: <code>#projekte</code>, for example, can be sent directly.</p>",
       "readme.h.tech": "Technical Details",
       "readme.techTable": "<tr><th>Area</th><th>Implementation</th></tr><tr><td>Frontend</td><td>Hand-written HTML, CSS and JavaScript, no framework and no build step. What reaches the browser is exactly what I wrote.</td></tr><tr><td>Backend</td><td>Serverless functions (Node.js) for login and protected content</td></tr><tr><td>Password protection</td><td>Salted scrypt, constant-time comparison; session via a signed token valid for four hours</td></tr><tr><td>Dependencies</td><td>None. Neither the frontend nor the backend load an npm package.</td></tr><tr><td>Hosting</td><td>Vercel</td></tr><tr><td>Version control</td><td><a href=\"https://github.com/Lro-rgb/PortfolioV1\" class=\"proj-link\" target=\"_blank\" rel=\"noopener noreferrer\">github.com/Lro-rgb/PortfolioV1</a>, the complete source code of this site is publicly viewable</td></tr><tr><td>Browser</td><td>Tested in Chrome, Edge and Firefox. Works in any current browser; older ones get the same content, just without some visual effects.</td></tr>",
       "readme.h.noFramework": "Why No Framework",
