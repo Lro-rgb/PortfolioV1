@@ -5,10 +5,13 @@
   "private": true,
   "scripts": {
     "dev": "vercel dev",
+    "build": "node scripts/build.js",
     "test": "node --test test/",
     "deploy": "vercel --prod",
     "hash-password": "node scripts/generate-password-hash.js",
     "generate-secret": "node scripts/generate-jwt-secret.js"
   },
-  "dependencies": {}
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
 }

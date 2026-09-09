@@ -105,7 +105,7 @@ luis-rosado-portfolio/
 ├── public/              ← Frontend (statische Dateien)
 │   ├── index.html
 │   ├── css/               ← themes.css, style.css, vscode.css
-│   ├── js/                ← i18n.js, app.js, vscode.js
+│   ├── js/                ← i18n.*.js, die acht Module, vscode.js
 │   └── media/             ← Bilder und Videos der Projekte und Interessen
 ├── api/                 ← Backend (Vercel Serverless Functions)
 │   ├── login.js         ← Login-Endpoint

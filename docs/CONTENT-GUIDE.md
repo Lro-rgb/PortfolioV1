@@ -14,9 +14,9 @@ werden.
 | Hobbys / Interessen | `public/index.html` | `panel-interessen` |
 | Kontakt + Impressum | `public/index.html` | `panel-kontakt` |
 | Gestaltung & Technik | `public/index.html` | `panel-readme` |
-| Videos, Screenshots, Downloads | `public/js/app.js` | `MEDIA` |
-| Bilder der Interessen-Seite | `public/js/app.js` | `INTERESSEN` |
-| Hörstatistiken (Profil, Zeitraum) | `public/index.html` / `public/js/app.js` | `#statsfm[data-user]`, `SFM_ZEITRAUM` |
+| Videos, Screenshots, Downloads | `public/js/medien.js` | `MEDIA` |
+| Bilder der Interessen-Seite | `public/js/medien.js` | `INTERESSEN` |
+| Hörstatistiken (Profil, Zeitraum) | `public/index.html` / `public/js/statsfm.js` | `#statsfm[data-user]`, `SFM_ZEITRAUM` |
 | **Noten (geschützt)** | `api/protected.js` | `DATA.noten` |
 | **Lebenslauf (geschützt)** | `api/protected.js` | `DATA.lebenslauf` |
 | **PDF (geschützt)** | `unterlagen/` + `api/zeugnis.js` | `DATEIEN` |
@@ -94,7 +94,7 @@ und neu deployen. Im Code steht das Passwort nirgends, das Repository ist
 ## 4. Videos, Screenshots und Downloads
 
 Alle Medien laufen über zwei Objekte am Anfang des Medien-Abschnitts in
-`public/js/app.js`. Was dort nicht eingetragen ist, wird auch nicht
+`public/js/medien.js`. Was dort nicht eingetragen ist, wird auch nicht
 angezeigt. Es gibt also keine leeren Player und keine toten Verweise.
 
 Ablauf: Datei nach `public/media/` legen, hier eintragen, fertig.
@@ -155,7 +155,7 @@ Icon einbinden:
 
 Die Namen der verfügbaren Icons stehen auf devicon.dev.
 
-## 8. Bilder der Interessen-Seite (`public/js/app.js`)
+## 8. Bilder der Interessen-Seite (`public/js/medien.js`)
 
 Jedes Thema auf `interessen.json` hat eine Bilderstrecke. Die Listen stehen
 in `INTERESSEN`:
@@ -180,6 +180,6 @@ Interessen-Seite und ins Impressum auf `kontakt.sql`.
 ## 9. Hörstatistiken (stats.fm)
 
 Das Profil steht als `data-user` am Element `#statsfm` im HTML, der Zeitraum
-in `SFM_ZEITRAUM` in `app.js` (`weeks`, `months` oder `lifetime`). Antwortet
+in `SFM_ZEITRAUM` in `statsfm.js` (`weeks`, `months` oder `lifetime`). Antwortet
 stats.fm nicht, bleibt der Verweis auf das Profil stehen, der im HTML
 hinterlegt ist. Dort muss die Adresse also ebenfalls stimmen.

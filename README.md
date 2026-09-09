@@ -96,9 +96,25 @@ Editor-Kulisse weg, übrig bleibt der reine Inhalt auf Weiss.
 node scripts/dev-server.js
 ```
 
-→ Läuft auf `http://localhost:4175`, ohne Installation und ohne Konto. Es gibt
-keine Abhängigkeiten zu installieren: `dependencies` in der `package.json` ist
-leer, und das bleibt auch so.
+→ Läuft auf `http://localhost:4175`, ohne Installation und ohne Konto. Die
+Seite selbst kommt weiterhin ohne fremden Code aus: `dependencies` in der
+`package.json` ist leer, und das bleibt auch so. Zum Entwickeln ist nichts
+zu installieren.
+
+Für das Ausliefern gibt es einen Bauschritt, und dafür genau eine
+Entwicklungsabhängigkeit:
+
+```bash
+npm install        # einmalig, holt esbuild
+npm run build      # public/ → dist/
+```
+
+Der Schritt fasst die zwölf Skripte und drei Stylesheets zu vier Dateien
+zusammen und verdichtet sie: vierzehn Anfragen werden zu vier, der Code
+schrumpft um rund die Hälfte. Geändert wird immer in `public/`, `dist/`
+entsteht daraus bei jedem Deploy neu und liegt nicht im Repository.
+`index.html` bleibt dabei unangetastet — die strukturierten Daten darin
+gehen über ihre Prüfsumme in die Sicherheitsregel ein.
 
 Der Entwicklungsserver liefert nicht nur `public/` aus, sondern bedient auch
 die Funktionen in `api/` und liest die `.env`. Anmeldung, Noten und die
@@ -170,8 +186,18 @@ luis-rosado-portfolio/
 │   ├── css/themes.css       #   Farben, Schriften und Maße der sechs Farbdesigns
 │   ├── css/style.css        #   Grundstyling der Inhalte
 │   ├── css/vscode.css       #   Editor-Oberfläche und alles, was darauf aufbaut
-│   ├── js/i18n.js           #   Wörterbuch Deutsch / Englisch
-│   ├── js/app.js            #   Tabs, Login, Medien, Bilderstrecken, Vorführungen
+│   ├── js/theme.js          #   Farbdesign setzen, bevor die Seite zeichnet
+│   ├── js/i18n.js           #   Sprachumschaltung (ohne Wörterbuch)
+│   ├── js/i18n.de.js        #   Wörterbuch Deutsch, kommt mit
+│   ├── js/i18n.en.js        #   Wörterbuch Englisch, wird nur bei Bedarf geholt
+│   ├── js/basis.js          #   Konstanten und Helfer, legt LR an
+│   ├── js/tabs.js           #   Tableiste, Panels, Adresse, Schublade
+│   ├── js/medien.js         #   Projektbilder, Videospieler, Bilderreihen, Filter
+│   ├── js/statsfm.js        #   Hörstatistiken von stats.fm
+│   ├── js/galerie.js        #   Karussell, Lightbox, Vollansicht
+│   ├── js/lesen.js          #   Gliederung, Lesefortschritt, Klappdetails, Kurzlink
+│   ├── js/geschuetzt.js     #   Anmeldung, geschützte Daten, Downloads
+│   ├── js/start.js          #   Bedienelemente und Start
 │   ├── js/vscode.js         #   Activity Bar, Statusleiste, Kommandopalette, Terminal
 │   ├── erste-website/       #   Kopie meiner ersten Website, läuft in der Vollansicht
 │   └── media/               #   Bilder, Video und das Archiv der ersten Website
@@ -191,6 +217,7 @@ luis-rosado-portfolio/
 │
 ├── scripts/
 │   ├── dev-server.js                 # lokaler Server inklusive api/ und .env
+│   ├── build.js                      # public/ → dist/, zusammengefasst und verdichtet
 │   ├── generate-password-hash.js     # Passwort → Hash für APP_PASSWORD_HASH
 │   ├── generate-jwt-secret.js        # Zufallsschlüssel für JWT_SECRET
 │   ├── unterlagen-verschluesseln.js  # PDF → verschlüsselte Fassung fürs Repo
@@ -250,7 +277,8 @@ Beim Umschalten liest `applyLang()` alle passenden Elemente neu ein, auch
 später per JavaScript erzeugte. Die gewählte Sprache bleibt im
 `localStorage` gespeichert.
 
-Ein neuer Text braucht also zwei Einträge in `public/js/i18n.js`, einen unter
+Ein neuer Text braucht also je einen Eintrag in `public/js/i18n.de.js` und
+`public/js/i18n.en.js`, einen unter
 `de` und einen unter `en`, dazu das Attribut im HTML. Fehlt die englische
 Fassung, fällt `t()` auf die deutsche zurück, statt eine Lücke zu zeigen.
 
@@ -391,9 +419,9 @@ APP_PASSWORD_HASH` in die Produktionsumgebung.
 
 | Änderung | Was ausserdem nachzuziehen ist |
 |---|---|
-| Neuer Text im HTML | Zwei Einträge in `public/js/i18n.js` (`de` und `en`) |
-| Neues Projekt | Karte in `index.html`, Bilder in `MEDIA` (`js/app.js`), Zähler zählt sich selbst |
-| Neue Bibliothek, Schrift, Farbdesign oder fremdes Bild | Quellenliste am Fuss der Startseite, Schlüssel `home.credits` in `js/i18n.js`, **beide** Sprachen |
+| Neuer Text im HTML | Je ein Eintrag in `public/js/i18n.de.js` und `public/js/i18n.en.js` |
+| Neues Projekt | Karte in `index.html`, Bilder in `MEDIA` (`js/medien.js`), Zähler zählt sich selbst |
+| Neue Bibliothek, Schrift, Farbdesign oder fremdes Bild | Quellenliste am Fuss der Startseite, Schlüssel `home.credits` in `js/i18n.de.js` **und** `js/i18n.en.js` |
 | Neue PDF in `unterlagen/` | `node scripts/unterlagen-verschluesseln.js`, Eintrag in der festen Liste in `api/zeugnis.js` |
 | Neue Regel fürs Handy | Gehört in den gesammelten `@media(max-width:820px)`-Block am Ende von `css/style.css`, nicht neben den Baustein. Eine Medienabfrage erhöht die Gewichtung nicht, und weiter unten in der Datei greift sie sicher |
 | Neuer Kommentar | Deutsch mit echten Umlauten statt `ue`/`ae`/`oe`; alle Dateien sind UTF-8 |

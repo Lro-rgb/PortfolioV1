@@ -1,4 +1,8 @@
 node_modules/
+
+# Erzeugnis von "npm run build". Quelle ist public/, dist/ entsteht daraus
+# bei jedem Deploy neu.
+dist/
 .claude/
 .vercel
 .env
