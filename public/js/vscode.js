@@ -1,8 +1,8 @@
 /* ═══════════════════════════════════════════════════════════════════════
    vscode.js: die Oberflächenteile, die VS Code ausmachen
 
-   Läuft nach app.js und baut darauf auf: openTab(), LANG und updateAuth()
-   stammen von dort. Hier kommen dazu:
+   Läuft zuletzt und baut auf den Modulen auf: openTab(), LANG und die
+   Lauscher auf Anmeldung und Dateiwechsel kommen über LR. Hier dazu:
 
      1. Farbdesigns (echte VS-Code-Themes)
      2. Activity Bar
@@ -17,10 +17,12 @@
 (function () {
   'use strict';
 
-  /* $() und esc() kommen aus app.js; sie dort und hier getrennt zu
-     definieren wäre derselbe Code an zwei Stellen. Diese Datei baut
-     ohnehin auf app.js auf (openTab, LANG, updateAuth) und wird nach ihr
-     geladen. */
+  /* Alles, was diese Datei von den Modulen braucht, steht hier an einer
+     Stelle statt verstreut als globale Namen. Sie wird zuletzt geladen,
+     LR ist also vollständig. */
+  const {$, esc, LANG, scroller, openTab, reopenAll,
+         alleBilderFreigeben, doLogout, onEditorScroll} = window.LR;
+
   const ide = $('ide');
 
   /* ═══════════════════════════════════════════════════════════════════
@@ -185,32 +187,25 @@
     stLines.textContent = I18N.t('status.readPrefix') + pct + I18N.t('status.readSuffix');
   }
 
-  /* Kein eigener Scroll-Listener: app.js bündelt alle Scroll-Aufgaben in
+  /* Kein eigener Scroll-Listener: lesen.js bündelt alle Scroll-Aufgaben in
      einem einzigen, der höchstens einmal pro Bild läuft. */
-  if (typeof onEditorScroll === 'function') onEditorScroll(updateStatusProgress);
+  onEditorScroll(updateStatusProgress);
 
-  /* Anmeldestatus: app.js meldet ihn an die Titelleiste. Hier wird die
-     Funktion umschlossen, damit die Statusleiste unten mitzieht, ohne
-     app.js dafür anfassen zu müssen. */
-  if (typeof window.updateAuth === 'function') {
-    const original = window.updateAuth;
-    window.updateAuth = function (ok) {
-      original(ok);
-      if (stAuth) stAuth.innerHTML = ok ? I18N.t('chrome.authed') : I18N.t('chrome.guest');
-    };
-  }
+  /* Anmeldestatus und Dateiwechsel: beide Module melden sich von selbst,
+     diese Datei hängt sich nur an. Vorher wurden updateAuth und openTab
+     hier von aussen umschlossen (window.openTab = …). Das setzte voraus,
+     dass wirklich jeder Aufruf über diese eine globale Bindung läuft — mit
+     Modulen stimmt das nicht mehr, und stillschweigend nichts zu tun wäre
+     die unangenehmere Art, das zu merken. */
+  window.LR.beiAnmeldung(function (ok) {
+    if (stAuth) stAuth.innerHTML = ok ? I18N.t('chrome.authed') : I18N.t('chrome.guest');
+  });
 
-  /* Dasselbe für openTab: nach jedem Dateiwechsel Sprache und Leseanteil
-     angleichen. */
-  if (typeof window.openTab === 'function') {
-    const original = window.openTab;
-    window.openTab = function (name, opts) {
-      original(name, opts);
-      updateStatusFile();
-      updateStatusProgress();
-      updatePaletteRecent(name);
-    };
-  }
+  window.LR.beiTabWechsel(function (name) {
+    updateStatusFile();
+    updateStatusProgress();
+    updatePaletteRecent(name);
+  });
 
   updateStatusFile();
   updateStatusProgress();

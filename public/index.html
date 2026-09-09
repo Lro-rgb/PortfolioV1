@@ -26,7 +26,7 @@
 
 <!-- Open Graph / Link-Vorschau (z.B. bei Bewerbungs-Mail, LinkedIn)
      og:image muss die vollstaendige Adresse sein: WhatsApp, LinkedIn und
-     Outlook holen das Bild ohne den Zusammenhang der Seite und koennen mit
+     Outlook holen das Bild ohne den Zusammenhang der Seite und können mit
      einem relativen Pfad nichts anfangen, die Vorschau bliebe leer. -->
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://luis-rosado.ch/"/>
@@ -53,7 +53,7 @@
 <!-- Devicon: original technology icons (Python, Java, MySQL, etc.) -->
 <!-- Devicon liefert nur die Technologie-Logos. Das Stylesheet ist gross und
      wuerde das erste Zeichnen der Seite aufhalten, obwohl kein einziges
-     Logo fuer den Text noetig ist. Der media="print"-Kniff laesst den
+     Logo für den Text nötig ist. Der media="print"-Kniff lässt den
      Browser es nebenher laden und erst danach anwenden: Der Inhalt steht
      sofort, die Logos erscheinen Sekundenbruchteile später.
      Umgestellt wird in js/theme.js, früher stand dafür ein onload-
@@ -153,7 +153,7 @@
 <div class="ide" id="ide">
 
   <!-- ── TITELLEISTE ──
-       Links das Menue wie in VS Code, mittig das Suchfeld (es oeffnet die
+       Links das Menue wie in VS Code, mittig das Suchfeld (es öffnet die
        Kommandopalette, genau wie Strg+P), rechts der Anmeldestatus. -->
   <div class="titlebar">
     <button type="button" class="sb-toggle" id="sbToggle" aria-expanded="false" aria-controls="sidebar">
@@ -355,7 +355,7 @@
               <!-- Quellenangaben. Sie stehen hier unten auf der Startseite und
                    nicht in der README: Wer wissen will, was fremd ist und was
                    von mir, soll es finden, ohne einen anderen Bereich zu
-                   oeffnen. Der ganze Block liegt als ein Schluessel im
+                   oeffnen. Der ganze Block liegt als ein Schlüssel im
                    Woerterbuch, wie schon home.intro. -->
               <section class="quellen reveal" aria-labelledby="quellen-titel">
                 <h2 class="quellen-h" id="quellen-titel" data-i18n="home.credits.title">Quellen</h2>
@@ -388,8 +388,8 @@
                 <p>Neben jeder Technologie steht das Projekt, in dem ich sie eingesetzt habe. Was ich dort genau gebaut habe, steht bei den Projekten.</p>
               </div>
 
-              <!-- Die Einstufung traegt ein Punkt, der Text dazu steht einmal
-                   in der Legende und fuer Screenreader an jedem Eintrag.
+              <!-- Die Einstufung trägt ein Punkt, der Text dazu steht einmal
+                   in der Legende und für Screenreader an jedem Eintrag.
                    Die Belege sind auf den Projektnamen eingedampft: ein
                    Satz pro Zeile war zwanzigmal Fliesstext und liess sich
                    nicht ueberfliegen. -->
@@ -558,7 +558,7 @@
               </div>
 
               <!-- Filter. Die beiden Abschnitte tragen data-art, die
-                   Schaltflaechen data-filter, sonst wuerde der Filter beim
+                   Schaltflächen data-filter, sonst wuerde der Filter beim
                    Umschalten sich selbst ausblenden. -->
               <div class="proj-filter reveal" role="group" aria-label="Projekte filtern" data-i18n-aria-label="projekte.filter.label">
                 <button type="button" class="pf-btn aktiv" data-filter="alle" aria-pressed="true" data-i18n="projekte.filter.all">Alle</button>
@@ -993,7 +993,7 @@
                   <dl class="imp-list" data-i18n="kontakt.legalContent">
                     <div><dt>Verantwortlich</dt><dd>Luis Rosado</dd></div>
                     <!-- Anschrift als Verweis auf die Karte: Wer schaut, wie weit
-                         der Weg zum Betrieb waere, kommt mit einem Klick hin,
+                         der Weg zum Betrieb wäre, kommt mit einem Klick hin,
                          statt die Adresse abzutippen. -->
                     <div><dt>Anschrift</dt><dd><a href="https://www.google.com/maps/search/?api=1&amp;query=Pleerweg+13D%2C+3400+Burgdorf%2C+Schweiz" target="_blank" rel="noopener noreferrer" title="Auf Google Maps ansehen">Pleerweg 13D, 3400 Burgdorf, Schweiz</a></dd></div>
                     <div><dt>E-Mail</dt><dd><a href="mailto:luisrosado008@gmail.com">luisrosado008@gmail.com</a></dd></div>
@@ -1066,7 +1066,7 @@
                 <p>Grün, Orange und Rot sind für Bedeutung reserviert, nicht für Dekoration: Einstufungen bei den Skills, Notenwerte, Fehlermeldungen. Farbe ist dabei nie der einzige Träger einer Information. Überall steht auch der Text dabei, damit die Seite bei einer Farbsehschwäche verständlich bleibt.</p>
               </div>
               <!-- Die Werte einmal als Flaeche statt nur als Hexzahl: in einem
-                   Text ueber Gestaltung sollte man die Farben auch sehen. -->
+                   Text über Gestaltung sollte man die Farben auch sehen. -->
               <ul class="farbfelder reveal" data-i18n="readme.colorChips">
                 <li><span class="farbfeld" style="background:#1e1e1e" aria-hidden="true"></span>Editor <code>#1e1e1e</code></li>
                 <li><span class="farbfeld" style="background:#252526" aria-hidden="true"></span>Seitenleiste <code>#252526</code></li>
@@ -1188,7 +1188,7 @@
 
   <!-- ── STATUSLEISTE ──
        Sie war in der Vorgaengerversion entfernt worden. Ohne sie fehlt der
-       Oberflaeche die untere Kante, und einen guten Platz fuer Angaben, die
+       Oberflaeche die untere Kante, und einen guten Platz für Angaben, die
        sonst nirgends hinpassen. -->
   <div class="statusbar" id="statusbar">
     <a class="st-item" href="https://github.com/Lro-rgb/PortfolioV1" target="_blank" rel="noopener noreferrer" title="Quellcode auf GitHub" data-i18n-title="chrome.sourceOnGithub">
@@ -1268,7 +1268,19 @@
      Terminal. Baut auf den Funktionen aus app.js auf und muss deshalb
      danach geladen werden. -->
 <script src="js/i18n.js"></script>
-<script src="js/app.js"></script>
+
+<!-- Die frühere app.js, aufgeteilt nach Zuständigkeit. Die Reihenfolge ist
+     nicht beliebig: basis.js legt LR an, und vscode.js hängt sich zuletzt
+     an die Lauscher der übrigen Module. -->
+<script src="js/basis.js"></script>
+<script src="js/tabs.js"></script>
+<script src="js/medien.js"></script>
+<script src="js/statsfm.js"></script>
+<script src="js/galerie.js"></script>
+<script src="js/lesen.js"></script>
+<script src="js/geschuetzt.js"></script>
+<script src="js/start.js"></script>
+
 <script src="js/vscode.js"></script>
 </body>
 </html>
