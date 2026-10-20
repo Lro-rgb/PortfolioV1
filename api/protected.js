@@ -46,14 +46,20 @@ const DATA = {
      Fällt die Variable weg oder ist sie kaputt, bleibt die Liste leer und
      der Bereich zeigt "keine Daten". Das ist besser, als wenn die ganze
      Funktion beim Laden abstürzt und auch der Lebenslauf verschwindet. */
-  noten: (() => {
+  /* NOTEN_JSON_2 ergänzt die Liste um später dazugekommene Noten. Vercel
+     zeigt eine als "Sensitive" gespeicherte Variable nie wieder an, an
+     NOTEN_JSON lässt sich also nichts anhängen, ohne die alten Noten neu
+     abzutippen. Jede Variable wird für sich gelesen: Ist eine kaputt,
+     fehlen nur ihre Einträge. */
+  noten: ['NOTEN_JSON', 'NOTEN_JSON_2'].flatMap((name) => {
     try {
-      return JSON.parse(process.env.NOTEN_JSON || '[]');
+      const liste = JSON.parse(process.env[name] || '[]');
+      return Array.isArray(liste) ? liste : [];
     } catch (e) {
-      console.error('NOTEN_JSON ist kein gueltiges JSON, Notenliste bleibt leer.');
+      console.error(name + ' ist kein gueltiges JSON, diese Noten fehlen.');
       return [];
     }
-  })(),
+  }),
   lebenslauf: {
     /* Ein Lebenslauf ohne Absender ist keiner, bisher fing er direkt mit
        "Ausbildung" an.
