@@ -382,7 +382,9 @@ Vercel ohne jede Prüfung aus, ein Passwort davor wäre Dekoration.
 Weil dieses Repository öffentlich ist, sind sie ausserdem **verschlüsselt**
 abgelegt (AES-256-GCM). Eingecheckt wird nur `unterlagen-verschluesselt/`, die
 Klartext-PDF in `unterlagen/` bleiben lokal und stehen in `.gitignore`. Den
-Schlüssel hält `UNTERLAGEN_KEY`; ohne ihn antwortet `/api/zeugnis` mit 503. So
+Schlüssel hält `UNTERLAGEN_KEY`; ohne ihn antwortet `/api/zeugnis` mit 503.
+Später hinzugekommene Dateien dürfen mit einem zweiten Schlüssel in
+`UNTERLAGEN_KEY_2` verschlüsselt sein, der Endpunkt probiert beide. So
 kommen die Dateien mit jedem Bau aus GitHub auf den Server, ohne dass jemand
 die Noten im Repository lesen kann.
 

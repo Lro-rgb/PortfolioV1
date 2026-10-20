@@ -114,15 +114,32 @@ module.exports = function handler(req, res) {
     return res.status(503).json({ error: 'Der geschuetzte Bereich ist derzeit nicht verfuegbar.' });
   }
 
-  let inhalt;
-  try {
-    // Aufbau: iv (12) + Prüfsumme (16) + Inhalt
-    const entschluessler = crypto.createDecipheriv('aes-256-gcm', Buffer.from(hex, 'hex'), roh.subarray(0, 12));
-    entschluessler.setAuthTag(roh.subarray(12, 28));
-    inhalt = Buffer.concat([entschluessler.update(roh.subarray(28)), entschluessler.final()]);
-  } catch (e) {
+  /* UNTERLAGEN_KEY_2 ist ein zweiter, optionaler Schlüssel für Dateien, die
+     später dazukommen. Vercel zeigt einen als "Sensitive" gespeicherten
+     Schlüssel nie wieder an; ohne den alten Rechner lässt sich mit dem
+     ersten Schlüssel also nichts Neues mehr verschlüsseln. Welcher passt,
+     entscheidet die Prüfsumme von GCM: Mit dem falschen Schlüssel schlägt
+     final() fehl, es kommt nie ein falsch entschlüsselter Inhalt heraus. */
+  const hex2 = (process.env.UNTERLAGEN_KEY_2 || '').trim();
+  const schluessel = [hex];
+  if (/^[0-9a-f]{64}$/i.test(hex2)) schluessel.push(hex2);
+
+  let inhalt = null;
+  let letzterFehler = null;
+  for (const k of schluessel) {
+    try {
+      // Aufbau: iv (12) + Prüfsumme (16) + Inhalt
+      const entschluessler = crypto.createDecipheriv('aes-256-gcm', Buffer.from(k, 'hex'), roh.subarray(0, 12));
+      entschluessler.setAuthTag(roh.subarray(12, 28));
+      inhalt = Buffer.concat([entschluessler.update(roh.subarray(28)), entschluessler.final()]);
+      break;
+    } catch (e) {
+      letzterFehler = e;
+    }
+  }
+  if (!inhalt) {
     // Falscher Schlüssel oder veränderte Datei, beides darf nicht durchgehen.
-    console.error('Zeugnis nicht entschluesselbar:', datei, e.message);
+    console.error('Zeugnis nicht entschluesselbar:', datei, letzterFehler && letzterFehler.message);
     return res.status(503).json({ error: 'Der geschuetzte Bereich ist derzeit nicht verfuegbar.' });
   }
 
