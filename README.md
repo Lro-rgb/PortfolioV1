@@ -168,7 +168,7 @@ die verschlüsselten Unterlagen im Repository und die Sicherheitskopfzeilen
 in `vercel.json`. Dazu kommt das Suchen hartnäckiger Fehler, für das mir in
 der Schule bisher nur das Ausprobieren beigebracht wurde.
 
-Für beides habe ich mit **Claude Code** gearbeitet und in Blogs und
+Für beides habe ich mit einem **KI-Assistenten** gearbeitet und in Blogs und
 Dokumentationen nachgelesen, vor allem MDN und der Node-Dokumentation. Was
 ich dabei übernommen habe, habe ich vorher nachvollzogen. Sonst könnte ich
 in diesem Dokument nicht aufschreiben, warum die Seite so gebaut ist, wie
