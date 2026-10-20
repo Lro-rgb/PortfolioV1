@@ -35,6 +35,7 @@ const DATEIEN = {
   '295': 'uek-295-backend.pdf',
   '210': 'uek-210-public-cloud.pdf',
   '335': 'uek-335-mobile-applikation.pdf',
+  '223': 'uek-223-multi-user-applikationen.pdf',
   // Nicht nur Modulnachweise: derselbe Weg trägt auch die Unterlagen zur
   // Bewerbung. Der Schlüssel ist hier ein Name statt einer Modulnummer.
   'cv': 'lebenslauf.pdf',
